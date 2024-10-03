@@ -1,0 +1,259 @@
+---
+title: "Metabolites"
+output: html_document
+date: "2024-10-03"
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(stringr)
+library(openxlsx)
+library("kableExtra")
+```
+
+```{r}
+read_excel_allsheets <- function(filename) {
+    sheets <- openxlsx::getSheetNames(filename)
+    x <- lapply(sheets, function(X) openxlsx::read.xlsx(filename, sheet = X))
+    names(x) <- sheets
+    x
+}
+```
+
+# Obtain gems
+
+```{r}
+niger_gem <- read_excel_allsheets("../GEMs_orig/AspNiger/40694_2018_60_MOESM2_ESM.xlsx")
+fumigatus_gem <- read_excel_allsheets("../GEMs_orig/AspFumigatus/Pan_Aspergillus_fumigatus.xlsx")
+oryzae_gem <- read_excel_allsheets("../GEMs_orig/AspOryzae/iWV1314.xlsx")
+```
+
+# Establishing a link between metabolites
+
+```{r}
+head(fumigatus_gem$METS)
+```
+
+
+- kegg.compound for many (see also REPLACEMENT.ID), except biomass/lipid/...
+- InChi, bigg, biocyc, chebi, hmdb, metanet, pubchem, and seed.compound for many
+
+```{r}
+head(oryzae_gem$METS)
+```
+
+- Problematic: no formalized identifiers, only ID, NAME and REPLACEMENT.ID
+
+```{r}
+head(niger_gem$METS)
+```
+
+```{r}
+niger_gem$METS[which(is.na(niger_gem$METS$MIRIAM)),]
+```
+
+```{r}
+table(is.na(niger_gem$METS$InChI))
+```
+
+
+- kegg.compound and Chebi for many (see also REPLACEMENT.ID)
+- Inchi for half
+- for some, no formalized identifiers
+
+## TRY
+
+--- 3-cyanopyridine
+
+```{r}
+niger_gem$METS[which(is.na(niger_gem$METS$MIRIAM)),][1,]
+```
+
+For this one, I have the inchi.
+I can search the inchi using InChI:InChI=1S/C6H4N2/c7-4-6-2-1-3-8-5-6/h1-3,5H
+in https://metacyc.org/metabolite-translation-service.shtml.
+
+This gives me several identifiers, but not kegg.
+
+I then look for 3-cyanopyridine and 3-Cyanopyridine in 
+https://www.genome.jp/kegg/compound/ -> no hit.
+
+I then take the molecular mass from the metacyc search, and feed that to kegg:
+no hit, but kegg does have 2-Cyanopyridine and 4-Cyanopyridine, just no
+3-Cyanopyridine.
+
+But, from metacyc we also get Chebi (86556). If we query that in 
+https://www.ebi.ac.uk/chebi/, we get 3-pyridinecarbonitrile, which turns out to 
+be synonym for 3-Cyanopyridine.
+
+However, again, searching this in kegg does not give a hit.
+
+This compound seems really not exist in KEGG. So what's next? Not use KEGG at all?
+But is there even a database in which all required compounds exist?
+
+--- C00659
+
+```{r}
+fumigatus_gem$METS[1:2,]
+```
+  
+We have the kegg compound for this, let's try to find chebi
+
+Via KEGG, we can manually click to chebi (C00659 -> 982)
+
+But when trying to do this more automatically in metacyc, it fails.
+Kegg:C00659   ChEBI:982   InChI:InChI=1S/C6H10O4/c1-3-6(10,4(2)7)5(8)9/h10H,3H2,1-2H3,(H,8,9)   InChIkey:InChIKey=VUQLHQFKACOHNZ-UHFFFAOYSA-N   CF:C6H10O4
+
+This is probably inevitable; I strongly suspect that the people that constructed
+this GEM in the first place used Metabolite Translation Service for MetaCyc.
+As such, I would return as much information as they did, not more.
+
+I could also input C000659 in
+https://www.metaboanalyst.ca/faces/upload/ConvertView.xhtml
+this succeeds in returning Chebi
+
+One more possibility would be to do this in R using MetaFetcheR. However, this
+is a non-maintained github page that failed to install out of the box and that
+requires installing additional things; as such, this seems far from ideal.
+
+One other possibility is to use the pypi library bioservices
+https://bioservices.readthedocs.io/en/latest/convertor_tutorial.html
+
+This seems to work well! I could actually just obtain a Kegg-Chebi dictionary
+from there and import it here!
+
+```{r}
+kegg_chebi_dict <- read.csv2("../pythonAnalyses/kegg_chebi_dict.csv", 
+                  sep=",",
+                  na.strings = "",
+                  header = FALSE)
+colnames(kegg_chebi_dict) <- c("KEGG","CHEBI")
+kegg_chebi_dict$KEGG <- gsub(".*cpd:(.+)", "\\1", kegg_chebi_dict$KEGG)
+kegg_chebi_dict$CHEBI <- gsub(".*chebi:(.+)", "\\1", kegg_chebi_dict$CHEBI)
+
+head(kegg_chebi_dict)
+```
+
+
+# Consolidate
+
+## Make KEGG and Chebi for fumigatus
+
+```{r}
+head(fumigatus_gem$METS$MIRIAM)
+```
+
+```{r}
+head(fumigatus_gem$METS$REPLACEMENT.ID)
+# this turns out to be a promising column.
+# If available, they used the KEGG+compartment
+# If not, then they used the CHEBI+compartment
+# If that is also not available, they use "Corecocluster"+compartment
+
+table(grepl("C(\\d{5})\\[",fumigatus_gem$METS$REPLACEMENT.ID)) # KEGG
+table(grepl("CHEBI",fumigatus_gem$METS$REPLACEMENT.ID)) # CHEBI
+table(grepl("Cluster",fumigatus_gem$METS$REPLACEMENT.ID)) # coreco cluster
+table(grepl("C(\\d{3})\\[",fumigatus_gem$METS$REPLACEMENT.ID)) # CoreCo/C[digits]
+
+
+fumigatus_gem$METS[!grepl("C(\\d{5})\\[",fumigatus_gem$METS$REPLACEMENT.ID)&
+                                    !grepl("CHEBI",fumigatus_gem$METS$REPLACEMENT.ID) &
+                                    !grepl("Cluster",fumigatus_gem$METS$REPLACEMENT.ID) &
+                                    !grepl("C(\\d{3})\\[",fumigatus_gem$METS$REPLACEMENT.ID),
+                   c("NAME","MIRIAM","REPLACEMENT.ID")]
+# these last 305 compounds are mainly tagged CoreCo or A.fumigatus.central.metabolism 
+# in miriam. For instance, A.fumigatus.central.metabolism/CERB1A seems to refer to
+# cerberin1 comp. A (not sure if comp. stands for compound, component, or compartiment).
+```
+
+```{r}
+fumigatus_gem$METS[605,]
+```
+
+
+```{r}
+table(grepl("kegg.compound",fumigatus_gem$METS$MIRIAM))
+table(grepl("chebi/CHEBI",fumigatus_gem$METS$MIRIAM))
+
+table(grepl("kegg",fumigatus_gem$METS$MIRIAM),
+      grepl("chebi",fumigatus_gem$METS$MIRIAM))
+```
+
+```{r}
+# Get KEGG column
+fumigatus_gem$METS$KEGG <- fumigatus_gem$METS$MIRIAM
+fumigatus_gem$METS$KEGG[!grepl("kegg",fumigatus_gem$METS$KEGG)] <- NA
+fumigatus_gem$METS$KEGG <- gsub("\\;.*","",gsub(".*kegg.compound/(.+)", "\\1", fumigatus_gem$METS$KEGG))
+```
+
+
+```{r}
+# Get chebi column
+fumigatus_gem$METS$CHEBI <- fumigatus_gem$METS$MIRIAM
+fumigatus_gem$METS$CHEBI[!grepl("chebi",fumigatus_gem$METS$CHEBI)] <- NA
+fumigatus_gem$METS$CHEBI <- gsub("\\;.*","",gsub(".*CHEBI:(.+)", "\\1", fumigatus_gem$METS$CHEBI))
+```
+
+```{r}
+sum(is.na(fumigatus_gem$METS[,c("KEGG","CHEBI")]))
+```
+
+```{r}
+# update using our KEGG/CHEBI dictionary
+table(fumigatus_gem$METS$KEGG %in% kegg_chebi_dict$KEGG)
+table(fumigatus_gem$METS$CHEBI %in% kegg_chebi_dict$CHEBI)
+
+# THE DICTIONARY IS INCOMPLETE...
+# For instance
+"C04253" %in% fumigatus_gem$METS$KEGG
+"C04253" %in% kegg_chebi_dict$KEGG 
+# indeed, no chebi for this kegg, also not on kegg website (could link to pubchem though)
+# also no kegg-chebi link through metacyc (could link to inchi though)
+# This makes sense, on KEGG the compound is called  	
+# Electron-transferring flavoprotein, which is  generic term, not a real compound
+
+
+# Conclusion, not all KEGGs have a chebi
+# Let's see if we can still get something from it
+```
+
+```{r}
+fumigatus_gem$METS$CHEBI_dic <- kegg_chebi_dict$CHEBI[match(fumigatus_gem$METS$KEGG,kegg_chebi_dict$KEGG)]
+```
+
+```{r}
+head(fumigatus_gem$METS[,c("KEGG","CHEBI","CHEBI_dic")])
+```
+
+```{r}
+# notice that there are discrepancies between CHEBI and CHEBI_dic:
+fumigatus_gem$METS[which(fumigatus_gem$METS$KEGG=="C00009"),c("KEGG","CHEBI","CHEBI_dic")]
+# these are the protonated vs the non-protonated forms of the compound!
+```
+
+```{r}
+# then we also have compounds with chebi but no kegg
+fumigatus_gem$METS[c(59,60),c("KEGG","CHEBI","CHEBI_dic")]
+
+# if the CHEBI is in kegg_chebi_dict, add it:
+target <- fumigatus_gem$METS$CHEBI[which(!is.na(fumigatus_gem$METS$CHEBI)&
+                           is.na(fumigatus_gem$METS$CHEBI_dic))]
+table(target) # mostly chebi compound 52320 (ergosteryl ester??)
+```
+
+
+```{r}
+fumigatus_gem$METS[which(fumigatus_gem$METS$CHEBI=="52320"),]
+```
+
+Clearly indicates that, at least for these compounds, we'd better work
+with the replacement ID column, which has the proper CHEBIs!
+
+
+Hi Ed,
+
+Yesterday, I am have been looking into
+(1) consolidating the gene IDs between the BPGA output and the invidual GEMs,
+(2) mapping the metabolites across the GEMs, and
+(3) consolidating the compartments across the GEMs.
+
+While I made progress in (1-3), I also identified several obstacles in each.
