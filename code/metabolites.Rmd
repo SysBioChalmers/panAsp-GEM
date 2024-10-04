@@ -1,7 +1,7 @@
 ---
 title: "Consolidating metabolites across GEMs"
 author: "Jeroen Gilis"
-date: "3 October 2024"
+date: "4 October 2024"
 output: 
     html_document:
       code_download: true
@@ -15,8 +15,11 @@ output:
 ```{r, message=FALSE, warning=FALSE}
 library(stringr)
 library(openxlsx)
+library(RCurl)
 library("kableExtra")
 ```
+
+## Helpers
 
 ```{r}
 read_excel_allsheets <- function(filename) {
@@ -24,6 +27,136 @@ read_excel_allsheets <- function(filename) {
     x <- lapply(sheets, function(X) openxlsx::read.xlsx(filename, sheet = X))
     names(x) <- sheets
     x
+}
+```
+
+```{r}
+#TODO: if necessary, allow timeout option. Currently, we are probably working
+# under global options timeout, getOption('timeout'), but not sure how the
+# error will look like in the case of timeout (i.e., if it will be properly
+# caught by try-error)
+
+#TODO: perhaps useful to add a "bidirectional option": for each query, find each
+# target, and for each target, find each of type query. This could also be done
+# in subsequent runs, but having it in one function could be handy
+# Do different chebi's ever return multiple KEGG? Probably not.
+# But the other way around this can happen.
+
+#TODO: at the moment, the function has placeholders for (1) including multiple
+# types of targets and (2) using different R functions to read the data from the 
+# web
+
+linkMetaboliteIdentifiers <- function(query, 
+                                      target = c("CHEBI"), 
+                                      reader = c("csv"),
+                                      database = c("pubchem_compound",
+                                                   "pubchem_substance"),
+                                      bidirectional = c(FALSE, TRUE),
+                                      verbose = c(TRUE, FALSE)){
+  
+  res <- unlist(lapply(query, function(q){
+      
+      if(database == "pubchem_compound"){
+        url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/",
+                      q,
+                      "/synonyms/TXT")
+      } else if(database == "pubchem_substance"){
+        url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/name/",
+                      q,
+                      "/synonyms/TXT")
+      }
+      
+      if(reader == "csv"){
+        data <- tryCatch({
+          suppressWarnings(read.csv(url,header = FALSE))
+          },error = function(e) e)
+      }
+      
+      if (inherits(data, "error")) {
+        return("Unknown query")
+      }
+      
+      if(sum(grepl(target,data$V1)) > 0){ # see if faster option exists
+        return(paste0(data$V1[grep(target,data$V1)],collapse = "/")) # works also if multiple chebi's
+      } else{
+        return(paste0("No ", target))
+      }
+
+  }))
+  
+  if(verbose){
+      warning("Number of unknown queries: ", sum(res == "Unknown query"), "\n")
+      warning("Number of queries without ", target,  ": ", sum(res == paste0("No ", target)))
+  }
+  
+  error <- rep(NA,length=length(res))
+  error[res == "Unknown query"] <- "Unknown query"
+  error[res == paste0("No ", target)] <- paste0("No ", target)
+  res[which(res %in% c("Unknown query",
+                       paste0("No ", target)))] <- NA
+
+  return(data.frame(query = query,
+                    target = res,
+                    error = error))
+}
+```
+
+```
+test <- linkMetaboliteIdentifiers(query = kegg_query[120:130], 
+                                  target = "CHEBI",
+                                  reader = "csv",
+                                  database = "pubchem",
+                                  verbose = TRUE)
+test
+```
+
+```{r}
+consolidateIDs <- function(data,
+                           queryID,
+                           originalID,
+                           link,
+                           strategy = c("union","intersection","keep_original","keep_new"),
+                           keepOriginal = c(TRUE, FALSE)){
+  
+    stopifnot("queryID not in colnames(data)" = queryID %in% colnames(data))
+    #TODO make less cryptic
+    stopifnot("Mismatch between link and data" = all(!is.na(match(link$query, data[[queryID]]))))
+    
+    newLink <- link$target[match(data[[queryID]],link$query)]
+    
+    consolidated <- unlist(sapply(seq_along(data[[originalID]]), 
+                                                   function(x){
+      if(is.na(data[[originalID]][x])){
+        return(newLink[x])
+      } else if(is.na(newLink[x])){
+        return(data[[originalID]][x])
+      } else{
+        
+          original_x <- unlist(str_split(data[[originalID]][x], pattern = "/"))
+          new_x <- unlist(str_split(newLink[x], pattern = "/"))
+          
+          if(strategy == "union"){
+            combined <- union(original_x,new_x)
+          } else if(strategy == "intersect") {
+            combined <- intersect(original_x,new_x)
+          } else if(strategy == "original_only"){
+            combined <- original_x
+          } else if(strategy == "new_only"){
+            combined <- new_x
+          }
+          
+          return(paste0(combined,collapse = "/"))
+      }
+    }))
+    
+    if(keepOriginal){
+      data[[paste0(originalID,"_new")]] <- newLink
+      data[[paste0(originalID,"_consolidated")]] <- consolidated
+      colnames(data)[which(colnames(data) == originalID)] <- paste0(originalID,"_original")
+      return(data)
+    } else {
+      data[[originalID]] <- consolidated
+    }
 }
 ```
 
@@ -36,20 +169,276 @@ fumigatus_gem <- read_excel_allsheets("../data/BaseGEMs/Fumigatus_GEM.xlsx")
 oryzae_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
 ```
 
-# Establishing a link between metabolites
+# Fumigatus
+
+## Inspect
 
 ```{r}
-head(fumigatus_gem$METS)
+colnames(fumigatus_gem$METS)
+```
+
+```{r}
+sum(is.na(fumigatus_gem$METS$REPLACEMENT.ID)) # they used this in their analysis
+# If available, they used the KEGG+compartment
+# If not, then they used the CHEBI+compartment
+# If that is also not available, they use "Corecocluster"+compartment
+# Finally, they have a replacement ID for e.g. biomass, lipid, ...
+```
+
+```{r}
+table(grepl("C(\\d{5})\\[",fumigatus_gem$METS$REPLACEMENT.ID)) # KEGG
+table(grepl("CHEBI",fumigatus_gem$METS$REPLACEMENT.ID)) # CHEBI
+table(grepl("Cluster",fumigatus_gem$METS$REPLACEMENT.ID)) # coreco cluster
+table(grepl("C(\\d{3})\\[",fumigatus_gem$METS$REPLACEMENT.ID)) # CoreCo/C[digits]
+```
+
+```{r}
+fumigatus_gem$METS[!grepl("C(\\d{5})\\[",fumigatus_gem$METS$REPLACEMENT.ID)&
+                                    !grepl("CHEBI",fumigatus_gem$METS$REPLACEMENT.ID) &
+                                    !grepl("Cluster",fumigatus_gem$METS$REPLACEMENT.ID) &
+                                    !grepl("C(\\d{3})\\[",fumigatus_gem$METS$REPLACEMENT.ID),
+                   c("NAME","MIRIAM","REPLACEMENT.ID")]
+# these last 305 compounds are mainly tagged CoreCo or A.fumigatus.central.metabolism 
+# in miriam. For instance, A.fumigatus.central.metabolism/CERB1A seems to refer to
+# cerberin1 comp. A (not sure if comp. stands for compound, component, or compartiment).
 ```
 
 - kegg.compound for many (see also REPLACEMENT.ID), except biomass/lipid/...
 - InChi, bigg, biocyc, chebi, hmdb, metanet, pubchem, and seed.compound for many
+
+
+```{r}
+table(grepl("kegg.compound",fumigatus_gem$METS$MIRIAM))
+table(grepl("chebi/CHEBI",fumigatus_gem$METS$MIRIAM))
+
+table(grepl("kegg",fumigatus_gem$METS$MIRIAM),
+      grepl("chebi",fumigatus_gem$METS$MIRIAM))
+```
+
+## Wrangle
+
+```{r}
+# Get KEGG column
+fumigatus_gem$METS$KEGG <- fumigatus_gem$METS$MIRIAM
+fumigatus_gem$METS$KEGG[!grepl("kegg",fumigatus_gem$METS$KEGG)] <- NA
+fumigatus_gem$METS$KEGG <- gsub("\\;.*","",gsub(".*kegg.compound/(.+)", "\\1", fumigatus_gem$METS$KEGG))
+
+# Get chebi column
+fumigatus_gem$METS$CHEBI <- fumigatus_gem$METS$MIRIAM
+fumigatus_gem$METS$CHEBI[!grepl("chebi",fumigatus_gem$METS$CHEBI)] <- NA
+fumigatus_gem$METS$CHEBI <- gsub("\\;.*","",gsub(".*chebi/(.+)", "\\1", fumigatus_gem$METS$CHEBI))
+
+table(!is.na(fumigatus_gem$METS$KEGG),
+      !is.na(fumigatus_gem$METS$CHEBI))
+```
+
+## Get chebi based on KEGG
+
+Get chebi based on KEGG. Perhaps best to do this for all KEGG IDs, because they 
+can be linked to  multiple CHEBIs, and we currently only have 1 per KEGG.
+
+```{r}
+kegg_query <- fumigatus_gem$METS$KEGG[which(!is.na(fumigatus_gem$METS$KEGG))]
+kegg_query <- unique(kegg_query) # only search each query once
+system.time({
+CHEBI_res <- linkMetaboliteIdentifiers(query = kegg_query, 
+                                       target = "CHEBI", 
+                                       reader = "csv",
+                                       database = "pubchem_compound",
+                                       verbose = TRUE)
+}) 
+# 1244.88s for 1584 queries (0.79s/query)
+```
+
+Some of the new CHEBIs differ from the original CHEBIs:
+
+```{r}
+fumigatus_gem$METS <- consolidateIDs(data = fumigatus_gem$METS,
+                                     queryID = "KEGG",
+                                     originalID = "CHEBI",
+                                     link = CHEBI_res,
+                                     strategy = "union",
+                                     keepOriginal = TRUE)
+```
+
+```{r}
+table(grepl("kegg",fumigatus_gem$METS$MIRIAM),
+      grepl("chebi",fumigatus_gem$METS$MIRIAM))
+
+table(grepl("kegg",fumigatus_gem$METS$MIRIAM),
+      !is.na(fumigatus_gem$METS$CHEBI_consolidated)) # added 745 links between KEGG and CHEBI!
+```
+
+## Get KEGG based on chebi
+
+Now, try to add KEGGs for the IDs for which we have CHEBI.
+Previously, I searched all KEGGs, because they can be associated with multiple CHEBIs.
+As each CHEBI should only have one KEGG, I here only search for the missing ones.
+Searching for all could be relevant if we need to find mistakes in the original
+annotation.
+
+```{r}
+chebi_query <- fumigatus_gem$METS$CHEBI_consolidated[
+  which(is.na(fumigatus_gem$METS$KEGG) &
+          !is.na(fumigatus_gem$METS$CHEBI_consolidated))]
+
+chebi_query <- unique(unlist(str_split(chebi_query,pattern = "/")))
+
+KEGG_res <- linkMetaboliteIdentifiers(query = chebi_query, 
+                                      target = "\\bC(\\d{5})\\b", 
+                                      reader = "csv",
+                                      database = "pubchem_compound",
+                                      verbose = TRUE)
+```
+
+```{r}
+fumigatus_gem$METS <- consolidateIDs(data = fumigatus_gem$METS,
+                                     queryID = "CHEBI_consolidated",
+                                     originalID = "KEGG",
+                                     link = KEGG_res,
+                                     strategy = "union",
+                                     keepOriginal = TRUE)
+```
+
+```{r}
+table(grepl("kegg",fumigatus_gem$METS$MIRIAM),
+      grepl("chebi",fumigatus_gem$METS$MIRIAM))
+
+table(!is.na(fumigatus_gem$METS$KEGG_consolidated),
+      !is.na(fumigatus_gem$METS$CHEBI_consolidated)) # Added 12 more links. 
+# This is very limited. But interestingly, 152/165 CHEBIs without KEGG are
+# CHEBI:52320
+
+chebi_query <- fumigatus_gem$METS$CHEBI_consolidated[which(is.na(fumigatus_gem$METS$KEGG_consolidated) &
+                                                     !is.na(fumigatus_gem$METS$CHEBI_consolidated))]
+table(chebi_query)
+```
+Curate later! This could be done based either on replacement.ID or name.
+
+## Get CHEBI based on name
+
+```{r}
+query_name <- fumigatus_gem$METS$NAME[is.na(fumigatus_gem$METS$CHEBI_both)]
+length(unique(query_name))
+
+# trim localization
+query_name <- gsub(pattern=" \\[.*","",query_name)
+length(unique(query_name))
+
+# decapitalize
+query_name <- tolower(query_name)
+length(unique(query_name))
+
+# only uniques
+query_name <- unique(query_name)
+```
+
+```{r}
+res_comp <- linkMetaboliteIdentifiers(query = query_name[100:199], 
+                                 target = "CHEBI",
+                                 reader = "csv",
+                                 database = "pubchem_compound",
+                                 verbose = TRUE)
+# 65 fails: 57 unknown, 8 without chebi
+```
+```{r}
+res_sub <- linkMetaboliteIdentifiers(query = query_name[100:199], 
+                                 target = "CHEBI",
+                                 reader = "csv",
+                                 database = "pubchem_substance",
+                                 verbose = TRUE)
+# 53 fails: 37 unknown, 16 without chebi
+```
+
+```{r}
+res <- data.frame(query = res_comp$query,
+                  compound=res_comp$target,
+                  compound_error=res_comp$error,
+                  substance=res_sub$target, 
+                  substance_error=res_sub$error)
+
+
+res$both <- unlist(sapply(seq_along(res$substance),function(x){
+  if(is.na(res$substance[x])){
+    return(res$compound[x])
+  } else if(is.na(res$compound[x])){
+    return(res$substance[x])
+  } else{
+    combined <- union(unlist(str_split(res$substance[x], 
+                                       pattern = "/")),
+                      unlist(str_split(res$compound[x], 
+                                       pattern = "/")))
+    return(paste0(combined,collapse = "/"))
+  }
+}))
+table(is.na(res$both))
+```
+
+Approximately 50% of the compounds could be annotated already, not bad.
+Of course, we are not 100% sure if all of these are all correct.
+But let's first focus on the ones we didnt find:
+
+Why are the following not found
+
+```{r}
+table(res$compound_error,res$substance_error) # mostly, string not retrieved
+```
+
+
+
+
+Many are in the form of: 
+
+- (glcnac)2 (man)8 (pp-dol)1
+- protein asparagine
+- 1r, (1r,2s)
+- trailin (in dna)
+
+```{r}
+query_name <- res$query[is.na(res$both)]
+query_name
+```
+
+```{r}
+q <- "(glcn)1 (ino(acyl)-p)1 (man)3 (etn)1 (p)1"
+q <- "(GlcN)1 (Ino(acyl)-P)1 (Man)2 (EtN)1 (P)1"
+q <- "G00148"
+url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/name/",
+              q,
+              "/synonyms/TXT")
+read.csv(url,header = FALSE)
+```
+
+maybe I shouldnt be looking for name, but for ... formula?
+
+
+```{r}
+q <- "galactosylceramide"
+q <- "CHEBI:36498"
+url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/name/",
+              q,
+              "/synonyms/TXT")
+data <- tryCatch({
+  suppressWarnings(read.csv(url,header = FALSE))
+  },error = function(e) e)
+data
+```
+
+
+# Oryzae
+
+## Inspect
+
 
 ```{r}
 head(oryzae_gem$METS)
 ```
 
 - Problematic: no formalized identifiers, only ID, NAME and REPLACEMENT.ID
+
+# Niger
+
+## Inspect
 
 ```{r}
 head(niger_gem$METS)
@@ -68,7 +457,9 @@ table(is.na(niger_gem$METS$InChI))
 - Inchi for half
 - for some, no formalized identifiers
 
-## TRY
+It seems best to go for both KEGG and Chebi.
+
+# Scrap
 
 --- 3-cyanopyridine
 
@@ -141,68 +532,6 @@ kegg_chebi_dict$CHEBI <- gsub(".*chebi:(.+)", "\\1", kegg_chebi_dict$CHEBI)
 head(kegg_chebi_dict)
 ```
 
-# Consolidate
-
-## Make KEGG and Chebi for fumigatus
-
-```{r}
-head(fumigatus_gem$METS$MIRIAM)
-```
-
-```{r}
-head(fumigatus_gem$METS$REPLACEMENT.ID)
-# this turns out to be a promising column.
-# If available, they used the KEGG+compartment
-# If not, then they used the CHEBI+compartment
-# If that is also not available, they use "Corecocluster"+compartment
-
-table(grepl("C(\\d{5})\\[",fumigatus_gem$METS$REPLACEMENT.ID)) # KEGG
-table(grepl("CHEBI",fumigatus_gem$METS$REPLACEMENT.ID)) # CHEBI
-table(grepl("Cluster",fumigatus_gem$METS$REPLACEMENT.ID)) # coreco cluster
-table(grepl("C(\\d{3})\\[",fumigatus_gem$METS$REPLACEMENT.ID)) # CoreCo/C[digits]
-
-
-fumigatus_gem$METS[!grepl("C(\\d{5})\\[",fumigatus_gem$METS$REPLACEMENT.ID)&
-                                    !grepl("CHEBI",fumigatus_gem$METS$REPLACEMENT.ID) &
-                                    !grepl("Cluster",fumigatus_gem$METS$REPLACEMENT.ID) &
-                                    !grepl("C(\\d{3})\\[",fumigatus_gem$METS$REPLACEMENT.ID),
-                   c("NAME","MIRIAM","REPLACEMENT.ID")]
-# these last 305 compounds are mainly tagged CoreCo or A.fumigatus.central.metabolism 
-# in miriam. For instance, A.fumigatus.central.metabolism/CERB1A seems to refer to
-# cerberin1 comp. A (not sure if comp. stands for compound, component, or compartiment).
-```
-
-```{r}
-fumigatus_gem$METS[605,]
-```
-
-
-```{r}
-table(grepl("kegg.compound",fumigatus_gem$METS$MIRIAM))
-table(grepl("chebi/CHEBI",fumigatus_gem$METS$MIRIAM))
-
-table(grepl("kegg",fumigatus_gem$METS$MIRIAM),
-      grepl("chebi",fumigatus_gem$METS$MIRIAM))
-```
-
-```{r}
-# Get KEGG column
-fumigatus_gem$METS$KEGG <- fumigatus_gem$METS$MIRIAM
-fumigatus_gem$METS$KEGG[!grepl("kegg",fumigatus_gem$METS$KEGG)] <- NA
-fumigatus_gem$METS$KEGG <- gsub("\\;.*","",gsub(".*kegg.compound/(.+)", "\\1", fumigatus_gem$METS$KEGG))
-```
-
-```{r}
-# Get chebi column
-fumigatus_gem$METS$CHEBI <- fumigatus_gem$METS$MIRIAM
-fumigatus_gem$METS$CHEBI[!grepl("chebi",fumigatus_gem$METS$CHEBI)] <- NA
-fumigatus_gem$METS$CHEBI <- gsub("\\;.*","",gsub(".*CHEBI:(.+)", "\\1", fumigatus_gem$METS$CHEBI))
-```
-
-```{r}
-sum(is.na(fumigatus_gem$METS[,c("KEGG","CHEBI")]))
-```
-
 ```{r}
 # update using our KEGG/CHEBI dictionary
 table(fumigatus_gem$METS$KEGG %in% kegg_chebi_dict$KEGG)
@@ -264,12 +593,6 @@ fumigatus_gem$METS[which(fumigatus_gem$METS$CHEBI=="52320"),]
 
 Clearly indicates that, at least for these compounds, we'd better work
 with the replacement ID column, which has the proper CHEBIs!
-
-
-
-
-
-
 
 
 
