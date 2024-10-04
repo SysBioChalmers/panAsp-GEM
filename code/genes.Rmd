@@ -1,7 +1,7 @@
 ---
-title: "Inspecting BPGA2ortho_GEM_custom.txt"
+title: "Matching GEMs and BPGA output"
 author: "Jeroen Gilis"
-date: "2 October 2024"
+date: "3 October 2024"
 output: 
     html_document:
       code_download: true
@@ -27,11 +27,24 @@ read_excel_allsheets <- function(filename) {
 }
 ```
 
+# Load gems
+
+```{r}
+# Note: excels should be closed when reading them in R
+niger_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
+fumigatus_gem <- read_excel_allsheets("../data/BaseGEMs/Fumigatus_GEM.xlsx")
+oryzae_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
+```
+
+```{r}
+sum(grepl("or",niger_gem$RXNS$GENE.ASSOCIATION))
+sum(grepl("and",niger_gem$RXNS$GENE.ASSOCIATION))
+```
 
 # BPGA
 
 ```{r}
-BPGA <- read.csv2("../panAsp-GEM/data/genome/BPGA2ortho_GEM_custom.txt", 
+BPGA <- read.csv2("../data/BPGA/BPGA2ortho_GEM_custom.txt", 
                   sep="\t",
                   na.strings = "")
 BPGA[1:5,1:14] %>%
@@ -53,49 +66,9 @@ table(BPGA$cluster_type_BPGA, BPGA$cluster_type_manual)
 ```{r}
 table(BPGA$present_in_n_genomes, BPGA$cluster_type_manual)
 ```
+
 ```{r}
 table(BPGA$present_in_n_genomes, BPGA$cluster_type_BPGA)
-```
-
-# Aspergillus niger GEM
-
-This file was obtained by
-
-1. Downloading the Aspergillus niger GEM from Brandl *et al.* (XML)
-2. Opening the XML in MatLab using RAVEN toolbox.
-3. Saving as Excel
-
-```{r}
-niger_gem <- read_excel_allsheets("../GEMs_orig/AspNiger/40694_2018_60_MOESM2_ESM.xlsx")
-```
-
-```{r}
-head(niger_gem$RXNS$NAME,n=10)
-# "Aldose 1-epimerase" vs. "aldose-1-epimerase" -> might not be clean!
-```
-
-<span style="color: red;">**Q: The names are not consistent (Aldose 1-epimerase vs. aldose-1-epimerase), is that a problem?**</span>
-<span style="color: red;">**No, the names are not used in the model, everything is based on the unambiguous identifiers (not sure if it's using EC number, gene association, or both).**</span>
-
-```{r}
-head(niger_gem$GENES,n=10)
-```
-
-```{r}
-sum(grepl("or",niger_gem$RXNS$GENE.ASSOCIATION))
-sum(grepl("and",niger_gem$RXNS$GENE.ASSOCIATION))
-```
-
-# Aspergillus fumigatus GEM
-
-```{r}
-fumigatus_gem <- read_excel_allsheets("../GEMs_orig/AspFumigatus/Pan_Aspergillus_fumigatus.xlsx")
-```
-
-# Aspergillus oryzae GEM
-
-```{r}
-oryzae_gem <- read_excel_allsheets("../GEMs_orig/AspOryzae/iWV1314.xlsx")
 ```
 
 # Establishing a link between BPGA and GEM gene IDs

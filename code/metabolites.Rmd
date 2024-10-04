@@ -1,7 +1,15 @@
 ---
-title: "Metabolites"
-output: html_document
-date: "2024-10-03"
+title: "Consolidating metabolites across GEMs"
+author: "Jeroen Gilis"
+date: "3 October 2024"
+output: 
+    html_document:
+      code_download: true
+      theme: cosmo
+      toc: true
+      toc_float: true
+      highlight: tango
+      number_sections: true
 ---
 
 ```{r, message=FALSE, warning=FALSE}
@@ -22,9 +30,10 @@ read_excel_allsheets <- function(filename) {
 # Obtain gems
 
 ```{r}
-niger_gem <- read_excel_allsheets("../GEMs_orig/AspNiger/40694_2018_60_MOESM2_ESM.xlsx")
-fumigatus_gem <- read_excel_allsheets("../GEMs_orig/AspFumigatus/Pan_Aspergillus_fumigatus.xlsx")
-oryzae_gem <- read_excel_allsheets("../GEMs_orig/AspOryzae/iWV1314.xlsx")
+# Note: excels should be closed when reading them in R
+niger_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
+fumigatus_gem <- read_excel_allsheets("../data/BaseGEMs/Fumigatus_GEM.xlsx")
+oryzae_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
 ```
 
 # Establishing a link between metabolites
@@ -32,7 +41,6 @@ oryzae_gem <- read_excel_allsheets("../GEMs_orig/AspOryzae/iWV1314.xlsx")
 ```{r}
 head(fumigatus_gem$METS)
 ```
-
 
 - kegg.compound for many (see also REPLACEMENT.ID), except biomass/lipid/...
 - InChi, bigg, biocyc, chebi, hmdb, metanet, pubchem, and seed.compound for many
@@ -122,7 +130,7 @@ This seems to work well! I could actually just obtain a Kegg-Chebi dictionary
 from there and import it here!
 
 ```{r}
-kegg_chebi_dict <- read.csv2("../pythonAnalyses/kegg_chebi_dict.csv", 
+kegg_chebi_dict <- read.csv2("../data/intermediate//kegg_chebi_dict.csv", 
                   sep=",",
                   na.strings = "",
                   header = FALSE)
@@ -132,7 +140,6 @@ kegg_chebi_dict$CHEBI <- gsub(".*chebi:(.+)", "\\1", kegg_chebi_dict$CHEBI)
 
 head(kegg_chebi_dict)
 ```
-
 
 # Consolidate
 
@@ -185,7 +192,6 @@ fumigatus_gem$METS$KEGG[!grepl("kegg",fumigatus_gem$METS$KEGG)] <- NA
 fumigatus_gem$METS$KEGG <- gsub("\\;.*","",gsub(".*kegg.compound/(.+)", "\\1", fumigatus_gem$METS$KEGG))
 ```
 
-
 ```{r}
 # Get chebi column
 fumigatus_gem$METS$CHEBI <- fumigatus_gem$METS$MIRIAM
@@ -231,6 +237,17 @@ fumigatus_gem$METS[which(fumigatus_gem$METS$KEGG=="C00009"),c("KEGG","CHEBI","CH
 ```
 
 ```{r}
+fumigatus_gem$METS[fumigatus_gem$METS$KEGG=="C00659",c("KEGG","CHEBI","CHEBI_dic")]
+```
+
+
+```{r}
+fumigatus_gem$METS$KEGG[which(!is.na(fumigatus_gem$METS$KEGG)&
+                                is.na(fumigatus_gem$METS$CHEBI))]
+```
+
+
+```{r}
 # then we also have compounds with chebi but no kegg
 fumigatus_gem$METS[c(59,60),c("KEGG","CHEBI","CHEBI_dic")]
 
@@ -249,11 +266,14 @@ Clearly indicates that, at least for these compounds, we'd better work
 with the replacement ID column, which has the proper CHEBIs!
 
 
-Hi Ed,
 
-Yesterday, I am have been looking into
-(1) consolidating the gene IDs between the BPGA output and the invidual GEMs,
-(2) mapping the metabolites across the GEMs, and
-(3) consolidating the compartments across the GEMs.
 
-While I made progress in (1-3), I also identified several obstacles in each.
+
+
+
+
+
+
+
+
+

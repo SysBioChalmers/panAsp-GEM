@@ -1,7 +1,15 @@
 ---
-title: "Compartments"
-output: html_document
-date: "2024-10-03"
+title: "Consolidating compartments across GEMs"
+author: "Jeroen Gilis"
+date: "3 October 2024"
+output: 
+    html_document:
+      code_download: true
+      theme: cosmo
+      toc: true
+      toc_float: true
+      highlight: tango
+      number_sections: true
 ---
 
 ```{r, message=FALSE, warning=FALSE}
@@ -23,9 +31,9 @@ read_excel_allsheets <- function(filename) {
 
 ```{r}
 # Note: excels should be closed when reading them in R
-niger_gem <- read_excel_allsheets("../GEMs_orig/AspNiger/40694_2018_60_MOESM2_ESM.xlsx")
-fumigatus_gem <- read_excel_allsheets("../GEMs_orig/AspFumigatus/Pan_Aspergillus_fumigatus.xlsx")
-oryzae_gem <- read_excel_allsheets("../GEMs_orig/AspOryzae/iWV1314.xlsx")
+niger_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
+fumigatus_gem <- read_excel_allsheets("../data/BaseGEMs/Fumigatus_GEM.xlsx")
+oryzae_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
 ```
 
 # Establishing a link between compartments
