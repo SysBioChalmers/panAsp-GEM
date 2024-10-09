@@ -1,0 +1,123 @@
+---
+title: "Matching GEMs and BPGA output V2"
+author: "Jeroen Gilis"
+date: "8 October 2024"
+output: 
+    html_document:
+      code_download: true
+      theme: cosmo
+      toc: true
+      toc_float: true
+      highlight: tango
+      number_sections: true
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(stringr)
+library(openxlsx)
+library("kableExtra")
+```
+
+```{r}
+read_excel_allsheets <- function(filename) {
+    sheets <- openxlsx::getSheetNames(filename)
+    x <- lapply(sheets, function(X) openxlsx::read.xlsx(filename, sheet = X))
+    names(x) <- sheets
+    x
+}
+```
+
+# Load gems
+
+```{r}
+# Note: excels should be closed when reading them in R
+niger_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
+fumigatus_gem <- read_excel_allsheets("../data/BaseGEMs/Fumigatus_GEM.xlsx")
+oryzae_gem <- read_excel_allsheets("../data/BaseGEMs/oryzae_GEM.xlsx")
+```
+
+# BPGA
+
+```{r}
+BPGA <- read.csv2("../data/genome/BPGA2ortho_results.csv", 
+                  sep=",",
+                  na.strings = "")
+head(BPGA)
+```
+
+For some reason we have a trailin .0 in the niger gene names, let's just remove
+those for now
+
+```{r}
+BPGA$niger <- gsub("\\..*","",BPGA$niger)
+table(BPGA$cluster_type)
+```
+
+Huge amount of uniques, which makes sense, because we used a huge amount of
+input only for niger (all proteins vs. CDS).
+
+That doesn't matter now. Main question remains: did we lose paralogs.
+Or maybe more accurately: for all genes in a GEM, did we (1) have them in the
+BPGA input fasta, and (2) have them in the BPGA results
+
+# Fumigatus
+
+```{r}
+length(fumigatus_gem$GENES$NAME[which(!fumigatus_gem$GENES$NAME %in% unique(BPGA$fumigatus[!is.na(BPGA$fumigatus)]))])
+# there are 146 gene IDs in the GEM that are not in the BPGA output
+
+hlp <- read.csv2("../../fasta/fumigatus_hlp.faa",header=FALSE)
+hlp$V1 <- gsub(">","",hlp$V1)
+fumigatus_missing <- fumigatus_gem$GENES$NAME[which(!fumigatus_gem$GENES$NAME %in% unique(BPGA$fumigatus[!is.na(BPGA$fumigatus)]))]
+table(fumigatus_missing %in% hlp$V1)
+# all of these genes were in the fBPGA input
+# so, they were likely removed because they are paralogs
+```
+
+# Oryzae
+
+```{r}
+length(oryzae_gem$GENES$NAME[which(!oryzae_gem$GENES$NAME %in% unique(BPGA$oryzae[!is.na(BPGA$oryzae)]))])
+# there are 274 gene IDs in the GEM that are not in the BPGA output
+
+hlp <- read.csv2("../../fasta/oryzae_hlp.faa",header=FALSE)
+hlp$V1 <- gsub(">","",hlp$V1)
+oryzae_missing <- oryzae_gem$GENES$NAME[which(!oryzae_gem$GENES$NAME %in% unique(BPGA$oryzae[!is.na(BPGA$oryzae)]))]
+table(oryzae_missing %in% hlp$V1)
+
+oryzae_missing[which(!oryzae_missing %in% hlp$V1)]
+# 67 of these genes were also not in the BPGA input!
+# but the other 207 genes were likely removed because they are paralogs
+
+# e.g. "AO090001000480" is not in the protein fasta file (also not the raw one)
+
+```
+
+```{r}
+length(niger_gem$GENES$NAME[which(!niger_gem$GENES$NAME %in% unique(BPGA$niger[!is.na(BPGA$niger)]))])
+# for niger, there are 1187 gene IDs in the GEM that are not in the BPGA output
+
+hlp <- read.csv2("../../fasta/niger_hlp.faa",header=FALSE)
+hlp$V1 <- gsub(">","",hlp$V1)
+niger_missing <- niger_gem$GENES$NAME[which(!niger_gem$GENES$NAME %in% unique(BPGA$niger[!is.na(BPGA$niger)]))]
+table(niger_missing %in% hlp$V1)
+
+niger_missing[which(!niger_missing %in% hlp$V1)]
+# 49 of these genes were also not in the BPGA input!
+# but the other 1138 genes were likely removed because they are paralogs
+```
+
+So essentially, we have two problems on our hands:
+- BPGA input does not have all IDs that we have in our starting GEMS
+- BPGA removes IDs (likely paralogs)
+
+However, maybe the latter is not true. Maybe they are there, but we are simply
+not extracting them from the output! These data could be u_clusters.txt
+
+But to be fair, output handling should not be left to the BPGA user. Perhaps
+USEARCH does a better job?
+
+
+
+
+

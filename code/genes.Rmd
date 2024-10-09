@@ -33,7 +33,7 @@ read_excel_allsheets <- function(filename) {
 # Note: excels should be closed when reading them in R
 niger_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
 fumigatus_gem <- read_excel_allsheets("../data/BaseGEMs/Fumigatus_GEM.xlsx")
-oryzae_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
+oryzae_gem <- read_excel_allsheets("../data/BaseGEMs/oryzae_GEM.xlsx")
 ```
 
 ```{r}
@@ -44,7 +44,14 @@ sum(grepl("and",niger_gem$RXNS$GENE.ASSOCIATION))
 # BPGA
 
 ```{r}
-BPGA <- read.csv2("../data/BPGA/BPGA2ortho_GEM_custom.txt", 
+BPGA <- read.csv2("../data/genome/BPGA2ortho_results.csv", 
+                  sep=",",
+                  na.strings = "")
+```
+
+
+```{r}
+BPGA <- read.csv2("../data/genome/BPGA2ortho_GEM_custom.txt", 
                   sep="\t",
                   na.strings = "")
 BPGA[1:5,1:14] %>%
