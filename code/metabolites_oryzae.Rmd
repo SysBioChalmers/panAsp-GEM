@@ -82,7 +82,7 @@ length(unique(query_name))
 query_name <- unique(query_name)
 ```
 
-```{r}
+```{r, eval=FALSE}
 NAMEtoKEGG_pubcomp <- linkMetaboliteIdentifiers(query = query_name, 
                                  target = "^C(\\d{5})\\b",
                                  reader = "read.csv",
@@ -100,7 +100,7 @@ NAMEtoKEGG_pubsub <- linkMetaboliteIdentifiers(query = query_name,
 saveRDS(NAMEtoKEGG_pubsub,"../data/intermediate/oryzae_NAME_KEGG_pubsub.rds")
 ```
 
-```{r}
+```{r, eval=FALSE}
 NAMEtoCHEBI_pubcomp <- linkMetaboliteIdentifiers(query = query_name, 
                                  target = "CHEBI",
                                  reader = "read.csv",
@@ -126,14 +126,63 @@ NAMEtoCHEBI_pubsub <- readRDS("../data/intermediate/oryzae_NAME_CHEBI_pubsub.rds
 ```
 
 ```{r}
-table(NAMEtoKEGG_pubcomp$error) #why no chebi? not no KEGG or no //bC...
+table(NAMEtoKEGG_pubcomp$error)
 table(NAMEtoKEGG_pubsub$error)
 table(NAMEtoCHEBI_pubcomp$error)
 table(NAMEtoCHEBI_pubsub$error)
 ```
 
+```{r}
+oryzae_gem$METS$CHEBI_comp <- NAMEtoCHEBI_pubcomp$target[match(oryzae_gem$METS$NAME,NAMEtoCHEBI_pubcomp$query)]
+oryzae_gem$METS$CHEBI_sub <- NAMEtoCHEBI_pubsub$target[match(oryzae_gem$METS$NAME,NAMEtoCHEBI_pubsub$query)]
+
+oryzae_gem$METS <- consolidateIDs(data = oryzae_gem$METS,
+               queryID = "NAME",
+               originalID = "CHEBI_sub",
+               link = NAMEtoCHEBI_pubcomp,
+               strategy = "union",
+               keepOriginal = TRUE)
+
+oryzae_gem$METS$CHEBI_sub_new <- NULL
+colnames(oryzae_gem$METS)[c(12,13)] <- c("CHEBI_sub","CHEBI_consolidated")
+```
+
+```{r}
+table(!is.na(oryzae_gem$METS$CHEBI_comp))
+table(!is.na(oryzae_gem$METS$CHEBI_sub))
+table(!is.na(oryzae_gem$METS$CHEBI_consolidated))
+```
+
+```{r}
+oryzae_gem$METS$KEGG_comp <- NAMEtoKEGG_pubcomp$target[match(oryzae_gem$METS$NAME,NAMEtoKEGG_pubcomp$query)]
+oryzae_gem$METS$KEGG_sub <- NAMEtoKEGG_pubsub$target[match(oryzae_gem$METS$NAME,NAMEtoKEGG_pubsub$query)]
+
+oryzae_gem$METS <- consolidateIDs(data = oryzae_gem$METS,
+               queryID = "NAME",
+               originalID = "KEGG_sub",
+               link = NAMEtoKEGG_pubcomp,
+               strategy = "union",
+               keepOriginal = TRUE)
+
+oryzae_gem$METS$KEGG_sub_new <- NULL
+colnames(oryzae_gem$METS)[c(15,16)] <- c("KEGG_sub","KEGG_consolidated")
+```
+
+```{r}
+table(!is.na(oryzae_gem$METS$KEGG_comp))
+table(!is.na(oryzae_gem$METS$KEGG_sub))
+table(!is.na(oryzae_gem$METS$KEGG_consolidated))
+```
+
+```{r}
+has_kegg <- !is.na(oryzae_gem$METS$KEGG_consolidated)
+has_chebi <- !is.na(oryzae_gem$METS$CHEBI_consolidated)
+```
 
 
+```{r}
+table(has_kegg,has_chebi)
+```
 
 
 

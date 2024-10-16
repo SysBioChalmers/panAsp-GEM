@@ -72,6 +72,7 @@ niger_gem$METS$CHEBI[!grepl("chebi",niger_gem$METS$CHEBI)] <- NA
 niger_gem$METS$CHEBI <- gsub("\\;.*","",gsub(".*chebi/(.+)", "\\1", niger_gem$METS$CHEBI))
 ```
 
+
 # Get chebi based on KEGG
 
 Get chebi based on KEGG. Perhaps best to do this for all KEGG IDs, because they 
@@ -79,7 +80,7 @@ can be linked to  multiple CHEBIs, and we currently only have 1 per KEGG.
 
 ## Pubchem compound
 
-```{r}
+```{r, eval=FALSE}
 kegg_query <- niger_gem$METS$KEGG[which(!is.na(niger_gem$METS$KEGG))]
 kegg_query <- unique(kegg_query) # only search each query once
 system.time({
@@ -96,10 +97,15 @@ CHEBI_comp <- CHEBI_comp[!is.na(CHEBI_comp$target),]
 saveRDS(CHEBI_comp,"../data/intermediate/niger_KEGGtoCHEBI_pubcomp.rds")
 ```
 
-Some of the new CHEBIs differ from the original CHEBIs:
-
+```{r}
+CHEBI_comp <- readRDS("../data/intermediate/niger_KEGGtoCHEBI_pubcomp.rds")
 ```
-CHEBI_comp <- readRDS("../data/intermediate/niger_KEGG_CHEBI_pubcomp.rds")
+
+TODO
+1. Some of the new CHEBIs differ from the original CHEBIs
+2. Line 22 is CHEBI:15490; (Acyl-CoA); [M+H]+;
+
+```{r}
 niger_gem$METS <- consolidateIDs(data = niger_gem$METS,
                                      queryID = "KEGG",
                                      originalID = "CHEBI",
@@ -108,23 +114,16 @@ niger_gem$METS <- consolidateIDs(data = niger_gem$METS,
                                      keepOriginal = TRUE)
 ```
 
-```
-niger_gem$METS[c(1,2,15,63), 
-                   c("KEGG","CHEBI_original","CHEBI_new","CHEBI_consolidated")]
-```
-
-```
-table(grepl("kegg",niger_gem$METS$MIRIAM),
-      grepl("chebi",niger_gem$METS$MIRIAM))
-
-table(grepl("kegg",niger_gem$METS$MIRIAM),
-      !is.na(niger_gem$METS$CHEBI_consolidated)) 
-# added 745 links between KEGG and CHEBI!
-# But, still failed to add 809 CHEBI for which we have the KEGG.
-# ! these might be substances, not compounds -> next step
+```{r}
+niger_gem$METS[c(1,8,16,22), c("KEGG","CHEBI_original","CHEBI_new","CHEBI_consolidated")]
 ```
 
+```{r}
+table(!is.na(niger_gem$METS$KEGG),!is.na(niger_gem$METS$CHEBI_original))
+table(!is.na(niger_gem$METS$KEGG),!is.na(niger_gem$METS$CHEBI_consolidated))
 ```
+
+```{r}
 niger_gem$METS$CHEBI <- niger_gem$METS$CHEBI_consolidated
 niger_gem$METS$CHEBI_original <- NULL
 niger_gem$METS$CHEBI_new <- NULL
@@ -147,10 +146,11 @@ CHEBI_sub <- linkMetaboliteIdentifiers(query = kegg_query,
                                        database = "pubchem_substance",
                                        verbose = TRUE)
 }) 
-saveRDS(CHEBI_comp,"../data/intermediate/niger_KEGGtoCHEBI_pubsub.rds")
+saveRDS(CHEBI_sub,"../data/intermediate/niger_KEGGtoCHEBI_pubsub.rds")
 ```
 
-```
+```{r}
+CHEBI_sub <- readRDS("../data/intermediate/niger_KEGGtoCHEBI_pubsub.rds")
 (CHEBI_sub <- CHEBI_sub[!is.na(CHEBI_sub$target),])
 # We are only able to add 9 CHEBIs based on this
 ```
@@ -190,7 +190,7 @@ KEGG_comp <- linkMetaboliteIdentifiers(query = chebi_query,
                                        database = "pubchem_compound",
                                        verbose = TRUE)
 
-saveRDS(CHEBI_comp,"../data/intermediate/niger_CHEBItoKEGG_pubcomp.rds")
+saveRDS(KEGG_comp,"../data/intermediate/niger_CHEBItoKEGG_pubcomp.rds")
 ```
 
 ```
@@ -236,7 +236,7 @@ KEGG_sub <- linkMetaboliteIdentifiers(query = chebi_query,
                                       database = "pubchem_substance",
                                       verbose = TRUE)
 
-saveRDS(CHEBI_comp,"../data/intermediate/niger_KEGGtoCHEBI_pubcomp.rds")
+saveRDS(KEGG_sub,"../data/intermediate/niger_KEGGtoCHEBI_pubcomp.rds")
 ```
 
 

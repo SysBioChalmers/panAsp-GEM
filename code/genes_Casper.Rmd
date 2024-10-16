@@ -43,8 +43,8 @@ sum(grepl("and",niger_gem$RXNS$GENE.ASSOCIATION))
 
 # BPGA
 
-```{r}
-BPGA <- read.csv2("../data/genome/BPGA2ortho_results.csv", 
+```
+BPGA <- read.csv2("../data/genome/BPGA_self.csv", 
                   sep=",",
                   na.strings = "")
 ```
@@ -98,9 +98,10 @@ table(fumigatus_gem$GENES$NAME %in% unique(BPGA$Afu_ID[!is.na(BPGA$Afu_ID)]))
 ```
 
 ```{r}
-fumigatus_input <- read.csv2(file="../BPGA/fumigatus_table.tsv",
+fumigatus_input <- read.csv2(file="../../BPGA/fumigatus_table.tsv",
                              sep="\t")
 
+Fumigatus_GENES <- fumigatus_gem$GENES
 length(unique(fumigatus_input$X.Format.Gene.ID))
 length(unique(BPGA$Afu_ID))
 length(Fumigatus_GENES$NAME)
