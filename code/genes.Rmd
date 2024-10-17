@@ -222,9 +222,8 @@ tail(res)
 
 ```{r}
 res[is.na(res)]<-""
-write.csv2(res, "../data/genome/BPGA2ortho_GEM_custom.csv")
+write.csv2(res, "../data/genome/BPGA2ortho_GEM_custom.csv",row.names=FALSE)
 ```
-
 
 # Appendix: missing Oryzae genes
 
@@ -357,6 +356,7 @@ isoenzymes <- list("ZY006677" = "AO090026000021",
 
 Note: the oryzae GEM has no "or" gene associations, they are cataloged as
 separate reactions.
+
 
 
 
