@@ -1,7 +1,9 @@
 ### Source https://github.com/github/gitignore/
 
-
 ## R.gitignore
+# scrap folder
+scrap/
+
 # History files
 .Rhistory
 .Rapp.history
