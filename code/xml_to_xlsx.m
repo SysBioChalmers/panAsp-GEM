@@ -4,20 +4,20 @@
 % xml obtained from:
 % https://github.com/opencobra/m_model_collection/blob/master/sbml3/iWV1314.xml
 
-model=importModel("../data/BaseGEMs/Oryzae_GEM.xml",false,false,true)
+model=importModel("../models/templates/iWV1314.xml",false,false,true)
 % obtained without RAVEN/libSBML errors
 
-exportToExcelFormat(model,"../data/BaseGEMs/Oryzae_GEM.xlsx")
+exportToExcelFormat(model,"../models/templates/iWV1314.xlsx")
 
 %%%%%%%%%%%%%% Aspergillus fumigatus %%%%%%%%%%%%%%
 % Inspecting the Aspergillus fumigatus GEM from Mirhakkak et al. (2023)
 % xml obtained from:
 % https://www.ebi.ac.uk/biomodels/MODEL2211100001#Files (the pan GEM)
 
-model=importModel("../data/BaseGEMs/Fumigatus_GEM.xml",false,false,true)
+model=importModel("../models/templates/pan_afm.xml",false,false,true)
 % obtained without RAVEN/libSBML errors
 
-exportToExcelFormat(model,"../data/BaseGEMs/Fumigatus_GEM.xlsx")
+exportToExcelFormat(model,"../models/templates/pan_afm.xlsx")
 
 %%%%%%%%%%%%%% Aspergillus niger %%%%%%%%%%%%%%
 % Inspecting the Aspergillus niger GEM from Brandl et al. (2018)
@@ -25,8 +25,7 @@ exportToExcelFormat(model,"../data/BaseGEMs/Fumigatus_GEM.xlsx")
 % https://fungalbiolbiotech.biomedcentral.com/articles/10.1186/s40694-018-0060-7
 
 %%%%%%%%%%%% import
-% function model=importModel(fileName,removeExcMets,isSBML2COBRA,supressWarnings)
-model=importModel("../data/BaseGEMs/Niger_GEM.xml",false,false,true)
+model=importModel("../models/templates/iJB1325.xml",false,false,true)
 
 % The model contains 3741 errors.
 % Assess using validator webtool: https://sbml.bioquant.uni-heidelberg.de/validator_servlet/index.jsp. 
@@ -50,4 +49,4 @@ model=importModel("../data/BaseGEMs/Niger_GEM.xml",false,false,true)
 
 %%%%%%%%%%%% export
 %function exportToExcelFormat(model,fileName,sortIds)
-exportToExcelFormat(model,"../data/BaseGEMs/Niger_GEM.xlsx")
+exportToExcelFormat(model,"../models/templates/iJB1325.xlsx")
