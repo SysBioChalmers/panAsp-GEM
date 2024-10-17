@@ -1,0 +1,253 @@
+---
+title: "Consolidate metabolites for A. niger"
+author: "Jeroen Gilis"
+date: "7 October 2024"
+output: 
+    html_document:
+      code_download: true
+      theme: cosmo
+      toc: true
+      toc_float: true
+      highlight: tango
+      number_sections: true
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(stringr)
+library(openxlsx)
+library(RCurl)
+library(kableExtra)
+library(data.table)
+```
+
+## Helpers
+
+```{r}
+source("./Rutilities.R")
+```
+
+# Obtain GEM
+
+```{r}
+# Note: excels should be closed when reading them in R
+niger_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
+```
+
+# Inspect
+
+```{r}
+head(niger_gem$METS)
+```
+
+```{r}
+table(grepl("kegg.compound",niger_gem$METS$MIRIAM)) # KEGG for half
+table(grepl("chebi/CHEBI",niger_gem$METS$MIRIAM)) # Chebi for most
+table(is.na(niger_gem$METS$InChI)) # inchi for half
+```
+
+- kegg.compound and Chebi for many (see also REPLACEMENT.ID)
+- Inchi for half
+- for some, no formalized, only names
+
+```{r}
+table(grepl("kegg",niger_gem$METS$MIRIAM),
+      grepl("chebi",niger_gem$METS$MIRIAM))
+
+table(is.na(niger_gem$METS[!grepl("kegg",niger_gem$METS$MIRIAM) &
+                 !grepl("chebi",niger_gem$METS$MIRIAM),"InChI"]))
+# if no KEGG nor CHEBI, inchi can help a bit
+```
+
+# Wrangle
+
+```{r}
+# Get KEGG column
+niger_gem$METS$KEGG <- niger_gem$METS$MIRIAM
+niger_gem$METS$KEGG[!grepl("kegg",niger_gem$METS$KEGG)] <- NA
+niger_gem$METS$KEGG <- gsub("\\;.*","",gsub(".*kegg.compound/(.+)", "\\1", niger_gem$METS$KEGG))
+
+# Get chebi column
+niger_gem$METS$CHEBI <- niger_gem$METS$MIRIAM
+niger_gem$METS$CHEBI[!grepl("chebi",niger_gem$METS$CHEBI)] <- NA
+niger_gem$METS$CHEBI <- gsub("\\;.*","",gsub(".*chebi/(.+)", "\\1", niger_gem$METS$CHEBI))
+```
+
+
+# Get chebi based on KEGG
+
+Get chebi based on KEGG. Perhaps best to do this for all KEGG IDs, because they 
+can be linked to  multiple CHEBIs, and we currently only have 1 per KEGG.
+
+## Pubchem compound
+
+```{r, eval=FALSE}
+kegg_query <- niger_gem$METS$KEGG[which(!is.na(niger_gem$METS$KEGG))]
+kegg_query <- unique(kegg_query) # only search each query once
+system.time({
+CHEBI_comp <- linkMetaboliteIdentifiers(query = kegg_query, 
+                                       target = "^CHEBI", 
+                                       reader = "read.csv",
+                                       database = "pubchem_compound",
+                                       verbose = TRUE)
+}) 
+# 1244.88s for 1584 queries (0.79s/query)
+
+table(!is.na(CHEBI_comp$target)) # 2/3 found back
+CHEBI_comp <- CHEBI_comp[!is.na(CHEBI_comp$target),]
+saveRDS(CHEBI_comp,"../data/intermediate/niger_KEGGtoCHEBI_pubcomp.rds")
+```
+
+```{r}
+CHEBI_comp <- readRDS("../data/intermediate/niger_KEGGtoCHEBI_pubcomp.rds")
+```
+
+TODO
+1. Some of the new CHEBIs differ from the original CHEBIs
+2. Line 22 is CHEBI:15490; (Acyl-CoA); [M+H]+;
+
+```{r}
+niger_gem$METS <- consolidateIDs(data = niger_gem$METS,
+                                     queryID = "KEGG",
+                                     originalID = "CHEBI",
+                                     link = CHEBI_comp,
+                                     strategy = "union",
+                                     keepOriginal = TRUE)
+```
+
+```{r}
+niger_gem$METS[c(1,8,16,22), c("KEGG","CHEBI_original","CHEBI_new","CHEBI_consolidated")]
+```
+
+```{r}
+table(!is.na(niger_gem$METS$KEGG),!is.na(niger_gem$METS$CHEBI_original))
+table(!is.na(niger_gem$METS$KEGG),!is.na(niger_gem$METS$CHEBI_consolidated))
+```
+
+```{r}
+niger_gem$METS$CHEBI <- niger_gem$METS$CHEBI_consolidated
+niger_gem$METS$CHEBI_original <- NULL
+niger_gem$METS$CHEBI_new <- NULL
+niger_gem$METS$CHEBI_consolidated <- NULL
+```
+
+## Pubchem substance
+
+Here we attempted to search all KEGG IDs in pubchem_substance to identify
+links with CHEBI. However, this resulted in only 9 succesful queries, and all of
+these were already obtained from pubchem_compound
+
+```{r}
+kegg_query <- niger_gem$METS$KEGG[which(!is.na(niger_gem$METS$KEGG))]
+kegg_query <- unique(kegg_query) # only search each query once
+system.time({
+CHEBI_sub <- linkMetaboliteIdentifiers(query = kegg_query, 
+                                       target = "^CHEBI", 
+                                       reader = "read.csv",
+                                       database = "pubchem_substance",
+                                       verbose = TRUE)
+}) 
+saveRDS(CHEBI_sub,"../data/intermediate/niger_KEGGtoCHEBI_pubsub.rds")
+```
+
+```{r}
+CHEBI_sub <- readRDS("../data/intermediate/niger_KEGGtoCHEBI_pubsub.rds")
+(CHEBI_sub <- CHEBI_sub[!is.na(CHEBI_sub$target),])
+# We are only able to add 9 CHEBIs based on this
+```
+
+```
+niger_gem$METS <- consolidateIDs(data = niger_gem$METS,
+                                     queryID = "KEGG",
+                                     originalID = "CHEBI",
+                                     link = CHEBI_sub,
+                                     strategy = "union",
+                                     keepOriginal = TRUE)
+
+niger_gem$METS[!is.na(niger_gem$METS$CHEBI_new),
+                   c("KEGG","CHEBI_original","CHEBI_new","CHEBI_consolidated")]
+```
+
+# Get KEGG based on chebi
+
+## pubchem compound
+
+Now, try to add KEGGs for the IDs for which we have CHEBI.
+
+Previously, I searched all KEGGs, because they can be associated with multiple 
+CHEBIs. As each CHEBI should only have one KEGG, I here only search for the 
+missing ones. Searching for all could be relevant if we need to find mistakes in
+the original annotation.
+
+```{r}
+chebi_query <- niger_gem$METS$CHEBI[
+  which(is.na(niger_gem$METS$KEGG) &
+          !is.na(niger_gem$METS$CHEBI))]
+chebi_query <- unique(unlist(str_split(chebi_query,pattern = "/")))
+
+KEGG_comp <- linkMetaboliteIdentifiers(query = chebi_query, 
+                                       target = "^C(\\d{5})\\b", 
+                                       reader = "read.csv",
+                                       database = "pubchem_compound",
+                                       verbose = TRUE)
+
+saveRDS(KEGG_comp,"../data/intermediate/niger_CHEBItoKEGG_pubcomp.rds")
+```
+
+```
+niger_gem$METS <- consolidateIDs(data = niger_gem$METS,
+                                     queryID = "CHEBI",
+                                     originalID = "KEGG",
+                                     link = KEGG_comp,
+                                     strategy = "union",
+                                     keepOriginal = TRUE)
+
+niger_gem$METS[!is.na(niger_gem$METS$KEGG_new),
+                   c("CHEBI","KEGG_original","KEGG_new","KEGG_consolidated")]
+```
+
+```
+niger_gem$METS$KEGG <- niger_gem$METS$KEGG_consolidated
+niger_gem$METS$KEGG_original <- NULL
+niger_gem$METS$KEGG_new <- NULL
+niger_gem$METS$KEGG_consolidated <- NULL
+```
+
+```
+table(grepl("kegg",niger_gem$METS$MIRIAM),
+      grepl("chebi",niger_gem$METS$MIRIAM))
+
+table(!is.na(niger_gem$METS$KEGG),
+      !is.na(niger_gem$METS$CHEBI)) # Added 24 links
+```
+
+## pubchem substance
+
+Provides no additional hits!
+
+```{r}
+chebi_query <- niger_gem$METS$CHEBI[
+  which(is.na(niger_gem$METS$KEGG) &
+          !is.na(niger_gem$METS$CHEBI))]
+chebi_query <- unique(unlist(str_split(chebi_query,pattern = "/")))
+
+KEGG_sub <- linkMetaboliteIdentifiers(query = chebi_query, 
+                                      target = "^C(\\d{5})\\b", 
+                                      reader = "read.csv",
+                                      database = "pubchem_substance",
+                                      verbose = TRUE)
+
+saveRDS(KEGG_sub,"../data/intermediate/niger_KEGGtoCHEBI_pubcomp.rds")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

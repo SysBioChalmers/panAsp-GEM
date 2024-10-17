@@ -1,0 +1,75 @@
+---
+title: "Consolidating compartments across GEMs"
+author: "Jeroen Gilis"
+date: "3 October 2024"
+output: 
+    html_document:
+      code_download: true
+      theme: cosmo
+      toc: true
+      toc_float: true
+      highlight: tango
+      number_sections: true
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(stringr)
+library(openxlsx)
+library("kableExtra")
+```
+
+```{r}
+read_excel_allsheets <- function(filename) {
+    sheets <- openxlsx::getSheetNames(filename)
+    x <- lapply(sheets, function(X) openxlsx::read.xlsx(filename, sheet = X))
+    names(x) <- sheets
+    x
+}
+```
+
+# Load gems
+
+```{r}
+# Note: excels should be closed when reading them in R
+niger_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
+fumigatus_gem <- read_excel_allsheets("../data/BaseGEMs/Fumigatus_GEM.xlsx")
+oryzae_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
+```
+
+# Establishing a link between compartments
+
+```{r}
+fumigatus_gem$COMPS
+```
+
+```{r}
+oryzae_gem$COMPS
+```
+
+```{r}
+niger_gem$COMPS
+```
+
+All GEMs have:
+
+1. Extracellular
+2. Cytoplasm (=cytosol)
+3. Mitochonfria
+4. Peroxisome
+
+We can remove boundary from Oryzae GEM.
+
+Finally, some GEMs additionally have:
+
+1. Vacuole
+2. Nucleus
+3. Golgi
+4. Lipid particle (from Golgi)
+5. Endoplasmic reticulum
+
+Perhaps it is best to lump these into cytoplasms, because if we'd keep them,
+then this implies that the GEMs lacking these compartments have no reactions
+there.
+
+
+
