@@ -4,20 +4,21 @@
 % xml obtained from:
 % https://github.com/opencobra/m_model_collection/blob/master/sbml3/iWV1314.xml
 
-model=importModel("../model/templates/iWV1314.xml",false,false,true)
+model=importModel("../model/templates/iWV1314.xml",false,false,true);
 % obtained without RAVEN/libSBML errors
 
-exportToExcelFormat(model,"../model/templates/iWV1314.xlsx")
+exportToExcelFormat(model,"../model/templates/iWV1314.xlsx");
 
 %%%%%%%%%%%%%% Aspergillus fumigatus %%%%%%%%%%%%%%
 % Inspecting the Aspergillus fumigatus GEM from Mirhakkak et al. (2023)
 % xml obtained from:
 % https://www.ebi.ac.uk/biomodels/MODEL2211100001#Files (the pan GEM)
 
-model=importModel("../model/templates/pan_afm.xml",false,false,true)
+model=importModel("../model/templates/pan_afm.xml",false,false,true);
+model.name='Genome-scale model for Aspergillus fumigatus';
 % obtained without RAVEN/libSBML errors
 
-exportToExcelFormat(model,"../model/templates/pan_afm.xlsx")
+exportToExcelFormat(model,"../model/templates/pan_afm.xlsx");
 
 %%%%%%%%%%%%%% Aspergillus niger %%%%%%%%%%%%%%
 % Inspecting the Aspergillus niger GEM from Brandl et al. (2018)
@@ -25,7 +26,7 @@ exportToExcelFormat(model,"../model/templates/pan_afm.xlsx")
 % https://fungalbiolbiotech.biomedcentral.com/articles/10.1186/s40694-018-0060-7
 
 %%%%%%%%%%%% import
-model=importModel("../model/templates/iJB1325.xml",false,false,true)
+model=importModel("../model/templates/iJB1325.xml",false,false,true);
 
 % The model contains 3741 errors.
 % Assess using validator webtool: https://sbml.bioquant.uni-heidelberg.de/validator_servlet/index.jsp. 
@@ -47,6 +48,9 @@ model=importModel("../model/templates/iJB1325.xml",false,false,true)
 % e.	Finally, 3 errors due to presemce of strict="true" in the SBML 
 % namespace.
 
+model.id='Aspergillus_niger';
+model.name='Genome-scale metabolic model for Aspergillus niger';
+
 %%%%%%%%%%%% export
 %function exportToExcelFormat(model,fileName,sortIds)
-exportToExcelFormat(model,"../model/templates/iJB1325.xlsx")
+exportToExcelFormat(model,"../model/templates/iJB1325.xlsx");

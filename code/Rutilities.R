@@ -123,7 +123,7 @@ consolidateIDs <- function(data,
 
 read_excel_allsheets <- function(filename) {
   sheets <- openxlsx::getSheetNames(filename)
-  x <- lapply(sheets, function(X) openxlsx::read.xlsx(filename, sheet = X))
+  x <- lapply(sheets, function(X) openxlsx::read.xlsx(filename, sheet = X, sep.names = " "))
   names(x) <- sheets
   x
 }
