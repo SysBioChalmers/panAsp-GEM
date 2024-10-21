@@ -1,7 +1,7 @@
 ---
 title: "Matching GEMs and BPGA output Jeroen"
 author: "Jeroen Gilis"
-date: "17 October 2024"
+date: "19 October 2024"
 output: 
     html_document:
       code_download: true
@@ -21,21 +21,16 @@ library(metagMisc)
 ```
 
 ```{r}
-read_excel_allsheets <- function(filename) {
-    sheets <- openxlsx::getSheetNames(filename)
-    x <- lapply(sheets, function(X) openxlsx::read.xlsx(filename, sheet = X))
-    names(x) <- sheets
-    x
-}
+source("./Rutilities.R")
 ```
 
 # Load gems
 
 ```{r}
 # Note: excels should be closed when reading them in R
-niger_gem <- read_excel_allsheets("../data/BaseGEMs/Niger_GEM.xlsx")
-fumigatus_gem <- read_excel_allsheets("../data/BaseGEMs/Fumigatus_GEM.xlsx")
-oryzae_gem <- read_excel_allsheets("../data/BaseGEMs/oryzae_GEM.xlsx")
+niger_gem <- read_excel_allsheets("../model/templates/iJB1325.xlsx")
+fumigatus_gem <- read_excel_allsheets("../model/templates/pan_afm.xlsx")
+oryzae_gem <- read_excel_allsheets("../model/templates/iWV1314.xlsx")
 ```
 
 # Load clustering output
