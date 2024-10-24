@@ -1,4 +1,8 @@
-function [grRules_new,genes,rxnGeneMat] = replaceGrRules(grRules,idMapping)
+%%%%%% Function obtained form https://github.com/SysBioChalmers/Human-GEM/blob/022ed5c2c971e27f739e149c4bbe1328de38337f/code/getModelFromOrthology.m#L4
+% Adapted cleanGrRules to have an addition argument that decides on
+% collapsing instances of GENE1 & GENE1 to GENE1
+
+function [grRules_new,genes,rxnGeneMat] = replaceGrRules_local(grRules,idMapping)
 %replaceGrRules  Replace grRules with another set of gene IDs.
 %
 % NOTE: This function is adapted from "translateGrRules" and specifically
@@ -65,7 +69,7 @@ end
 % begin by "cleaning" the original grRules
 % this is not necessary but can speed up the translation if the original
 % grRules are not in a simplified format.
-rules_orig = cleanGrRules(grRules);
+rules_orig = cleanGrRules_local(grRules,true);
 
 % determine logical operator type and change to "&/|" for easy manipulation
 textBooleanType = false;
@@ -91,7 +95,7 @@ grRules_new = regexprep(grRules_new, '[^&|\(\) ]+', '(${convertGeneId($0)})');
 % prepare output
 
 % clean up rules (removes extra parentheses, repeated genes, etc.)
-grRules_new = cleanGrRules(grRules_new);
+grRules_new = cleanGrRules_local(grRules_new,false);
 
 % restore "&" as "and" and "|" as "or"
 if textBooleanType

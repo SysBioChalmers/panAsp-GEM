@@ -1,4 +1,9 @@
-function cleaned_rules = cleanGrRules(grRules)
+%%%%%% Function obtained form https://github.com/SysBioChalmers/Human-GEM/blob/022ed5c2c971e27f739e149c4bbe1328de38337f/code/getModelFromOrthology.m#L4
+% Adapted cleanGrRules to have an addition argument that decides on
+% collapsing instances of GENE1 & GENE1 to GENE1
+% Achieved wrapping if statement at lines 108 and 171
+
+function cleaned_rules = cleanGrRules_local(grRules, collapse_AND)
 %cleanGrRules  Clean and simplify model grRules.
 %
 % cleanGrRules removes unnecessary parentheses, trailing ANDs/ORs, and
@@ -22,6 +27,8 @@ function cleaned_rules = cleanGrRules(grRules)
 % INPUT:
 %
 %   grRules         The grRules field from a genome-scale metabolic model.
+%   collapse_AND    Should instances like GENE1 & GENE1 be collapsed to
+%   GENE1? Default = true.
 %
 %
 % OUTPUT:
@@ -29,7 +36,9 @@ function cleaned_rules = cleanGrRules(grRules)
 %   cleaned_rules   Updated/cleaned grRules.
 %
 
-
+if nargin<2
+    keepAND=false;
+end
 
 % check if the grRules use written or symbolic boolean operators
 if any(contains(grRules,{'&','|'}))
@@ -96,7 +105,9 @@ for i = 1:50  % perform a max of 50 iterations (it shouldn't require nearly that
     
     % remove duplicates from groups of genes separated by only ANDs or ORs,
     % with no parentheses in between
-    grRules = regexprep(grRules,'[^&|\(\) ]+( & [^&|\(\) ]+)+','${keepUniques_AND($0)}');
+    if collapse_AND
+        grRules = regexprep(grRules,'[^&|\(\) ]+( & [^&|\(\) ]+)+','${keepUniques_AND($0)}');
+    end   
     grRules = regexprep(grRules,'[^&|\(\) ]+( \| [^&|\(\) ]+)+','${keepUniques_OR($0)}');
 
     
@@ -157,7 +168,9 @@ for i = 1:50  % perform a max of 50 iterations (it shouldn't require nearly that
         for k = 1:100
             
             % remove duplicate genes from within each chunk
-            chunks = regexprep(chunks,'[^&|\(\) ]+( & [^&|\(\) ]+)+','${keepUniques_AND($0)}');
+            if collapse_AND
+                chunks = regexprep(chunks,'[^&|\(\) ]+( & [^&|\(\) ]+)+','${keepUniques_AND($0)}');
+            end
             chunks = regexprep(chunks,'[^&|\(\) ]+( \| [^&|\(\) ]+)+','${keepUniques_OR($0)}');
             
             % check if any of the chunks themselves are duplicated

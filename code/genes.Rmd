@@ -1,7 +1,7 @@
 ---
 title: "Matching GEMs and BPGA output Jeroen"
 author: "Jeroen Gilis"
-date: "19 October 2024"
+date: "23 October 2024"
 output: 
     html_document:
       code_download: true
@@ -101,9 +101,10 @@ FASTA headers.
 ```{r}
 dict_fasta <- read.csv2("../../BPGA/OutputJeroen/INPUT_all_original.fasta", 
                         sep=">", header=FALSE)
+hlp <- dict_fasta[grepl("oryzae",dict_fasta$V2),]
+
 dict_fasta$V1 <- NULL
 colnames(dict_fasta) <- c("BPGA","original")
-
 dict_fasta$BPGA <- sub("\\|$", "#", dict_fasta$BPGA)
 dict_fasta$BPGA <- paste0(sub("\\|.*", "", dict_fasta$BPGA),
                           "|Org",
@@ -135,10 +136,10 @@ target[is.na(target$GEM),]
 
 # So these are IDs that we have in the protein fasta, but that we can't link
 # back to transcript numbers, and hence cant link back to the GEM.
-lost <- target$BPGA[is.na(target$GEM)]
+lost <- target[is.na(target$GEM),]
 
-hlp[hlp$targetLabel %in% lost,]
-hlp[hlp$Query %in% lost,]
+clustering[clustering$targetLabel %in% lost$BPGA,]
+clustering[clustering$Query %in% lost$BPGA,]
 
 # these IDs didnt receive many hits in the clustering either
 ```
@@ -146,29 +147,28 @@ hlp[hlp$Query %in% lost,]
 ```{r}
 dict_fasta[sub(".*\\|(.*)", "\\1", dict_fasta$BPGA) == "niger.faa#","original"] <- target$GEM
 dict_fasta$original[is.na(dict_fasta$original)] <- target$original[match(dict_fasta$BPGA[is.na(dict_fasta$original)],target$BPGA)]
-rbind(head(dict_fasta,n=3),dict_fasta[15000:15002,],tail(dict_fasta,n=3))
 ```
 
 Now translate all. Actually, this is much easier to do on the raw clustering
-output, so lets do that. Actually, the only columns Im using from this output
+output, so lets do that. Actually, the only columns I'm using from this output
 are clusterNumber and query. So it suffices to translate query.
 
 # Wrangle clustering output
 
 ```{r}
-# eaier to store organism fasta name in separate column
-hlp$fasta <- sub(".*\\|(.*)", "\\1", hlp$Query)
-hlp$Query <- dict_fasta$original[match(hlp$Query, dict_fasta$BPGA)]
+# easier to store organism fasta name in separate column
+clustering$fasta <- sub(".*\\|(.*)", "\\1", clustering$Query)
+clustering$Query <- dict_fasta$original[match(clustering$Query, dict_fasta$BPGA)]
 
-res <- do.call(rbind,lapply(unique(hlp$clusterNumber), function(x){
-   test <- hlp[hlp$clusterNumber == x,]
+res <- do.call(rbind,lapply(unique(clustering$clusterNumber), function(x){
+   test <- clustering[clustering$clusterNumber == x,]
    data.frame(cluster = x,
               Afumigatus = paste0(test$Query[grep("fumigatus",test$fasta)], collapse = ";"),
               Aoryzae = paste0(test$Query[grep("oryzae",test$fasta)], collapse = ";"),
               Aniger = paste0(test$Query[grep("niger",test$fasta)], collapse = ";"))
 }))
 
-res[res==""]<-NA
+res[res==""] <- NA
 res$present_in_n_genomes <- rowSums(!is.na(res[,c("Afumigatus",
                                                   "Aoryzae",
                                                   "Aniger")]))
@@ -178,6 +178,10 @@ res$cluster_type_manual[res$present_in_n_genomes == 2] <- "accessory"
 res$cluster_type_manual[res$present_in_n_genomes == 3] <- "core"
 res <- res[,c("cluster", "present_in_n_genomes", "cluster_type_manual",
               "Afumigatus","Aoryzae","Aniger")]
+```
+
+```{r}
+res[grep("PEPCE", res$Aniger),]
 ```
 
 Now we only have the issue that some genes that are in the GEMs are not in this
@@ -191,7 +195,7 @@ To facilitate downstream analyses, I will add these entries to res myself,
 and assign them cluster_type_manual "artificial"
 
 ```{r}
-unique(oryzae_gem$GENES$NAME)[!unique(oryzae_gem$GENES$NAME) %in% unique(unlist(strsplit(res$Aoryzae, split=";")))]
+unique(niger_gem$GENES$NAME)[!unique(niger_gem$GENES$NAME) %in% unique(unlist(strsplit(res$Aniger, split=";")))]
 add_niger <- data.frame(cluster = max(res$cluster)+1,
                         present_in_n_genomes = 1,
                         cluster_type_manual = "artificial",
@@ -201,6 +205,14 @@ add_niger <- data.frame(cluster = max(res$cluster)+1,
 res <- rbind(res, add_niger)
 
 missing_oryzae <- unique(oryzae_gem$GENES$NAME)[!unique(oryzae_gem$GENES$NAME) %in% unique(unlist(strsplit(res$Aoryzae, split=";")))]
+
+# in stead of taking all mssing Oryzae features, only take those that matter
+# (i.e., those that uniquely catalyze a reaction), while discarding features
+# that are isoenzymes or part of larger enzyme complexes.
+# I identify these features in the appendix below.
+
+# missing_oryzae <- c("ZY006430","ZY080692","ZY088142","ZY097848",
+#                     "ZY104986","ZY110993","ZY111007","ZY140875")
 
 add_oryzae <- data.frame(cluster = max(res$cluster)+seq_along(missing_oryzae),
                          present_in_n_genomes = 1,
@@ -217,6 +229,7 @@ tail(res)
 
 ```{r}
 res[is.na(res)]<-""
+res$cluster <- paste0("cluster_",res$cluster)
 write.csv2(res, "../data/genome/BPGA2ortho_GEM_custom.csv",row.names=FALSE)
 ```
 

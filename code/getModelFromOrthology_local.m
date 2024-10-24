@@ -1,6 +1,8 @@
 %%%%%% Function obtained form https://github.com/SysBioChalmers/Human-GEM/blob/022ed5c2c971e27f739e149c4bbe1328de38337f/code/getModelFromOrthology.m#L4
+% Adapted cleanGrRules to have an addition argument that decides on
+% collapsing instances of GENE1 & GENE1 to GENE1
 
-function [draftModel, removedRxns] = getModelFromOrthology(templateModel,orthologPairs)
+function [draftModel, removedRxns] = getModelFromOrthology_local(templateModel,orthologPairs)
 %getModelFromOrthology  
 %   Constructs a draft model based on a template model and provided gene
 %   orthology information between the query and template organisms
@@ -55,7 +57,7 @@ preNonEmptyRuleInd = find(~cellfun(@isempty, templateModel.grRules));
 % Replace genes according to the mapped ortholog pairs, which should be in
 % the defined format (an Nx2 cell array)
 draftModel = templateModel;
-[grRules,genes,rxnGeneMat] = replaceGrRules(draftModel.grRules,orthologPairs);
+[grRules,genes,rxnGeneMat] = replaceGrRules_local(draftModel.grRules,orthologPairs);
 
 
 % Update with modified gene fields
