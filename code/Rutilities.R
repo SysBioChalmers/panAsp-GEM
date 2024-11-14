@@ -13,22 +13,29 @@
 linkMetaboliteIdentifiers <- function(query, 
                                       target,
                                       reader = c("read.csv","fread","readLines"),
-                                      database = c("pubchem_compound",
-                                                   "pubchem_substance"),
+                                      database = c("pubchem_compound_name",
+                                                   "pubchem_substance_name",
+                                                   "pubchem_compound_cid"),
                                       bidirectional = c(FALSE, TRUE),
                                       verbose = c(TRUE, FALSE)){
   
   res <- unlist(lapply(query, function(q){
     
-    if(database == "pubchem_compound"){
+    if(database == "pubchem_compound_name"){
       url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/",
                     q,
                     "/synonyms/TXT")
-    } else if(database == "pubchem_substance"){
+    } else if(database == "pubchem_substance_name"){
       url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/name/",
                     q,
                     "/synonyms/TXT")
+    } else if(database == "pubchem_compound_cid"){
+      url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/name/",
+                    q,
+                    "/cids/TXT")
     }
+    
+    url <- gsub(" ", "%20", url) # always replace spaces with %20 in URL
     
     if(reader == "read.csv"){
       data <- tryCatch({

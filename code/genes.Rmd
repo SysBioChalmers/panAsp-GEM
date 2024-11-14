@@ -1,7 +1,7 @@
 ---
-title: "Matching GEMs and BPGA output Jeroen"
+title: "Matching GEMs and BPGA output"
 author: "Jeroen Gilis"
-date: "19 October 2024"
+date: "14 November 2024"
 output: 
     html_document:
       code_download: true
@@ -13,24 +13,11 @@ output:
 ---
 
 ```{r, message=FALSE, warning=FALSE}
-library(stringr)
-library(openxlsx)
-library(kableExtra)
-library(phyloseq)
 library(metagMisc)
 ```
 
 ```{r}
 source("./Rutilities.R")
-```
-
-# Load gems
-
-```{r}
-# Note: excels should be closed when reading them in R
-niger_gem <- read_excel_allsheets("../model/templates/iJB1325.xlsx")
-fumigatus_gem <- read_excel_allsheets("../model/templates/pan_afm.xlsx")
-oryzae_gem <- read_excel_allsheets("../model/templates/iWV1314.xlsx")
 ```
 
 # Load clustering output
@@ -39,7 +26,16 @@ In step 2 of their workflow, BPGA generates a file `u_clusters.txt` that
 contains the clustering information for each sequence in the BPGA input, i.e.,
 containing both orthologs and paralogs. In USEARCH, the same file is also
 generate, with extension `.uc`. The ouput format is described here:
-https://drive5.com/usearch/manual/opt_uc.html
+http://drive5.com/usearch/manual/opt_uc.html
+
+```{r}
+clustfile <- "../data/genome/u_clusters.txt"
+clustering <- metagMisc::parse_uc(x=clustfile, 
+                                  map_only = FALSE, 
+                                  splitSeqID = TRUE, 
+                                  rm_dups = TRUE)
+head(clustering)
+```
 
 ```
 # Save this function in case the github dies
@@ -80,143 +76,155 @@ function (x, map_only = FALSE, splitSeqID = TRUE, rm_dups = TRUE)
 }
 ```
 
-```{r}
-clustfile <- "../../BPGA/OutputJeroen/u_clusters.txt"
-clustering <- metagMisc::parse_uc(x=clustfile, 
-                                  map_only = FALSE, 
-                                  splitSeqID = TRUE, 
-                                  rm_dups = TRUE)
-head(clustering)
-```
-
 # Translate IDs
 
-TODO: map IDs (1|Org1_Gene9442|fumigatus.faa#) to original gene names.
+The goal of this section is to establish a link between the sequence identifiers
+that are used in the BPGA output, and the sequence identifiers that are used in
+the three GEMs that we will use to construct a draft panGEM fro Aspergillus.
 
-BPGA stores this information in INPUT_all_original.fasta
-Note that this step may not be required if you use USEARCH separately, and not
-within BPGA. There, it just depends on whether you changed the names of the
-FASTA headers.
+The queryLabel and targetLabel columns from the BPGA output contain labels for
+each fasta sequence that was used as input to BPGA. The link between these 
+labels and the original fasta sequence labels is stored in the BPGA output file
+`INPUT_all_original.fasta`. 
+
+Note that these steps may not be required if you use USEARCH separately, and not
+within BPGA. Indeed, in USEARCH it just depends on whether you manually changed 
+the names of the FASTA headers yourself or not.
 
 ```{r}
-dict_fasta <- read.csv2("../../BPGA/OutputJeroen/INPUT_all_original.fasta", 
+dict_fasta <- read.csv2("../data/genome/INPUT_all_original.fasta", 
                         sep=">", header=FALSE)
 dict_fasta$V1 <- NULL
 colnames(dict_fasta) <- c("BPGA","original")
-
 dict_fasta$BPGA <- sub("\\|$", "#", dict_fasta$BPGA)
 dict_fasta$BPGA <- paste0(sub("\\|.*", "", dict_fasta$BPGA),
                           "|Org",
                           sub("\\|.*", "", dict_fasta$BPGA),
                           "_",
                           sub("^[^\\|]+\\|","",dict_fasta$BPGA))
-rbind(head(dict_fasta,n=3),dict_fasta[15000:15002,],tail(dict_fasta,n=3))
+head(dict_fasta)
 ```
 
-But then for A. niger, we need an additional translation, from proper IDs to 
-transcript numbers used for the GEM.
+To link the BPGA sequence identifiers to the sequence identifiers from the 
+niger GEM, we need an additional translation step. Indeed, we used protein
+sequences as input for BPGA, but the sequence identifiers in the niger GEM
+are transcript identifiers. As such, we need to establish a link between the 
+protein and the transcript sequence identifiers of the niger GEM.
 
 ```{r}
-awk_cmd <- sprintf("awk '$1 ~ /^>/' %s", "../../fasta/keep_Aspni7_all_transcripts_20131226.nt.fasta")
+awk_cmd <- sprintf("awk '$1 ~ /^>/' %s", "../data/genome/keep_Aspni7_all_transcripts_20131226.nt.fasta")
 full_IDs <- readLines(pipe(awk_cmd))
-
 tx_prot_names <- sub(".*\\|", "", full_IDs)
 tx_num <- sub("^([^\\|]*\\|){2}([^\\|]+).*", "\\2", full_IDs)
-
 dict_niger <- data.frame(tx_prot_names = tx_prot_names,
                          tx_num = tx_num)
-head(dict_niger)
-```
-
-```{r}
 target <- dict_fasta[sub(".*\\|(.*)", "\\1", dict_fasta$BPGA) == "niger.faa#",]
 target$GEM <- dict_niger$tx_num[match(target$original, dict_niger$tx_prot_names)]
+```
+
+There are 16 niger protein sequences that we used as input to BPGA for which
+we cannot establish a link with any transcript identifiers.
+
+```{r}
 target[is.na(target$GEM),]
 
 # So these are IDs that we have in the protein fasta, but that we can't link
 # back to transcript numbers, and hence cant link back to the GEM.
-lost <- target$BPGA[is.na(target$GEM)]
+lost <- target[is.na(target$GEM),]
 
-hlp[hlp$targetLabel %in% lost,]
-hlp[hlp$Query %in% lost,]
-
-# these IDs didnt receive many hits in the clustering either
+clustering[clustering$targetLabel %in% lost$BPGA,]
+clustering[clustering$Query %in% lost$BPGA,]
 ```
+
+Note that these IDs didnt receive many hits in the clustering either. I will
+thus just leave them as NA. As such, they will count for establishing in how 
+many genomes a cluster was observed, they will also be present in the final
+BPGA table , but we know in advance they wont be matched to IDs in the GEM.
 
 ```{r}
 dict_fasta[sub(".*\\|(.*)", "\\1", dict_fasta$BPGA) == "niger.faa#","original"] <- target$GEM
 dict_fasta$original[is.na(dict_fasta$original)] <- target$original[match(dict_fasta$BPGA[is.na(dict_fasta$original)],target$BPGA)]
-rbind(head(dict_fasta,n=3),dict_fasta[15000:15002,],tail(dict_fasta,n=3))
 ```
-
-Now translate all. Actually, this is much easier to do on the raw clustering
-output, so lets do that. Actually, the only columns Im using from this output
-are clusterNumber and query. So it suffices to translate query.
 
 # Wrangle clustering output
 
 ```{r}
-# eaier to store organism fasta name in separate column
-hlp$fasta <- sub(".*\\|(.*)", "\\1", hlp$Query)
-hlp$Query <- dict_fasta$original[match(hlp$Query, dict_fasta$BPGA)]
+clustering$fasta <- sub(".*\\|(.*)", "\\1", clustering$Query)
+all_organisms <- unique(clustering$fasta) # easier to store organism fasta name in separate column
+clustering$Query <- dict_fasta$original[match(clustering$Query, dict_fasta$BPGA)]
 
-res <- do.call(rbind,lapply(unique(hlp$clusterNumber), function(x){
-   test <- hlp[hlp$clusterNumber == x,]
-   data.frame(cluster = x,
-              Afumigatus = paste0(test$Query[grep("fumigatus",test$fasta)], collapse = ";"),
-              Aoryzae = paste0(test$Query[grep("oryzae",test$fasta)], collapse = ";"),
-              Aniger = paste0(test$Query[grep("niger",test$fasta)], collapse = ";"))
+res <- do.call(rbind,pbapply::pblapply(unique(clustering$clusterNumber), function(x){
+    test <- clustering[clustering$clusterNumber == x,]
+    hlp <- as.data.frame(rbind(unlist(lapply(all_organisms, function(organism){
+    paste0(test$Query[grep(organism,test$fasta)], collapse = ";")
+        }))))
+    colnames(hlp) <- all_organisms
+    df_row <- cbind(cluster = x, hlp)
+    return(df_row)
 }))
+```
 
-res[res==""]<-NA
-res$present_in_n_genomes <- rowSums(!is.na(res[,c("Afumigatus",
-                                                  "Aoryzae",
-                                                  "Aniger")]))
+I think I have a 1 more column than Casper. So he probably sent me sequences
+from an isolate that he didnt include in his BPGA run.
+
+```{r}
+res[res==""] <- NA
+colnames(res) <- gsub(".faa#","",colnames(res))
+
+res$present_in_n_genomes <- rowSums(!is.na(res[,-1]))
 res$cluster_type_manual <- ""
+
 res$cluster_type_manual[res$present_in_n_genomes == 1] <- "singleton"
-res$cluster_type_manual[res$present_in_n_genomes == 2] <- "accessory"
-res$cluster_type_manual[res$present_in_n_genomes == 3] <- "core"
-res <- res[,c("cluster", "present_in_n_genomes", "cluster_type_manual",
-              "Afumigatus","Aoryzae","Aniger")]
+res$cluster_type_manual[res$present_in_n_genomes > 1] <- "accessory"
+res$cluster_type_manual[res$present_in_n_genomes > 150] <- "core"
+
+putfirst <- c("cluster", "present_in_n_genomes", "cluster_type_manual","niger",
+              "fumigatus","oryzae")
+res <- res[,c(match(putfirst,colnames(res)),
+       which(!colnames(res) %in% putfirst))]
+```
+
+```
+res[grep("PEPCE", res$niger),]
 ```
 
 Now we only have the issue that some genes that are in the GEMs are not in this
 table, because they were not in the BPGA input, because we don't have a protein
-sequence for these features (and this can also not be readily obtained).
+sequence for these features (and these can also not be readily obtained).
 
-For Aniger this is one feature (Unknown5)
-For Aoryzae this are 46 features (all ZY entries)
+For A. niger this is one feature (Unknown5).
+For A. oryzae this are 46 features (all ZY entries).
 
-To facilitate downstream analyses, I will add these entries to res myself,
-and assign them cluster_type_manual "artificial"
+To facilitate downstream analyses, I will add these entries to the BPGA output
+table myself, and assign them cluster_type_manual "artificial".
 
 ```{r}
-unique(oryzae_gem$GENES$NAME)[!unique(oryzae_gem$GENES$NAME) %in% unique(unlist(strsplit(res$Aoryzae, split=";")))]
-add_niger <- data.frame(cluster = max(res$cluster)+1,
-                        present_in_n_genomes = 1,
-                        cluster_type_manual = "artificial",
-                        Afumigatus = NA,
-                        Aoryzae = NA,
-                        Aniger = "Unknown5")
+add_niger <- as.data.frame(matrix(data=NA,nrow=1,ncol=162,dimnames = list(NULL,colnames(res))))
+add_niger$cluster <- max(res$cluster)+1
+add_niger$present_in_n_genomes <-1
+add_niger$cluster_type_manual <"artificial"
+add_niger$niger <- "Unknown5"
 res <- rbind(res, add_niger)
+```
 
-missing_oryzae <- unique(oryzae_gem$GENES$NAME)[!unique(oryzae_gem$GENES$NAME) %in% unique(unlist(strsplit(res$Aoryzae, split=";")))]
+```{r}
+oryzae_gem <- read_excel_allsheets("../model/templates/iWV1314.xlsx")
+missing_oryzae <- unique(oryzae_gem$GENES$NAME)[!unique(oryzae_gem$GENES$NAME) %in% unique(unlist(strsplit(res$oryzae, split=";")))]
 
-add_oryzae <- data.frame(cluster = max(res$cluster)+seq_along(missing_oryzae),
-                         present_in_n_genomes = 1,
-                        cluster_type_manual = "artificial",
-                        Afumigatus = NA,
-                        Aoryzae = missing_oryzae,
-                        Aniger = NA)
-
-res <- rbind(res,add_oryzae)
-tail(res)
+add_oryzae <- as.data.frame(matrix(data=NA,nrow=length(missing_oryzae),
+                                  ncol=162,dimnames = list(NULL,colnames(res))))
+add_oryzae$cluster <- max(res$cluster)+seq_along(missing_oryzae)
+add_oryzae$present_in_n_genomes <- 1
+add_oryzae$cluster_type_manual <- "artificial"
+add_oryzae$oryzae <- missing_oryzae
+res <- rbind(res, add_oryzae)
 ```
 
 # Export final table
 
 ```{r}
 res[is.na(res)]<-""
+res$cluster <- paste0("cluster_",res$cluster)
 write.csv2(res, "../data/genome/BPGA2ortho_GEM_custom.csv",row.names=FALSE)
 ```
 
@@ -233,17 +241,17 @@ possible to go to a protein sequence, as the link EST-gene-protein has not been
 established. As such, I don't think there is much more we can do for these
 IDs. However, below I have looked into each of the ZYs:
 
-- 23 are isoenzy, we already have a properly characterized gene in Oryzae doing the same thing
+- 23 are isoenzymes, we already have a properly characterized gene in Oryzae doing the same thing
 - 15 are subunits of an enzyme complex, together with genes that are properly characterized
 - 8 are truly unique, catalyzing a reaction no other gene is involved with
 
----
+## Chr4
 
 - Chr4_SC012_1076984__1077358: N-acetyl-y-glutamyl-phosphate reductase
 Not in sup_table1, but same nomenclature a the ZYs, 
 "Chromosome number with EST alignment" - "Contig name with EST alignment" - "EST position (Start-Stop)"
 
----
+## Isoenzymes
 
 - ZY007107: subunit of Cytochrome c oxidase, together with
 AO090010000481 and AO090026000651 and AO090026000421 and ZY007619 and ZY029203 and ZY029342
@@ -285,7 +293,7 @@ AO090011000838
 - ZY098280: subunit of Acetolacetate synthase, together with 
 AO090023000854 and AO090003000571 and AO090166000076
 
----
+## Unique enzymes
 
 Unique, no other proteins catalyzing this reaction: 
 
@@ -352,9 +360,3 @@ isoenzymes <- list("ZY006677" = "AO090026000021",
 Note: the oryzae GEM has no "or" gene associations, they are cataloged as
 separate reactions.
 
-
-
-
-
-TODO: ask Capser why there is a discrepancy between his cluster_type_manual and
-BPGA's cluster_type_BPGA. I see how the former is computed, but not the latter.

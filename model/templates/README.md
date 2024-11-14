@@ -1,4 +1,3 @@
-- The GEM for Aspergillus Oryzae was obtained from Vongsangnak et al. (2008) through link https://github.com/opencobra/m_model_collection/blob/master/sbml3/iWV1314.xml
-- The GEM for Aspergillus fumigatus was obtained from Mirhakkak et al. (2023) through link https://www.ebi.ac.uk/biomodels/MODEL2211100001#Files (the pan GEM)
-- The GEM for Aspergillus niger was obtained from Brandl et al. (2018) through link https://fungalbiolbiotech.biomedcentral.com/articles/10.1186/s40694-018-0060-7
-
+- The GEM for Aspergillus Oryzae was obtained from [Vongsangnak et al. (2008)](https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-9-245) through [this link](https://github.com/opencobra/m_model_collection/blob/master/sbml3/iWV1314.xml).
+- The GEM for Aspergillus fumigatus was obtained from [Mirhakkak et al. (2023)](https://www.ebi.ac.uk/biomodels/services/download/get-files/MODEL2211100001/54/Pan_Aspergillus_fumigatus.xml) (the pan GEM).
+- The GEM for Aspergillus niger was obtained from [Brandl et al. (2018)](https://fungalbiolbiotech.biomedcentral.com/articles/10.1186/s40694-018-0060-7) through [this link](https://static-content.springer.com/esm/art%3A10.1186%2Fs40694-018-0060-7/MediaObjects/40694_2018_60_MOESM2_ESM.xml).

@@ -16,6 +16,6 @@ for i = 1:height(hlp)
 end
 
 translationTable = table(targetList, clusterList, 'VariableNames', {targetName, 'cluster'});
-translationTable = table2cell(translationTable)
+translationTable = table2cell(translationTable);
 translationTable;
 end
