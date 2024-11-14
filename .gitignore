@@ -1,8 +1,15 @@
 ### Source https://github.com/github/gitignore/
 
 ## R.gitignore
-# scrap folder
+
+# large folders
 scrap/
+fasta/
+
+# large files
+u_clusters.txt
+keep_Aspni7_all_transcripts_20131226.nt.fasta
+INPUT_all_original.fasta
 
 # History files
 .Rhistory
@@ -10,7 +17,6 @@ scrap/
 
 # Session Data files
 .RData
-*.rds
 
 # User-specific files
 .Ruserdata

@@ -1,0 +1,894 @@
+---
+title: "Link oryzae to niger metabolites"
+author: "Jeroen Gilis"
+date: "5 November 2024"
+output: 
+    html_document:
+      code_download: true
+      theme: cosmo
+      toc: true
+      toc_float: true
+      highlight: tango
+      number_sections: true
+---
+
+# Libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(stringr)
+library(openxlsx)
+library(RCurl)
+library(kableExtra)
+```
+
+# Helpers
+
+```{r}
+source("./Rutilities.R")
+```
+
+# Load GEMs
+
+```{r}
+# Note: excels should be closed when reading them in R
+Aor_draft <- read_excel_allsheets("../model/Aor_draft_comp.xlsx")
+
+# Aor_reduced <- read_excel_allsheets("../scrap/Aor_reduced.xlsx")
+Aor_reduced <- read_excel_allsheets("../data/intermediate/Aor_reduced.xlsx")
+
+#Ani_draft <- read_excel_allsheets("../model/Ani_draft_consolidated.xlsx")
+Ani_draft <- read_excel_allsheets("../data/intermediate/Ani_draft_comp_mets.xlsx")
+```
+
+# Wrangle
+
+```{r}
+Aor_reduced$METS$CHEBI <- Aor_reduced$METS$MIRIAM
+Aor_reduced$METS$CHEBI[!grepl("chebi",Aor_reduced$METS$CHEBI)] <- NA
+Aor_reduced$METS$CHEBI <- gsub("chebi:","",Aor_reduced$METS$CHEBI)
+Aor_reduced$METS$CHEBI <- gsub("/",":",Aor_reduced$METS$CHEBI)
+
+Aor_reduced$METS$KEGG <- Aor_reduced$METS$MIRIAM
+Aor_reduced$METS$KEGG[!grepl("kegg",Aor_reduced$METS$KEGG)] <- NA
+Aor_reduced$METS$KEGG <- gsub("kegg.compound/","",Aor_reduced$METS$KEGG)
+Aor_reduced$METS$KEGG[!is.na(Aor_reduced$METS$KEGG)]
+```
+
+The replacement IDs for both oryzae niger can be improved. If the
+compartment is not cytosol, a trailing compartment name was added. Fix this:
+
+```{r}
+Aor_draft$METS[Aor_draft$METS$NAME %in% c("3-oxoacyl-[acp]","acetoacetyl-CoA"),c(2,3,9)]
+Aor_reduced$METS[Aor_reduced$METS$NAME %in% c("3-oxoacyl-[acp]","acetoacetyl-CoA"),c(2,3,9)]
+```
+
+```{r}
+Aor_reduced$METS$`REPLACEMENT ID` <- gsub("m\\[m\\]", "\\[m\\]", Aor_reduced$METS$`REPLACEMENT ID`)
+Aor_reduced$METS$`REPLACEMENT ID` <- gsub("e\\[e\\]", "\\[e\\]", Aor_reduced$METS$`REPLACEMENT ID`)
+Aor_reduced$METS$`REPLACEMENT ID` <- gsub("p\\[p\\]", "\\[p\\]", Aor_reduced$METS$`REPLACEMENT ID`)
+```
+
+```{r}
+length(Aor_reduced$METS$`REPLACEMENT ID`)
+length(unique(Aor_reduced$METS$`REPLACEMENT ID`))
+```
+
+# Consolidate metabolites
+
+```{r}
+sum(!is.na(Aor_reduced$METS$KEGG)) # very few keggs in Aor
+sum(Aor_reduced$METS$KEGG %in% Ani_draft$METS$KEGG[!is.na(Ani_draft$METS$KEGG)])
+sum(Aor_reduced$METS$KEGG %in% Ani_draft$METS$KEGG_self[!is.na(Ani_draft$METS$KEGG_self)])
+
+sum(!is.na(Aor_reduced$METS$CHEBI))
+sum(Aor_reduced$METS$CHEBI %in% Ani_draft$METS$CHEBI[!is.na(Ani_draft$METS$CHEBI)])
+# so the 54 you lose here are by definition unique to Aor, because while the 
+# name is existing in Ani, it is not existing in that compartment
+
+sum(tolower(Aor_reduced$METS$NAME) %in% tolower(Ani_draft$METS$NAME))
+sum(tolower(Aor_reduced$METS$ID) %in% tolower(Ani_draft$METS$ID)) 
+# so the 54 you lose here are by definition unique to Aor, because while the 
+# name is existing in Ani, it is not existing in that compartment
+
+sum(Aor_reduced$METS$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`)
+sum(tolower(Aor_reduced$METS$`REPLACEMENT ID`) %in% tolower(Ani_draft$METS$`REPLACEMENT ID`))
+# the main question is: do we trust matches based on replacement id?
+# -> match on proper IDs first, then manually inspect if we can trust the
+# remaining matches based on replacement_id.
+```
+
+## CHEBI
+
+```{r}
+Aor_reduced$METS$CHEBI_ID <- paste0(Aor_reduced$METS$CHEBI,"[", Aor_reduced$METS$COMPARTMENT, "]")
+Aor_reduced$METS$CHEBI_ID[!grepl("CHEBI",Aor_reduced$METS$CHEBI_ID)] <- NA
+
+Ani_draft$METS$CHEBI_ID <- paste0(Ani_draft$METS$CHEBI,"[", Ani_draft$METS$COMPARTMENT, "]")
+Ani_draft$METS$CHEBI_ID[!grepl("CHEBI",Ani_draft$METS$CHEBI_ID)] <- NA
+```
+
+```{r}
+sum(Aor_reduced$METS$CHEBI %in% Ani_draft$METS$CHEBI[!is.na(Ani_draft$METS$CHEBI)])
+sum(Aor_reduced$METS$CHEBI_ID %in% Ani_draft$METS$CHEBI_ID[!is.na(Ani_draft$METS$CHEBI_ID)])
+# so the 45 you lose here are by definition unique to Aor, because while the 
+# chebi is existing in Ani, it is not existing in that compartment
+```
+
+```{r}
+CHEBI_both <- Aor_reduced$METS$CHEBI[Aor_reduced$METS$CHEBI %in% Ani_draft$METS$CHEBI[!is.na(Ani_draft$METS$CHEBI)]]
+CHEBI_ID_both <- Aor_reduced$METS$CHEBI_ID[Aor_reduced$METS$CHEBI_ID %in% Ani_draft$METS$CHEBI_ID[!is.na(Ani_draft$METS$CHEBI_ID)]]
+```
+
+We probably will never be able to map these metabolites between Aor and Ani,
+i.e., they exist in both Aor and Ani, but only in Aor it (also) exists a 
+different compartment. Save these for later:
+
+```{r}
+CHEBI_altcomp <- Aor_reduced$METS$CHEBI_ID[Aor_reduced$METS$CHEBI %in% CHEBI_both &
+                            !Aor_reduced$METS$CHEBI_ID %in% CHEBI_ID_both]
+```
+
+Map oryzae metabolites to niger:
+
+```{r}
+table(Aor_reduced$METS$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`)
+Aor_reduced$METS$`REPLACEMENT ID`[match(CHEBI_ID_both, Aor_reduced$METS$CHEBI_ID)] <- Ani_draft$METS$`REPLACEMENT ID`[match(CHEBI_ID_both, Ani_draft$METS$CHEBI_ID)]
+table(Aor_reduced$METS$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`)
+```
+
+```{r}
+length(Aor_reduced$METS$`REPLACEMENT ID`)
+length(unique(Aor_reduced$METS$`REPLACEMENT ID`))
+```
+
+```{r}
+hlp <- Aor_reduced$METS[Aor_reduced$METS$`REPLACEMENT ID` %in% 
+                   Aor_reduced$METS$`REPLACEMENT ID`[duplicated(Aor_reduced$METS$`REPLACEMENT ID`)],c(2,3,5,9)]
+hlp
+
+Aor_before <- read_excel_allsheets("../data/intermediate/Aor_reduced.xlsx")
+Aor_before$METS[match(hlp$ID, Aor_before$METS$ID),c(2,3,5,9)]
+```
+
+
+```{r}
+Ani_draft$METS[which(Ani_draft$METS$CHEBI == "CHEBI:24636"),c(2,5,9)]
+```
+
+Two different situations:
+
+- H[c]: in Aor_draft, they made a distinction between protons in the cytoplasm 
+and protons in the cytoplasm participating in energy metabolism. In Ani draft,
+hydrogen does not exist, only H+. But when we link through chebi, hydrogen and
+H+ get the same replacement_id in Aor_draft.
+
+- For the fatty acid, probably there was a mistake in the original annotation.
+linolenoyl-CoA should really be C183COA and not C182COA, as it has 3 double 
+bonds. The one with 2 double bonds is linoleoyl-CoA, so easy to make a mistake.
+
+For linolenoyl-CoA[c], leave the change as is. This should be fine, we just have
+two different names linked to a single ID, but that should be fine and should 
+happen often anyway when mapping between species.
+
+For H_PO, it is probably best to keep the original ID. Make sure that in the end
+of the script this is still true.
+
+```{r}
+Aor_reduced$METS[Aor_reduced$METS$ID == "H(+) (energy metabolism)[c]","REPLACEMENT ID"] <- "H_PO[c]"
+```
+
+Continue with the unlinked metabolites:
+
+```{r}
+target <- Aor_reduced$METS[!Aor_reduced$METS$CHEBI_ID %in% CHEBI_ID_both,]
+```
+
+## Name
+
+```{r}
+sum(tolower(target$NAME) %in% tolower(Ani_draft$METS$NAME))
+sum(tolower(target$ID) %in% tolower(Ani_draft$METS$ID)) 
+# so the 44 you lose here are by definition unique to Aor, because while the 
+# name is existing in Ani, it is not existing in that compartment
+```
+
+```{r}
+NAME_both <- tolower(target$NAME)[tolower(target$NAME) %in% tolower(Ani_draft$METS$NAME)]
+ID_both <-  tolower(target$ID)[tolower(target$ID) %in% tolower(Ani_draft$METS$ID)]
+```
+
+We probably will never be able to map these metabolites between Aor and Ani,
+i.e., they exist in both Aor and Ani, but only in Aor it (also) exists a 
+different compartment.
+
+```{r}
+ID_altcomp <- tolower(target$ID)[tolower(target$NAME) %in% NAME_both &
+                            !tolower(target$ID) %in% ID_both]
+```
+
+```{r}
+table(Aor_reduced$METS$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`)
+Aor_reduced$METS$`REPLACEMENT ID`[match(ID_both, tolower(Aor_reduced$METS$ID))] <- Ani_draft$METS$`REPLACEMENT ID`[match(ID_both, tolower(Ani_draft$METS$ID))]
+table(Aor_reduced$METS$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`)
+```
+
+```{r}
+length(Aor_reduced$METS$`REPLACEMENT ID`)
+length(unique(Aor_reduced$METS$`REPLACEMENT ID`)) # linolenoyl-CoA, not a problem
+```
+
+Continue with the unlinked metabolites:
+
+```{r}
+target <- target[!tolower(target$ID) %in% ID_both,]
+```
+
+## Replacement ID
+
+```{r}
+sum(target$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`) # these are okay
+```
+
+```{r}
+Ani_draft$METS$`REPLACEMENT NAME` <- gsub("\\[.*","",Ani_draft$METS$`REPLACEMENT ID`)
+target$`REPLACEMENT NAME` <- gsub("\\[.*","",target$`REPLACEMENT ID`)
+
+replacement_NAME_both <- target$`REPLACEMENT NAME`[target$`REPLACEMENT NAME` %in% Ani_draft$METS$`REPLACEMENT NAME`]
+replacement_ID_both <- target$`REPLACEMENT ID`[target$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`]
+```
+
+```{r}
+replacement_altcomp <- target$`REPLACEMENT ID`[target$`REPLACEMENT NAME` %in% replacement_NAME_both & 
+                                   !target$`REPLACEMENT ID` %in% replacement_ID_both]
+```
+
+Map oryzae metabolites to niger:
+
+```{r}
+table(Aor_reduced$METS$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`)
+Aor_reduced$METS$`REPLACEMENT ID`[match(replacement_ID_both, Aor_reduced$METS$`REPLACEMENT ID`)] <- Ani_draft$METS$`REPLACEMENT ID`[match(replacement_ID_both, Ani_draft$METS$`REPLACEMENT ID`)]
+table(Aor_reduced$METS$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`)
+```
+
+```{r}
+length(Aor_reduced$METS$`REPLACEMENT ID`)
+length(unique(Aor_reduced$METS$`REPLACEMENT ID`)) # linolenoyl-CoA, not a problem
+```
+
+Continue with the unlinked metabolites:
+
+```{r}
+target <- target[!target$`REPLACEMENT ID` %in% replacement_ID_both,]
+```
+
+## KEGG
+
+### Get kegg based on Chebi
+
+The file kegg_chebi_dict.csv was created by running the script 
+`map_kegg_chebi.ipynb`. This file contains curated links between CHEBI and KEGG
+metabolite identifiers, and was constructed for the Bioservices Python library.
+
+```{r}
+kegg_chebi_dict <- read.csv2("../data/intermediate/kegg_chebi_dict.csv", header=FALSE, sep=",")
+
+# wrangle
+colnames(kegg_chebi_dict) <- c("KEGG","CHEBI")
+kegg_chebi_dict$KEGG <- gsub("cpd:","",kegg_chebi_dict$KEGG)
+kegg_chebi_dict$CHEBI <- gsub("chebi:","CHEBI:",kegg_chebi_dict$CHEBI)
+
+target$KEGG_v2 <- kegg_chebi_dict$KEGG[match(target$CHEBI,kegg_chebi_dict$CHEBI)]
+```
+
+```{r}
+# 2-Deoxy-D-ribose 5-phosphate should get C00673
+# succinate semialdehyde should get C00232 
+# (2S)-2-isopropyl-3-oxosuccinate should get C04236
+Aor_before$METS[Aor_before$METS$ID %in% c("2-deoxy-D-ribose 5-phosphate[c]",
+                                          "(2S)-2-isopropyl-3-oxosuccinate[c]",
+                                          "succinate semialdehyde[c]",
+                                          "D-ribose 5-phosphate[m]",
+                                          "succinate[p]"),c(2,9)]
+
+
+rbind(target[target$ID == "2-deoxy-D-ribose 5-phosphate[c]",c(2,12,15)],
+      target[target$ID == "(2S)-2-isopropyl-3-oxosuccinate[c]",c(2,12,15)],
+      target[target$ID == "succinate semialdehyde[c]",c(2,12,15)])
+```
+
+### Get kegg based on name
+
+```{r}
+name_query <- tolower(unique(target$NAME))
+namesLink <- match(tolower(target$NAME),name_query)
+name_query <- gsub(",", " ", name_query) # it works to replace commas for spaces
+```
+
+```{r,eval=FALSE}
+addKEGG <- lapply(name_query, function(x){
+  #print(x)
+  query <- keggFind(database = "compound", query = x)
+  return(cbind(x,
+               paste0(gsub("cpd:", "", names(query)),collapse="/"),
+               paste0(unname(query),collapse="/")))
+})
+
+saveRDS(addKEGG,"../data/intermediate/oryzae_NAMEtoKEGG_keggrest.rds")
+```
+
+```{r}
+addKEGG <- readRDS("../data/intermediate/oryzae_NAMEtoKEGG_keggrest.rds")
+
+target$KEGG_v3 <- sapply(addKEGG, function(x){x[2]})[namesLink]
+target$KEGG_v3[target$KEGG_v3==""] <- NA
+
+target$AllNames <- sapply(addKEGG, function(x){x[3]})[namesLink]
+target$AllNames[target$AllNames==""] <- NA
+```
+
+```{r}
+table(!is.na(target$KEGG))
+table(!is.na(target$KEGG)|!is.na(target$KEGG_v2))
+table(!is.na(target$KEGG)|!is.na(target$KEGG_v2)|!is.na(target$KEGG_v3))
+```
+
+```{r}
+rbind(target[target$ID == "2-deoxy-D-ribose 5-phosphate[c]",c(2,12,15,16)],
+      target[target$ID == "(2S)-2-isopropyl-3-oxosuccinate[c]",c(2,12,15,16)],
+      target[target$ID == "succinate semialdehyde[c]",c(2,12,15,16)])
+```
+
+TODO: my acquired KEGGs are correct, these three originals for sure are wrong.
+My only mistake is that I wanted to for sure keep v2, but then I overwrite with
+v1 for some. But in addition, use v3 for these in stead of v1.
+
+
+### Consolidate KEGGs
+
+I will assume that Kegg_v2 is always right, as it builds on a link between
+CHEBI and KEGG
+
+```{r}
+target$KEGG_final <- target$KEGG_v2
+target[is.na(target$KEGG_final) &
+         ! is.na(target$KEGG),c("KEGG","KEGG_v3")] # all original KEGGs also look good
+index <- which(is.na(target$KEGG_final) & !is.na(target$KEGG))
+target$KEGG_final[index] <- target$KEGG[index]
+
+# Add kegg_v3 if it is a unique hit
+index <- which(is.na(target$KEGG_final) &
+                 !is.na(target$KEGG_v3) &
+                 lengths(strsplit(target$KEGG_v3,"/")) == 1)
+target$KEGG_final[index] <- target$KEGG_v3[index]
+
+
+hlp <- target[is.na(target$KEGG_final) &
+         !is.na(target$KEGG_v3),c("NAME","KEGG_v3")]
+# for these 41 remaining it is tricky: we matched multiple keggs to the name.
+# It is usually the first hit, but not always. We need to manually inspect this
+```
+
+```{r}
+# "N-carbamoyl-?-alanine" should be N-Carbamoyl-beta-alanine, which is the same as  	
+# 3-Ureidopropionate
+# target$NAME[grepl("N-carbamoyl-\\?-alanine", target$NAME)] <- "3-Ureidopropionate"
+
+curated <- list(c("4-hydroxybenzoate", "C00156"),
+                c("pimelate", "C02656"),
+                c("8-amino-7-oxononanoate", "C01092"),
+                c("averantin", "C20499"),
+                c("carbamate", "C01563"),
+                c("chitobiose", "C01674"),
+                c("cinnamate","C00423"), # this is actually trans-cinnamate, nut thats whats used in the GEM
+                c("citramalate", "C00815"),
+                c("D-aspartate", "C00402"),
+                c("dihydrosterigmatocystin", "C20445"),
+                c("geranylgeranyl diphosphate", "C00353"),
+                c("HX", "C00462"),
+                c("indole-3-acetate","C00954"),
+                c("itaconate", "C00490"),
+                c("L-ribulose", "C00508"),
+                c("mesaconate", "C01732"),
+                c("maltotriose", "C01835"),
+                c("1D-myo-inositol 1,4-bisphosphate", "C01220"),
+                c("4alpha-methylzymosterol", "C05103"),
+                c("naringenin", "C00509"),
+                c("norsolorinic acid","C20452"),
+                c("3,4-dihydroxybenzoate", "C00230"),
+                c("RX", "C01322"),
+                c("tagatose 6-phosphate","C01097"), # this is D-tagatose-6P, for L- its C06312
+                c("tagatose", "C00795"), # This is for D-Tagatose, for L- its C21523
+                c("thiamin diphosphate", "C00068"),
+                c("N-carbamoyl-\\?-alanine", "C02642"),
+                c("urocanate", "C00785"),
+                c("versiconal", "C20507"),
+                c("chitobiose", "C01674"),
+                c("itaconate", "C00490"),
+                c("L-ribulose", "C00508"),
+                c("CMP", "C00055"),
+                c("heme a", "C15670"),
+                c("nicotinate", "C00253"),
+                c("orotate", "C00295"),
+                c("D-ribose 5-phosphate", "C00117"),
+                c("glycolate", "C00160"),
+                c("succinate", "C00042"),
+                c("xanthine", "C00385"))
+```
+
+```{r}
+for (element in curated) {
+  target$KEGG_final[grep(element[1],target$NAME)] <- element[2]
+}
+
+target$KEGG_v2 <- target$KEGG_v3 <- NULL
+sum(is.na(target$KEGG_final)) # So only 40 metabolites without kegg left.
+
+target$KEGG <- target$KEGG_final
+target$KEGG_final <- NULL
+```
+
+### Map KEGG
+
+```{r}
+target$KEGG_ID <- paste0(target$KEGG, "[", target$COMPARTMENT, "]")
+target$KEGG_ID[grepl("NA\\[",target$KEGG_ID)] <- NA
+```
+
+```{r}
+Ani_draft$METS$KEGG_ID <- paste0(Ani_draft$METS$KEGG, "[", Ani_draft$METS$COMPARTMENT, "]")
+Ani_draft$METS$KEGG_ID[grepl("NA\\[",Ani_draft$METS$KEGG_ID)] <- NA
+
+# Get KEGG_self_ID columns
+Ani_draft$METS$KEGG_self_ID <- NA
+Ani_draft$METS$KEGG_self_ID[which(!is.na(Ani_draft$METS$KEGG_self))] <- unlist(lapply(which(!is.na(Ani_draft$METS$KEGG_self)),function(index){
+  hlp <- unlist(strsplit(Ani_draft$METS$KEGG_self[index],"/"))
+  paste0(hlp,"[",Ani_draft$METS$COMPARTMENT[index],"]",collapse = "/")
+}))
+```
+
+```{r}
+table(target$KEGG %in% Ani_draft$METS$KEGG[!is.na(Ani_draft$METS$KEGG)])
+table(target$KEGG_ID %in% Ani_draft$METS$KEGG_ID[!is.na(Ani_draft$METS$KEGG_ID)])
+
+# Does not take properly handle metabolites with multiple KEGGs...
+table(target$KEGG %in% Ani_draft$METS$KEGG_self[!is.na(Ani_draft$METS$KEGG_self)])
+table(target$KEGG_ID %in% Ani_draft$METS$KEGG_self_ID[!is.na(Ani_draft$METS$KEGG_self_ID)])
+
+# But since this gives no extra hits, we can safely use the above.
+table(target$KEGG[!is.na(target$KEGG)] %in% unlist(strsplit(Ani_draft$METS$KEGG_self,"/")))
+table(target$KEGG_ID[!is.na(target$KEGG_ID)] %in% unlist(strsplit(Ani_draft$METS$KEGG_self_ID,"/")))
+```
+
+```{r}
+KEGG_both <- target$KEGG[target$KEGG %in% Ani_draft$METS$KEGG_self[!is.na(Ani_draft$METS$KEGG_self)]]
+KEGG_ID_both <- target$KEGG_ID[target$KEGG_ID %in% Ani_draft$METS$KEGG_self_ID[!is.na(Ani_draft$METS$KEGG_self_ID)]]
+```
+
+```{r}
+KEGG_altcomp <- target$KEGG_ID[target$KEGG %in% KEGG_both & 
+                                 !target$KEGG_ID %in% KEGG_ID_both]
+KEGG_altcomp
+```
+Map oryzae metabolites to niger:
+
+```{r}
+Aor_reduced$METS$KEGG[match(target$ID, Aor_reduced$METS$ID)] <- target$KEGG
+Aor_reduced$METS$KEGG_ID[match(target$ID, Aor_reduced$METS$ID)] <- target$KEGG_ID
+
+table(Aor_reduced$METS$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`)
+Aor_reduced$METS$`REPLACEMENT ID`[match(KEGG_ID_both, Aor_reduced$METS$KEGG_ID)] <- Ani_draft$METS$`REPLACEMENT ID`[match(KEGG_ID_both, Ani_draft$METS$KEGG_self_ID)]
+table(Aor_reduced$METS$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`)
+```
+
+```{r}
+length(Aor_reduced$METS$`REPLACEMENT ID`)
+length(unique(Aor_reduced$METS$`REPLACEMENT ID`))
+```
+
+```{r}
+hlp <- Aor_reduced$METS[Aor_reduced$METS$`REPLACEMENT ID` %in% 
+                   Aor_reduced$METS$`REPLACEMENT ID`[duplicated(Aor_reduced$METS$`REPLACEMENT ID`)],c(2,3,5,9)]
+hlp
+```
+
+Possible issue: KEGGs C00117 and C00042
+
+```{r}
+Aor_reduced$METS[Aor_reduced$METS$KEGG %in% c("C00117","C00042"),c(2,9,11,12)]
+Aor_before$METS[Aor_before$METS$ID %in% c("2-deoxy-D-ribose 5-phosphate[c]",
+                                          "(2S)-2-isopropyl-3-oxosuccinate[c]",
+                                          "succinate semialdehyde[c]",
+                                          "D-ribose 5-phosphate[m]",
+                                          "succinate[p]"),c(2,9)]
+Ani_draft$METS[Ani_draft$METS$KEGG %in% c("C00117","C00042"),c(2,9,12,11)]
+```
+
+Indeed a mistake in our automatic KEGG annotation for:
+
+```{r}
+# 2-Deoxy-D-ribose 5-phosphate should get C00673
+# succinate semialdehyde should get C00232 
+# (2S)-2-isopropyl-3-oxosuccinate should get C04236
+
+
+```
+
+An important quest is: where do these mistakes come from? 
+Which KEGG acquirement strategy introduced these mistakes?
+
+---> good news, not a mistake of mine ;) all three are mistakes in the original
+annotation!
+
+
+Continue with the unlinked metabolites:
+
+```{r}
+target <- target[!target$KEGG_ID %in% KEGG_ID_both,]
+```
+
+# Altcomp
+
+```{r}
+altcomp <- unique(c(which(target$`REPLACEMENT ID` %in% replacement_altcomp),
+                    which(target$ID %in% ID_altcomp),
+                    which(target$CHEBI_ID %in% CHEBI_altcomp),
+                    which(target$KEGG_ID %in% KEGG_altcomp)))
+length(altcomp) # I expect up front that these metabolites do not exist in the
+# same compartment in Aor as they do in Ani. The remaining 217 could potentially 
+# be saved, or just be metabolites unique to oryzae compared to niger
+```
+
+```{r}
+index_Aor <- which(Aor_reduced$METS$KEGG_ID %in% KEGG_altcomp)
+
+# link
+Aor_reduced$METS$`REPLACEMENT ID`[index_Aor] <- Ani_draft$METS$`REPLACEMENT ID`[match(gsub("\\[.*","",KEGG_altcomp),Ani_draft$METS$KEGG_self)]
+
+# fix compartments
+Aor_reduced$METS$`REPLACEMENT ID`[index_Aor] <- gsub("\\[.\\]", "",
+     Aor_reduced$METS$`REPLACEMENT ID`[index_Aor])
+
+Aor_reduced$METS$`REPLACEMENT ID`[index_Aor] <- paste0(Aor_reduced$METS$`REPLACEMENT ID`[index_Aor],
+                                                  "[",
+                                                  Aor_reduced$METS$COMPARTMENT[index_Aor],
+                                                  "]")
+```
+
+```{r}
+altcomp_todo <- setdiff(altcomp,which(target$KEGG_ID %in% KEGG_altcomp))
+all(altcomp_todo %in% which(target$`REPLACEMENT ID` %in% replacement_altcomp))
+all(altcomp_todo %in% which(target$ID %in% ID_altcomp))
+all(altcomp_todo %in% which(target$CHEBI_ID %in% CHEBI_altcomp))
+
+# all remaining altcomps can be fixed through replacement ID
+
+# these are the replacement IDs in Aor
+target$`REPLACEMENT ID`[setdiff(altcomp,which(target$KEGG_ID %in% KEGG_altcomp))]
+
+# these are the replacement IDs in Ani
+index_Aor <- which(Aor_reduced$METS$`REPLACEMENT ID` %in% target$`REPLACEMENT ID`[setdiff(altcomp,which(target$KEGG_ID %in% KEGG_altcomp))])
+hlp <- Aor_reduced$METS$`REPLACEMENT ID`[index_Aor]
+Ani_draft$METS$`REPLACEMENT ID`[match(gsub("\\[.*","",hlp),Ani_draft$METS$`REPLACEMENT NAME`)]
+
+# which essentially means we dont need to do anything. The metabolites are
+# properly matched through replacement ID, and are just in different 
+# compartments
+```
+
+```
+Aor_reduced_consolidated <- Aor_reduced
+write.xlsx(Aor_reduced_consolidated, "../model/Aor_reduced_consolidated.xlsx",sep.names = " ")
+Aor_reduced_consolidated <- read_excel_allsheets("../model/Aor_reduced_consolidated.xlsx")
+```
+
+```{r}
+Aor_reduced_consolidated <- Aor_reduced
+write.xlsx(Aor_reduced_consolidated$METS[,c("NAME", "COMPARTMENT","REPLACEMENT ID")], "../data/intermediate/Aor_reduced_metabolite_table.xlsx")
+```
+
+
+# Final rescue
+
+```{r}
+table(tolower(Aor_reduced_consolidated$METS$`REPLACEMENT ID`) %in% tolower(Ani_draft$METS$`REPLACEMENT ID`))
+# of which 65 for sure cannot be fixed
+```
+
+```{r}
+target <- target[-altcomp,]
+```
+
+# Final rescue - devel
+
+We have a lot of info on these, but still no match with Ani (where we also have
+quite a lot of info). So, these really might be unique metabolites to Aor 
+(or at least our Aor draft). But how can we be sure. Because most of these 
+metabolites dont look that exotic.
+
+```{r}
+table(!is.na(target$KEGG))
+table(!is.na(target$CHEBI))
+table(!is.na(target$CHEBI)|!is.na(target$KEGG))
+```
+
+## curation
+
+TODO: do this for Aor_reduced
+
+```{r}
+# manually add/curate some info
+target[grep("trans-4-coumarate", target$NAME),c("ID", "NAME", "KEGG","KEGG_ID")] <- c(
+  "4-coumarate[c]","4-coumarate","C00811","C00811[c]")
+
+target[grep("1,8-DHN", target$NAME),c("ID", "NAME", "CHEBI","CHEBI_ID")] <- c(
+  "naphthalene-1,8-diol[c]","naphthalene-1,8-diol","CHEBI:167604","CHEBI:167604[c]")
+
+target[which(target$ID == "N-carbamoyl-?-alanine[c]"),"ID"] <- "3-Ureidopropionate[c]"
+
+# could change 2',4,4',6'-tetrahydroxychalcone[c] to Naringenin chalcone[c]
+
+target[which(target$ID == "2,5-diamino-6-hydroxy-4-(5'-phosphoribosylamino)-pyrimidine[c]"),c("ID","NAME","KEGG","KEGG_ID")] <-
+  c("2,5-diamino-6-(1-D-ribosylamino)pyrimidin-4(3H)-one 5'-phosphate[c]",
+    "2,5-diamino-6-(1-D-ribosylamino)pyrimidin-4(3H)-one 5'-phosphate",
+    "C01304","C01304[c]")
+
+# Remove from Aor because it makes consolidation of Aor and Ani diifficult and
+# the same reaction is already present (but with different intermediate).
+5-amino-6-(5-phosphoribosylamino)uracil[c]
+
+```
+
+## "Surely" unique for oryzae
+
+We never know for sure, but at least we can be pretty conficent here:
+
+```{r}
+Aor_unique <- c("aflatoxin B1[c]","aflatoxin B2[c]","aflatoxin G1[c]",
+                "aflatoxin G2[c]", "intermediate methylzymosterol II[c]",
+                "intermediate zymosterol II[c]", 
+                "intermediate methylzymosterol I[c]", 
+                "intermediate zymosterol I[c]", "4alpha-methylzymosterol[c]",
+                "heme a[m]", "heme o[m]", "apocytochrome C[m]",
+                "cytochrome c[m]","isopenicillin N[c]","penicillins[c]",
+                "penicillanic acid[c]","penicillin G[c]",
+                "L-selenocysteinyl-tRNA(Sec)[c]", "selenophosphate[c]",
+                "L-cysteinylglycine[c]",
+                "N-[L-5-amino-5-carboxypentanoyl]-L-cysteinyl-D-valine[c]",
+                "tagatose 6-phosphate[c]",
+                "D-tagatofuranose 1,6-bisphosphate[c]","tagatose[c]",
+                "tagatose[e]","averufin[c]","averantin[c]",
+                "5-hydroxyaverantin[c]","versiconal hemiacetal acetate[c]",
+                "versicolorin B[c]","versiconal[c]","versicolorin A[c]",
+                "dihydrodemethylsterigmatocystin[c]",
+                "dihydro-O-methylsterigmatocystin[c]",
+                "dihydrosterigmatocystin[c]","6-demethylsterigmatocystin[c]",
+                "7-O-methylsterigmatocystin[c]","sterigmatocystin[c]",
+                "vermelone[c]","scytalone[c]","naphthalene-1,3,8-triol[c]",
+                "1,8-DHN[c]","melanins[c]", "sarcosine[c]", "sarcosine[m]", 
+                "N,N-dimethylglycine[c]", "N,N-dimethylglycine[m]",
+                "betaine aldehyde[c]", "glycine betaine[c]", "chitobiose[c]",
+                "chitobiose[e]","norsolorinic acid[c]","FMN[c]","FMN[e]",
+                "FMN[m]","vestine[c]","ferreirin[c]","eriodictyol[c]",
+                "2',4,4',6'-tetrahydroxychalcone[c]","4-coumaroyl-CoA[c]",
+                "tryptamine[c]","3-Ureidopropionate[c]","5,6-dihydrouracil[c]")
+
+target <- target[!target$ID %in% Aor_unique,]
+View(target[!duplicated(target$NAME),c("ID","CHEBI","KEGG","AllNames"),])
+```
+
+Riboflavin metabolism
+
+KEGG ====================
+ 	
+*3.5.4.25)* GTP + 4 H2O <=> Formate + 2,5-Diamino-6-(5-phospho-D-ribosylamino)pyrimidin-4(3H)-one + 2 Orthophosphate
+
+Option 1:
+*3.5.4.26)*  2,5-Diamino-6-(5-phospho-D-ribosylamino)pyrimidin-4(3H)-one + H2O <=> 5-Amino-6-(5'-phosphoribosylamino)uracil + Ammonia
+*1.1.1.193)* 5-Amino-6-(5'-phosphoribosylamino)uracil + NADPH + H+ <=> 5-Amino-6-(5'-phospho-D-ribitylamino)uracil + NADP+
+
+Option 2:
+*1.1.1.302)* 2,5-Diamino-6-(5-phospho-D-ribosylamino)pyrimidin-4(3H)-one + NADPH + H+ <=> 2,5-Diamino-6-(5-phospho-D-ribitylamino)pyrimidin-4(3H)-one + NADP+
+*5.4.99.28)* 2,5-Diamino-6-(5-phospho-D-ribitylamino)pyrimidin-4(3H)-one + H2O <=> 5-Amino-6-(5'-phospho-D-ribitylamino)uracil + Ammonia
+
+*3.1.3.104)* 5-Amino-6-(5'-phospho-D-ribitylamino)uracil + H2O <=> 5-Amino-6-(1-D-ribitylamino)uracil + Orthophosphate
+*2.5.1.78)*  5-Amino-6-(1-D-ribitylamino)uracil + L-3,4-Dihydroxybutan-2-one 4-phosphate <=> 6,7-Dimethyl-8-(D-ribityl)lumazine + 2 H2O + Orthophosphate
+
+Aor =====================
+
+*3.5.4.25)* GTP[c] => 2,5-diamino-6-hydroxy-4-(5'-phosphoribosylamino)-pyrimidine[c] + formate[c] + diphosphate[c]
+
+Option 1:
+*3.5.4.26)* 2,5-diamino-6-hydroxy-4-(5'-phosphoribosylamino)-pyrimidine[c] => *5-amino-6-(5-phosphoribosylamino)uracil[c]* + NH3[c]
+*1.1.1.193)* 5-amino-6-(5-phosphoribosylamino)uracil[c] + NADPH[c] => 5-amino-6-(5'-phosphoribitylamino)uracil[c] + NADP(+)[c]
+
+*3.1.3.-)* 5-amino-6-(5'-phosphoribitylamino)uracil[c] + H2O[c] => 5-amino-6-ribityluracil[c] + phosphate[c]	
+*empty)* 5-amino-6-ribityluracil[c] + 2-hydroxy-3-oxobutyl phosphate[c] => 6,7-dimethyl-8-(1-D-ribityl)lumazine[c] + 2 H2O[c] + phosphate[c]
+
+Ani =====================
+
+*3.5.4.25)* GTP[c] + 3 Water[c] => Formate[c] + Pyrophosphate[c] + 2,5-diamino-6-(1-D-ribosylamino)pyrimidin-4(3H)-one 5'-phosphate[c]	
+
+Option 2:
+*1.1.1.302)* NADPH[c] + 2,5-diamino-6-(1-D-ribosylamino)pyrimidin-4(3H)-one 5'-phosphate[c] => NADP+[c] + 2,5-diamino-6-(5-phosphono)ribitylamino-4(3H)-pyrimidinone[c]	
+*3.5.4.26)* Water[c] + 2,5-diamino-6-(5-phosphono)ribitylamino-4(3H)-pyrimidinone[c] => 2 Intracellular protons[c] + Ammonia[c] + *5-amino-6-(5-phospho-β-D-ribosylamino)uracil[c]*
+
+*3.1.3.104)* 2 Intracellular protons[c] + Water[c] + 5-amino-6-(5-phospho-β-D-ribosylamino)uracil[c] => Orthophosphate[c] + 5-amino-6-(D-ribitylamino)uracil[c]
+*2.5.1.78)* 2-hydroxy-3-oxobutyl phosphate[c] + 5-amino-6-(D-ribitylamino)uracil[c] => 2 Water[c] + Orthophosphate[c] + 6,7-dimethyl-8-(1-D-ribityl)lumazine[c]
+
+So:
+Strong suspicion that
+1. In Aor, enzyme 3.1.3.- should be 3.1.3.104
+2. In Ani, enzyme 3.5.4.26 should be 5.4.99.28
+3. 5-amino-6-(5-phosphoribosylamino)uracil[c] and 5-amino-6-(5-phospho-β-D-ribosylamino)uracil[c] both have CHEBI:18337. However, the former is created by removing NH3 from the starting compound, while the later is created by reduction and removing NH3. In KEGG, they are two different
+
+This leads me to:
+1) Replace EC:3.5.4.26 with EC:5.4.99.28 in Ani_Draft
+2) Remove metabolite 5-amino-6-(5-phosphoribosylamino)uracil[c] in Aor_draft. TODO: check if this automatically removes the reaction in RAVEN.
+3) Consolidate: change 5-amino-6-(5'-phosphoribitylamino)uracil in Aor to 5-amino-6-(5-phospho-β-D-ribosylamino)uracil from Ani. Remove the CHEBI in both, and give both KEGG C00454.
+4) Consolidate: change 5-amino-6-ribityluracil[c] in Aor to 5-amino-6-(D-ribitylamino)uracil[c], give both KEGG C04732
+5) 
+
+
+
+5-amino-6-(D-ribitylamino)uracil[c] == 5-amino-6-ribityluracil[c] == C04732
+2-hydroxy-3-oxobutyl phosphate[c] == 2-hydroxy-3-oxobutyl phosphate[c] == C15556
+6,7-dimethyl-8-(1-D-ribityl)lumazine[c] = 6,7-dimethyl-8-(1-D-ribityl)lumazine[c] == C04332
+
+```{r}
+rbind(target[which(target$ID == "6,7-dimethyl-8-(1-D-ribityl)lumazine[c]"),c("ID","CHEBI","KEGG")])
+```
+
+```{r}
+which(Aor_reduced$METS$ID == "6,7-dimethyl-8-(1-D-ribityl)lumazine[c]")
+Aor_draft$METS[grepl("oxobutyl", Aor_draft$METS$ID),]
+```
+
+```{r}
+rbind(Aor_reduced$METS[which(Aor_reduced$METS$ID == "2-hydroxy-3-oxobutyl phosphate[c]"),c("ID","CHEBI","KEGG")])
+```
+
+```{r}
+rbind(Ani_draft$METS[which(Ani_draft$METS$NAME == "2-hydroxy-3-oxobutyl phosphate"),c("ID","CHEBI","KEGG")])
+```
+
+```{r}
+Ani_draft$METS[grepl("2,5-diamino-6-\\(5-phosphono\\)ribitylamino-4\\(3H\\)-pyrimidinone", Ani_draft$METS$NAME,ignore.case = TRUE),]
+Ani_draft$METS[which(Ani_draft$METS$NAME == "5-amino-6-(5-phospho-β-D-ribosylamino)uracil"),]
+```
+
+# Issues
+
+## zymosterol
+
+For now I assumed the mechnaism are different, but they could just be synonyms 
+or resolution differences. Asked Ed for help.
+
+Ani ====================
+Lanosterol[c] + 3 NADPH[c] + 3 Oxygen[c] => 4,4-Dimethyl-5alpha-cholesta-8,14,24-trien-3beta-ol[c] + Formate[c] + 4 Water[c] + 3 NADP+[c]
+4,4-Dimethyl-5alpha-cholesta-8,14,24-trien-3beta-ol[c] + NADPH[c] => 14-Demethyllanosterol[c] + NADP+[c]
+14-demethyllanosterol[c] + 3 NADPH[c] + 3 Oxygen[c] => 4-methylcholesta-8,24-diene-3-ol-4-carboxylate[c] + Intracellular protons[c] + 4 Water[c] + 3 NADP+[c]
+4-methylcholesta-8,24-diene-3-ol-4-carboxylate[c] + Intracellular protons[c] => 4-methylcholesta-8,24-diene-3-ol[c] + Carbon dioxide[c]
+4-methylcholesta-8,24-diene-3-ol[c] + 3 NADPH[c] + 3 Oxygen[c] => 3-dehydro-4-carboxyzymosterol[c] + 2 Intracellular protons[c] + 4 Water[c] + 3 NADP+[c]
+3-dehydro-4-carboxyzymosterol[c] + 2 Intracellular protons[c] => Carbon dioxide[c] + Zymosterol[c]
+
+Aor ====================
+lanosterol[c] + oxygen[c] + FADH2[m] => 4,4-dimethylcholesta-8,14,24-trienol[c] + FAD[m]
+4,4-dimethylcholesta-8,14,24-trienol[c] + NADPH[c] => 14-demethyllanosterol[c] + NADP(+)[c]
+14-demethyllanosterol[c] + 3 oxygen[c] => intermediate methylzymosterol I[c]
+intermediate methylzymosterol I[c] => CO2[c] + intermediate methylzymosterol II[c]
+intermediate methylzymosterol II[c] + NADPH[c] => 4alpha-methylzymosterol[c] + NADP(+)[c]
+4alpha-methylzymosterol[c] + 3 oxygen[c] => intermediate zymosterol I[c]
+intermediate zymosterol I[c] => CO2[c] + intermediate zymosterol II[c]
+intermediate zymosterol II[c] + NADPH[c] => zymosterol[c] + NADP(+)[c]
+
+## cytochrome
+
+Aor doesnt care about protons. But then these two reactions which should be
+identical will be separate reactions in the drafts...
+
+Aor ==============
+NADPH[c] + 2 ferricytochrome c[m] => NADP(+)[c] + 2 ferrocytochrome c[m]
+
+2 ferricytochrome c[m] + 4 H(+)[m] + ubiquinol[m] => 4 H(+) (energy metabolism)[c] + 2 ferrocytochrome c[m] + ubiquinone[m]
+
+2 ferrocytochrome c[m] + 4 H(+)[m] + 0.5 oxygen[m] => 4 H(+) (energy metabolism)[c] + 2 ferricytochrome c[m] + H2O[m]
+
+
+Ani =================
+2 Ferricytochrome c[m] + NADPH[c] => 2 Ferrocytochrome c[m] + 2 Intracellular protons[c] + NADP+[c]
+
+2 Ferricytochrome c[m] + 4 Proton (energy metabolism)[m] + Ubiquinol[m] => 2 Ferrocytochrome c[m] + 4 Proton (energy metabolism)[c] + Ubiquinone[m] + 2 Proton[m]
+
+2 Ferrocytochrome c[m] + 4 Proton (energy metabolism)[m] + 0.5 Oxygen[m] + 2 Proton[m] => 2 Ferricytochrome c[m] + 4 Proton (energy metabolism)[c] + Water[m]
+
+## Penicillin
+
+N-[L-5-amino-5-carboxypentanoyl]-L-cysteinyl-D-valine[c] + oxygen[c] => 2 H2O[c] + isopenicillin N[c]
+isopenicillin N[c] + phenylacetyl-CoA[c] => L-2-aminoadipate[c] + coenzyme A[c] + penicillins[c]
+isopenicillin N[c] => penicillin N[c]
+penicillins[c] => penicillanic acid[c]
+penicillins[c] => penicillanic acid[c]
+penicillins[c] => penicillanic acid[c]
+penicillins[c] => penicillanic acid[c]
+penicillins[c] => penicillanic acid[c]
+penicillin G[c] => 
+
+So essentially, 
+1. penicillin G can be extrected but is never used/created anywhere.
+2. penicillin N is a dead-end metabolite
+3. penicillanic acid is a dead-end metabolite
+
+## Chitosan
+
+Chitoson is a huge polymer....
+
+Ani ========
+Chitosan[c] + Water[c] => D-Glucosamine[c]
+
+Aor ========
+chitosan[c] => D-glucosamine[c]
+
+In kegg, R08715:
+Chitosan(n+1) + H2O <=> Chitosan(n) + D-Glucosamine
+
+## Pectin
+
+Ani =========
+Endo-Polygalacturonase	Water[e] + Polygalacturonate[e] => D-Galacturonate[e]	                          NA
+Pectin methyl esterase	Water[e] + Methylated galacturonate[e] => Methanol[e] + Polygalacturonate[e]	  3.1.1.11
+
+
+Aor ==========
+Exo-polygalacturonase	    H2O[e] + pectate[e] => D-galacturonate[e]	    3.2.1.67
+Endo-polygalacturonase	  pectate[e] => D-galacturonate[e]	            3.2.1.15
+Endo-polygalacturonase	  pectate[e] => D-galacturonate[e]	            3.2.1.15
+Endo-polygalacturonase	  pectate[e] => D-galacturonate[e]	            3.2.1.15
+
+So, first off, I think these reactions should always involve H2O.
+Second, it is strange that it is using "Methylated galacturonate" in stead of
+"Methylated polygalacturonate".
+Third, could we say pectate == Polygalacturonate?
+Fourth, in KEGG, these reactions (e.g.) are always specified as
+ 	
+Pectate + H2O <=> Pectate + D-Galacturonate
+
+i.e., with the polymer on both sides. I suppose you cant do that in a GEM, 
+because then the supply of pectate would be eternal.
+
+## Riboflavin metabolism
+
+https://www.kegg.jp/pathway/map00740+C04454
+
+KEGG ====================
+ 	
+*3.5.4.25)* GTP + 4 H2O <=> Formate + 2,5-Diamino-6-(5-phospho-D-ribosylamino)pyrimidin-4(3H)-one + 2 Orthophosphate
+
+*3.5.4.26)* 2,5-Diamino-6-(5-phospho-D-ribosylamino)pyrimidin-4(3H)-one + H2O <=> 5-Amino-6-(5'-phosphoribosylamino)uracil + Ammonia
+*1.1.1.193)* 5-Amino-6-(5'-phosphoribosylamino)uracil + NADPH + H+ <=> 5-Amino-6-(5'-phospho-D-ribitylamino)uracil + NADP+
+
+*1.1.1.302)* 2,5-Diamino-6-(5-phospho-D-ribosylamino)pyrimidin-4(3H)-one + NADPH + H+ <=> 2,5-Diamino-6-(5-phospho-D-ribitylamino)pyrimidin-4(3H)-one + NADP+
+*5.4.99.28)* 2,5-Diamino-6-(5-phospho-D-ribitylamino)pyrimidin-4(3H)-one + H2O <=> 5-Amino-6-(5'-phospho-D-ribitylamino)uracil + Ammonia
+
+*3.1.3.104)* 5-Amino-6-(5'-phospho-D-ribitylamino)uracil + H2O <=> 5-Amino-6-(1-D-ribitylamino)uracil + Orthophosphate
+*2.5.1.78)*  5-Amino-6-(1-D-ribitylamino)uracil + L-3,4-Dihydroxybutan-2-one 4-phosphate <=> 6,7-Dimethyl-8-(D-ribityl)lumazine + 2 H2O + Orthophosphate
+
+Aor =====================
+
+*3.5.4.25)* GTP[c] => 2,5-diamino-6-hydroxy-4-(5'-phosphoribosylamino)-pyrimidine[c] + formate[c] + diphosphate[c]
+*3.5.4.26)* 2,5-diamino-6-hydroxy-4-(5'-phosphoribosylamino)-pyrimidine[c] => 5-amino-6-(5-phosphoribosylamino)uracil[c] + NH3[c]
+*1.1.1.193)* 5-amino-6-(5-phosphoribosylamino)uracil[c] + NADPH[c] => 5-amino-6-(5'-phosphoribitylamino)uracil[c] + NADP(+)[c]
+*3.1.3.-)* 5-amino-6-(5'-phosphoribitylamino)uracil[c] + H2O[c] => 5-amino-6-ribityluracil[c] + phosphate[c]	
+*empty)* 5-amino-6-ribityluracil[c] + 2-hydroxy-3-oxobutyl phosphate[c] => 6,7-dimethyl-8-(1-D-ribityl)lumazine[c] + 2 H2O[c] + phosphate[c]
+
+Ani =====================
+
+*3.5.4.25)* GTP[c] + 3 Water[c] => Formate[c] + Pyrophosphate[c] + 2,5-diamino-6-(1-D-ribosylamino)pyrimidin-4(3H)-one 5'-phosphate[c]	
+*1.1.1.302)* NADPH[c] + 2,5-diamino-6-(1-D-ribosylamino)pyrimidin-4(3H)-one 5'-phosphate[c] => NADP+[c] + 2,5-diamino-6-(5-phosphono)ribitylamino-4(3H)-pyrimidinone[c]	
+*3.5.4.26)* Water[c] + 2,5-diamino-6-(5-phosphono)ribitylamino-4(3H)-pyrimidinone[c] => 2 Intracellular protons[c] + Ammonia[c] + 5-amino-6-(5-phospho-β-D-ribosylamino)uracil[c]
+*3.1.3.104)* 2 Intracellular protons[c] + Water[c] + 5-amino-6-(5-phospho-β-D-ribosylamino)uracil[c] => Orthophosphate[c] + 5-amino-6-(D-ribitylamino)uracil[c]
+*2.5.1.78)* 2-hydroxy-3-oxobutyl phosphate[c] + 5-amino-6-(D-ribitylamino)uracil[c] => 2 Water[c] + Orthophosphate[c] + 6,7-dimethyl-8-(1-D-ribityl)lumazine[c]
+
+So:
+Strong suspicion that
+1. In Aor, enzyme 3.1.3.- should be 3.1.3.104
+2. In Ani, enzyme 3.5.4.26 should be 5.4.99.28
