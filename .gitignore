@@ -2,14 +2,16 @@
 
 ## R.gitignore
 
-# large folders
+# large folders (share through Zenodo?)
 scrap/
 fasta/
+euk90_kegg105/
 
-# large files
+# large files (share through Zenodo?)
 u_clusters.txt
 keep_Aspni7_all_transcripts_20131226.nt.fasta
 INPUT_all_original.fasta
+INPUT_all.faa
 
 # History files
 .Rhistory

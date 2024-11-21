@@ -31,7 +31,7 @@ source("./Rutilities.R")
 
 ```{r}
 # Note: excels should be closed when reading them in R
-Aor_draft <- read_excel_allsheets("../model/Aor_draft_comp.xlsx")
+Aor_draft <- read_excel_allsheets("../data/intermediate/Aor_draft_comp.xlsx")
 
 # Aor_reduced <- read_excel_allsheets("../scrap/Aor_reduced.xlsx")
 Aor_reduced <- read_excel_allsheets("../data/intermediate/Aor_reduced.xlsx")
@@ -57,7 +57,7 @@ Aor_reduced$METS$KEGG[!is.na(Aor_reduced$METS$KEGG)]
 The replacement IDs for both oryzae niger can be improved. If the
 compartment is not cytosol, a trailing compartment name was added. Fix this:
 
-```{r}
+```
 Aor_draft$METS[Aor_draft$METS$NAME %in% c("3-oxoacyl-[acp]","acetoacetyl-CoA"),c(2,3,9)]
 Aor_reduced$METS[Aor_reduced$METS$NAME %in% c("3-oxoacyl-[acp]","acetoacetyl-CoA"),c(2,3,9)]
 ```
@@ -141,17 +141,14 @@ length(Aor_reduced$METS$`REPLACEMENT ID`)
 length(unique(Aor_reduced$METS$`REPLACEMENT ID`))
 ```
 
-```{r}
+```
 hlp <- Aor_reduced$METS[Aor_reduced$METS$`REPLACEMENT ID` %in% 
                    Aor_reduced$METS$`REPLACEMENT ID`[duplicated(Aor_reduced$METS$`REPLACEMENT ID`)],c(2,3,5,9)]
 hlp
 
 Aor_before <- read_excel_allsheets("../data/intermediate/Aor_reduced.xlsx")
 Aor_before$METS[match(hlp$ID, Aor_before$METS$ID),c(2,3,5,9)]
-```
 
-
-```{r}
 Ani_draft$METS[which(Ani_draft$METS$CHEBI == "CHEBI:24636"),c(2,5,9)]
 ```
 
@@ -280,22 +277,6 @@ kegg_chebi_dict$CHEBI <- gsub("chebi:","CHEBI:",kegg_chebi_dict$CHEBI)
 target$KEGG_v2 <- kegg_chebi_dict$KEGG[match(target$CHEBI,kegg_chebi_dict$CHEBI)]
 ```
 
-```{r}
-# 2-Deoxy-D-ribose 5-phosphate should get C00673
-# succinate semialdehyde should get C00232 
-# (2S)-2-isopropyl-3-oxosuccinate should get C04236
-Aor_before$METS[Aor_before$METS$ID %in% c("2-deoxy-D-ribose 5-phosphate[c]",
-                                          "(2S)-2-isopropyl-3-oxosuccinate[c]",
-                                          "succinate semialdehyde[c]",
-                                          "D-ribose 5-phosphate[m]",
-                                          "succinate[p]"),c(2,9)]
-
-
-rbind(target[target$ID == "2-deoxy-D-ribose 5-phosphate[c]",c(2,12,15)],
-      target[target$ID == "(2S)-2-isopropyl-3-oxosuccinate[c]",c(2,12,15)],
-      target[target$ID == "succinate semialdehyde[c]",c(2,12,15)])
-```
-
 ### Get kegg based on name
 
 ```{r}
@@ -333,6 +314,9 @@ table(!is.na(target$KEGG)|!is.na(target$KEGG_v2)|!is.na(target$KEGG_v3))
 ```
 
 ```{r}
+# 2-Deoxy-D-ribose 5-phosphate should get C00673
+# (2S)-2-isopropyl-3-oxosuccinate should get C04236
+# succinate semialdehyde should get C00232 
 rbind(target[target$ID == "2-deoxy-D-ribose 5-phosphate[c]",c(2,12,15,16)],
       target[target$ID == "(2S)-2-isopropyl-3-oxosuccinate[c]",c(2,12,15,16)],
       target[target$ID == "succinate semialdehyde[c]",c(2,12,15,16)])
@@ -341,7 +325,6 @@ rbind(target[target$ID == "2-deoxy-D-ribose 5-phosphate[c]",c(2,12,15,16)],
 TODO: my acquired KEGGs are correct, these three originals for sure are wrong.
 My only mistake is that I wanted to for sure keep v2, but then I overwrite with
 v1 for some. But in addition, use v3 for these in stead of v1.
-
 
 ### Consolidate KEGGs
 
@@ -417,11 +400,11 @@ curated <- list(c("4-hydroxybenzoate", "C00156"),
 
 ```{r}
 for (element in curated) {
-  target$KEGG_final[grep(element[1],target$NAME)] <- element[2]
+  target$KEGG_final[which(target$NAME==element[1])] <- element[2]
 }
 
 target$KEGG_v2 <- target$KEGG_v3 <- NULL
-sum(is.na(target$KEGG_final)) # So only 40 metabolites without kegg left.
+sum(is.na(target$KEGG_final)) # So only 42 metabolites without kegg left.
 
 target$KEGG <- target$KEGG_final
 target$KEGG_final <- NULL
@@ -469,6 +452,7 @@ KEGG_altcomp <- target$KEGG_ID[target$KEGG %in% KEGG_both &
                                  !target$KEGG_ID %in% KEGG_ID_both]
 KEGG_altcomp
 ```
+
 Map oryzae metabolites to niger:
 
 ```{r}
@@ -484,41 +468,6 @@ table(Aor_reduced$METS$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`)
 length(Aor_reduced$METS$`REPLACEMENT ID`)
 length(unique(Aor_reduced$METS$`REPLACEMENT ID`))
 ```
-
-```{r}
-hlp <- Aor_reduced$METS[Aor_reduced$METS$`REPLACEMENT ID` %in% 
-                   Aor_reduced$METS$`REPLACEMENT ID`[duplicated(Aor_reduced$METS$`REPLACEMENT ID`)],c(2,3,5,9)]
-hlp
-```
-
-Possible issue: KEGGs C00117 and C00042
-
-```{r}
-Aor_reduced$METS[Aor_reduced$METS$KEGG %in% c("C00117","C00042"),c(2,9,11,12)]
-Aor_before$METS[Aor_before$METS$ID %in% c("2-deoxy-D-ribose 5-phosphate[c]",
-                                          "(2S)-2-isopropyl-3-oxosuccinate[c]",
-                                          "succinate semialdehyde[c]",
-                                          "D-ribose 5-phosphate[m]",
-                                          "succinate[p]"),c(2,9)]
-Ani_draft$METS[Ani_draft$METS$KEGG %in% c("C00117","C00042"),c(2,9,12,11)]
-```
-
-Indeed a mistake in our automatic KEGG annotation for:
-
-```{r}
-# 2-Deoxy-D-ribose 5-phosphate should get C00673
-# succinate semialdehyde should get C00232 
-# (2S)-2-isopropyl-3-oxosuccinate should get C04236
-
-
-```
-
-An important quest is: where do these mistakes come from? 
-Which KEGG acquirement strategy introduced these mistakes?
-
----> good news, not a mistake of mine ;) all three are mistakes in the original
-annotation!
-
 
 Continue with the unlinked metabolites:
 
@@ -585,7 +534,6 @@ Aor_reduced_consolidated <- read_excel_allsheets("../model/Aor_reduced_consolida
 Aor_reduced_consolidated <- Aor_reduced
 write.xlsx(Aor_reduced_consolidated$METS[,c("NAME", "COMPARTMENT","REPLACEMENT ID")], "../data/intermediate/Aor_reduced_metabolite_table.xlsx")
 ```
-
 
 # Final rescue
 
