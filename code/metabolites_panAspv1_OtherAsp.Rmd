@@ -1,0 +1,275 @@
+---
+title: "Link OtherAsp to panAsp_v1 metabolites"
+author: "Jeroen Gilis"
+date: "21 November 2024"
+output: 
+    html_document:
+      code_download: true
+      theme: cosmo
+      toc: true
+      toc_float: true
+      highlight: tango
+      number_sections: true
+---
+
+# Libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(openxlsx)
+```
+
+# Helpers
+
+```{r}
+source("../code/Rutilities.R")
+```
+
+# Load data
+
+```{r}
+Asp_kegg <- read_excel_allsheets("../scrap/Asp_kegg_loc.xlsx")
+panAsp_v1 <- read_excel_allsheets("../model/panAsp_v1.xlsx")
+Ani_idtokegg <- read.xlsx("../data/intermediate/niger_metabolite_table.xlsx")
+```
+
+# Wrangle data
+
+## panAsp_v1
+
+```{r}
+# Get RepName column
+panAsp_v1$METS$RepName <- gsub("\\[.\\]","",panAsp_v1$METS$`REPLACEMENT ID`)
+
+# Get KEGG column
+panAsp_v1$METS$KEGG <- panAsp_v1$METS$MIRIAM
+panAsp_v1$METS$KEGG[!grepl("kegg",panAsp_v1$METS$KEGG)] <- NA
+panAsp_v1$METS$KEGG <- gsub("\\;.*","",gsub(".*kegg.compound/(.+)", "\\1", panAsp_v1$METS$KEGG))
+
+# Get chebi column
+panAsp_v1$METS$CHEBI <- panAsp_v1$METS$MIRIAM
+panAsp_v1$METS$CHEBI[!grepl("chebi",panAsp_v1$METS$CHEBI)] <- NA
+panAsp_v1$METS$CHEBI <- gsub("\\;.*","",gsub(".*chebi/(.+)", "\\1", panAsp_v1$METS$CHEBI))
+panAsp_v1$METS$CHEBI <- gsub("chebi:CHEBI/", "CHEBI:", panAsp_v1$METS$CHEBI)
+
+# Get KEGG_self column
+panAsp_v1$METS$KEGG_self <- Ani_idtokegg$KEGG_self[match(panAsp_v1$METS$NAME,Ani_idtokegg$NAME)]
+```
+
+## Asp_kegg
+
+```{r}
+# Get RepName column
+Asp_kegg$METS$RepName <- NA
+
+# Get KEGG column
+Asp_kegg$METS$KEGG <- Asp_kegg$METS$MIRIAM
+Asp_kegg$METS$KEGG[!grepl("kegg",Asp_kegg$METS$KEGG)] <- NA
+Asp_kegg$METS$KEGG <- gsub("kegg.compound/","",Asp_kegg$METS$KEGG)
+Asp_kegg$METS$KEGG <- gsub("kegg.glycan/","",Asp_kegg$METS$KEGG)
+Asp_kegg$METS$KEGG <- gsub(";.*","",Asp_kegg$METS$KEGG)
+
+# Get CHEBI column
+Asp_kegg$METS$CHEBI <- Asp_kegg$METS$MIRIAM
+Asp_kegg$METS$CHEBI[!grepl("chebi",Asp_kegg$METS$CHEBI)] <- NA
+Asp_kegg$METS$CHEBI <- gsub("\\;.*","",gsub(".*chebi/(.+)", "\\1", Asp_kegg$METS$CHEBI))
+```
+
+# Update replacementID
+
+## Based on KEGG_self
+
+```{r}
+table(Asp_kegg$METS$KEGG %in% panAsp_v1$METS$KEGG_self)
+```
+
+Note that there are 10 instances where a KEGG ID is ambiguously assigned a 
+replacement ID in the pan genome. As such, we will need to decide (manually) 
+which replacement ID these KEGG IDs should get.
+
+But still be mindful of these metabolites! For instance, C00080 in the pan 
+genome either refers to protons, or protons involved in energy metabolism. If 
+we here set C00080 to just protons, that means that none of the protons in these
+newly added reactions are involved in energy metabolism. Same goes for e.g.
+CDP-diacylglycerol versus Cdp-diacylglycerol used for cardiolipin, 
+Cdp-diacylglycerol used for phosphatidylcholine, etc.
+
+Also difficult, the pan genome only has 1-acyl-sn-glycerol-3-phosphate used for 
+cardiolipin/phosphatidylcholine/phosphatidylethanolamine/phosphatidylserine, but
+not just 1-acyl-sn-glycerol-3-phosphate. Same for 1-acyl-sn-glycerone phosphate.
+
+For Glucocerebroside vs Glucocerebroside2 it is just a difference between
+double bond or not.
+
+```{r}
+panAsp_v1$METS[which(panAsp_v1$METS$KEGG_self == "C00026"),c("ID","REPLACEMENT ID")]
+panAsp_v1$METS[which(panAsp_v1$METS$KEGG_self == "C00080"),c("ID","REPLACEMENT ID")]
+panAsp_v1$METS[which(panAsp_v1$METS$KEGG_self == "C00221"),c("ID","REPLACEMENT ID")]
+panAsp_v1$METS[which(panAsp_v1$METS$KEGG_self == "C00269"),c("ID","REPLACEMENT ID")]
+panAsp_v1$METS[which(panAsp_v1$METS$KEGG_self == "C00334"),c("ID","REPLACEMENT ID")]
+panAsp_v1$METS[which(panAsp_v1$METS$KEGG_self == "C00350"),c("ID","REPLACEMENT ID")]
+panAsp_v1$METS[which(panAsp_v1$METS$KEGG_self == "C00681"),c("ID","REPLACEMENT ID")]
+panAsp_v1$METS[which(panAsp_v1$METS$KEGG_self == "C01190"),c("ID", "COMPOSITION", "REPLACEMENT ID")]
+panAsp_v1$METS[which(panAsp_v1$METS$KEGG_self == "C03372"),c("ID","REPLACEMENT ID")]
+panAsp_v1$METS[which(panAsp_v1$METS$KEGG_self == "C05764"),c("ID","REPLACEMENT ID")]
+```
+
+```{r}
+overwrite <- list("C00026"="AKG",
+     "C00080"="H",
+     "C00221"="bDGLC",
+     "C00269"="CDPDG",
+     "C00334"="GABA",
+     "C00350"="PE",
+     "C00681"="AGL3P",
+     "C01190"="GLUCER",
+     "C03372"="AT3P2",
+     "C05764"="C160ACP")
+```
+
+```{r}
+hlp <- Asp_kegg$METS$KEGG[Asp_kegg$METS$KEGG %in% panAsp_v1$METS$KEGG_self]
+hlp <- unique(hlp[!is.na(hlp)])
+for (element in hlp) {
+    newrepname <- unique(panAsp_v1$METS$RepName[which(panAsp_v1$METS$KEGG_self == element)])
+    target <- which(Asp_kegg$METS$KEGG == element)
+    Asp_kegg$METS$RepName[target] <- rep(newrepname,length(target))
+}
+Asp_kegg$METS[which(Asp_kegg$METS$KEGG %in% names(overwrite)),c("KEGG","RepName")]
+
+for (i in seq_along(overwrite)) { # overwrite ambiguous kegg-replacement links
+    newrepname <- unlist(unname(overwrite)[i])
+    target <- which(Asp_kegg$METS$KEGG == names(overwrite)[i])
+    Asp_kegg$METS$RepName[target] <- rep(newrepname,length(target))
+}
+Asp_kegg$METS[which(Asp_kegg$METS$KEGG %in% names(overwrite)),c("KEGG","RepName")]
+```
+
+```{r}
+table(!is.na(Asp_kegg$METS$RepName))
+```
+
+## Based on KEGG
+
+Again, there is 1 instance where a KEGG ID is ambiguously assigned a 
+replacement ID in the pan genome. As such, we will need to decide (manually) 
+which replacement ID this KEGG ID should get.
+
+```{r}
+panAsp_v1$METS[which(panAsp_v1$METS$KEGG == "C02737"),c("ID","REPLACEMENT ID")]
+overwrite <- list("C02737"="PS")
+```
+
+```{r}
+target <- Asp_kegg$METS[is.na(Asp_kegg$METS$RepName),]
+hlp <- target$KEGG[target$KEGG %in% panAsp_v1$METS$KEGG]
+hlp <- unique(hlp[!is.na(hlp)])
+
+for (element in hlp) {
+    newrepname <- unique(panAsp_v1$METS$RepName[which(panAsp_v1$METS$KEGG == element)])
+    print(element);print(newrepname)
+    target <- which(Asp_kegg$METS$KEGG == element)
+    Asp_kegg$METS$RepName[target] <- rep(newrepname,length(target))
+}
+Asp_kegg$METS$`REPLACEMENT ID`[which(Asp_kegg$METS$KEGG == "C02737")]<-overwrite$C02737
+```
+
+## Based on CHEBI
+
+```{r}
+target <- Asp_kegg$METS[is.na(Asp_kegg$METS$RepName),]
+hlp <- target$CHEBI[target$CHEBI %in% panAsp_v1$METS$CHEBI]
+hlp <- unique(hlp[!is.na(hlp)])
+
+for (element in hlp) {
+    newrepname <- unique(panAsp_v1$METS$RepName[which(panAsp_v1$METS$CHEBI == element)])
+    #print(element);print(newrepname)
+    target <- which(Asp_kegg$METS$CHEBI == element)
+    Asp_kegg$METS$RepName[target] <- rep(newrepname,length(target))
+}
+```
+
+```{r}
+table(!is.na(Asp_kegg$METS$RepName))
+```
+
+## Based on NAME
+
+```{r}
+target <- Asp_kegg$METS[is.na(Asp_kegg$METS$RepName),]
+hlp <- tolower(target$NAME)[tolower(target$NAME) %in% tolower(panAsp_v1$METS$NAME)]
+hlp <- unique(hlp[!is.na(hlp)])
+
+for (element in hlp) {
+    newrepname <- unique(panAsp_v1$METS$RepName[which(tolower(panAsp_v1$METS$NAME) == element)])
+    #print(element);print(newrepname)
+    target <- which(tolower(Asp_kegg$METS$NAME) == element)
+    Asp_kegg$METS$RepName[target] <- rep(newrepname,length(target))
+}
+```
+
+```{r}
+table(!is.na(Asp_kegg$METS$RepName))
+```
+
+```{r}
+Asp_kegg$METS$RepIdNew <- Asp_kegg$METS$`REPLACEMENT ID`
+Asp_kegg$METS$RepIdNew[!is.na(Asp_kegg$METS$RepName)] <- paste0(Asp_kegg$METS$RepName[!is.na(Asp_kegg$METS$RepName)],
+                            "[",
+                            Asp_kegg$METS$COMPARTMENT[!is.na(Asp_kegg$METS$RepName)],
+                            "]")
+Asp_kegg$METS$RepIdNew[is.na(Asp_kegg$METS$RepName)] <- paste0("Added_", Asp_kegg$METS$RepIdNew[is.na(Asp_kegg$METS$RepName)])
+
+output <- data.frame(RepOriginal = Asp_kegg$METS$`REPLACEMENT ID`,
+                     RepConsolidated = Asp_kegg$METS$RepIdNew)
+```
+
+# Write output
+
+```{r}
+write.xlsx(output, "../data/intermediate/OtherAsp_metabolite_table.xlsx")
+```
+
+# Downstream
+
+```
+table(is.na(Asp_kegg$METS$RepName))
+```
+
+So then we are still left with 427 metabolites, and suggestion is that these are
+all unique. To some extent, this does not surprise me, as the fumigatus GEM had 
+a lot of metabolites that were unobserved in the oryzae and niger GEMs.
+
+```
+View(Asp_kegg$METS[is.na(Asp_kegg$METS$RepName),])
+```
+
+But if we inspect these metabolites, I am quite sceptical that some of these 
+would not exist in panAspGEM_v1 yet.
+
+- Glutamate: glutamate in hlp, L-glutamate in pan
+- Fatty acids: always problematic, e.g. Arachidonate is C20, in hlp we also have
+a dump term "Fatty acid", ...
+- Fructose: again stereochemistry differences, perhaps pointing to different
+resolution
+- Glucose: same as fructose, e.g., pan has alpha-D-Glucose 6-phosphate and 
+beta-D-Glucose 6-phosphate, while hlp has D-Glucose 6-phosphate
+
+```
+panAsp_v1$METS[grep("manni", panAsp_v1$METS$NAME, ignore.case = TRUE),
+               c("NAME","KEGG","CHEBI")]
+```
+
+```
+hlp[grep("glucose", hlp$NAME, ignore.case = TRUE),
+    c("NAME","KEGG","CHEBI")]
+```
+
+So, I suppose I connect these 796-427=369 metabolites to panAsp, and then 
+consider the rest as unique, but then curate downstream.
+
+Perhaps it could be useful to keep track of where the unique metabolites in the
+panGEM came from.
+
+
+
+
