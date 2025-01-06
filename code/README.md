@@ -24,14 +24,15 @@ the `data/genome/` folder.
 Note that running BPGA with these settings is equivalent to running [USEARCH](http://drive5.com/usearch/)
 with default settings and a sequence identity cutoff of 0.5.
 
-## xml_to_xlsx.m
-
-
-
 ## genes.rmd
-## construct_drafts.m
-## compartments.rmd
-## create_reduced.mlx
+## construct_panAspGEM.mlx
 ## metabolites_niger.rmd
 ## metabolites_niger_oryzae.rmd
-## combine_Ani_Aor.rmd
+## metabolites_oryzae.rmd
+## metabolites_Ani_Afu.rmd
+## curate_panAsp.mlx
+
+## (curate_panaAsp.rmd and metabolites_panAspv1_OtherAsp.Rmd)
+
+
+

@@ -1,7 +1,7 @@
 ---
 title: "Matching GEMs and BPGA output"
 author: "Jeroen Gilis"
-date: "14 November 2024"
+date: "6 January 2025"
 output: 
     html_document:
       code_download: true
@@ -201,8 +201,8 @@ table myself, and assign them cluster_type_manual "artificial".
 ```{r}
 add_niger <- as.data.frame(matrix(data=NA,nrow=1,ncol=162,dimnames = list(NULL,colnames(res))))
 add_niger$cluster <- max(res$cluster)+1
-add_niger$present_in_n_genomes <-1
-add_niger$cluster_type_manual <"artificial"
+add_niger$present_in_n_genomes <- 1
+add_niger$cluster_type_manual <- "artificial"
 add_niger$niger <- "Unknown5"
 res <- rbind(res, add_niger)
 ```
@@ -312,8 +312,6 @@ Unique, no other proteins catalyzing this reaction:
 - ZY111007: Scytalone dehydratase
 
 - ZY140875: Selenocysteine synthase
-
----
 
 ! Im pretty sure the enzyme for r84 should be AO090001000642 in stead of AO090001000484
 

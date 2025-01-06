@@ -1,0 +1,1315 @@
+---
+title: "Curating panAsp GEM V1"
+author: "Jeroen Gilis"
+date: "12 December 2024"
+output: 
+    html_document:
+      code_download: true
+      theme: cosmo
+      toc: true
+      toc_float: true
+      highlight: tango
+      number_sections: true
+---
+
+# Libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(openxlsx)
+```
+
+# Helpers
+
+```{r}
+source("../code/Rutilities.R")
+```
+
+# Load data
+
+```{r}
+Asp_kegg <- read_excel_allsheets("../scrap/Asp_kegg_loc.xlsx")
+Ani_idtokegg <- read.xlsx("../data/intermediate/niger_metabolite_table.xlsx")
+
+Ani_draft <- read_excel_allsheets("../data/intermediate/Ani_draft_comp.xlsx")
+Aor_draft <- read_excel_allsheets("../data/intermediate/Aor_draft_comp.xlsx")
+
+Ani_reduced <- read_excel_allsheets("../scrap/Ani_reduced.xlsx")
+Afu_reduced <- read_excel_allsheets("../scrap/Afu_reduced.xlsx")
+
+OtherAsp <- read_excel_allsheets("../scrap/OtherAsp_10_50_loc.xlsx")
+panAsp_v1 <- read_excel_allsheets("../data/intermediate/panAsp_v1.xlsx")
+panAsp_v2 <- read_excel_allsheets("../scrap/panAsp_v2.xlsx")
+
+```
+
+# OtherAsp metabolites
+
+I am surprised to see that when the OtherAsp reactions are added to the oryzae
+GEM, 892 novel metabolites (with localization) are created: this seems like a 
+lot.
+
+```{r}
+# Step 1:
+Aor_kegg <- read.xlsx("../data/intermediate/oryzae_kegg.xlsx"); # obtained using R script metabolites_oryzae.Rmd
+all(Aor_draft$METS$NAME == Aor_kegg$NAME) # same order
+
+Aor_draft$METS$`REPLACEMENT ID`[!is.na(Aor_kegg$KEGG)] = Aor_kegg$KEGG[!is.na(Aor_kegg$KEGG)]
+# if a kegg ID was found, use it. Otherwise, retain original ID
+# paste compartment to it
+Aor_draft$METS$`REPLACEMENT ID`[!is.na(Aor_kegg$KEGG)] <- paste0(Aor_draft$METS$`REPLACEMENT ID`[!is.na(Aor_kegg$KEGG)], 
+                                                                 '[', 
+                                                                 Aor_draft$METS$COMPARTMENT[!is.na(Aor_kegg$KEGG)], 
+                                                                 ']');
+
+# Step 2:
+OtherAsp$METS$`REPLACEMENT ID` <- gsub("_Extracellular|_Mitochondrion|_Peroxisome",
+                                       "", OtherAsp$METS$`REPLACEMENT ID`)
+OtherAsp$METS$COMPARTMENT <- gsub("Peroxisome", "p", OtherAsp$METS$COMPARTMENT)
+OtherAsp$METS$COMPARTMENT <- gsub("Extracellular", "e", OtherAsp$METS$COMPARTMENT)
+OtherAsp$METS$COMPARTMENT <- gsub("Mitochondrion", "m", OtherAsp$METS$COMPARTMENT)
+
+OtherAsp$METS$`REPLACEMENT ID` <- paste0(OtherAsp$METS$`REPLACEMENT ID`, "[",
+                                         OtherAsp$METS$COMPARTMENT, "]")
+```
+
+```{r}
+table(OtherAsp$METS$`REPLACEMENT ID` %in% Aor_draft$METS$`REPLACEMENT ID`)
+
+OtherAsp$METS$RepName <- gsub("\\[.\\]", "", OtherAsp$METS$`REPLACEMENT ID`)
+Aor_draft$METS$RepName <- gsub("\\[.\\]", "", Aor_draft$METS$`REPLACEMENT ID`)
+
+table(OtherAsp$METS$RepName %in% Aor_draft$METS$RepName) 
+# so 430-307 = 123 compounds that are in OtherAsp also exist in oryzae,
+# but in a different compartment
+```
+
+```{r}
+OtherAsp$METS[!OtherAsp$METS$RepName %in% Aor_draft$METS$RepName,]
+```
+
+So at least some of these compounds probably do exist already in oryzae, but
+e.g. different resolution (peptide) or different stereochemistry 
+(D-Glucose 6-phosphate).
+
+# Niger metabolites
+
+```{r}
+# Step 1:
+Aor_kegg <- read.xlsx("../data/intermediate/oryzae_kegg.xlsx"); # obtained using R script metabolites_oryzae.Rmd
+all(Aor_draft$METS$NAME == Aor_kegg$NAME) # same order
+
+Aor_draft$METS$`REPLACEMENT ID`[!is.na(Aor_kegg$KEGG)] = Aor_kegg$KEGG[!is.na(Aor_kegg$KEGG)]
+# if a kegg ID was found, use it. Otherwise, retain original ID
+# paste compartment to it
+Aor_draft$METS$`REPLACEMENT ID`[!is.na(Aor_kegg$KEGG)] <- paste0(Aor_draft$METS$`REPLACEMENT ID`[!is.na(Aor_kegg$KEGG)], 
+                                                                 '[', 
+                                                                 Aor_draft$METS$COMPARTMENT[!is.na(Aor_kegg$KEGG)], 
+                                                                 ']');
+
+# Step 2:
+Ani_kegg <- read.xlsx("../data/intermediate/niger_kegg.xlsx"); # obtained using R script metabolites_Ani_Afu.Rmd
+all(Ani_reduced$METS$NAME == Ani_kegg$NAME) # same order
+
+Ani_reduced$METS$`REPLACEMENT ID`[!is.na(Ani_kegg$KEGG)] = Ani_kegg$KEGG[!is.na(Ani_kegg$KEGG)]
+# if a kegg ID was found, use it. Otherwise, retain original ID
+# paste compartment to it
+Ani_reduced$METS$`REPLACEMENT ID`[!is.na(Ani_kegg$KEGG)] <- paste0(Ani_reduced$METS$`REPLACEMENT ID`[!is.na(Ani_kegg$KEGG)], 
+                                                                  '[', 
+                                                                  Ani_reduced$METS$COMPARTMENT[!is.na(Ani_kegg$KEGG)], 
+                                                                  ']');
+
+
+table(Ani_reduced$METS$`REPLACEMENT ID` %in% Aor_draft$METS$`REPLACEMENT ID`)
+
+Ani_reduced$METS$RepName <- gsub("\\[.\\]", "", Ani_reduced$METS$`REPLACEMENT ID`)
+Aor_draft$METS$RepName <- gsub("\\[.\\]", "", Aor_draft$METS$`REPLACEMENT ID`)
+
+table(Ani_reduced$METS$RepName %in% Aor_draft$METS$RepName) 
+# so 430-307 = 123 compounds that are in Ani_reduced also exist in oryzae,
+# but in a different compartment
+```
+
+```{r}
+hlp <- Ani_reduced$METS$ID[!Ani_reduced$METS$RepName %in% Aor_draft$METS$RepName]
+```
+
+```{r}
+panAsp_v2$METS[panAsp_v2$METS$ID %in% hlp,]
+```
+
+
+# Sugars
+
+Sugars: sucrose, maltose, isomaltose, trehalose, and starch
+
+```{r}
+hlp <- panAsp_v2$RXNS[grep("sucrose",panAsp_v2$RXNS$EQUATION, ignore.case = TRUE),]
+panAsp_v2$RXNS[grep("fructose",panAsp_v2$RXNS$EQUATION, ignore.case = TRUE),]
+
+hlp
+hlp[!hlp$ID %in% c("r272", "OtherAsp_R00801_EXP_1_Extracellular", 
+                   "OtherAsp_R00802_EXP_1_Extracellular",
+                   "OtherAsp_R00801_EXP_4", "OtherAsp_R06088_EXP_2",
+                   "OtherAsp_R06088_EXP_1_Extracellular", "OtherAsp_R00802_EXP_2"),]
+
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID %in% c("r272", "OtherAsp_R00801_EXP_1_Extracellular", 
+                                        "OtherAsp_R00802_EXP_1_Extracellular","OtherAsp_R06088_EXP_1_Extracellular"),c(2:6,14)]
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID %in% c("OtherAsp_R00801_EXP_4", "OtherAsp_R06088_EXP_2",
+                                        "OtherAsp_R00802_EXP_2"),c(2:6,14)]
+
+panAsp_v2$RXNS[grep("cluster_6858", panAsp_v2$RXNS$`GENE ASSOCIATION`),c(2:6,14)]
+
+
+panAsp_v2$RXNS[grep("sucrose",panAsp_v2$RXN$EQUATION, ignore.case = TRUE),]
+panAsp_v2$RXNS[grep("D-Glucose 6-phosphate",panAsp_v2$RXN$EQUATION, ignore.case = TRUE),]
+
+
+
+panAsp_v2$RXNS[grep("G10545",panAsp_v2$RXN$EQUATION, ignore.case = TRUE),]
+
+
+Aor_draft$RXNS[grep("3.2.1.3",Aor_draft$RXN$`EC-NUMBER`, ignore.case = TRUE),]
+# so the bottomline is, these genes allow Aspergillus to grow on 
+# maltose, isomaltose, sucrose and starch, by converting it into glucose and fructose
+```
+
+# Reactions from OtherAsp
+
+TODO: remove hydrogen
+OtherAsp_R04533: 3-hydroxybutyryl-[acp][c] + NADP(+)[c] <=> hydrogen[c] + NADPH[c] + Acetoacetyl-[acp][c]
+
+# Reactions from niger
+
+TODO 
+Ani_r239 vs. Ani_r240: same reactions, same genes, but one has "or" and the
+other has "and" relationship
+
+```{r}
+panAsp_v2$RXNS[grep("Ani_", panAsp_v2$RXNS$ID),]
+```
+
+# Reactions from fumigatus
+
+```{r}
+panAsp_v2$RXNS[grep("Afu_", panAsp_v2$RXNS$ID),]
+```
+
+```{r}
+Afu_reduced$METS$RepName <- gsub("\\[.*\\]","",Afu_reduced$METS$`REPLACEMENT ID`)
+
+table(!Afu_reduced$METS$RepName %in% Aor_draft$METS$RepName)
+# only +- half of the metabolites already existed in oryzae
+```
+
+
+```{r}
+hlp <- Afu_reduced$METS$ID[!Afu_reduced$METS$RepName %in% Aor_draft$METS$RepName]
+hlp <- hlp[!grepl("glutathion", hlp, ignore.case = TRUE)]
+hlp
+```
+
+## Glutathione
+
+```{r}
+panAsp_v2$RXNS[grep("glutathione", panAsp_v2$RXNS$EQUATION, ignore.case = TRUE),]
+```
+
+r1008
+glutathione[c] + RX[c] => HX[c] + oxidized glutathione[c]
+r864
+glutathione[m] + RX[m] <=> HX[m] + R-S-Glutathione[m]
+
+```{r}
+View(panAsp_v2$RXNS[grep("Diacylglycerol", panAsp_v2$RXNS$NAME, ignore.case = TRUE),])
+```
+
+```{r}
+Afu_reduced$RXNS[grep("fatty acid", Afu_reduced$RXNS$EQUATION, ignore.case = TRUE),]
+
+Afu_reduced$RXNS[Afu_reduced$RXNS$ID %in% c("R963", "R965", "R966", "R968"),]
+```
+
+Is there any difference between R963 and R965? And between R966 and R968
+
+```{r}
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID %in% c("Afu_R963", "Afu_R965", "Afu_R966", "Afu_R968"),]
+```
+
+
+
+```{r}
+panAsp_v2$METS[panAsp_v2$METS$ID %in% c("H2O[c]", "1,2-Diacyl-sn-glycerol[c]",
+                                        "free fatty acids[c]", "2-Acylglycerol[c]"),]
+```
+
+```{r}
+View(panAsp_v2$RXNS[panAsp_v2$RXNS$`EC-NUMBER` %in% c("3.1.1.3"),])
+panAsp_v2$RXNS[panAsp_v2$RXNS$`EC-NUMBER` %in% c("3.1.1.3"),][c(1,2),4]
+```
+
+```{r}
+panAsp_v2$RXNS[grep("acyl-carrier protein\\[e\\]", panAsp_v2$RXNS$EQUATION),]
+panAsp_v2$RXNS[grep("oleoyl-\\[acp\\]\\[e\\]", panAsp_v2$RXNS$EQUATION),]
+panAsp_v2$RXNS[grep("linolenoyl-\\[acp\\]\\[e\\]", panAsp_v2$RXNS$EQUATION),]
+panAsp_v2$RXNS[grep("stearoyl-\\[acp\\]\\[e\\]", panAsp_v2$RXNS$EQUATION),]
+
+panAsp_v2$RXNS[grep("palmitoyl-\\[acp\\]\\[m\\]", panAsp_v2$RXNS$EQUATION),]
+
+panAsp_v2$RXNS[grep("hexadecenoyl-\\[acp\\]\\[m\\]", panAsp_v2$RXNS$EQUATION),]
+```
+
+```{r}
+panAsp_v2$METS[grep("hexadecenoyl-\\[acp\\]", panAsp_v2$METS$ID),"REPLACEMENT ID"]
+panAsp_v2$METS[grep("oleoyl-\\[acp\\]", panAsp_v2$METS$ID),"REPLACEMENT ID"]
+panAsp_v2$METS[grep("linolenoyl-\\[acp\\]", panAsp_v2$METS$ID),"REPLACEMENT ID"]
+panAsp_v2$METS[grep("\\bstearoyl-\\[acp\\]", panAsp_v2$METS$ID),"REPLACEMENT ID"]
+
+panAsp_v2$METS[grep("\\bpalmitoyl-\\[acp\\]", panAsp_v2$METS$ID),"REPLACEMENT ID"]
+```
+
+
+
+```{r}
+panAsp_v2$RXNS[grep("free fatty acid", panAsp_v2$RXNS$EQUATION),]
+panAsp_v2$RXNS[grep("long-chain acyl-CoAs", panAsp_v2$RXNS$EQUATION),]
+
+panAsp_v2$RXNS[grep("OtherAsp_R05190",panAsp_v2$RXNS$ID),]
+```
+
+```{r}
+panAsp_v2$RXNS[panAsp_v2$RXNS$`EC-NUMBER` %in% c("3.1.1.3"),4]
+```
+
+
+H2O[c] + triglycerides[c] => 0.471 palmitoyl-[acp][c] + 0.0242 hexadecenoyl-[acp][c] + 0.1535 stearoyl-[acp][c] + 0.5328 oleoyl-[acp][c] + 2.4861 linolenoyl-[acp][c] + diglycerides[c]
+
+diglycerides[c] + H2O[c] => 0.471 palmitoyl-[acp][c] + 0.0242 hexadecenoyl-[acp][c] + 0.1535 stearoyl-[acp][c] + 0.5328 oleoyl-[acp][c] + 2.4861 linolenoyl-[acp][c] + 1-monoglycerides[c]
+
+## B00001/B00002
+
+```{r}
+panAsp_v2$RXNS[grep("B00002", panAsp_v2$RXNS$EQUATION),]
+```
+
+
+# Find metabolites
+
+```{r}
+panAsp_v2$METS[grep("H2O", panAsp_v2$METS$NAME),]
+panAsp_v2$METS[grep("H\\(\\+\\)", panAsp_v2$METS$NAME),]
+panAsp_v2$METS[grep("hydrogen$", panAsp_v2$METS$NAME,ignore.case = TRUE),]
+```
+
+```{r}
+panAsp_v2$RXNS[grep("hydrogen|H2O|H\\(\\+\\)", panAsp_v2$RXNS$EQUATION),]
+```
+
+```{r}
+
+```
+
+
+---
+
+# OLD CODE BELOW THIS
+
+# Libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(openxlsx)
+```
+
+# Helpers
+
+```{r}
+source("../code/Rutilities.R")
+```
+
+# Load data
+
+```{r}
+panAsp_v2 <- read_excel_allsheets("../model/panAsp_v2.xlsx")
+Ani_idtokegg <- read.xlsx("../data/intermediate/niger_metabolite_table.xlsx")
+```
+
+# Wrangle data
+
+## panAsp_v2
+
+```{r}
+# Get RepName column
+panAsp_v2$METS$RepName <- gsub("\\[.\\]","",panAsp_v2$METS$`REPLACEMENT ID`)
+
+# Get KEGG column
+panAsp_v2$METS$KEGG <- panAsp_v2$METS$MIRIAM
+panAsp_v2$METS$KEGG[!grepl("kegg",panAsp_v2$METS$KEGG)] <- NA
+panAsp_v2$METS$KEGG <- gsub("\\;.*","",gsub(".*kegg.compound/(.+)", "\\1", panAsp_v2$METS$KEGG))
+
+# Get chebi column
+panAsp_v2$METS$CHEBI <- panAsp_v2$METS$MIRIAM
+panAsp_v2$METS$CHEBI[!grepl("chebi",panAsp_v2$METS$CHEBI)] <- NA
+panAsp_v2$METS$CHEBI <- gsub("\\;.*","",gsub(".*chebi/(.+)", "\\1", panAsp_v2$METS$CHEBI))
+panAsp_v2$METS$CHEBI <- gsub("chebi:CHEBI/", "CHEBI:", panAsp_v2$METS$CHEBI)
+
+# Get KEGG_self column
+panAsp_v2$METS$KEGG_self <- Ani_idtokegg$KEGG_self[match(panAsp_v2$METS$NAME,Ani_idtokegg$NAME)]
+```
+
+```{r}
+curationTable <- panAsp_v2$METS[,c("NAME","RepName","COMPARTMENT")]
+colnames(curationTable) <- c("NAME_orig","RepName_orig","COMPARTMENT")
+curationTable$NAME_curated <- curationTable$NAME_orig
+curationTable$RepName_curated <- curationTable$RepName_orig
+```
+
+# 2-Oxoglutarate
+
+Looking at the reactions involved, collapsing 
+Decarboxylated 2-Oxoglutarate bound to alpha-ketoglutarate dehydrogenase and	
+2-Oxoglutarate bound to dihydrolipoyl transsuccinylase to 2-Oxoglutarate
+doesnt look like a good idea, so I'll keep them separated.
+
+With regard to 4-Hydroxy-2-oxoglutarate and (4R)-4-Hydroxy-2-oxoglutarate, we
+could probably collapse both to 4-Hydroxy-2-oxoglutarate.
+However, looking at the reactions there may still be an issue:
+
+2-Oxoglutarate[c] + L-erythro-4-Hydroxyglutamate[c] <=> L-Glutamate[c] + (4R)-4-Hydroxy-2-oxoglutarate[c]
+4-Hydroxy-2-oxoglutarate[e] <=> Pyruvate[e] + Glyoxylate[e]
+(4R)-4-Hydroxy-2-oxoglutarate[e] <=> Pyruvate[e] + Glyoxylate[e]
+
+I am not sure if this a problem: ask Ed.
+
+```{r}
+panAsp_v2$METS[grep("Oxoglut", 
+                    panAsp_v2$METS$NAME, 
+                    ignore.case = TRUE),
+               c("NAME", "KEGG","CHEBI","REPLACEMENT ID")]
+```
+
+```{r}
+# Collapse:
+# 1. (4R)-4-Hydroxy-2-oxoglutarate
+# 2. 4-Hydroxy-2-oxoglutarate
+# to 4-Hydroxy-2-oxoglutarate
+
+curationTable[grep("4-Hydroxy-2-oxoglutarate", 
+                   curationTable$NAME_orig, 
+                   ignore.case = TRUE),]
+any(curationTable$RepName_curated == "4HAKG")
+curationTable$NAME_curated[grep("4-Hydroxy-2-oxoglutarate", 
+                                curationTable$NAME_orig, 
+                                ignore.case = TRUE)] <- "4-Hydroxy-2-oxoglutarate"
+curationTable$RepName_curated[grep("4-Hydroxy-2-oxoglutarate", 
+                                   curationTable$NAME_orig, 
+                                   ignore.case = TRUE)] <- "4HAKG"
+```
+
+# Novel metabolites from OtherAsp
+
+We have 424 metabolites that are at this point still considered to be unique to
+the OtherAsp (fumigatus and oryzae isolates). Some of them are very likely not.
+In stead, they could be:
+  - failed to link, but for the new ones we have all kegg and for the original
+   one we also have many kegg
+  - different resolution
+  
+```{r}
+(hlp <- panAsp_v2$METS[grep("Added_",panAsp_v2$METS$RepName,ignore.case = TRUE),])
+```
+
+```{r}
+idx <- unique(unlist(lapply(hlp$ID, function(element) {
+  element <- gsub("\\[","\\\\[",element)
+  element <- gsub("\\]","\\\\]",element)
+  element
+  grep(element, panAsp_v2$RXNS$EQUATION)
+})))
+```
+
+
+## Sugars
+
+### Glucose
+
+```{r}
+hlp[grep("Glucose",hlp$NAME,ignore.case = TRUE),]
+```
+
+```
+Ani_draft <- read_excel_allsheets("../data/intermediate/Ani_draft_comp_mets.xlsx")
+Ani_draft$METS[grep("glucose", Ani_draft$METS$NAME, ignore.case = TRUE),]
+Ani_draft$RXNS[grep("glucose", Ani_draft$RXNS$EQUATION, ignore.case = TRUE),]
+```
+
+```{r}
+# D-Glucose 6-phosphate
+panAsp_v2$RXNS[grep(" D-Glucose 6-phosphate",panAsp_v2$RXNS$EQUATION),c(2:6)]
+
+# 1. R00299
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID %in% c("r5a","r6","R00299","R01600","R01786"),c(3:6,14)]
+# R00299 has lower resolution -> can be safely removed
+
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID %in% c("r5a","r6","R00299","R01600","R01786"),c(6,14)]
+
+# 2. R00837_Peroxisome
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID %in% c("r199","r200","r1943","R00837_Peroxisome"),c(3:6,14)]
+
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID %in% c("r199","r200","r1943","R00837_Peroxisome"),c(4:5)]
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID %in% c("r199","r200","r1943","R00837_Peroxisome"),c(6,14)]
+
+# here it looks like:
+# r200 should become: Water[c] + alpha,alpha-Trehalose[c] => 2 alpha-D-Glucose[c]
+# R00837_Peroxisome should become: Water[p] + Trehalose 6-phosphate[p] <=> alpha-D-Glucose[p] + alpha-D-Glucose 6-phosphate[p]
+```
+
+D-Gal alpha 1->6D-Gal alpha 1->6D-Glucose is a truly new compound, leave as is.
+
+```{r}
+newCompound <- c("D-Gal alpha 1->6D-Gal alpha 1->6D-Glucose")
+```
+
+Create a list linking each cluster to a set of kegg reactions
+getKeggmodelfororganism on all clusters
+
+```{r}
+View(panAsp_v2$RXNS[grep("acceptor",panAsp_v2$RXNS$EQUATION, ignore.case = TRUE),c(2:6)])
+```
+
+
+### Fructose
+
+```{r}
+hlp[grep("Fructose",hlp$NAME,ignore.case = TRUE),]
+```
+
+Probably these three all need to have beta- in front.
+
+```{r}
+panAsp_v2$RXNS[grep("alpha-D-Fructose",panAsp_v2$RXNS$EQUATION, ignore.case = TRUE),c(2:6)]
+panAsp_v2$RXNS[grep("beta-D-Fructose",panAsp_v2$RXNS$EQUATION, ignore.case = TRUE),c(2:6)]
+```
+
+```{r}
+panAsp_v2$RXNS[grep("Fructose 1-",panAsp_v2$RXNS$EQUATION, ignore.case = TRUE),c(2:6)]
+```
+
+
+```{r}
+# D-Fructose 6-phosphate
+panAsp_v2$RXNS[grep(" D-Fructose 6-phosphate",panAsp_v2$RXNS$EQUATION),c(2:6)]
+panAsp_v2$RXNS[grep("D-Fructose",panAsp_v2$RXNS$EQUATION, ignore.case = TRUE),c(2:6)]
+
+# 1. R00299
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID %in% c("r5a","r6","R00299","R01600","R01786"),c(3:6,14)]
+# R00299 has lower resolution -> can be safely removed
+
+# 2. R00837_Peroxisome
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID %in% c("r199","r200","r1943","R00837_Peroxisome"),c(3:6,14)]
+# here it looks like:
+# r200 should become: Water[c] + alpha,alpha-Trehalose[c] => 2 alpha-D-Glucose[c]
+# R00837_Peroxisome should become: Water[p] + Trehalose 6-phosphate[p] <=> alpha-D-Glucose[p] + alpha-D-Glucose 6-phosphate[p]
+```
+
+
+
+```{r}
+removeRxns <- c("R00299")
+```
+
+
+
+# Reversibility
+
+```{r}
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID %in% c("r5a","r6","R01600","R01786"),c(5,6,14)]
+
+# r5a and R01600, and r6 and R01786 are the same, respectively. 
+# But the one is reversible while the other is not 
+# But then how to know if we want the reversible reaction? 
+# In KEGG reaction, it's reversible.
+# In kegg metabolic pathway of the three Aspergillus species, its irreversible.
+# It is quite likely that reaction should be irreversible.
+# But it could also be that in one of the isolates it has become reversible, no?
+# I mean in theory. And that info would be interesting to keep.
+```
+
+
+
+# contractmodel unexpected
+
+r799	Phosphatidylserine synthase	CDP-diacylglycerol[c] + L-Serine[c] <=> CMP[c] + Phosphatidylserine[c]	2.7.8.8	cluster_6556 or cluster_8345
+r805	Phosphatidylserine synthase	CDP-diacylglycerol[c] + L-Serine[c] <=> CMP[c] + Phosphatidylserine[c]	2.7.8.8	cluster_6556
+r812	Phosphatidylserine synthase	CDP-diacylglycerol[c] + L-Serine[c] <=> CMP[c] + Phosphatidylserine[c]	2.7.8.8	cluster_6556
+R01800	CDP-diacylglycerol:L-serine 3-phosphatidyltransferase	CDP-diacylglycerol[c] + L-Serine[c] <=> CMP[c] + Phosphatidylserine[c]	2.7.8.8	cluster_15562
+
+# Fatty acid metabolism
+
+Once this is curated, it should help downstream with e.g. the ceramides.
+
+```{r}
+View(panAsp_v2$RXNS[grep("^4.2.1.17",panAsp_v2$RXNS$`EC-NUMBER`),])
+
+#3-oxodecanoyl-CoA[m] + Coenzyme A[m] => Acetyl coenzyme A[m] + Octanoyl-CoA[m]
+#Coenzyme A[p] + 3-oxodecanoyl-CoA[p] => Acetyl coenzyme A[p] + Octanoyl-CoA[p]
+```
+
+```{r}
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID%in%c("r748", "r1356"),]
+# same reaction, same nomenclature, but reversible in oryzae
+```
+
+```{r}
+panAsp_v2$RXNS[panAsp_v2$RXNS$ID%in%c("r783", "r1386", "R04746"),]
+# same reaction, same nomenclature, but reversible in oryzae
+# same reaction, different nomenclature, and reversible in fumigatus (different compartment though)
+```
+
+Oct-2-enoyl-CoA[m] + Water[m] => 3-hydroxyoctanoyl-CoA[m]	4.2.1.17	
+Oct-2-enoyl-CoA[m] + Water[m] <=> 3-hydroxyoctanoyl-CoA[m]	4.2.1.17	
+(S)-3-Hydroxyoctanoyl-CoA[c] <=> Water[c] + trans-Oct-2-enoyl-CoA[c]	4.2.1.17;4.2.1.74
+
+-> should  change to
+
+Oct-2-enoyl-CoA[m] + Water[m] => 3-hydroxyoctanoyl-CoA[m]	4.2.1.17	
+Oct-2-enoyl-CoA[m] + Water[m] <=> 3-hydroxyoctanoyl-CoA[m]	4.2.1.17	
+3-hydroxyoctanoyl-CoA[c] <=> Water[c] + Oct-2-enoyl-CoA[m] 4.2.1.17;4.2.1.74
+
+Look into the metabolites coming from OtherAsp, for fatty acid metabolism they
+often start with trans- or (3S)-/(S)-
+
+```{r}
+panAsp_v2$RXNS[grep("trans-",panAsp_v2$RXNS$EQUATION),]
+```
+
+```{r}
+panAsp_v2$RXNS[grep("\\(S\\)",panAsp_v2$RXNS$EQUATION),]
+```
+
+```{r}
+panAsp_v2$RXNS[grep("Mandelate",panAsp_v2$RXNS$EQUATION,ignore.case = TRUE),]
+```
+
+```{r}
+panAsp_v2$METS[grep("Oct-2-enoyl-CoA",panAsp_v2$METS$NAME,ignore.case = TRUE),]
+```
+
+```{r}
+panAsp_v2$METS[grep("3-Hydroxyoctanoyl-CoA",panAsp_v2$METS$NAME,ignore.case = TRUE),]
+```
+
+```{r}
+target <- names(which(table(panAsp_v2$METS$RepName)>1))
+keep <- sapply(seq_along(1:length(target)), 
+       function(x) length(unique(panAsp_v2$METS$NAME[which(panAsp_v2$METS$RepName == target[x])]))) > 1
+target <- target[keep]
+
+for(i in 1:length(target)){
+  print(panAsp_v2$METS[which(panAsp_v2$METS$RepName == target[i]),])
+}
+
+```
+
+```{r}
+panAsp_v2$METS[grep("Malonate",panAsp_v2$METS$NAME,ignore.case = TRUE),]
+```
+
+
+
+
+```{r}
+panAsp_v2$RXNS[grep("D-Glucose 6-phosphate",panAsp_v2$RXNS$EQUATION),]
+```
+
+```{r}
+panAsp_v2$RXNS[grep("Androstenedione",panAsp_v2$RXNS$EQUATION),]
+```
+
+
+# 1-Acyl-sn-glycero-3-phosphocholine
+
+Is it the same as Lysophosphatidylcholine?
+
+```{r}
+panAsp_v2$METS[grep("1-Acyl-sn-glycero-3-phosphocholine|Lysophosphatidylcholine", 
+                    panAsp_v2$METS$NAME, 
+                    ignore.case = TRUE),
+               c("NAME", "KEGG","CHEBI","KEGG_self")]
+
+```
+
+```{r}
+panAsp_v2$METS[grep("CHEBI:183975", 
+                    panAsp_v2$METS$CHEBI),
+               c("NAME", "KEGG","CHEBI","KEGG_self")]
+```
+
+
+# Ceramides and related compounds
+
+This a very complicated case of different resolutions for different compunds,
+including:
+
+- Cerebroside 
+- Glucocerebroside (=Glucosylceramide)
+- Cerebrin
+- phytosphingosin
+- sphinganine
+- Octadecanoyl-CoA
+
+All of this is crazy complex, we need to simplify this somehow.
+Perhaps best is to rely on KEGG. For instance, we can look into 
+Sphingolipid metabolism for A. niger, fumigatus, and oryzae:
+- https://www.kegg.jp/pathway/ang00600
+- https://www.kegg.jp/pathway/afm00600
+- https://www.kegg.jp/pathway/aor00600
+
+Then, we can look a specific enzymes/reactions, like
+- https://www.kegg.jp/entry/2.4.1.80
+- https://www.kegg.jp/entry/R01497
+
+```{r}
+panAsp_v2$RXNS[grep("Glucosylceramide",panAsp_v2$RXNS$EQUATION,ignore.case = TRUE),c(4,5)]
+panAsp_v2$RXNS[grep("Glucocerebroside",panAsp_v2$RXNS$EQUATION,ignore.case = TRUE),4]
+
+panAsp_v2$RXNS[grep("2.4.1.80",panAsp_v2$RXNS$`EC-NUMBER`,ignore.case = TRUE),c(6,14)]
+```
+
+```{r}
+panAsp_v2$RXNS[grep("2.4.1.80",panAsp_v2$RXNS$`EC-NUMBER`,ignore.case = TRUE),c(4,5)]
+panAsp_v2$RXNS[grep("2.4.1.80",panAsp_v2$RXNS$`EC-NUMBER`,ignore.case = TRUE),c(6,14)]
+```
+
+```{r}
+panAsp_v2$METS[grep("Cerebroside 1|Cerebroside 2|N-Acylsphingosine|Glucocerebroside|Glucosylceramide",panAsp_v2$METS$NAME,ignore.case = TRUE),
+               c(2,6,9,12,13)]
+```
+
+Note that N-Acylsphingosine is exactly 18C shorter than Cerebroside 2, and
+Glucosylceramide is exactly 18C shorter than Glucocerebroside.
+So in KEGG the N-acyl group, which happens to be 18C, is not counted for
+the composition -> it actually is, it is the "R" at the end! 
+
+Then Cerebroside 1 comes from Octadecanoyl, while Cerebroside 2 comes from 
+Octadecenoyl.
+
+Downstream:
+
+```{r}
+panAsp_v2$RXNS[grep("Glucocerebroside",panAsp_v2$RXNS$EQUATION,ignore.case = FALSE),4]
+```
+
+```{r}
+panAsp_v2$RXNS[grep("Glucosylceramide",panAsp_v2$RXNS$EQUATION,ignore.case = FALSE),4]
+```
+
+```{r}
+panAsp_v2$RXNS[grep("Glucocerebroside",panAsp_v2$RXNS$EQUATION,ignore.case = FALSE),4]
+```
+
+So, doublecheck, but i think it could be safe to:
+- Throw Cerebroside 1 and Cerebroside 2 in N-Acylsphingosine
+- Throw Glucocerebroside and Glucocerebroside 2 in Glucosylceramide
+
+But perhaps we can just keep the better resolution. Because the main reason we
+are doing all this is because of:
+
+UDPglucose[c] + N-Acylsphingosine[c] <=> UDP[c] + Glucosylceramide[c]	(2.4.1.80,	cluster_6857)
+
+Perhaps we can just remove that reaction, and the gene to both
+
+[1] "Cerebroside 1[c] + UDPglucose[c] => Glucocerebroside[c] + UDP[c]"
+[2] "Cerebroside 2[c] + UDPglucose[c] => Glucocerebroside 2[c] + UDP[c]"     
+
+```
+panAsp_v2$RXNS[grep("Octadecenoyl",panAsp_v2$RXNS$EQUATION,ignore.case = FALSE),4]
+```
+
+
+
+
+---
+
+Let's start with the fact that
+1. Glucocerebroside and Glucosylceramide have the same KEGG
+2. Ani differentiates between Glucocerebroside and Glucocerebroside2, while
+OtherAsp does not
+
+
+The suggestion that N-Acylsphingosine and Cerebroside1/2 are synonyms
+Then N-Acylsphingosine also seems to be a synonym for ceramide...
+
+So, ceramides and N-Acylsphingosine are synonyms.
+
+
+These three reactions:
+1. Cerebroside 1[c] + UDPglucose[c] => Glucocerebroside[c] + UDP[c]
+2. Cerebroside 2[c] + UDPglucose[c] => Glucocerebroside 2[c] + UDP[c]
+3. UDPglucose[c] + N-Acylsphingosine[c] <=> UDP[c] + Glucosylceramide[c]
+suggest that N-Acylsphingosine and Cerebroside1/2 are synonyms, 
+
+Their composition suggests otherwise
+
+```{r}
+panAsp_v2$METS[grep("ceramide|N-Acylsphingosine",panAsp_v2$METS$NAME,ignore.case = TRUE),]
+```
+
+
+```{r}
+panAsp_v2$METS[grep("ceramides",panAsp_v2$METS$NAME,ignore.case = FALSE),]
+panAsp_v2$METS[grep("Cerebroside 1|Cerebroside 2|N-Acylsphingosine",panAsp_v2$METS$NAME,ignore.case = FALSE),]
+```
+
+
+```{r}
+panAsp_v2$RXNS[grep("ceramides",panAsp_v2$RXNS$EQUATION,ignore.case = TRUE),]
+
+panAsp_v2$RXNS[grep("2.4.1.80",panAsp_v2$RXNS$`EC-NUMBER`,ignore.case = TRUE),]
+```
+
+
+
+## Cerebrin
+
+In Ani
+1. Octadecanoyl-CoA[c] + Phytosphingosine(C18)[c] => Cerebrin 1 (C18 phytosphingosin and C18:0 fatty acid)[c] + Coenzyme A[c]
+2. Octadecenoyl-CoA[c] + Phytosphingosine(C18)[c] => Cerebrin 1 (C18 phytosphingosin and C18:1 fatty acid)[c] + Coenzyme A[c]
+3. Octadecanoyl-CoA[c] + Phytosphingosine(C20)[c] => Cerebrin 1 (C20 phytosphingosin and C18:0 fatty acid)[c] + Coenzyme A[c]
+4. Octadecenoyl-CoA[c] + Phytosphingosine(C20)[c] => Cerebrin 1 (C20 phytosphingosin and C18:1 fatty acid)[c] + Coenzyme A[c]
+
+5. Octadecanoyl-CoA[c] + Sphinganine(C18)[c] => Cerebrin 2 (C18 sphinganine and C18:0 fatty acid)[c] + Coenzyme A[c]
+6. Octadecenoyl-CoA[c] + Sphinganine(C18)[c] => Cerebrin 2 (C18 sphinganine and C18:1 fatty acid)[c] + Coenzyme A[c]
+7. Octadecanoyl-CoA[c] + Sphinganine(C20)[c] => Cerebrin 2 (C20 sphinganine and C18:0 fatty acid)[c] + Coenzyme A[c]
+8. Octadecenoyl-CoA[c] + Sphinganine(C20)[c] => Cerebrin 2 (C20 sphinganine and C18:1 fatty acid)[c] + Coenzyme A[c]
+
+9. Octadecanoyl-CoA[c] + Sphinganine(C19:1)[c] => Cerebroside 1[c] + Coenzyme A[c]
+
+In Afu ==>
+1. stearoyl-CoA[c] +	phytosphingosine[c] => Cerebrin 1[c] + coenzyme A[c]
+2. oleoyl-CoA[c] + phytosphingosine[c] => Cerebrin 1[c] + coenzyme A[c]
+3. stearoyl-CoA[c] + Phytosphingosine(C20)[c] => Cerebrin 1[c] + coenzyme A[c]
+4. oleoyl-CoA[c] + Phytosphingosine(C20)[c] => Cerebrin 1[c] + coenzyme A[c]
+
+5. stearoyl-CoA[c] + sphinganine[c] => Cerebrin 2[c] + coenzyme A[c]
+6. oleoyl-CoA[c] + sphinganine[c] => Cerebrin 2[c] + coenzyme A[c]
+7. stearoyl-CoA[c] + sphinganine (C18)[c] => Cerebrin 2[c] + coenzyme A[c]
+8. oleoyl-CoA[c] + sphinganine (C18)[c] => Cerebrin 2[c] + coenzyme A[c]
+
+9. stearoyl-CoA[c] + Sphinganine[c]  => Cerebroside 1[c] + coenzyme A[c]
+
+################################################################################
+
+################################################################################
+
+
+Sphinganine(C18), Sphinganine(C19:1) and Sphinganine(C20) -> Sphinganine
+Phytosphingosine(C18) and Phytosphingosine(C20) -> Phytosphingosine
+UDP-galactose (pyranose) -> UDP-galactose
+
+---  Cerebrin 1 after Octadecanoyl or stearoyl -> Cerebrin 1a
+Cerebrin 1 (C18 phytosphingosin and C18:0 fatty acid) and Cerebrin 1 (C20 phytosphingosin and C18:0 fatty acid) -> Cerebrin 1a
+
+---  Cerebrin 1 after Octadecenoyl or oleoyl -> Cerebrin 1b
+Cerebrin 1 (C18 phytosphingosin and C18:1 fatty acid) and Cerebrin 1 (C20 phytosphingosin and C18:1 fatty acid) -> Cerebrin 1b
+
+Cerebrin 1 (C18 phytosphingosin and C14:0 fatty acid) and Cerebrin 1 (C20 phytosphingosin and C14:0 fatty acid) -> Cerebrin 1c
+
+
+Cerebrin 2 (C18 sphinganine and C18:0 fatty acid) and Cerebrin 2 (C20 sphinganine and C18:0 fatty acid) -> Cerebrin 2a
+Cerebrin 2 (C18 sphinganine and C18:1 fatty acid) and Cerebrin 2 (C20 sphinganine and C18:1 fatty acid) -> Cerebrin 2b
+Cerebrin 2 (C18 sphinganine and C14:0 fatty acid) and Cerebrin 2 (C20 sphinganine and C14:0 fatty acid) -> Cerebrin 2c
+Cerebrin 2 (C18 sphinganine and a 2-hydroxy C18:1 fatty acid) -> Cerebrin 2d
+
+Cerebrin 3 (C18 sphingosine and C18:0 fatty acid) and Cerebrin 3 (C20 sphingosine and C18:0 fatty acid) -> Cerebrin 3a
+Cerebrin 3 (C18 sphingosine and C18:1 fatty acid) and Cerebrin 3 (C20 sphingosine and C18:1 fatty acid) -> Cerebrin 3b
+Cerebrin 3 (C18 sphingosine and C14:0 fatty acid) and Cerebrin 3 (C20 sphingosine and C14:0 fatty acid) -> Cerebrin 3c
+Cerebrin 3 (C18 sphingosine and a 2-hydroxy C18:1 fatty acid) -> Cerebrin 3d
+
+Cerebrin 1 (Mixture of C18 and C20 phytosphingosin) -> Cerebrin 1ab
+Cerebrin 2 (Mixture of C18 and C20 sphingosin) -> Cerebrin 2ab
+
+Galactosylceramide(Comp. A) -> Galactosylceramide A
+Galactosylceramide(Comp. B) -> Galactosylceramide B
+Galactosylceramide (Mixture between GALCERA and GALCERB) -> Galactosylceramide AB
+
+Galactosylceramide (C18 sphinganine and 2-hydroxy C18:1 fatty acid) -> Galactosylceramide C
+Galactosylceramide (C18 sphingosine and 2-hydroxy C18:1 fatty acid) -> Galactosylceramide D
+
+################################################################################
+
+Octadecanoyl-CoA[c] + Phytosphingosine[c] => Cerebrin 1a[c] + Coenzyme A[c]
+Octadecenoyl-CoA[c] + Phytosphingosine[c] => Cerebrin 1b[c] + Coenzyme A[c]
+
+0.25 Cerebrin 1a[c] + 0.25 Cerebrin 1b[c] + 0.25 Cerebrin 1a[c] + 0.25 Cerebrin 1b[c] => Cerebrin 1ab[c]
+
+Octadecanoyl-CoA[c] + Sphinganine[c] => Cerebrin 2a[c] + Coenzyme A[c]
+Octadecenoyl-CoA[c] + Sphinganine[c] => Cerebrin 2b[c] + Coenzyme A[c]
+
+0.25 Cerebrin 2a[c] + 0.25 Cerebrin 2b[c] + 0.25 Cerebrin 2a[c] + 0.25 Cerebrin 2b[c] => Cerebrin 2ab[c]
+
+Cerebrin 2a[c] + UDP-galactose[c] => Galactosylceramide A[c] + UDP[c]
+Cerebrin 2b[c] + UDP-galactose[c] => Galactosylceramide B[c] + UDP[c]
+
+Octadecanoyl-CoA[c] + Sphinganine[c] => Cerebroside 1[c] + Coenzyme A[c]
+Cerebroside 1[c] + UDPglucose[c] => Glucocerebroside[c] + UDP[c]
+Octadecenoyl-CoA[c] + Sphinganine[c] => Cerebroside 2[c] + Coenzyme A[c]
+Cerebroside 2[c] + UDPglucose[c] => Glucocerebroside 2[c] + UDP[c]
+
+Cerebrin 2ab[c] + 1-Phosphatidyl-D-myo-inositol[c] => Water[c] + Inositol phosphorylceramide[c]
+
+0.5 Galactosylceramide A[c] + 0.5 Galactosylceramide B[c] => Galactosylceramide AB[c]
+
+0.000223 Myristic acid[c] + 0.00148 Palmitate[c] + 0.000245 Stearate[c] + 0.001678 Octadecenoate; Oleic acid[c] + 0.001664 Octadecadienoate; Linoleic acid[c] + 4.7e-05 Octadecatrienoate; α-linolenic acid[c] + 3e-05 Cerebrin 1ab[c] + 3.1e-05 Cerebrin 2ab[c] + 0.001746 Cardiolipin[m] + 0.001009 Diacylglycerol[c] + 0.007859 Digalactosyl-diacylglycerol[c] + 0.010038 Ergosterolester[c] + 0.034062 Ergosterol[c] + 2.5e-05 Galactosylceramide AB[c] + 2.4e-05 Glucocerebroside[c] + 2.4e-05 Glucocerebroside 2[c] + 0.008912 Monoacylglycerol[c] + 0.012374 Monoglucosyloxyoctadecenoic acid[c] + 0.030053 Monogalactosyl-diacylglycerol[c] + 0.015312 Phosphatidylcholine[c] + 0.034807 Phosphatidylethanolamine[c] + 0.000359 Phosphatidylserine[c] + 0.010083 Triacylglycerol[c] + 5e-06 Trigalactosyldimannosylinositol-P-ceramide[c] => Artificial metabolite. The metabolites found in the biomass. Measured in grams[c]
+
+Tetradecanoyl-CoA[c] + Phytosphingosine[c] => Coenzyme A[c] + Cerebrin 1c[c]
+Tetradecanoyl-CoA[c] + Sphinganine[c] => Coenzyme A[c] + Cerebrin 2c[c]
+
+UDP-galactose[c] + Cerebrin 2d[c] <=> UDP[c] + Galactosylceramide C[c]
+Sphinganine[c] + 2-hydroxy octadecenoyl-CoA[c] <=> Coenzyme A[c] + Cerebrin 2d[c]
+
+Cerebrin 2a[c] + 2 Intracellular protons[c] + Oxygen[c] => 2 Water[c] + Cerebrin 3a[c]
+Cerebrin 2b[c] + 2 Intracellular protons[c] + Oxygen[c] => 2 Water[c] + Cerebrin 3b[c]
+2 Intracellular protons[c] + Oxygen[c] + Cerebrin 2c[c] => 2 Water[c] + Cerebrin 3c[c]
+2 Intracellular protons[c] + Oxygen[c] + Cerebrin 2d[c] => 2 Water[c] + Cerebrin 3d[c]
+
+UDP-galactose[c] + Cerebrin 3d[c] <=> UDP[c] + Galactosylceramide D[c]
+
+Cerebrin 1a[c] + Water[c] => Stearate[c] + Phytosphingosine[c]
+Sphinganine[c] + NADPH[c] + Oxygen[c] => Phytosphingosine[c] + Water[c] + NADP+[c]
+
+
+################################## Afu
+
+sphinganine[c] + stearoyl-CoA[c] => coenzyme A[c] + Cerebrin 2[c]
+phytosphingosine[c] + oleoyl-CoA[c] => coenzyme A[c] + Cerebrin 1[c]
+stearoyl-CoA[c] + sphinganine (C18)[c] => coenzyme A[c] + Cerebrin 2[c]
+oleoyl-CoA[c] + Phytosphingosine(C20)[c] => coenzyme A[c] + Cerebrin 1[c]
+Sphinganine[c] + stearoyl-CoA[c] => coenzyme A[c] + Cerebroside 1[c]
+phytosphingosine[c] + stearoyl-CoA[c] => coenzyme A[c] + Cerebrin 1[c]
+sphinganine[c] + oleoyl-CoA[c] => coenzyme A[c] + Cerebrin 2[c]
+stearoyl-CoA[c] + Phytosphingosine(C20)[c] => coenzyme A[c] + Cerebrin 1[c]
+oleoyl-CoA[c] + sphinganine (C18)[c] => coenzyme A[c] + Cerebrin 2[c]
+
+
+################################
+
+
+```
+target[grepl("Cerebrin",target$NAME,ignore.case = TRUE),]
+```
+
+```
+target[grepl("sphing",target$NAME,ignore.case = TRUE),]
+```
+
+```
+niger_gem$RXNS[grepl("ceramid",niger_gem$RXNS$NAME,ignore.case = TRUE),]
+
+target[grepl("sphing",target$NAME,ignore.case = TRUE),]
+```
+
+Octadecanoyl-CoA[c] + Sphinganine(C19:1)[c] => Cerebroside 1[c] + Coenzyme A[c]
+Cerebroside 1[c] + UDPglucose[c] => Glucocerebroside[c] + UDP[c]
+Octadecenoyl-CoA[c] + Sphinganine(C19:1)[c] => Cerebroside 2[c] + Coenzyme A[c]
+Cerebroside 2[c] + UDPglucose[c] => Glucocerebroside 2[c] + UDP[c]
+
+0.000223 Myristic acid[c] + 0.00148 Palmitate[c] + 0.000245 Stearate[c] + 0.001678 Octadecenoate; Oleic acid[c] + 0.001664 Octadecadienoate; Linoleic acid[c] + 4.7e-05 Octadecatrienoate; α-linolenic acid[c] + 3e-05 Cerebrin 1 (Mixture of C18 and C20 phytosphingosin)[c] + 3.1e-05 Cerebrin 2 (Mixture of C18 and C20 sphingosin)[c] + 0.001746 Cardiolipin[m] + 0.001009 Diacylglycerol[c] + 0.007859 Digalactosyl-diacylglycerol[c] + 0.010038 Ergosterolester[c] + 0.034062 Ergosterol[c] + 2.5e-05 Galactosylceramide (Mixture between GALCERA and GALCERB)[c] + 2.4e-05 Glucocerebroside[c] + 2.4e-05 Glucocerebroside 2[c] + 0.008912 Monoacylglycerol[c] + 0.012374 Monoglucosyloxyoctadecenoic acid[c] + 0.030053 Monogalactosyl-diacylglycerol[c] + 0.015312 Phosphatidylcholine[c] + 0.034807 Phosphatidylethanolamine[c] + 0.000359 Phosphatidylserine[c] + 0.010083 Triacylglycerol[c] + 5e-06 Trigalactosyldimannosylinositol-P-ceramide[c] => Artificial metabolite. The metabolites found in the biomass. Measured in grams[c]
+
+
+```{r}
+panAsp_v2$METS[grep("C01190", 
+                    panAsp_v2$METS$KEGG, 
+                    ignore.case = TRUE),
+               c("NAME", "KEGG","CHEBI","REPLACEMENT ID")]
+```
+
+
+```{r}
+panAsp_v2$METS[grep("cere", 
+                    panAsp_v2$METS$NAME, 
+                    ignore.case = TRUE),
+               c("NAME", "KEGG","CHEBI","REPLACEMENT ID")]
+```
+
+```{r}
+curationTable[grep("cerebros", 
+                   curationTable$NAME_orig, 
+                   ignore.case = TRUE),]
+any(curationTable$RepName_curated == "4HAKG")
+curationTable$NAME_curated[grep("4-Hydroxy-2-oxoglutarate", 
+                                curationTable$NAME_orig, 
+                                ignore.case = TRUE)] <- "4-Hydroxy-2-oxoglutarate"
+curationTable$RepName_curated[grep("4-Hydroxy-2-oxoglutarate", 
+                                   curationTable$NAME_orig, 
+                                   ignore.case = TRUE)] <- "4HAKG"
+```
+
+# Write output table
+
+```{r}
+curationTable$RepID_curated <- paste0(curationTable$RepName_curated, "[",
+                                      curationTable$COMPARTMENT, "]")
+write.xlsx(curationTable, "../data/intermediate/panAsp_curation_table.xlsx")
+```
+
+
+# Potential downstream issues
+
+TODO: I might still need to remove this reaction:
+0.25 Cdp-diacylglycerol used for cardiolipin[m] + 
+0.25 Cdp-diacylglycerol used for phosphatidylcholine[c] + 
+0.25 Cdp-diacylglycerol used for phosphatidylethanolamine[c] + 
+0.25 Cdp-diacylglycerol used for phosphatidylserine[c] => CDP-diacylglycerol[c]
+because I killed it's metabolites. Not sure if this will be handled 
+automatically.
+
+
+
+
+
+
+
+
+---
+
+# TODO
+
+Different resolution:
+
+- Glucocerebroside
+
+For Glucocerebroside vs Glucocerebroside2 it is just a difference between
+double bond or not.
+
+---
+
+Riboflavin metabolism
+
+KEGG ====================
+ 	
+*3.5.4.25)* GTP + 4 H2O <=> Formate + 2,5-Diamino-6-(5-phospho-D-ribosylamino)pyrimidin-4(3H)-one + 2 Orthophosphate
+
+Option 1:
+*3.5.4.26)*  2,5-Diamino-6-(5-phospho-D-ribosylamino)pyrimidin-4(3H)-one + H2O <=> 5-Amino-6-(5'-phosphoribosylamino)uracil + Ammonia
+*1.1.1.193)* 5-Amino-6-(5'-phosphoribosylamino)uracil + NADPH + H+ <=> 5-Amino-6-(5'-phospho-D-ribitylamino)uracil + NADP+
+
+Option 2:
+*1.1.1.302)* 2,5-Diamino-6-(5-phospho-D-ribosylamino)pyrimidin-4(3H)-one + NADPH + H+ <=> 2,5-Diamino-6-(5-phospho-D-ribitylamino)pyrimidin-4(3H)-one + NADP+
+*5.4.99.28)* 2,5-Diamino-6-(5-phospho-D-ribitylamino)pyrimidin-4(3H)-one + H2O <=> 5-Amino-6-(5'-phospho-D-ribitylamino)uracil + Ammonia
+
+*3.1.3.104)* 5-Amino-6-(5'-phospho-D-ribitylamino)uracil + H2O <=> 5-Amino-6-(1-D-ribitylamino)uracil + Orthophosphate
+*2.5.1.78)*  5-Amino-6-(1-D-ribitylamino)uracil + L-3,4-Dihydroxybutan-2-one 4-phosphate <=> 6,7-Dimethyl-8-(D-ribityl)lumazine + 2 H2O + Orthophosphate
+
+Aor =====================
+
+*3.5.4.25)* GTP[c] => 2,5-diamino-6-hydroxy-4-(5'-phosphoribosylamino)-pyrimidine[c] + formate[c] + diphosphate[c]
+
+Option 1:
+*3.5.4.26)* 2,5-diamino-6-hydroxy-4-(5'-phosphoribosylamino)-pyrimidine[c] => *5-amino-6-(5-phosphoribosylamino)uracil[c]* + NH3[c]
+*1.1.1.193)* 5-amino-6-(5-phosphoribosylamino)uracil[c] + NADPH[c] => 5-amino-6-(5'-phosphoribitylamino)uracil[c] + NADP(+)[c]
+
+*3.1.3.-)* 5-amino-6-(5'-phosphoribitylamino)uracil[c] + H2O[c] => 5-amino-6-ribityluracil[c] + phosphate[c]	
+*empty)* 5-amino-6-ribityluracil[c] + 2-hydroxy-3-oxobutyl phosphate[c] => 6,7-dimethyl-8-(1-D-ribityl)lumazine[c] + 2 H2O[c] + phosphate[c]
+
+Ani =====================
+
+*3.5.4.25)* GTP[c] + 3 Water[c] => Formate[c] + Pyrophosphate[c] + 2,5-diamino-6-(1-D-ribosylamino)pyrimidin-4(3H)-one 5'-phosphate[c]	
+
+Option 2:
+*1.1.1.302)* NADPH[c] + 2,5-diamino-6-(1-D-ribosylamino)pyrimidin-4(3H)-one 5'-phosphate[c] => NADP+[c] + 2,5-diamino-6-(5-phosphono)ribitylamino-4(3H)-pyrimidinone[c]	
+*3.5.4.26)* Water[c] + 2,5-diamino-6-(5-phosphono)ribitylamino-4(3H)-pyrimidinone[c] => 2 Intracellular protons[c] + Ammonia[c] + *5-amino-6-(5-phospho-β-D-ribosylamino)uracil[c]*
+
+*3.1.3.104)* 2 Intracellular protons[c] + Water[c] + 5-amino-6-(5-phospho-β-D-ribosylamino)uracil[c] => Orthophosphate[c] + 5-amino-6-(D-ribitylamino)uracil[c]
+*2.5.1.78)* 2-hydroxy-3-oxobutyl phosphate[c] + 5-amino-6-(D-ribitylamino)uracil[c] => 2 Water[c] + Orthophosphate[c] + 6,7-dimethyl-8-(1-D-ribityl)lumazine[c]
+
+So:
+Strong suspicion that
+1. In Aor, enzyme 3.1.3.- should be 3.1.3.104
+2. In Ani, enzyme 3.5.4.26 should be 5.4.99.28
+3. 5-amino-6-(5-phosphoribosylamino)uracil[c] and 5-amino-6-(5-phospho-β-D-ribosylamino)uracil[c] both have CHEBI:18337. However, the former is created by removing NH3 from the starting compound, while the later is created by reduction and removing NH3. In KEGG, they are two different
+
+This leads me to:
+1) Replace EC:3.5.4.26 with EC:5.4.99.28 in Ani_Draft
+2) Remove metabolite 5-amino-6-(5-phosphoribosylamino)uracil[c] in Aor_draft. TODO: check if this automatically removes the reaction in RAVEN.
+3) Consolidate: change 5-amino-6-(5'-phosphoribitylamino)uracil in Aor to 5-amino-6-(5-phospho-β-D-ribosylamino)uracil from Ani. Remove the CHEBI in both, and give both KEGG C00454.
+4) Consolidate: change 5-amino-6-ribityluracil[c] in Aor to 5-amino-6-(D-ribitylamino)uracil[c], give both KEGG C04732
+5) 
+
+
+
+5-amino-6-(D-ribitylamino)uracil[c] == 5-amino-6-ribityluracil[c] == C04732
+2-hydroxy-3-oxobutyl phosphate[c] == 2-hydroxy-3-oxobutyl phosphate[c] == C15556
+6,7-dimethyl-8-(1-D-ribityl)lumazine[c] = 6,7-dimethyl-8-(1-D-ribityl)lumazine[c] == C04332
+
+```{r}
+rbind(target[which(target$ID == "6,7-dimethyl-8-(1-D-ribityl)lumazine[c]"),c("ID","CHEBI","KEGG")])
+```
+
+```{r}
+which(Aor_reduced$METS$ID == "6,7-dimethyl-8-(1-D-ribityl)lumazine[c]")
+Aor_draft$METS[grepl("oxobutyl", Aor_draft$METS$ID),]
+```
+
+```{r}
+rbind(Aor_reduced$METS[which(Aor_reduced$METS$ID == "2-hydroxy-3-oxobutyl phosphate[c]"),c("ID","CHEBI","KEGG")])
+```
+
+```{r}
+rbind(Ani_draft$METS[which(Ani_draft$METS$NAME == "2-hydroxy-3-oxobutyl phosphate"),c("ID","CHEBI","KEGG")])
+```
+
+```{r}
+Ani_draft$METS[grepl("2,5-diamino-6-\\(5-phosphono\\)ribitylamino-4\\(3H\\)-pyrimidinone", Ani_draft$METS$NAME,ignore.case = TRUE),]
+Ani_draft$METS[which(Ani_draft$METS$NAME == "5-amino-6-(5-phospho-β-D-ribosylamino)uracil"),]
+```
+
+# Issues
+
+## zymosterol
+
+For now I assumed the mechnaism are different, but they could just be synonyms 
+or resolution differences. Asked Ed for help.
+
+Ani ====================
+Lanosterol[c] + 3 NADPH[c] + 3 Oxygen[c] => 4,4-Dimethyl-5alpha-cholesta-8,14,24-trien-3beta-ol[c] + Formate[c] + 4 Water[c] + 3 NADP+[c]
+4,4-Dimethyl-5alpha-cholesta-8,14,24-trien-3beta-ol[c] + NADPH[c] => 14-Demethyllanosterol[c] + NADP+[c]
+14-demethyllanosterol[c] + 3 NADPH[c] + 3 Oxygen[c] => 4-methylcholesta-8,24-diene-3-ol-4-carboxylate[c] + Intracellular protons[c] + 4 Water[c] + 3 NADP+[c]
+4-methylcholesta-8,24-diene-3-ol-4-carboxylate[c] + Intracellular protons[c] => 4-methylcholesta-8,24-diene-3-ol[c] + Carbon dioxide[c]
+4-methylcholesta-8,24-diene-3-ol[c] + 3 NADPH[c] + 3 Oxygen[c] => 3-dehydro-4-carboxyzymosterol[c] + 2 Intracellular protons[c] + 4 Water[c] + 3 NADP+[c]
+3-dehydro-4-carboxyzymosterol[c] + 2 Intracellular protons[c] => Carbon dioxide[c] + Zymosterol[c]
+
+Aor ====================
+lanosterol[c] + oxygen[c] + FADH2[m] => 4,4-dimethylcholesta-8,14,24-trienol[c] + FAD[m]
+4,4-dimethylcholesta-8,14,24-trienol[c] + NADPH[c] => 14-demethyllanosterol[c] + NADP(+)[c]
+14-demethyllanosterol[c] + 3 oxygen[c] => intermediate methylzymosterol I[c]
+intermediate methylzymosterol I[c] => CO2[c] + intermediate methylzymosterol II[c]
+intermediate methylzymosterol II[c] + NADPH[c] => 4alpha-methylzymosterol[c] + NADP(+)[c]
+4alpha-methylzymosterol[c] + 3 oxygen[c] => intermediate zymosterol I[c]
+intermediate zymosterol I[c] => CO2[c] + intermediate zymosterol II[c]
+intermediate zymosterol II[c] + NADPH[c] => zymosterol[c] + NADP(+)[c]
+
+## cytochrome
+
+Aor doesnt care about protons. But then these two reactions which should be
+identical will be separate reactions in the drafts...
+
+Aor ==============
+NADPH[c] + 2 ferricytochrome c[m] => NADP(+)[c] + 2 ferrocytochrome c[m]
+
+2 ferricytochrome c[m] + 4 H(+)[m] + ubiquinol[m] => 4 H(+) (energy metabolism)[c] + 2 ferrocytochrome c[m] + ubiquinone[m]
+
+2 ferrocytochrome c[m] + 4 H(+)[m] + 0.5 oxygen[m] => 4 H(+) (energy metabolism)[c] + 2 ferricytochrome c[m] + H2O[m]
+
+
+Ani =================
+2 Ferricytochrome c[m] + NADPH[c] => 2 Ferrocytochrome c[m] + 2 Intracellular protons[c] + NADP+[c]
+
+2 Ferricytochrome c[m] + 4 Proton (energy metabolism)[m] + Ubiquinol[m] => 2 Ferrocytochrome c[m] + 4 Proton (energy metabolism)[c] + Ubiquinone[m] + 2 Proton[m]
+
+2 Ferrocytochrome c[m] + 4 Proton (energy metabolism)[m] + 0.5 Oxygen[m] + 2 Proton[m] => 2 Ferricytochrome c[m] + 4 Proton (energy metabolism)[c] + Water[m]
+
+## Penicillin
+
+N-[L-5-amino-5-carboxypentanoyl]-L-cysteinyl-D-valine[c] + oxygen[c] => 2 H2O[c] + isopenicillin N[c]
+isopenicillin N[c] + phenylacetyl-CoA[c] => L-2-aminoadipate[c] + coenzyme A[c] + penicillins[c]
+isopenicillin N[c] => penicillin N[c]
+penicillins[c] => penicillanic acid[c]
+penicillins[c] => penicillanic acid[c]
+penicillins[c] => penicillanic acid[c]
+penicillins[c] => penicillanic acid[c]
+penicillins[c] => penicillanic acid[c]
+penicillin G[c] => 
+
+So essentially, 
+1. penicillin G can be extrected but is never used/created anywhere.
+2. penicillin N is a dead-end metabolite
+3. penicillanic acid is a dead-end metabolite
+
+## Chitosan
+
+Chitoson is a huge polymer....
+
+Ani ========
+Chitosan[c] + Water[c] => D-Glucosamine[c]
+
+Aor ========
+chitosan[c] => D-glucosamine[c]
+
+In kegg, R08715:
+Chitosan(n+1) + H2O <=> Chitosan(n) + D-Glucosamine
+
+## Pectin
+
+Ani =========
+Endo-Polygalacturonase	Water[e] + Polygalacturonate[e] => D-Galacturonate[e]	                          NA
+Pectin methyl esterase	Water[e] + Methylated galacturonate[e] => Methanol[e] + Polygalacturonate[e]	  3.1.1.11
+
+
+Aor ==========
+Exo-polygalacturonase	    H2O[e] + pectate[e] => D-galacturonate[e]	    3.2.1.67
+Endo-polygalacturonase	  pectate[e] => D-galacturonate[e]	            3.2.1.15
+Endo-polygalacturonase	  pectate[e] => D-galacturonate[e]	            3.2.1.15
+Endo-polygalacturonase	  pectate[e] => D-galacturonate[e]	            3.2.1.15
+
+So, first off, I think these reactions should always involve H2O.
+Second, it is strange that it is using "Methylated galacturonate" in stead of
+"Methylated polygalacturonate".
+Third, could we say pectate == Polygalacturonate?
+Fourth, in KEGG, these reactions (e.g.) are always specified as
+ 	
+Pectate + H2O <=> Pectate + D-Galacturonate
+
+i.e., with the polymer on both sides. I suppose you cant do that in a GEM, 
+because then the supply of pectate would be eternal.
+
+## Riboflavin metabolism
+
+https://www.kegg.jp/pathway/map00740+C04454
+
+KEGG ====================
+ 	
+*3.5.4.25)* GTP + 4 H2O <=> Formate + 2,5-Diamino-6-(5-phospho-D-ribosylamino)pyrimidin-4(3H)-one + 2 Orthophosphate
+
+*3.5.4.26)* 2,5-Diamino-6-(5-phospho-D-ribosylamino)pyrimidin-4(3H)-one + H2O <=> 5-Amino-6-(5'-phosphoribosylamino)uracil + Ammonia
+*1.1.1.193)* 5-Amino-6-(5'-phosphoribosylamino)uracil + NADPH + H+ <=> 5-Amino-6-(5'-phospho-D-ribitylamino)uracil + NADP+
+
+*1.1.1.302)* 2,5-Diamino-6-(5-phospho-D-ribosylamino)pyrimidin-4(3H)-one + NADPH + H+ <=> 2,5-Diamino-6-(5-phospho-D-ribitylamino)pyrimidin-4(3H)-one + NADP+
+*5.4.99.28)* 2,5-Diamino-6-(5-phospho-D-ribitylamino)pyrimidin-4(3H)-one + H2O <=> 5-Amino-6-(5'-phospho-D-ribitylamino)uracil + Ammonia
+
+*3.1.3.104)* 5-Amino-6-(5'-phospho-D-ribitylamino)uracil + H2O <=> 5-Amino-6-(1-D-ribitylamino)uracil + Orthophosphate
+*2.5.1.78)*  5-Amino-6-(1-D-ribitylamino)uracil + L-3,4-Dihydroxybutan-2-one 4-phosphate <=> 6,7-Dimethyl-8-(D-ribityl)lumazine + 2 H2O + Orthophosphate
+
+Aor =====================
+
+*3.5.4.25)* GTP[c] => 2,5-diamino-6-hydroxy-4-(5'-phosphoribosylamino)-pyrimidine[c] + formate[c] + diphosphate[c]
+*3.5.4.26)* 2,5-diamino-6-hydroxy-4-(5'-phosphoribosylamino)-pyrimidine[c] => 5-amino-6-(5-phosphoribosylamino)uracil[c] + NH3[c]
+*1.1.1.193)* 5-amino-6-(5-phosphoribosylamino)uracil[c] + NADPH[c] => 5-amino-6-(5'-phosphoribitylamino)uracil[c] + NADP(+)[c]
+*3.1.3.-)* 5-amino-6-(5'-phosphoribitylamino)uracil[c] + H2O[c] => 5-amino-6-ribityluracil[c] + phosphate[c]	
+*empty)* 5-amino-6-ribityluracil[c] + 2-hydroxy-3-oxobutyl phosphate[c] => 6,7-dimethyl-8-(1-D-ribityl)lumazine[c] + 2 H2O[c] + phosphate[c]
+
+Ani =====================
+
+*3.5.4.25)* GTP[c] + 3 Water[c] => Formate[c] + Pyrophosphate[c] + 2,5-diamino-6-(1-D-ribosylamino)pyrimidin-4(3H)-one 5'-phosphate[c]	
+*1.1.1.302)* NADPH[c] + 2,5-diamino-6-(1-D-ribosylamino)pyrimidin-4(3H)-one 5'-phosphate[c] => NADP+[c] + 2,5-diamino-6-(5-phosphono)ribitylamino-4(3H)-pyrimidinone[c]	
+*3.5.4.26)* Water[c] + 2,5-diamino-6-(5-phosphono)ribitylamino-4(3H)-pyrimidinone[c] => 2 Intracellular protons[c] + Ammonia[c] + 5-amino-6-(5-phospho-β-D-ribosylamino)uracil[c]
+*3.1.3.104)* 2 Intracellular protons[c] + Water[c] + 5-amino-6-(5-phospho-β-D-ribosylamino)uracil[c] => Orthophosphate[c] + 5-amino-6-(D-ribitylamino)uracil[c]
+*2.5.1.78)* 2-hydroxy-3-oxobutyl phosphate[c] + 5-amino-6-(D-ribitylamino)uracil[c] => 2 Water[c] + Orthophosphate[c] + 6,7-dimethyl-8-(1-D-ribityl)lumazine[c]
+
+So:
+Strong suspicion that
+1. In Aor, enzyme 3.1.3.- should be 3.1.3.104
+2. In Ani, enzyme 3.5.4.26 should be 5.4.99.28
+
+
+
+---
+
+# Revisit
+
+What I do below can be very useful, but only when jointly looking to the other
+GEMs. So, I will incorporate the code below in the other scripts later.
+
+```
+target <- niger_gem$METS[is.na(niger_gem$METS$KEGG)&is.na(niger_gem$METS$KEGG_v2)&is.na(niger_gem$METS$KEGG_v3)&is.na(niger_gem$METS$KEGG_v4),]
+target <- target[!duplicated(target$NAME),]
+```
+
+```
+View(target)
+```
+
+## Niger-specific metabolites
+
+```
+sum(grepl("Yanuthone",target$NAME,ignore.case = TRUE))
+sum(grepl("nigrin",target$NAME,ignore.case = TRUE))
+sum(grepl("fonsec",target$NAME,ignore.case = TRUE))
+sum(grepl("Azanig",target$NAME,ignore.case = TRUE))
+```
+
+There are several classes of complex secondary metabolites described by Brandl
+himself on the CHEBI website. We will never find a KEGG for these, and it is
+very unlikely these will ever appear in the other GEMs.
+
+- yanuthones: A class of meroterpenoids whose core structure consists of 5,6-epoxycyclohex-2-en-1-one which is substituted by varying side chains at positions 3 and 4, and by a sesquiterpene chain at position 6. The core structure may be derived from 6-methylsalicylic acid, which due to a decarboxylation results in a C7 scaffold (a 6-membered methylated ring); these are known as class I yanuthones. Class II yanuthones contain a C6 scaffold derived from an unknown precursor. -> search for yanuthone and epoxycyclo in Aor and Afu gave no hits
+
+- Pyranonigrin: A member of the class of pyranopyrroles that is 2-[(1E)-prop-1-en-1-yl]-6,7-dihydropyrano[2,3-c]pyrrole-4,5-dione carrying two additional hydroxy substituents at positions 3 and 7. -> search for nigrin, pyrano and pyrrole in Aor and Afu gave no hits
+
+- Fonsecinone: A dimeric naphthopyran with formula C32H28O11, originally isolated from Aspergillus niger. On pubchem, fonsecinone is 5-hydroxy-9-(5-hydroxy-6,8-dimethoxy-2-methyl-4-oxobenzo[g]chromen-10-yl)-8,10-dimethoxy-2-methylbenzo[h]chromen-4-one -> Search for fonsec, naphto and pyran in Aor and Afu gave no hits
+
+-Azanigerone: An azaphilone that is the ester obtained by formal condensation of the carboxy group of 2,4-dimethylhexanoic acid with the tertiary hydroxy group of 7-hydroxy-7-methyl-6,8-dioxo-7,8-dihydro-6H-2-benzopyran-3-carboxylic acid. IUPAC: 7-[(2,4-dimethylhexanoyl)oxy]-7-methyl-6,8-dioxo-7,8-dihydro-6H-2-benzopyran-3-carboxylic acid
+-> Search for aza and benzopyr in Aor and Afu gave no hits
+
+```
+target <- target[!grepl("Yanuthone",target$NAME,ignore.case = TRUE) &
+                   !grepl("nigrin",target$NAME,ignore.case = TRUE) &
+                   !grepl("fonsec",target$NAME,ignore.case = TRUE) &
+                   !grepl("Azanig",target$NAME,ignore.case = TRUE)
+                 ,]
+```
+
+
+
+## Fatty acids
+
+```
+sum(grepl("Undec",niger_gem$METS$NAME))
+sum(grepl("Dodec",niger_gem$METS$NAME))
+sum(grepl("Tridec",niger_gem$METS$NAME))
+sum(grepl("Tetradec",niger_gem$METS$NAME))
+sum(grepl("Pentadec",niger_gem$METS$NAME))
+sum(grepl("Hexadec",niger_gem$METS$NAME))
+sum(grepl("Heptadec",niger_gem$METS$NAME))
+sum(grepl("Octadec",niger_gem$METS$NAME))
+sum(grepl("Nonadec",niger_gem$METS$NAME))
+sum(grepl("Eicos",niger_gem$METS$NAME))
+```
+
+In Aor and Afu, we use the regular names (stearoyl,oleoyl,myristoyl,...).
+This translation can be done through KEGG. However, for many compounds
+(e.g. those in target) we already dont have kegg. For some we could get
+the kegg maybe, but for instance:
+
+Octadecanoyl-CoA = stearoyl CoA = KEGG C00412 -> found
+Octadecanoyl-carnitine = stearoyl carnitine -> not in kegg, but the name is in Aor
+
+
+Try to change to these
+
+```
+target[5:89,]
+```
+
+Octadecanoyl-CoA = stearoyl CoA = KEGG C00412
+Octadecenoyl-CoA = Oleoyl CoA = KEGG C00510
+Tetradecanoyl-CoA = Myristoyl-CoA = C02593
+
+Octadecanoate is stearate
+Octadecanoic acid is Stearic acid =  	C01530
+
+coenzyme A[p] + ATP[p] + stearate[p] <=> AMP[p] + diphosphate[p] + stearoyl-CoA[p]
+
+Changes:
+
+```
+target[grepl("Octadecan",target$NAME,ignore.case = TRUE),]
+```
+
+
+- Octodecan to stear
+
+
+## other
+
+
+```
+target$NAME[grepl("nigrin",target$NAME)]
+```
+
+
+```
+sum(grepl("\\[acyl-carrier protein\\]",target$NAME))
+sum(grepl("anoyl",target$NAME))
+
+sum(grepl("Cerebrin",target$NAME))
+sum(grepl("Aminoacyl-tRNA",target$NAME))
+```

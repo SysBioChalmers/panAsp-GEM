@@ -1,6 +1,7 @@
 %%%%%% Function obtained form https://github.com/SysBioChalmers/Human-GEM/blob/022ed5c2c971e27f739e149c4bbe1328de38337f/code/getModelFromOrthology.m#L4
-% Adapted cleanGrRules to have an addition argument that decides on
-% collapsing instances of GENE1 & GENE1 to GENE1
+% Adapted cleanGrRules, which is a subroutine of replaceGrRules_local.m 
+% to have an addition argument that decides on collapsing instances like 
+% GENE1 & GENE1 to GENE1
 
 function [draftModel, removedRxns] = getModelFromOrthology_local(templateModel,orthologPairs)
 %getModelFromOrthology  
