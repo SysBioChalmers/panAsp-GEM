@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" xmlns:groups="http://www.sbml.org/sbml/level3/version1/groups/version1" level="3" version="1" fbc:required="false" groups:required="false">
   <model name="Automatically generated from KEGG database" fbc:strict="true">
-    <notes>
-      <body xmlns="http://www.w3.org/1999/xhtml">
-        <p>This file was generated using the exportModel function in RAVEN Toolbox 2 and OutputSBML in libSBML </p>
-      </body>
-    </notes>
     <listOfUnitDefinitions>
       <unitDefinition id="mmol_per_gDW_per_hr">
         <listOfUnits>
@@ -18637,7 +18632,7 @@
     </listOfSpecies>
     <listOfParameters>
       <parameter id="FB1N1000" value="-1000" constant="true"/>
-      <parameter id="FB2N0" value="0" constant="true"/>
+      <parameter id="FB2N0" value="-0" constant="true"/>
       <parameter id="FB3N1000" value="1000" constant="true"/>
     </listOfParameters>
     <listOfReactions>

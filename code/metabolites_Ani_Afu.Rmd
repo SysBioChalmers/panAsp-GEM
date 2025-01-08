@@ -30,14 +30,11 @@ source("./Rutilities.R")
 # Load GEMs
 
 ```{r}
-# Note: excels should be closed when reading them in R
+# Note: excel files should be closed when reading them in R
 Aor_draft <- read_excel_allsheets("../data/intermediate/Aor_draft_comp.xlsx")
 Aor_kegg <- read.xlsx("../data/intermediate/oryzae_kegg.xlsx")
-Ani_draft <- read_excel_allsheets("../data/intermediate/Ani_draft_comp_mets.xlsx")
-Afu_draft <- read_excel_allsheets("../data/intermediate/Afu_draft_comp.xlsx")
-Ani_reduced <- read_excel_allsheets("../scrap/Ani_reduced.xlsx")
-Afu_reduced <- read_excel_allsheets("../scrap/Afu_reduced.xlsx")
-OtherAsp <- read_excel_allsheets("../scrap/OtherAsp_10_50_loc.xlsx");
+Ani_reduced <- read_excel_allsheets("../data/intermediate/Ani_reduced.xlsx")
+Afu_reduced <- read_excel_allsheets("../data/intermediate/Afu_reduced.xlsx")
 ```
 
 # Wrangle input
@@ -256,9 +253,11 @@ write.xlsx(Afu_reduced$METS[,c("NAME","KEGG")], "../data/intermediate/fumigatus_
 # Appendix: Anticipate downstream issues
 
 There are a few compounds that are probably truly unique to the fumigatus GEM,
-however, the reactions they are used in are not. Exmples:
+however, the reactions they are used in are not. Examples:
 
 ## B00001 and B00002
+
+
 
 The compounds B00001 and B00002 are interesting. They seem to encode something
 like "a polymer that is one building block longer/shorter than before".
@@ -271,6 +270,7 @@ Afu_reduced$RXNS[grep("B0000", Afu_reduced$RXNS$EQUATION),]
 ```
 
 ```{r}
+Afu_draft <- read_excel_allsheets("../data/intermediate/Afu_draft_comp.xlsx")
 Afu_draft$RXNS[grep("B0000", Afu_draft$RXNS$EQUATION),]
 ```
 

@@ -1614,6 +1614,7 @@
 139|Org139_Gene11026|Aspergillus_oryzae_TK_65GCA_009687405.1.faa#
 28|Org28_Gene8682|Aspergillus_oryzae_NRRL_458.faa#
 158|Org158_Gene81053|niger.faa#
+158|Org158_Gene112824|niger.faa#
 88|Org88_Gene799|Aspergillus_oryzae_TK_14GCA_009685055.1.faa#
 110|Org110_Gene1720|Aspergillus_oryzae_TK_36GCA_009686825.1.faa#
 102|Org102_Gene3150|Aspergillus_oryzae_TK_28GCA_009686665.1.faa#
@@ -1729,6 +1730,7 @@
 125|Org125_Gene3546|Aspergillus_oryzae_TK_51GCA_009687125.1.faa#
 102|Org102_Gene7071|Aspergillus_oryzae_TK_28GCA_009686665.1.faa#
 7|Org7_Gene11503|Aspergillus_oryzae_BCC7051GCA_002007945.1.faa#
+29|Org29_Gene905|Aspergillus_oryzae_NRRL_459.faa#
 42|Org42_Gene4167|Aspergillus_oryzae_NRRL_1958.faa#
 24|Org24_Gene1321|Aspergillus_oryzae_NRRL_448.faa#
 157|Org157_Gene1119|fumigatus.faa#
@@ -1882,6 +1884,7 @@
 11|Org11_Gene8791|Aspergillus_oryzae_KG15GCA_013407045.1.faa#
 36|Org36_Gene3748|Aspergillus_oryzae_NRRL_484.faa#
 36|Org36_Gene6666|Aspergillus_oryzae_NRRL_484.faa#
+158|Org158_Gene65632|niger.faa#
 56|Org56_Gene6213|Aspergillus_oryzae_NRRL_5589.faa#
 45|Org45_Gene8742|Aspergillus_oryzae_NRRL_2218.faa#
 8|Org8_Gene3178|Aspergillus_oryzae_BP2_1GCA_004353305.1.faa#
@@ -1931,6 +1934,7 @@
 157|Org157_Gene9337|fumigatus.faa#
 108|Org108_Gene7402|Aspergillus_oryzae_TK_34GCA_009686785.1.faa#
 67|Org67_Gene4260|Aspergillus_oryzae_NRRL_35739.faa#
+157|Org157_Gene1073|fumigatus.faa#
 95|Org95_Gene6913|Aspergillus_oryzae_TK_21GCA_009686525.1.faa#
 79|Org79_Gene4470|Aspergillus_oryzae_TK_5GCA_009684875.1.faa#
 157|Org157_Gene7237|fumigatus.faa#
@@ -2047,6 +2051,7 @@
 1|Org1_Gene1017|Aspergillus_oryzae_3.042_GCA_000269785.2.faa#
 94|Org94_Gene2420|Aspergillus_oryzae_TK_20GCA_009686505.1.faa#
 18|Org18_Gene11121|Aspergillus_oryzae_MA1_GCA_025738265.1.faa#
+80|Org80_Gene2425|Aspergillus_oryzae_TK_6GCA_009684895.1.faa#
 29|Org29_Gene11653|Aspergillus_oryzae_NRRL_459.faa#
 94|Org94_Gene9443|Aspergillus_oryzae_TK_20GCA_009686505.1.faa#
 101|Org101_Gene10528|Aspergillus_oryzae_TK_27GCA_009686645.1.faa#
@@ -2193,6 +2198,7 @@
 67|Org67_Gene2809|Aspergillus_oryzae_NRRL_35739.faa#
 158|Org158_Gene26548|niger.faa#
 27|Org27_Gene10947|Aspergillus_oryzae_NRRL_456.faa#
+122|Org122_Gene6089|Aspergillus_oryzae_TK_48GCA_009687065.1.faa#
 36|Org36_Gene1060|Aspergillus_oryzae_NRRL_484.faa#
 37|Org37_Gene2949|Aspergillus_oryzae_NRRL_506.faa#
 157|Org157_Gene1937|fumigatus.faa#

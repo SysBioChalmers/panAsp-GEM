@@ -35,7 +35,7 @@ source("./Rutilities.R")
 # Load GEMs
 
 ```{r}
-# Note: excels should be closed when reading them in R
+# Note: excel files should be closed when reading them in R
 Aor_draft <- read_excel_allsheets("../data/intermediate/Aor_draft_comp.xlsx")
 Ani_draft <- read_excel_allsheets("../data/intermediate/Ani_draft.xlsx")
 ```
@@ -64,7 +64,7 @@ Aor_draft$METS$KEGG <- gsub("kegg.compound/","",Aor_draft$METS$KEGG)
 Aor_draft$METS$KEGG[!is.na(Aor_draft$METS$KEGG)]
 ```
 
-The replacement IDs for both oryzae niger can be improved. If the
+The replacement IDs for both oryzae and niger can be improved. If the
 compartment is not cytosol, a trailing compartment name was added. Fix this:
 
 ```{r}

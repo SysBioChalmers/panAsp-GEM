@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" level="3" version="1" fbc:required="false">
   <model metaid="Aspergillus_fumigatus" id="Aspergillus_fumigatus" name="Genome-scale model for Aspergillus fumigatus" fbc:strict="true">
-    <notes>
-      <body xmlns="http://www.w3.org/1999/xhtml">
-        <p>This file was generated using the exportModel function in RAVEN Toolbox 2 and OutputSBML in libSBML </p>
-      </body>
-    </notes>
     <listOfUnitDefinitions>
       <unitDefinition id="mmol_per_gDW_per_hr">
         <listOfUnits>

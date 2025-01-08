@@ -11029,20 +11029,6 @@
           </rdf:RDF>
         </annotation>
       </species>
-      <species metaid="M_Protein__91__c__93__" sboTerm="SBO:0000247" id="M_Protein__91__c__93__" name="Protein" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_Protein__91__c__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C00017"/>
-                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:16541"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
       <species metaid="M_PRPP__91__c__93__" sboTerm="SBO:0000247" id="M_PRPP__91__c__93__" name="5-Phospho-alpha-D-ribose 1-diphosphate" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C5H13O14P3">
         <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
@@ -13592,20 +13578,6 @@
         </annotation>
       </species>
       <species metaid="M_UDPGALF__91__c__93__" sboTerm="SBO:0000247" id="M_UDPGALF__91__c__93__" name="UDP-galactose (furanose)" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C15H24N2O17P2"/>
-      <species metaid="M_UDPGALF__91__c__93__" sboTerm="SBO:0000247" id="M_UDPGALF__91__c__93__" name="UDP-galactose (furanose)" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C15H24N2O17P2"/>
-      <species metaid="M_GDPMAN__91__c__93__" sboTerm="SBO:0000247" id="M_GDPMAN__91__c__93__" name="GDP-mannose" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C16H25N5O16P2">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_GDPMAN__91__c__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:84880"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
       <species metaid="M_LGALNT__91__c__93__" sboTerm="SBO:0000247" id="M_LGALNT__91__c__93__" name="L-Galactonate" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C6H12O7">
         <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
@@ -16669,19 +16641,6 @@
               <bqbiol:is>
                 <rdf:Bag>
                   <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:26833"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="M_CA__91__c__93__" sboTerm="SBO:0000247" id="M_CA__91__c__93__" name="Calcium cation" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="Ca">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_CA__91__c__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:29108"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -20924,19 +20883,6 @@
                   <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:16889"/>
                   <rdf:li rdf:resource="https://identifiers.org/hmdb/HMDB02113"/>
                   <rdf:li rdf:resource="https://identifiers.org/inchi/InChI=1S/C5H9NO3/c7-3-1-2-6-4(3)5(8)9/h3-4,6-7H,1-2H2,(H,8,9)/t3-,4-/m0/s1"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="M_FE3__91__c__93__" sboTerm="SBO:0000247" id="M_FE3__91__c__93__" name="Fe3+" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="Fe">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_FE3__91__c__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:29034"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -46865,97 +46811,6 @@
           </fbc:or>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_PROTEINpolym" sboTerm="SBO:0000176" id="R_PROTEINpolym" name="Artificial reaction" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
-        <listOfReactants>
-          <speciesReference species="M_ALA__91__c__93__" stoichiometry="1.033" constant="true"/>
-          <speciesReference species="M_ARG__91__c__93__" stoichiometry="0.413" constant="true"/>
-          <speciesReference species="M_ASN__91__c__93__" stoichiometry="0.209" constant="true"/>
-          <speciesReference species="M_ASP__91__c__93__" stoichiometry="0.628" constant="true"/>
-          <speciesReference species="M_ATP__91__c__93__" stoichiometry="39.729" constant="true"/>
-          <speciesReference species="M_CYS__91__c__93__" stoichiometry="0.079" constant="true"/>
-          <speciesReference species="M_GLN__91__c__93__" stoichiometry="0.3" constant="true"/>
-          <speciesReference species="M_GLU__91__c__93__" stoichiometry="0.899" constant="true"/>
-          <speciesReference species="M_GLY__91__c__93__" stoichiometry="0.862" constant="true"/>
-          <speciesReference species="M_H2O__91__c__93__" stoichiometry="30.489" constant="true"/>
-          <speciesReference species="M_HIS__91__c__93__" stoichiometry="0.205" constant="true"/>
-          <speciesReference species="M_ILE__91__c__93__" stoichiometry="0.396" constant="true"/>
-          <speciesReference species="M_LEU__91__c__93__" stoichiometry="0.704" constant="true"/>
-          <speciesReference species="M_LYS__91__c__93__" stoichiometry="0.651" constant="true"/>
-          <speciesReference species="M_MET__91__c__93__" stoichiometry="0.105" constant="true"/>
-          <speciesReference species="M_PHE__91__c__93__" stoichiometry="0.312" constant="true"/>
-          <speciesReference species="M_PRO__91__c__93__" stoichiometry="0.441" constant="true"/>
-          <speciesReference species="M_SER__91__c__93__" stoichiometry="0.628" constant="true"/>
-          <speciesReference species="M_THR__91__c__93__" stoichiometry="0.503" constant="true"/>
-          <speciesReference species="M_TRP__91__c__93__" stoichiometry="0.126" constant="true"/>
-          <speciesReference species="M_TYR__91__c__93__" stoichiometry="0.205" constant="true"/>
-          <speciesReference species="M_VAL__91__c__93__" stoichiometry="0.536" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_ADP__91__c__93__" stoichiometry="39.729" constant="true"/>
-          <speciesReference species="M_PI__91__c__93__" stoichiometry="39.729" constant="true"/>
-          <speciesReference species="M_Protein__91__c__93__" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <fbc:geneProductAssociation>
-          <fbc:or>
-            <fbc:geneProductRef fbc:geneProduct="cluster_10941"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_11358"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_11475"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_12191"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_13480"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_13521"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_14093"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_14179"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_14444"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_14577"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_15092"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_15314"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_15458"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_15499"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_15599"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_15767"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_16015"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_16171"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_16199"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_16284"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_16341"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_16596"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_16628"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_16765"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_16860"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_16864"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_17027"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_17046"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_17107"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_17173"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_17253"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_17608"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_17635"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_17709"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_17810"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_17834"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_17979"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_18168"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_18510"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_18906"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_19009"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_19051"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_19195"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_20003"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_2070"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_21606"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_2191"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_2661"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_440"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_4922"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_5017"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_5720"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_5928"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_6657"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_699"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_7355"/>
-          </fbc:or>
-        </fbc:geneProductAssociation>
-      </reaction>
       <reaction metaid="R_RNApolym" sboTerm="SBO:0000176" id="R_RNApolym" name="DNA-directed RNA polymerase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
         <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
@@ -47112,23 +46967,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_POOL__91__c__93__" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-      </reaction>
-      <reaction metaid="R_GROWTH" sboTerm="SBO:0000176" id="R_GROWTH" name="Artificial reaction" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
-        <listOfReactants>
-          <speciesReference species="M_ATP__91__c__93__" stoichiometry="61" constant="true"/>
-          <speciesReference species="M_CELLWALL__91__c__93__" stoichiometry="0.38" constant="true"/>
-          <speciesReference species="M_DNA__91__c__93__" stoichiometry="0.00244" constant="true"/>
-          <speciesReference species="M_H2O__91__c__93__" stoichiometry="61" constant="true"/>
-          <speciesReference species="M_LIPIDS__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_POOL__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_Protein__91__c__93__" stoichiometry="0.263" constant="true"/>
-          <speciesReference species="M_RNA__91__c__93__" stoichiometry="0.01814" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_ADP__91__c__93__" stoichiometry="61" constant="true"/>
-          <speciesReference species="M_PI__91__c__93__" stoichiometry="61" constant="true"/>
-          <speciesReference species="M_BIOMASS__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
       <reaction metaid="R_m_ATP" sboTerm="SBO:0000176" id="R_m_ATP" name="Artificial reaction" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
@@ -50225,28 +50063,6 @@
         </listOfProducts>
         <fbc:geneProductAssociation>
           <fbc:geneProductRef fbc:geneProduct="cluster_7121"/>
-        </fbc:geneProductAssociation>
-      </reaction>
-      <reaction metaid="R_r1001" sboTerm="SBO:0000176" id="R_r1001" name="UDP-Galactose (furanose) transport" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
-        <listOfReactants>
-          <speciesReference species="M_UDPGALF__91__c__93__" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_UDPGALF__91__c__93__" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="cluster_10405"/>
-        </fbc:geneProductAssociation>
-      </reaction>
-      <reaction metaid="R_r1002" sboTerm="SBO:0000176" id="R_r1002" name="GDP-Mannose transport" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
-        <listOfReactants>
-          <speciesReference species="M_GDPMAN__91__c__93__" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_GDPMAN__91__c__93__" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="cluster_4238"/>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction metaid="R_r184" sboTerm="SBO:0000176" id="R_r184" name="D-galacturonic acid reductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
@@ -54426,21 +54242,6 @@
         </listOfProducts>
         <fbc:geneProductAssociation>
           <fbc:geneProductRef fbc:geneProduct="cluster_6726"/>
-        </fbc:geneProductAssociation>
-      </reaction>
-      <reaction metaid="R_r2145" sboTerm="SBO:0000176" id="R_r2145" name="Ca2+ ATPase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
-        <listOfReactants>
-          <speciesReference species="M_ATP__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_H2O__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_CA__91__c__93__" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_ADP__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_PI__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_CA__91__c__93__" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="cluster_1965"/>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction metaid="R_r2146" sboTerm="SBO:0000176" id="R_r2146" name="endo-beta-1,4-mannanase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
@@ -60050,11 +59851,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
           <speciesReference species="M_POOL__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
       </reaction>
-      <reaction metaid="R_DRAIN_PROTEIN" sboTerm="SBO:0000176" id="R_DRAIN_PROTEIN" name="Artificial reaction" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB3N0">
-        <listOfReactants>
-          <speciesReference species="M_Protein__91__c__93__" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-      </reaction>
       <reaction metaid="R_DRAIN_LIPIDS" sboTerm="SBO:0000176" id="R_DRAIN_LIPIDS" name="Artificial reaction" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB3N0">
         <listOfReactants>
           <speciesReference species="M_LIPIDS__91__c__93__" stoichiometry="1" constant="true"/>
@@ -61547,17 +61343,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
           <fbc:geneProductRef fbc:geneProduct="cluster_3323"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_r2701" sboTerm="SBO:0000176" id="R_r2701" name="Iron transporter" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
-        <listOfReactants>
-          <speciesReference species="M_FE3__91__c__93__" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_FE3__91__c__93__" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="cluster_13337"/>
-        </fbc:geneProductAssociation>
-      </reaction>
       <reaction metaid="R_r2702" sboTerm="SBO:0000176" id="R_r2702" name="GTP cyclohydrolase II" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperFluxBound="FB4N1000">
         <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
@@ -62868,7 +62653,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_10349" sboTerm="SBO:0000243" fbc:id="cluster_10349" fbc:label="1008373;1171775;1182561;1142820;55324;1162875;1132542;1150128;1156942"/>
       <fbc:geneProduct metaid="cluster_10355" sboTerm="SBO:0000243" fbc:id="cluster_10355" fbc:label="1132234;1205393;1171462;1182293;1083020;1061459;1101767;1205395;1156815;1142583;170148;1117378;1149983;1162620"/>
       <fbc:geneProduct metaid="cluster_10368" sboTerm="SBO:0000243" fbc:id="cluster_10368" fbc:label="1154849;1096770;1096326;1076615;1072476;1061307;1096150;143222"/>
-      <fbc:geneProduct metaid="cluster_10405" sboTerm="SBO:0000243" fbc:id="cluster_10405" fbc:label="1136055;1185333;1145159;1145158;1175390;1022562;55598;1141238;1158633;1180721;1169491;1189505;1148721;1161249;1161250;1152354;175896;1155796;1155776;1148722;1043809;1165538"/>
       <fbc:geneProduct metaid="cluster_10437" sboTerm="SBO:0000243" fbc:id="cluster_10437" fbc:label="1063198;56635;1066220;1081146;1100795;1100796;1100794;1170662;1156456;1131479;1004153;1080697;1142078;1149507;1162094;1116398;1116399;1116400;1181711;1080632;1076590;1142079"/>
       <fbc:geneProduct metaid="cluster_10450" sboTerm="SBO:0000243" fbc:id="cluster_10450" fbc:label="1165719;1122941;1122942;1122943;1023540;1158762;1185527;1145317;1107307;1107305;1107306;1079503;1175637;1152516;1089412;1088422;207331;1136293;1079582;1079358;1088321"/>
       <fbc:geneProduct metaid="cluster_10465" sboTerm="SBO:0000243" fbc:id="cluster_10465" fbc:label="1153979;203692;1159868;1187100;1138264;1167221;1177654;1110593;1110592;1110594;1031741;1094439;1094072;1094131;1126234;1126235;1126236;1073777;1078181;1069417"/>
@@ -62893,7 +62677,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_10913" sboTerm="SBO:0000243" fbc:id="cluster_10913" fbc:label="1226567;1179540;1168565;1188527;1140096"/>
       <fbc:geneProduct metaid="cluster_10917" sboTerm="SBO:0000243" fbc:id="cluster_10917" fbc:label="1070005;1151072;1173204;1069433;1078792;1086147;1085922;46010;1133948;1086134"/>
       <fbc:geneProduct metaid="cluster_10925" sboTerm="SBO:0000243" fbc:id="cluster_10925" fbc:label="1097005;1097343;1155174;1160749;1168530;1128896;1128895;1128894;1140054;1179498;1188490;1113249;1113248;1113250;187553;1079085;1071932;1097103;1059082"/>
-      <fbc:geneProduct metaid="cluster_10941" sboTerm="SBO:0000243" fbc:id="cluster_10941" fbc:label="1130804;1001172;1141545;1141544;1149045;1156070;212494;1099629;1099628;1099630;1079946;1080518;1080399;1181112;1169956;1115235;1115234;1115236;1063849;1066925;1059452;1001174;1001173;1161532"/>
       <fbc:geneProduct metaid="cluster_10945" sboTerm="SBO:0000243" fbc:id="cluster_10945" fbc:label="189384;1072246;1085072;1150480;1133042;1074794;1172297;1085052;1142460;1142461;1132114;206203;1149915;1171333;1117195;1117196;1006381;1182174;1101582;1101583;1156752;1156751;1162513;1084538;1079305;1082946;1082519;1073255;1073326;1149918;1006384;1142462;1006387;1142463;1006395"/>
       <fbc:geneProduct metaid="cluster_10949" sboTerm="SBO:0000243" fbc:id="cluster_10949" fbc:label="1140727;1169108;1114010;1114009;1114011;1041823;1148375;1148374;208051;1155464;1129660;1129659;1129658;1161014;1180201;1189112;1074449;1098183;1098582;1070226;1098121;1076990;1228015"/>
       <fbc:geneProduct metaid="cluster_10959" sboTerm="SBO:0000243" fbc:id="cluster_10959" fbc:label="174413;1174987;1184985;1165198;1214327;1135660;1214325;1152119;1158422;1144802;1020654;1214331;1214329;1020662"/>
@@ -62920,7 +62703,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_11314" sboTerm="SBO:0000243" fbc:id="cluster_11314" fbc:label="1220808;1167022;1186897;1177394;125584;1137998"/>
       <fbc:geneProduct metaid="cluster_11327" sboTerm="SBO:0000243" fbc:id="cluster_11327" fbc:label="1152193;1185107;1175131;1135800;1214708;1165316;1158484;206792;1106470;1106468;1106469;1214706;1122106;1122107;1122105;1088585;1088804;1089592;1070738;1076357;1075710"/>
       <fbc:geneProduct metaid="cluster_11355" sboTerm="SBO:0000243" fbc:id="cluster_11355" fbc:label="1181493;1170402;1149328;1202592;1156309;1161891;1131232;1115961;1115962;1115960;1080906;1081327;1080740;1077886;1076335;1071996;1100357;1100356;1100355"/>
-      <fbc:geneProduct metaid="cluster_11358" sboTerm="SBO:0000243" fbc:id="cluster_11358" fbc:label="1085704;1012182;1085859;1085828;1133573;1143424;1143425;1163619;1119366;1119364;1119365;1103744;1103745;1103746;56701;1150870;1183324;1157481;1172828;1079417;1079442;1079440;1012179;1012178;1085778;1183323;1119361;1103743;1103741;1103742;1172827;1119363;1150869;56702;1133572;1119362;1060726;1143420;1143423;1143421;1157480;1163618;1085281;1085672;1060061;1068865"/>
       <fbc:geneProduct metaid="cluster_11362" sboTerm="SBO:0000243" fbc:id="cluster_11362" fbc:label="1152460;1158720;1107163;1107162;1107164;207249;1136201;1165654;1175543;1122800;1122799;1122801;1185458;1061489;1090266;1077872;1088854;1073237;1088440;1023202"/>
       <fbc:geneProduct metaid="cluster_11368" sboTerm="SBO:0000243" fbc:id="cluster_11368" fbc:label="1165232;1185022;1135702;1175032;175251;1214432"/>
       <fbc:geneProduct metaid="cluster_11388" sboTerm="SBO:0000243" fbc:id="cluster_11388" fbc:label="1162601;1132213;1142558;1182268;1171436;46666;1006988"/>
@@ -62931,7 +62713,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_11449" sboTerm="SBO:0000243" fbc:id="cluster_11449" fbc:label="1091866;1108365;1152986;1075390;1159112;1136889;1166180;1124003;1176249;1186006;1091682;1108366;41421;1075344;1124004;1145742;1217659"/>
       <fbc:geneProduct metaid="cluster_11452" sboTerm="SBO:0000243" fbc:id="cluster_11452" fbc:label="1149573;1156507;1181798;1203674;1170776;1150475;1157210;1084245;1084349;1207484;1084849;1118529;1118531;1118530;1172292;1182957;1079124;1079128;1079610;1162173;1131586;1133037;1207485;1163259;124656"/>
       <fbc:geneProduct metaid="cluster_11470" sboTerm="SBO:0000243" fbc:id="cluster_11470" fbc:label="1104211;1157649;1173286;1209788;1119840;1163900;1134031;1119839;1119838;1209792;215084;1151147;1086187;1065861;1087167;1086956;1071023;1077289;1183617"/>
-      <fbc:geneProduct metaid="cluster_11475" sboTerm="SBO:0000243" fbc:id="cluster_11475" fbc:label="1156775;1074438;1073836;1070763;1182216;1082745;1084102;1149942;1101647;1101648;1101646;1117261;1117260;1117259;1083207;1142507;1132161;1162553;1171379;1006659;196638"/>
       <fbc:geneProduct metaid="cluster_11482" sboTerm="SBO:0000243" fbc:id="cluster_11482" fbc:label="1183807;1151262;1104510;1104512;1104511;1164080;1014592;1120144;1120142;1120143;1157757;1134232;53444;56319;1173493;1079147;1086804;1086489;1079669;1074653;1086274;1143819"/>
       <fbc:geneProduct metaid="cluster_11483" sboTerm="SBO:0000243" fbc:id="cluster_11483" fbc:label="207853;1169250;1042636;1097979;1114200;1114201;1161087;1129852;1129853;1140892;1189259;1061449;1180367;1155540;1098853;1068293"/>
       <fbc:geneProduct metaid="cluster_11522" sboTerm="SBO:0000243" fbc:id="cluster_11522" fbc:label="208192;1155414;1140589;1180052"/>
@@ -62942,7 +62723,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_11597" sboTerm="SBO:0000243" fbc:id="cluster_11597" fbc:label="1075633;1151044;1178613;1139192;1224096;1187851;1167927;1224095;1160310;1154544;1078536;1133920;1096145;55971;1112031;1096031;1095167;1224097;1086123;1086077;1173177;1127677;1127679;1127678;1070406;1079215;1079187;1079167;46038;1112032;1112030;1086091"/>
       <fbc:geneProduct metaid="cluster_11602" sboTerm="SBO:0000243" fbc:id="cluster_11602" fbc:label="1089593;1088608;1135929;1122342;1122341;1175264;1106705;1106703;1185226;1021975;1165430;197480;1122340;1089999;1106704;1158565;1152277;1066998;1063993;1068587"/>
       <fbc:geneProduct metaid="cluster_11619" sboTerm="SBO:0000243" fbc:id="cluster_11619" fbc:label="1138932;1062674;1096169;1154362;178484;1178345"/>
-      <fbc:geneProduct metaid="cluster_11622" sboTerm="SBO:0000243" fbc:id="cluster_11622" fbc:label="1145198;1136104;1165581;47085;1158664;1022765;1175445;1185382;1106990;1106988;1106989;1152390;1122626;1122627;1122625;1090165;1071953;1074335;1088261;1088868;1070613"/>
       <fbc:geneProduct metaid="cluster_1166" sboTerm="SBO:0000243" fbc:id="cluster_1166" fbc:label="1068630;1149373;1081384;211162;1080849;1081196;1100474;1100475;1100476;1116079;1181548;1170463;1116081;1116080;1161943;1156348;1003328;1064640;1064024;1131290;1003329;1141947;1116082;1116083;1116084;1131291;1170464;1081484;1075517;1181549;1080888;1081232;1100479;1100478;1100477;1161944;211163;1069302;1156349;1076863;1003330;1149374;1133318;1103255;1103256;1172566;1103254;1150692;1078065;1208035;1183104;1163408;1157328;1072431;1118870;1118871;1118872;189722;1084521;1084811;1074931;1084882;1095548;1065557;1139401;1096597;1065346;1178826;178393;1068399;1095698;1154696;1141946;1141948"/>
       <fbc:geneProduct metaid="cluster_11671" sboTerm="SBO:0000243" fbc:id="cluster_11671" fbc:label="1171575;1132349;51907"/>
       <fbc:geneProduct metaid="cluster_11685" sboTerm="SBO:0000243" fbc:id="cluster_11685" fbc:label="1025006;1136677;1176035;1152820;54874;1123593;1166014;1145565;1185833;1107953;1158984;1090590;1145564;1065768;1025008"/>
@@ -62991,7 +62771,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_12160" sboTerm="SBO:0000243" fbc:id="cluster_12160" fbc:label="1029394;57436;1125272;1125274;1125273;1186648;1166786;1109637;1109635;1109636;1146282;1146280;1137698;1092909;1093413;1177078;1093056;1071746;1070801;1071992;1029396"/>
       <fbc:geneProduct metaid="cluster_12167" sboTerm="SBO:0000243" fbc:id="cluster_12167" fbc:label="1157199;1182941;1172271;1143124;1143123;1070048;1073797;1084717;1118493;1118492;1084581;1102881;1102880;1150460;1010128;189424;1133017;1163244"/>
       <fbc:geneProduct metaid="cluster_12188" sboTerm="SBO:0000243" fbc:id="cluster_12188" fbc:label="1155007;1091392;1153362;1137417;1176790;1061211;1155008;1091844;1070377;1179231;1139799;42574"/>
-      <fbc:geneProduct metaid="cluster_12191" sboTerm="SBO:0000243" fbc:id="cluster_12191" fbc:label="1216000;1136313;1122973;1122975;1122974;1145337;1158773;1107339;1107338;1107337;1165738;1175658;1152528;1023695;1185546;1023689;1089806;1071265;1089141;1078620;1090242;1065866;52431"/>
       <fbc:geneProduct metaid="cluster_12203" sboTerm="SBO:0000243" fbc:id="cluster_12203" fbc:label="211909;1226318;1155147;1188446;1160724;1128814;1128813;1128812;1140010;1168490;1097219;1097638;1097385;1179451;1113167;1113166;1113168;1060791;1070038;1067608;1147757"/>
       <fbc:geneProduct metaid="cluster_12209" sboTerm="SBO:0000243" fbc:id="cluster_12209" fbc:label="1151604;1164463;209864;1211776;1157992;1184216;1134778;1144110;1174066"/>
       <fbc:geneProduct metaid="cluster_1222" sboTerm="SBO:0000243" fbc:id="cluster_1222" fbc:label="1095815;1160232;1062479;1095606;1127442;1127441;1154441;1187735;1178463;1223696;55936;1060035;1167814;1111797;1111796;1139043;1127440;1066748;1111795;1223692;1096764;1147198"/>
@@ -63064,7 +62843,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_13270" sboTerm="SBO:0000243" fbc:id="cluster_13270" fbc:label="1173967;181152;1211579;46832;1171137;1131927;1134689"/>
       <fbc:geneProduct metaid="cluster_13276" sboTerm="SBO:0000243" fbc:id="cluster_13276" fbc:label="1179080;1139655;1225295;1168204;1188145;179332;1225299;1096800;1128317;1062497"/>
       <fbc:geneProduct metaid="cluster_13282" sboTerm="SBO:0000243" fbc:id="cluster_13282" fbc:label="1177174;51359;1061730;1093136;1153644;1092789;1092832;1059870;1135837;1158502;1122166;1122165;1106529;1106528;1152213;1060390;1088442;55563;1185140;1144963;1144962;1165348;1175168;1021461;1089358;1070505;1064373;1137794"/>
-      <fbc:geneProduct metaid="cluster_13337" sboTerm="SBO:0000243" fbc:id="cluster_13337" fbc:label="1162796;1132446;1205954;35907;1182474;1171674;1117620;1117621;1117619;1084224;1083076;1083443;1205960;1156903;1150082;1205958;1059045;1067639;1068493;1102012;1102011;1102010"/>
       <fbc:geneProduct metaid="cluster_1334" sboTerm="SBO:0000243" fbc:id="cluster_1334" fbc:label="1071575;1095644;1160527;1128309;1225286;1154899;1112663;1225284;1168200;1139649;1112661;1112662;1070690;1188141;1128308;1128307;199510;1069394;1096583;1179076;1095409;1225285;1160528;1188142;1036923;1128310;1112664;1168201;1036915;1096406;1072875;39420;1154900;1179077;1139650"/>
       <fbc:geneProduct metaid="cluster_1336" sboTerm="SBO:0000243" fbc:id="cluster_1336" fbc:label="1154408;1111708;1095275;1064202;1223551;1127355;1096021;1167777;1223552;1127357;1127356;1187694;1063810;1095464;1061857;1139000;1111709;1111710;1178414;130472;1065283;1127358;1111711;1096894;1067376;1068613;1167778;1127360;1127359;1034800;1139001;1096554;1095927;1178415;1187695;38774;1111713;1111712;1160205"/>
       <fbc:geneProduct metaid="cluster_13375" sboTerm="SBO:0000243" fbc:id="cluster_13375" fbc:label="1166975;1137941;1159705;1220597;1125747;1125748;1125749;1110113;1110111;1110112;1186845;1177333;1153764;1092743;1092610;1093332;1077126;1072740;1078659;191282;1220601"/>
@@ -63075,10 +62853,8 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_13429" sboTerm="SBO:0000243" fbc:id="cluster_13429" fbc:label="1181698;1162081;1203311;1131466;1116370;1116369;1203313;185180;1100765;1100766;1203312;1116368;1081290;1100764;1068152;1081262;1081308;1062161;1066474;1170649"/>
       <fbc:geneProduct metaid="cluster_13458" sboTerm="SBO:0000243" fbc:id="cluster_13458" fbc:label="1080645;1170475;1131301;1081551;1202809;1149382;1073251;1075709;1156354;1003378;1181556;1161951;1116098;1116097;1116096;1100491;1100493;1100492;1081525;1068905;1003382;201642"/>
       <fbc:geneProduct metaid="cluster_13460" sboTerm="SBO:0000243" fbc:id="cluster_13460" fbc:label="1156274;1161839;1081064;1170330;1115860;1115859;1115858;1131163;1100255;1100254;1100256;1181439;1002809;1081575;1081626;1149285;1071048;1069415;1072043;1002813;49304"/>
-      <fbc:geneProduct metaid="cluster_13480" sboTerm="SBO:0000243" fbc:id="cluster_13480" fbc:label="1010687;1084424;1085088;1157303;1084965;1150661;1133287;1172535;1118796;1118795;1118798;1118797;1103182;1103183;1103180;1103181;212876;1163382;1143208;1143207;1183076;1064690;1064653;1071087;1084508;1074534"/>
       <fbc:geneProduct metaid="cluster_13488" sboTerm="SBO:0000243" fbc:id="cluster_13488" fbc:label="1137531;1186517;1176907;1166660;193909;1146159;1028667"/>
       <fbc:geneProduct metaid="cluster_13513" sboTerm="SBO:0000243" fbc:id="cluster_13513" fbc:label="211145;1161936;1131283;1080883;1100458;1100459;1100460;1116065;1116063;1116064;1081406;1081349;1156344;1170456;1003271;1181541;1073288;1073364;1075537;1149369"/>
-      <fbc:geneProduct metaid="cluster_13521" sboTerm="SBO:0000243" fbc:id="cluster_13521" fbc:label="1131038;1002347;1156202;1181334;1115656;1115657;1115655;1149190;1100052;1100051;1100050;1161744;1170197;1072741;1141777;1141776;1081068;1075354;1080924;1069770;1081512;1002353"/>
       <fbc:geneProduct metaid="cluster_13528" sboTerm="SBO:0000243" fbc:id="cluster_13528" fbc:label="1184278;1174141;1016823;53315;1134850;1144177;1164524"/>
       <fbc:geneProduct metaid="cluster_13550" sboTerm="SBO:0000243" fbc:id="cluster_13550" fbc:label="1131053;41557;1170214;1202133"/>
       <fbc:geneProduct metaid="cluster_13576" sboTerm="SBO:0000243" fbc:id="cluster_13576" fbc:label="172404;1182325;1162652;1132270;1171497;1149997;1205529;1156829"/>
@@ -63101,11 +62877,9 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_13993" sboTerm="SBO:0000243" fbc:id="cluster_13993" fbc:label="1138937;38714;1178350"/>
       <fbc:geneProduct metaid="cluster_14028" sboTerm="SBO:0000243" fbc:id="cluster_14028" fbc:label="1167677;1223155;1138830;1187592;1178244;51398;1127114;1094926;1223159;1063925;1223151;1094939;1065270;1111468"/>
       <fbc:geneProduct metaid="cluster_14068" sboTerm="SBO:0000243" fbc:id="cluster_14068" fbc:label="1217927;1186073;1153075;1092031;1091564;184209;1176349;1159170;1124163;1124164;1166241;1136983;1108525;1072805;1064659;1091458;1108526;1217929;1124165;1061578;1145779"/>
-      <fbc:geneProduct metaid="cluster_14093" sboTerm="SBO:0000243" fbc:id="cluster_14093" fbc:label="1177723;1221806;1138333;1167283;44179;1187165;1146732;1146731;1177725;138257;1093935;1093963;1093899;1062305;1062985;1061112"/>
       <fbc:geneProduct metaid="cluster_1413" sboTerm="SBO:0000243" fbc:id="cluster_1413" fbc:label="184942;1203056;1156397;1071451;1070863;1081679;1116225;1116224;1100621;1100620;1170561;1080771;1181627;1149434;1080929;1100619;1116223;1203048;1203052;1075649;1131387;1162019;1164387;1134670;1211534;1173950;1184135;53360"/>
       <fbc:geneProduct metaid="cluster_14158" sboTerm="SBO:0000243" fbc:id="cluster_14158" fbc:label="1141146;1229154;1114564;1114565;1189441;1130215;1130216;37834;1148661;1148662;1043565;1180630;1098093;1098681;1060012;1060704;1169429"/>
       <fbc:geneProduct metaid="cluster_14178" sboTerm="SBO:0000243" fbc:id="cluster_14178" fbc:label="1137466;1186461;1109250;1109248;1109249;1159418;1146101;1146102;1124880;1124881;1124879;1176842;1166604;1028395;214565;1092582;1092423;1153401;1092487;1073963;1070306;1070867"/>
-      <fbc:geneProduct metaid="cluster_14179" sboTerm="SBO:0000243" fbc:id="cluster_14179" fbc:label="1098910;1099096;1041096;1148245;1129539;1129540;1148246;1129541;1168980;1188973;1180028;1155408;198715;1113894;1113895;1113893;1160968;1140565;1041105;1069692;1077138;1074599;1097861"/>
       <fbc:geneProduct metaid="cluster_14191" sboTerm="SBO:0000243" fbc:id="cluster_14191" fbc:label="1007773;1101974;1101973;1101975;1117583;1117582;1117584;1162770;1171634;1082481;1083086;1083536;1070298;1072752;1072132;1205901;1132407;1142711;1182447"/>
       <fbc:geneProduct metaid="cluster_14205" sboTerm="SBO:0000243" fbc:id="cluster_14205" fbc:label="1097714;1071750;1180479;37992;1099092;1071124;1155627;1098987;1072384;1141000"/>
       <fbc:geneProduct metaid="cluster_14216" sboTerm="SBO:0000243" fbc:id="cluster_14216" fbc:label="1158604;1106812;1106813;1106814;1022301;1122449;1122450;1122451;1165499;52326;1152323;1136010;1145111;1145110;1175346;1089072;1088627;1090036;1074127;1077843;1065890;1185293"/>
@@ -63115,14 +62889,12 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_14376" sboTerm="SBO:0000243" fbc:id="cluster_14376" fbc:label="1140304;1188729;1039852;1179755;1148027;1148028;1097477;1097035;1064209;1074795;1168757"/>
       <fbc:geneProduct metaid="cluster_1440" sboTerm="SBO:0000243" fbc:id="cluster_1440" fbc:label="1177709;1094563;1159897;1138319;1110693;1110694;1110695;1094490;213185;1093943;1060570;1066717;1063068;1031993;1031999;1187152;1154009;1126337;1167270;1126339;1126338;1031996"/>
       <fbc:geneProduct metaid="cluster_1442" sboTerm="SBO:0000243" fbc:id="cluster_1442" fbc:label="1122788;1158716;47113;1089395;1071207;1152456;1088053;1060724;1175540;1060054;1023186;1136198;1107156;1089308;1185455;1107157;1122794;1122793;1165652;1122787;1122786;1136194;1185451;1215751;1165648;1175536;1089499;1069420;1088459;1107150;1107149;1071934;1145258;1145261;1107151"/>
-      <fbc:geneProduct metaid="cluster_14444" sboTerm="SBO:0000243" fbc:id="cluster_14444" fbc:label="1095701;1179023;1036675;1112565;1112567;1112566;1188100;1139598;1168164;1128211;1128212;1128213;199462;1036678;1096839;1096300;1077198;1077293;1059655;1147457"/>
       <fbc:geneProduct metaid="cluster_1445" sboTerm="SBO:0000243" fbc:id="cluster_1445" fbc:label="1204329;1116878;1068783;206395;1084179;1101270;1204332;1116879;1068588;1101271;1084066;1084121;1204326;1149733;1156626;1116877;1101269;1066087;1181970;1171032;172302;1101272;1101273;1101274;1181971;1116882;1116880;1116881;1083460;1171033;1082966;1149734;1156627;1059948;1005372;1063374;1084045;1063334;1005373;1142295;1142294;1131831"/>
       <fbc:geneProduct metaid="cluster_14486" sboTerm="SBO:0000243" fbc:id="cluster_14486" fbc:label="1096216;1095690;1154995;1037657;53113;1188279;1179223;1112939;1112938;1147632;1147630;1112940;1128586;1128587;1128588;1139791;1160619;1168332;1073311;1095287;1065363;1062916"/>
       <fbc:geneProduct metaid="cluster_145" sboTerm="SBO:0000243" fbc:id="cluster_145" fbc:label="1218810;1108999;1108998;1108997;1186329;118654;1166480;53581;1074826;1159331;1124639;1124640;1124641;1076100;1077941;1153287;1137305;1091264;1176676;1091109;1091297;1145995;1145996"/>
       <fbc:geneProduct metaid="cluster_1452" sboTerm="SBO:0000243" fbc:id="cluster_1452" fbc:label="1059415;1117045;1162415;1101432;1117044;1101433;1101431;1082846;1067536;1149850;1082669;1005863;1171199;1142353;1156696;1131985;1182067;1117046;206339;1063804;1083568;1093441;1093571;1092913;1059332;1065587;1065566;191570;1153876;1177488;1138093"/>
       <fbc:geneProduct metaid="cluster_1456" sboTerm="SBO:0000243" fbc:id="cluster_1456" fbc:label="1159913;1093771;1187183;1126398;1126400;1167297;1126399;1094676;1177743;1110755;1110754;1110756;1154025;1066477;1032164;213140;1062149;1138349;1093883;1067326;1167298;1138350;1110758;1110757;1110759;1159914;1126402;1126403;1126401;1187184;1032165;1060999;1154026;1094792;1065944;54580;1094259;1094159;1177744;1059121;1146748;1146747"/>
       <fbc:geneProduct metaid="cluster_14567" sboTerm="SBO:0000243" fbc:id="cluster_14567" fbc:label="1172149;1182863;1132900;172477;1064222;1084136;1083633;1058954;1118325;1118326;1102717;1102716;1143068;1143069;1163168"/>
-      <fbc:geneProduct metaid="cluster_14577" sboTerm="SBO:0000243" fbc:id="cluster_14577" fbc:label="1009513;1163112;1172084;1150339;55252;1118213;1118215;1118214;1083028;1102606;1102605;1132837;1143026;1182805;1143025;1102604;1157107;1060310;1083002;1083517;1067140;1061499;1143027"/>
       <fbc:geneProduct metaid="cluster_14598" sboTerm="SBO:0000243" fbc:id="cluster_14598" fbc:label="39027;1178672;1139251"/>
       <fbc:geneProduct metaid="cluster_14600" sboTerm="SBO:0000243" fbc:id="cluster_14600" fbc:label="1136267;1088132;1023430;1175610;1107258;1107260;1107259;1088808;1165695;1122896;1122895;1122894;1089077;1185502;1158748;174948;1079186;1152502;1074451;1074456"/>
       <fbc:geneProduct metaid="cluster_14618" sboTerm="SBO:0000243" fbc:id="cluster_14618" fbc:label="1164531;1134857;1174148;1144183;1016848;1184285;40064"/>
@@ -63152,7 +62924,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_15062" sboTerm="SBO:0000243" fbc:id="cluster_15062" fbc:label="1171415;46678;1156798;1082372;1083554;1162585;1083282;1117329;1117328;1117327;1006847;1101716;1101715;1101717;1132195;1182251;1149965;1077777;1077781;1075262;1142537"/>
       <fbc:geneProduct metaid="cluster_15066" sboTerm="SBO:0000243" fbc:id="cluster_15066" fbc:label="1168791;1140340;1113672;1113671;1129318;1129319;1148064;1148063;1160892;1040048;1188766;1179792;208474;1155327;1098731;1097891;1078835;1075064;1061560;1098204"/>
       <fbc:geneProduct metaid="cluster_15075" sboTerm="SBO:0000243" fbc:id="cluster_15075" fbc:label="1151038;49490;1163830;1183545;1173167;1133910;1209534;1085745;1119659;1119658;1104032;1085147;1069011;1061106;1085178;1209532;1119657;1104031;1059694;1104033;1157591"/>
-      <fbc:geneProduct metaid="cluster_15092" sboTerm="SBO:0000243" fbc:id="cluster_15092" fbc:label="1167503;1067233;1111169;1111170;57352;1111168;1094100;1154181;1138599;1178002;1126814;1126813;1146924;1033267;1126815;1160047;1187401;1094028;1033277;1094570;1072151;1069611;1033279"/>
       <fbc:geneProduct metaid="cluster_15121" sboTerm="SBO:0000243" fbc:id="cluster_15121" fbc:label="1134077;1104303;1104304;1104302;1013935;1183664;1143698;1173333;1086724;1119933;1119932;1119931;1163945;1151177;1157679;200491;200493;1086466;1087015;1071679;1070422;1076008"/>
       <fbc:geneProduct metaid="cluster_15152" sboTerm="SBO:0000243" fbc:id="cluster_15152" fbc:label="54952;1145732;1159097;1152949;1025925;1136849;1145733;1166164"/>
       <fbc:geneProduct metaid="cluster_15153" sboTerm="SBO:0000243" fbc:id="cluster_15153" fbc:label="190631;1094128;1167431;1222340;1177918;1187325;1138517;1126651;1063537;1222338"/>
@@ -63164,7 +62935,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_15288" sboTerm="SBO:0000243" fbc:id="cluster_15288" fbc:label="1094840;1094908;1094943;1111381;1111382;1111383;1033948;1178161;55173;1167615;1138751;1187521;1154259;1127029;1127030;1127031;1071302;1147034;1071460;1074987;1147035;1160106"/>
       <fbc:geneProduct metaid="cluster_153" sboTerm="SBO:0000243" fbc:id="cluster_153" fbc:label="1200984;1099430;1063051;1115033;1079976;54378;1080269;1080419;1148964;1169801;1180991;1156000;1063050;1200986;1099431;1067344;1099432;1115034;1115035;1088042;1121859;1174962;1106222;1106223;1106221;1089471;1214257;1121857;1121858;1165178;1067345;1152103;1184962;1158407;1067343;1135637;1089294;1062361;1130657;1161420;1200985;1133197;1163332;1207760;1072993;1084278;1157263;1172448;1183028;1207768;1103070;212915;1150596;1118685;1118686;1103071;1084681;1074825;1207772;1094991;1223264;1065472;1111540;1094994;1111539;1178286;1095107;1187618;1111538;1154318;1127186;1061711;1127185;1062354;1127184;1160151;55204;1134607;1120612;1104977;1086307;1077943;1184101;1211437;1173883;1164354;1120610;1151502;1086246;1211439;1072992;1103069;1118684;1157936;1072988;1084276;1104975;1207764;1167702;1138871;1223261;1104976;1072387;1211438;1087071;1120611;40878;36809;1143180;1141454"/>
       <fbc:geneProduct metaid="cluster_15300" sboTerm="SBO:0000243" fbc:id="cluster_15300" fbc:label="1140503;1179962;176581;1168927;1040804;1188915;1148194"/>
-      <fbc:geneProduct metaid="cluster_15314" sboTerm="SBO:0000243" fbc:id="cluster_15314" fbc:label="1107519;1107520;1107521;1024091;1185648;1158833;1165833;1145415;1145414;55644;1152601;1175786;1123156;1123155;1123157;1079395;1079396;1090209;1089428;1088611;1079376;1136431;1145416"/>
       <fbc:geneProduct metaid="cluster_1532" sboTerm="SBO:0000243" fbc:id="cluster_1532" fbc:label="1151157;1064981;1086524;1104245;181881;1119874;1134052;1119884;1119883;1163920;1173307;1059162;1086490;1209867;1104254;1104255;1063572;1086267;1183638;1209852;1183634;1134048;1173303;1163916;1119873;1067251;1086573;1104244;1209848;1086618;1065836;1209844;1104243;1119872;1151160;1157662;1157659"/>
       <fbc:geneProduct metaid="cluster_15338" sboTerm="SBO:0000243" fbc:id="cluster_15338" fbc:label="1135215;1174521;1164834;48305;1018681;1184607;1144479"/>
       <fbc:geneProduct metaid="cluster_15341" sboTerm="SBO:0000243" fbc:id="cluster_15341" fbc:label="1140178;49922;1097199;1097125;1179625;1188604;1147898;1113429;1113428;1113427;1067096;1039212;1155241;1129076;1129075;1129074;1160808;1077709;1097163;1077416;1147900;1147899;1168637"/>
@@ -63173,20 +62943,16 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_1540" sboTerm="SBO:0000243" fbc:id="cluster_1540" fbc:label="1182403;1132363;1083642;51896;1101913;1064101;1117522;1205777;1171589;1162726;1156868;1162727;1205785;1117524;1132364;1101915;1101914;1084178;1171590;51895;1182404;1083382;1059416;1065018;1142677;1117523;1150044"/>
       <fbc:geneProduct metaid="cluster_15419" sboTerm="SBO:0000243" fbc:id="cluster_15419" fbc:label="1095173;1187762;1139074;1167842;1095304;1127497;1127496;1178494;38849;1160249;1223798;1154461;1111851;1063414;1065903;1096086;1111852;1065437"/>
       <fbc:geneProduct metaid="cluster_1544" sboTerm="SBO:0000243" fbc:id="cluster_1544" fbc:label="1210800;1134384;1164189;1210809;1086458;1120308;1157820;210245;1210803;1151347;1183923;1173654;1104674;1086828;1120306;1210806;1120307;1087144;1210812;1073630;1104676;1104675;1079569;1060423"/>
-      <fbc:geneProduct metaid="cluster_15458" sboTerm="SBO:0000243" fbc:id="cluster_15458" fbc:label="1156749;1076500;1182172;1142455;1142457;1171331;196714;1084225;1073925;1073922;1084132;1006361;1162511;1117189;1117191;1117190;1149913;1132112;1083048;1101576;1101577;1101578;1142456"/>
       <fbc:geneProduct metaid="cluster_15463" sboTerm="SBO:0000243" fbc:id="cluster_15463" fbc:label="1143549;1143550;1183506;1173114;1163792;1133855;1013000;1012997;201858;1157568;1151011;1072161;1085883;1085699;1074548;1085264;1070854"/>
       <fbc:geneProduct metaid="cluster_15483" sboTerm="SBO:0000243" fbc:id="cluster_15483" fbc:label="1164711;1174371;1135068;1184477;180792;1144355;1212608"/>
       <fbc:geneProduct metaid="cluster_1549" sboTerm="SBO:0000243" fbc:id="cluster_1549" fbc:label="1165647;1185450;1136193;1023171;1122785;1175535;1107148;175387;1089720;1062800"/>
-      <fbc:geneProduct metaid="cluster_15499" sboTerm="SBO:0000243" fbc:id="cluster_15499" fbc:label="1160966;1129535;1129534;1129533;1113887;1113888;1113889;1148239;1148240;1098462;1041069;52748;1188967;1155406;1140559;1168974;1180022;1097921;1098453;1062665;1074464;1076453;1041077"/>
       <fbc:geneProduct metaid="cluster_155" sboTerm="SBO:0000243" fbc:id="cluster_155" fbc:label="1148979;1161442;1130685;1156012;1130683;1000710;1161440;1061293;1115070;1115071;1099468;1099467;1080426;1080562;1181012;1068188;1169830;1068889;1099466;1115069;1080131;1060253;1080259;1181014;1169832;1201068;1115077;1099471;50153;1060281;1060285;1062776;1115078;1115080;1115079;1169833;1181015;1000724;1099473;1099474;1099472;1079913;1080504;1080580;1141469;1141473;212597"/>
       <fbc:geneProduct metaid="cluster_15514" sboTerm="SBO:0000243" fbc:id="cluster_15514" fbc:label="1179521;1147818;1160762;1147817;1168549;1155188;1038713;1140077;202461;1097056;1097442;1097316;1075774;1078310;1072095;1038717;1113283;1113284;1113282;1128928;1128929;1128930;1188510"/>
       <fbc:geneProduct metaid="cluster_1552" sboTerm="SBO:0000243" fbc:id="cluster_1552" fbc:label="1128249;1112603;1095191;1075247;1160511;1154882;1112601;1112602;1095542;1168177;1188115;1077528;1095479;1225206;1179047;1078863;1139622;1128248;1128247;139340;1096032;1096860;1188116;53035;1128250;1128251;1179048;1168178;1139623;1073500;1077239;1112604;1112605;1036767;1147473;1147471"/>
       <fbc:geneProduct metaid="cluster_15553" sboTerm="SBO:0000243" fbc:id="cluster_15553" fbc:label="53518;1184028;1143978;1143979;1173792;1015658;1164284;1134518"/>
       <fbc:geneProduct metaid="cluster_15558" sboTerm="SBO:0000243" fbc:id="cluster_15558" fbc:label="1144867;206734;1144866;1122017;1122016;1020996;1175067;1106379;1106380;1185052;1088479;1135737;1165262;1068389;1061588;1020998;1088129"/>
       <fbc:geneProduct metaid="cluster_15583" sboTerm="SBO:0000243" fbc:id="cluster_15583" fbc:label="1182664;1157005;1117906;1117904;1117905;1071299;1008858;1071891;1132660;1102295;1102296;1102297;196131;1150200;1142902;1142901;1162973;1082633;1082638;1069453;1082458;1171896"/>
-      <fbc:geneProduct metaid="cluster_15599" sboTerm="SBO:0000243" fbc:id="cluster_15599" fbc:label="1185535;1175645;1145326;1136300;1122953;1122955;1122954;1165726;1107317;1107318;1107319;1023591;1023600;1158767;1069387;1088871;143801;1074393;1089817;1090118;1075642;1152520;1215963"/>
       <fbc:geneProduct metaid="cluster_15642" sboTerm="SBO:0000243" fbc:id="cluster_15642" fbc:label="1170007;1079843;56895;1079865;1201478;1115315;1115316;1115314;1079691;1161572;1130853;1181156;1069603;1070906;1065707"/>
-      <fbc:geneProduct metaid="cluster_15767" sboTerm="SBO:0000243" fbc:id="cluster_15767" fbc:label="1113328;1168577;1113327;1179555;1113329;1160777;1188541;1140109;1097008;202504;1147842;1097166;1097221;1038887;1128975;1155204;1128974;1128973;1063147;1078106;1078733"/>
       <fbc:geneProduct metaid="cluster_158" sboTerm="SBO:0000243" fbc:id="cluster_158" fbc:label="1125597;1059231;1109960;1220347;1092994;1220339;1166908;1186774;1109959;1125596;1137867;1177255;1093747;1065462;1066665;1092756;191228;1109961;1125598;1220345;1220343;1159653;1153710;1177258;1125605;1125606;1125604;1029964;1092688;1153713;1093757;1159656;1109968;1109969;1109970;1093201;1186777;191512;1166911;1074490;1073132;1078274;1146375"/>
       <fbc:geneProduct metaid="cluster_15826" sboTerm="SBO:0000243" fbc:id="cluster_15826" fbc:label="1166668;51281;1159455;1159456;1186527;1153444;1153447;1176917;1109378;1137539;1092211;1109377;1109376;1125010;1125009;1125008;1070517;1092489;1092584;1076345;1070704;1219432"/>
       <fbc:geneProduct metaid="cluster_15844" sboTerm="SBO:0000243" fbc:id="cluster_15844" fbc:label="127313;1179575;1188560;1039022;1097246;1113358;1129005;1067271;1147861"/>
@@ -63197,48 +62963,33 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_15920" sboTerm="SBO:0000243" fbc:id="cluster_15920" fbc:label="1135210;39725;1174516"/>
       <fbc:geneProduct metaid="cluster_15958" sboTerm="SBO:0000243" fbc:id="cluster_15958" fbc:label="207204;1175479;1185411;1090192;1022941;1145225;1145226;1136138;1122688;1165610;1089545;1122687;1107050;1107051;1063000;1072553"/>
       <fbc:geneProduct metaid="cluster_15989" sboTerm="SBO:0000243" fbc:id="cluster_15989" fbc:label="1070494;1140824;52637;1161054;1155505;1067334;1129770;1129771;1129772;1169192;1148457;1148456;1098988;1098542;1061681;1098149;1180301;1114120;1114118;1114119;1189200;1042317"/>
-      <fbc:geneProduct metaid="cluster_16015" sboTerm="SBO:0000243" fbc:id="cluster_16015" fbc:label="127402;1137302;1176673;1027720;1153284;1145993;1145991;1027724;1091506;1091294;1145992;1069174;1071096;1092131;1069205"/>
       <fbc:geneProduct metaid="cluster_1606" sboTerm="SBO:0000243" fbc:id="cluster_1606" fbc:label="1132076;1204956;1171295;1182141;1082684;1149895;172476;1068140;1101530;1156732;1117143;1204962;1204958;1082964;1063851;1204954;171830;1171294;1082802;1083909;1083777;1149894;1070357;1071589;1070951;1117144;1101531;1162480"/>
       <fbc:geneProduct metaid="cluster_161" sboTerm="SBO:0000243" fbc:id="cluster_161" fbc:label="1167296;1138348;1110748;1126392;1221874;1093783;1061392;1221870;1177741;1154022;1110747;1126391;1061169;1094230;1187181;1159910;1061780;1094226;190212;1221866;1110746;1126390;1094483;1167294;1032136;1146741;54584;1138346;1154021;1126389;1061610;1126388;1159909;1110745;1110744;1187180;1177740;1094684;1058996;1032145;1221857;1146742"/>
       <fbc:geneProduct metaid="cluster_1614" sboTerm="SBO:0000243" fbc:id="cluster_1614" fbc:label="1129627;1129626;1129625;1189075;1113977;1113978;1113976;1041637;1161001;1169072;1180160;1140687;1155449;1071887;1098718;1098691;198577;1071518;1189076;1169073;1041643;1148339;1148338;1180161;1140688;55790;1148337;1148336"/>
-      <fbc:geneProduct metaid="cluster_16171" sboTerm="SBO:0000243" fbc:id="cluster_16171" fbc:label="1166493;1137322;1186343;1109027;1109028;1109029;1124670;1124671;1124669;1159340;1146011;1146010;53575;1176693;1153299;1064496;1091475;1063145;1061847;1091372;1091373;1218845"/>
       <fbc:geneProduct metaid="cluster_16182" sboTerm="SBO:0000243" fbc:id="cluster_16182" fbc:label="1169191;1042311;1114115;1114116;1114117;1129767;1129768;1129769;1180300;1189199;207921;1042308;1148454;1148455;1098787;1098385;1066192;1066833;1042314;1140823"/>
-      <fbc:geneProduct metaid="cluster_16199" sboTerm="SBO:0000243" fbc:id="cluster_16199" fbc:label="1140958;1155581;1042804;1099083;1077161;1099053;1098789;1078397;1073973;1180436"/>
       <fbc:geneProduct metaid="cluster_16201" sboTerm="SBO:0000243" fbc:id="cluster_16201" fbc:label="1073945;1140996;37996;1097810;1180475;1073711;1098004"/>
       <fbc:geneProduct metaid="cluster_16227" sboTerm="SBO:0000243" fbc:id="cluster_16227" fbc:label="1033016;1138552;1177952;1187355;1167460;57369;1146872;1146873"/>
       <fbc:geneProduct metaid="cluster_16264" sboTerm="SBO:0000243" fbc:id="cluster_16264" fbc:label="1102715;51710;1182859;1143064;1143065;1163164;1172143;1118323;1132894;1060790;1082443;1009808;1009807"/>
       <fbc:geneProduct metaid="cluster_1628" sboTerm="SBO:0000243" fbc:id="cluster_1628" fbc:label="1134738;1151581;1088006;1076454;1174022;1087275;181659;1087833;1076255;1070014;1116421;1203452;1080870;1116423;1116422;56640;1170695;1203453;1100819;1149531;1156467;1181728;1162110;1081431;1076567;1131510;1081176;1069505;1100817;1070348;1100818"/>
       <fbc:geneProduct metaid="cluster_16283" sboTerm="SBO:0000243" fbc:id="cluster_16283" fbc:label="1133909;42030;1085567;1066050;1085592;1071835;1173166"/>
-      <fbc:geneProduct metaid="cluster_16284" sboTerm="SBO:0000243" fbc:id="cluster_16284" fbc:label="1179957;1188910;1040782;1148192;1148191;1140498;1148193"/>
       <fbc:geneProduct metaid="cluster_1631" sboTerm="SBO:0000243" fbc:id="cluster_1631" fbc:label="1214732;1068697;1135809;1068283;1088200;1122120;1106483;1152198;1158488;1122122;1106484;1214730;52239;1089603;1064572;1165322;1175139;1185113;1106485;1122121;206812;1175141;1214751;1185115;1165324;1135811;1214745;1214749;1214743;1214747;1090149;1089717;1066355;1077284;1106489;1122126;1122127;1106490;1144931;1089002"/>
-      <fbc:geneProduct metaid="cluster_16341" sboTerm="SBO:0000243" fbc:id="cluster_16341" fbc:label="1171305;1083262;1182151;206235;1083409;1083931;1006257;1006258;1142434;1162490;1149901;1156738;1117160;1117161;1117159;1101546;1101547;1101548;1132087;1077522;1078142;1075594;1006259"/>
       <fbc:geneProduct metaid="cluster_16431" sboTerm="SBO:0000243" fbc:id="cluster_16431" fbc:label="1138974;1178386;179102;1223450;1167756;1187672"/>
       <fbc:geneProduct metaid="cluster_16441" sboTerm="SBO:0000243" fbc:id="cluster_16441" fbc:label="1135914;1145017;1145018;1165416;1185211;206955;1175248;1021918"/>
       <fbc:geneProduct metaid="cluster_16512" sboTerm="SBO:0000243" fbc:id="cluster_16512" fbc:label="1165795;1123082;1123081;1136386;1089076;1089259;37524;1185607;1175738;1059832;1107446;1058979;1107445"/>
-      <fbc:geneProduct metaid="cluster_16596" sboTerm="SBO:0000243" fbc:id="cluster_16596" fbc:label="1018310;1144423;1144422;1174455;209511;1135149;1018311"/>
       <fbc:geneProduct metaid="cluster_16618" sboTerm="SBO:0000243" fbc:id="cluster_16618" fbc:label="1012714;1133803;1150984;1143503;1163746;1183457;49553;1085737;1085298;1085583;1173056;1103900;1157545;1119532;1103899;1119530;1119531;1103898;1064345;1068780;1066959"/>
-      <fbc:geneProduct metaid="cluster_16628" sboTerm="SBO:0000243" fbc:id="cluster_16628" fbc:label="1014358;137182;1183749;1143766;1143767;1164027;1173426;1014359;1134173"/>
       <fbc:geneProduct metaid="cluster_16652" sboTerm="SBO:0000243" fbc:id="cluster_16652" fbc:label="1167121;1126059;190964;1126057;1126058;1110419;1110418;1094827;1110417;1031157;1177541;1138149;1186995;1093964;1093852;1078187;1075039;1074383"/>
       <fbc:geneProduct metaid="cluster_16673" sboTerm="SBO:0000243" fbc:id="cluster_16673" fbc:label="1133344;1172597;1183131;1010967;1143244;138230"/>
       <fbc:geneProduct metaid="cluster_16677" sboTerm="SBO:0000243" fbc:id="cluster_16677" fbc:label="1161661;1115466;1115465;1141679;1141678;1099860;1099861;1170109;1130951;1001903;201294;1181250;1001909;1080748;1080690;1062210;1067244;1001924;1001913"/>
       <fbc:geneProduct metaid="cluster_1672" sboTerm="SBO:0000243" fbc:id="cluster_1672" fbc:label="1107629;1123265;1123266;1158868;1123264;1059956;1089503;1107628;37620;1216505;1089373;1088999;1066126;1024408;1175842;1066123;1165885;1152636;1136484;1185700;1024420;1024414;1024411;1024417;1145468;1145469;1107630"/>
       <fbc:geneProduct metaid="cluster_16725" sboTerm="SBO:0000243" fbc:id="cluster_16725" fbc:label="1134088;1183674;1163956;1173343;40356;1013977"/>
       <fbc:geneProduct metaid="cluster_1676" sboTerm="SBO:0000243" fbc:id="cluster_1676" fbc:label="1083520;1102086;1064893;1150114;1117699;1102090;1102089;1132510;1117698;1171740;1067832;1206114;1084217;1082954;1059714;1182528;1162845;35842;1182527;1171739;1132509;1156930;1008181;1008175;1142783;1142782;1083245;1083731;1102088;1102087;1117696;1117697;1008185;1078094;1078103;1008190;1142784;1142781;1117695"/>
-      <fbc:geneProduct metaid="cluster_16765" sboTerm="SBO:0000243" fbc:id="cluster_16765" fbc:label="1168629;1129058;1129060;1039183;1188595;1113413;1113412;1179615;1097122;1097504;1097536;1129059;1147892;1140168;1113411;1039181;1071082;1071569;1071577"/>
       <fbc:geneProduct metaid="cluster_1679" sboTerm="SBO:0000243" fbc:id="cluster_1679" fbc:label="1189412;1069078;1098100;1097926;1130154;1161191;1141114;1130152;1130153;1114501;1114502;1114503;1098635;1075278;1075295;1169400;1155699;1180598;1043379;52554;1148629;1148630;1043383"/>
-      <fbc:geneProduct metaid="cluster_16860" sboTerm="SBO:0000243" fbc:id="cluster_16860" fbc:label="1182182;1171342;1082354;1101594;1101595;1101593;1162522;1006430;1006433;1077643;1083378;1132124;1156756;1117207;1117208;1117206;137752;1142473;1074314;1142474;1083716;1078675;1006431;1149920"/>
-      <fbc:geneProduct metaid="cluster_16864" sboTerm="SBO:0000243" fbc:id="cluster_16864" fbc:label="1144167;1144166;1158021;1134838;1120819;1120817;1120818;1164512;1087827;1087268;1087322;200276;1184266;1174129;1105179;1105181;1105180;1073394;1074626;1070508;1151632;1016752"/>
       <fbc:geneProduct metaid="cluster_1694" sboTerm="SBO:0000243" fbc:id="cluster_1694" fbc:label="1063971;1205016;36253;1171319;1101560;1101561;1156744;1062713;1162500;1132100;1149908;1182161;1082420;1082395;1117174;1117173;1117175;1006315;1101562;1083357;1205021;1065168;1182162;1162501;1171320;1132101;55462;1142442;1142441"/>
       <fbc:geneProduct metaid="cluster_16965" sboTerm="SBO:0000243" fbc:id="cluster_16965" fbc:label="1103860;1103861;1103862;53976;1173029;1143474;1163721;1085677;1085617;1085347;1133775;1012583;1183431;1119494;1119493;1119492;1012586;1062045;1072831;1077262"/>
-      <fbc:geneProduct metaid="cluster_17027" sboTerm="SBO:0000243" fbc:id="cluster_17027" fbc:label="1103911;1103912;1103913;1157550;1183462;1163752;1150988;1119544;1119543;1119545;1085899;1173061;1143509;1143508;1012735;1133809;1079266;1085796;1079296;1079340;1085215;127827;1012741"/>
-      <fbc:geneProduct metaid="cluster_17046" sboTerm="SBO:0000243" fbc:id="cluster_17046" fbc:label="1177712;203622;1167273;1154011;1126345;1126344;1094653;1094285;1094352;1032022;1138322;1187155;1032018;1146717;1146716;1126343;1159899;1110700;1110701;1110699;1072031;1077011;1070701"/>
       <fbc:geneProduct metaid="cluster_17084" sboTerm="SBO:0000243" fbc:id="cluster_17084" fbc:label="1164861;1184636;1121243;1135248;1121244;1121242;209386;1105604;1105605;1105606;1174552;1087981;1087996;1087325;1076632;1158193;1151831;1144510;1069009;1144509;1018832;1071340"/>
-      <fbc:geneProduct metaid="cluster_17107" sboTerm="SBO:0000243" fbc:id="cluster_17107" fbc:label="1083745;1083720;1171418;1182254;1006858;1117333;1117334;1162588;1132198;1101721;1101722;1142544;1142543;1078556;1068531;1006865"/>
       <fbc:geneProduct metaid="cluster_1713" sboTerm="SBO:0000243" fbc:id="cluster_1713" fbc:label="1098782;1097931;176790;1130368;1130367;1155800;1076471;1180754;1075131;1229444;1189534;1114717;1161271;1114716;1169518;1114715;1130366;1141268;1098378;1229441;1074457"/>
-      <fbc:geneProduct metaid="cluster_17173" sboTerm="SBO:0000243" fbc:id="cluster_17173" fbc:label="1145013;1185204;1122295;1122297;1122296;1165409;1021881;1088138;1088283;1089826;1175241;1106658;1106660;1106659;1152262;1158549;1135907;1067644;1070846;1069609"/>
       <fbc:geneProduct metaid="cluster_1721" sboTerm="SBO:0000243" fbc:id="cluster_1721" fbc:label="1075117;1133050;1084407;1172305;1069089;215072;1084594;1133049;1207501;1163265;1078897;43917;1102925;1118540;1084376;1207505;1118541;1102926;1084860;1172304;1075906;1182963;1224695;1178828;1065548;1187991;39181;1154698;1160406;1127973;1095764;1112325;1224692;1139403;1168059;1127975;1095856;1224701;1127974;1224698;1112326;1063606;1095762;1062700;1112327;1143139;1150484"/>
       <fbc:geneProduct metaid="cluster_1724" sboTerm="SBO:0000243" fbc:id="cluster_1724" fbc:label="1162256;1082049;1101104;50898;1061490;1116713;1068395;1116711;1116712;1101103;1181886;1203998;1170897;1082108;1081955;1101105;1068125;1170896;1203994;1082026;191898;1070519;1203996;1081838;1077979;1081971;1203997;1076216;1131699"/>
-      <fbc:geneProduct metaid="cluster_17253" sboTerm="SBO:0000243" fbc:id="cluster_17253" fbc:label="1143249;1084400;1183141;1157356;1150725;1133355;1163438;1118949;1118948;1118950;1172608;1084313;1085085;1103333;1103334;1103335;203246;1143248;1061643;1063270;1076084;1011030"/>
       <fbc:geneProduct metaid="cluster_17262" sboTerm="SBO:0000243" fbc:id="cluster_17262" fbc:label="1167611;1178153;1147031;1147030;1111374;1111373;1111372;1187518;1033933;1127021;1127020;1127022;1094845;1094848;1094929;1062310;1061654;1062992;1138743"/>
       <fbc:geneProduct metaid="cluster_1727" sboTerm="SBO:0000243" fbc:id="cluster_1727" fbc:label="1212816;1135156;1164786;1121135;1087273;1105497;1212818;1074942;1184557;1151785;1087821;1158150;1072707;1105498;1105499;209506;1072708;1018363;1121136;1121137;1174462;1087476;1144429;1174461;1184556;180091"/>
       <fbc:geneProduct metaid="cluster_17309" sboTerm="SBO:0000243" fbc:id="cluster_17309" fbc:label="1225218;1225217;1095334;1112614;1128261;1225219;1112615;1179053;1128260;1188120;39394;1071567;1067869;1096105;1065477;1096643"/>
@@ -63254,21 +63005,15 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_17575" sboTerm="SBO:0000243" fbc:id="cluster_17575" fbc:label="1107522;1107524;1107523;1123158;1123159;1123160;1152602;1175787;1072823;1145418;1145417;1024097;1185649;197949;1158834;1165834;1059074;1136432;1074055;1088269;1088472;1088393;1024101"/>
       <fbc:geneProduct metaid="cluster_17588" sboTerm="SBO:0000243" fbc:id="cluster_17588" fbc:label="43869"/>
       <fbc:geneProduct metaid="cluster_17593" sboTerm="SBO:0000243" fbc:id="cluster_17593" fbc:label="1177714;1138324;1032032;1110703;1110702;1110704;1126347;1126348;1126346;1094497;203620;1187157;1146720;1093779;1167275;1094161;1072266;1078512;1075965"/>
-      <fbc:geneProduct metaid="cluster_17608" sboTerm="SBO:0000243" fbc:id="cluster_17608" fbc:label="1013658;200417;1134028;1183613;1163897;1173282;1143652;1143653"/>
       <fbc:geneProduct metaid="cluster_17617" sboTerm="SBO:0000243" fbc:id="cluster_17617" fbc:label="127214"/>
-      <fbc:geneProduct metaid="cluster_17635" sboTerm="SBO:0000243" fbc:id="cluster_17635" fbc:label="197559;1106818;1122455;1175349;1145114;1145113;1185296;1165502;1158606;1136013;1152325;1088345;1065906;1022309"/>
       <fbc:geneProduct metaid="cluster_1769" sboTerm="SBO:0000243" fbc:id="cluster_1769" fbc:label="1185194;1021799;1106631;1158540;1214962;1089664;1152253;1062631;1122268;1064168;206931;1062324;1214958;1106633;1122270;1106632;1122269;1089121;1088106;1214960;1135896;1165399;1158541;1059776;1135897;1152254;1122272;1122271;1165400;1089291;1088696;1106635;1106634;173821;1064583;1145011;1175230"/>
-      <fbc:geneProduct metaid="cluster_17709" sboTerm="SBO:0000243" fbc:id="cluster_17709" fbc:label="214126;1123926;1123927;1145709;1145710;1185975;1025823;1176196;1152936;1108289;1108288;1136835;1159084;1090654;1063753;1090837;1090788;1059399;1062447;1108290;1123928;1166150"/>
       <fbc:geneProduct metaid="cluster_17718" sboTerm="SBO:0000243" fbc:id="cluster_17718" fbc:label="1001423;1170011;1149074;1099714;1099716;1099715;1115322;1115321;1161576;1115320;212435;1156096;1130857;1141591;1141590;1181160;1079780;1079992;1080517;1076555;1076556;1069071;1141592"/>
-      <fbc:geneProduct metaid="cluster_17810" sboTerm="SBO:0000243" fbc:id="cluster_17810" fbc:label="1021520;1106544;1106545;1158508;1158509;1068891;1089175;1106546;1152219;1152233;1144974;1144973;206859;1175176;1122182;1122181;1122183;1185148;1165356;1135845;1074190;1071800;1088880;1089058;1021522"/>
-      <fbc:geneProduct metaid="cluster_17834" sboTerm="SBO:0000243" fbc:id="cluster_17834" fbc:label="1135198;1144466;1184592;1174504;199933;1164820"/>
       <fbc:geneProduct metaid="cluster_1786" sboTerm="SBO:0000243" fbc:id="cluster_1786" fbc:label="1164179;1082504;1132159;1171377;1182214;1149941;1101643;1156774;1162551;1117258;1064755;1205159;1117257;1117256;1205155;1083525;1082285;1183912;1086840;1077362;1173637;1210759;56339;1104661;1104662;1104663;1077918;1157814;1077976;1120294;1120293;1120295;1151339;1086254;1086549;1101644;1101645;1078581;1073449;1151340;1210762;1157815;1086348;1086640;1086909;1183913;1173638;1120297;1120296;1120298;48775;1070911;1078407;1077177;1104666;1104664;1104665;36196;1134371"/>
       <fbc:geneProduct metaid="cluster_1788" sboTerm="SBO:0000243" fbc:id="cluster_1788" fbc:label="199601;1154946;1071382;1096113;1160569;1128431;1112783;1168263;1037221;1095627;1188208;1076657;1074064;1179151;1096925;1037222;1128433;1128432;1112785;1112784;1037223;1112781;1112782;1225474;1073349;1128429;1072743;1128430;1179150;1095948;1096607;1188207;1147554;1147555;1147553;1139720"/>
       <fbc:geneProduct metaid="cluster_17881" sboTerm="SBO:0000243" fbc:id="cluster_17881" fbc:label="1132163;206127;1205163;1162555;1171381;1117265;1117266;1117267;1149944;1156777;1082437;1082573;1082340;1205164;1075155;1078411;1069032;1101654;1101653;1101652;1182218"/>
       <fbc:geneProduct metaid="cluster_17917" sboTerm="SBO:0000243" fbc:id="cluster_17917" fbc:label="1139646;1179073;1188138;1147498;1147499;1128303;1128301;1128302;1036882;1112655;1112656;1112657;1095676;1096318;1096483;1074197;1078642;1069860;1168197"/>
       <fbc:geneProduct metaid="cluster_17938" sboTerm="SBO:0000243" fbc:id="cluster_17938" fbc:label="1125902;1125901;1167050;1125900;1092952;1186924;1153849;1177450;1093524;1093511;1110263;1110261;1110262;1159757;1030744;1138056;191430;1072383;1072602;1077332;1146509"/>
       <fbc:geneProduct metaid="cluster_1795" sboTerm="SBO:0000243" fbc:id="cluster_1795" fbc:label="1215583;1088765;1061614;1136133;1215581;1165606;1107045;1122682;1215585;1152411;1158683;1107046;1122683;1185407;1175474;1215587;1089501;1066713;138792;1215577;1145220;1022915"/>
-      <fbc:geneProduct metaid="cluster_17979" sboTerm="SBO:0000243" fbc:id="cluster_17979" fbc:label="1072579;1113708;1113709;1113710;1129355;1129356;1129357;1148089;1148090;1168824;1140376;1073842;1179830;1188802;1040223;1040226;1155339;1078788;1097831;208439;1160904;1098590;1098304"/>
       <fbc:geneProduct metaid="cluster_17996" sboTerm="SBO:0000243" fbc:id="cluster_17996" fbc:label="1182093;1005935;1132020;1162439;1171236;196819;1142364"/>
       <fbc:geneProduct metaid="cluster_180" sboTerm="SBO:0000243" fbc:id="cluster_180" fbc:label="1218438;1159267;1153219;1137180;1218436;1166368;1072377;1108782;1108783;1186210;1091556;1176550;1124426;1124425;1218440;1072985;1091185;53636;1092024;1074213;1218442;1108784;1124427"/>
       <fbc:geneProduct metaid="cluster_1805" sboTerm="SBO:0000243" fbc:id="cluster_1805" fbc:label="1133696"/>
@@ -63277,27 +63022,21 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_181" sboTerm="SBO:0000243" fbc:id="cluster_181" fbc:label="1208746;1163570;1133501;1074827;1172757;1208743;1085906;56715;1183276;1085664;1119264;1072379;1119265;1103647;1103648;1150826;1208745;1157450"/>
       <fbc:geneProduct metaid="cluster_1812" sboTerm="SBO:0000243" fbc:id="cluster_1812" fbc:label="1069916;1097723;1180294;1042259;1155500;1077336;1114103;1169185;1114105;1114104;1189193;1129757;1161049;1140817;52642;1098171;1075389;1098629;1129756;1129755;1148448"/>
       <fbc:geneProduct metaid="cluster_1814" sboTerm="SBO:0000243" fbc:id="cluster_1814" fbc:label="1169922;1066420;202968;1079938;1115194;1149027;1099588;1099589;1099587;1156056;1115195;1130771;1115193;1061164;1161507;1080381;1181085;1001035;1068009;1080436;1141530"/>
-      <fbc:geneProduct metaid="cluster_18168" sboTerm="SBO:0000243" fbc:id="cluster_18168" fbc:label="1018486;1144449;1121164;1105526;1105528;1164806;1135181;1184578;1158160;1018494;1069842;1087224;1088011;1069138;1018490;1151795;1121166;1077078;1087614;1105527;1174487"/>
       <fbc:geneProduct metaid="cluster_1817" sboTerm="SBO:0000243" fbc:id="cluster_1817" fbc:label="1142838;1150137;1102145;1102146;1102144;1182579;1117755;1117753;51819;1156951;1156952;1117754;1142839;1132561;1008481;1162893;1171795;1083684;1083167;1084158;1074398;1074338;1078559"/>
       <fbc:geneProduct metaid="cluster_1822" sboTerm="SBO:0000243" fbc:id="cluster_1822" fbc:label="1179102;1188167;1147518;1168223;1139674"/>
       <fbc:geneProduct metaid="cluster_18249" sboTerm="SBO:0000243" fbc:id="cluster_18249" fbc:label="1140431;175806;1168867;1179883;1188845;1227382"/>
       <fbc:geneProduct metaid="cluster_1825" sboTerm="SBO:0000243" fbc:id="cluster_1825" fbc:label="1152897;1090550;193095;1070154;1078717;1090413;1090904;1077345;1136780;1176140"/>
       <fbc:geneProduct metaid="cluster_18277" sboTerm="SBO:0000243" fbc:id="cluster_18277" fbc:label="1103617;1119236;1119234;1163559;1133489;1085536;1011870;211641;1172744;1103618;1103619;1183264;1143380;1119235;1011874;1085876;1208706;1085634;1071568;1069487;1073734"/>
       <fbc:geneProduct metaid="cluster_1850" sboTerm="SBO:0000243" fbc:id="cluster_1850" fbc:label="1168074;1160419;1139423;1178848;1188006;1061221;1112361;1112360;1095672;1112362;1095919;1095864;1065556;1128009;1128010;1128008;208898;1154714;1063712;1147402;1036280"/>
-      <fbc:geneProduct metaid="cluster_18510" sboTerm="SBO:0000243" fbc:id="cluster_18510" fbc:label="1150383;46272;1118344;1118342;1118343;1157150;1182869;1163174;1083757;1075373;1009846;1102734;1102735;1102733;1172156;1083807;1143074;1143075;1069135;1132907;1083780;1064824"/>
       <fbc:geneProduct metaid="cluster_18582" sboTerm="SBO:0000243" fbc:id="cluster_18582" fbc:label="143052"/>
       <fbc:geneProduct metaid="cluster_1860" sboTerm="SBO:0000243" fbc:id="cluster_1860" fbc:label="1076585;1074724;1105873;1135464;1165028;1213659;206447;1088145;1184805;1121511;1174775;1121510;1088401;1105874;1213657;1079113;1151971;1089601"/>
       <fbc:geneProduct metaid="cluster_1865" sboTerm="SBO:0000243" fbc:id="cluster_1865" fbc:label="1201988;1063072;1170166;1099984;1156182;1181306;1115589;1149167;1081413;1067141;1080715;1115588;1201991;1099983;49223;1062777;1081039;1131010;1201994;1201996;1115590;1099985;1161718;1149168;1156183;1141749;1161717"/>
       <fbc:geneProduct metaid="cluster_1870" sboTerm="SBO:0000243" fbc:id="cluster_1870" fbc:label="1220089;1166845;1137785;1135656;197162;1144801;1174984;1090245;1165195;1020636;1088154;1184982;1121895;1067974;1106257;1106256;1106258;1121897;1121896;1158420;1059203;1152117;1177164;1059833;1186707;1093585;1093173;1067331;1153637;1159592;1109772;1109773;1220090;1125411;1125410;1088991;1093670;1220092;1125409;132291;1143158;1150527;1172362;1182992;1070818;1070800;1084264;1084357;1084702;1163293;1133109;1075058;1157234;1118606;1118607;1118608;1102992;1102991;1010312;1102993;1060448;1109774;140349;1078909"/>
       <fbc:geneProduct metaid="cluster_18801" sboTerm="SBO:0000243" fbc:id="cluster_18801" fbc:label="1174847;1184862;1106007;1106008;1106009;1121646;1121644;1121645;206489;1144707;1089190;1090200;1075432;1068611;1088084;1066058"/>
       <fbc:geneProduct metaid="cluster_18863" sboTerm="SBO:0000243" fbc:id="cluster_18863" fbc:label="1178452;1187725;1034941;1147182"/>
-      <fbc:geneProduct metaid="cluster_18906" sboTerm="SBO:0000243" fbc:id="cluster_18906" fbc:label="1147945;1147946;1188651;1140229;1129166;1129165;1039414;1039413;1168685;1113518;1179675;1113519;1097049;1097526;1065109;1060063"/>
       <fbc:geneProduct metaid="cluster_1893" sboTerm="SBO:0000243" fbc:id="cluster_1893" fbc:label="1081726;1081051;1081281;1181676;1181675;1170623;1149481;1073605;1162062;1162061;1078496;1156432;1100722;1100721;1100720;1100723;1100724;1116327;1116328;1116325;1116326;1069527;1116324;1131443;1203219;1003965;1003972;53896"/>
-      <fbc:geneProduct metaid="cluster_19009" sboTerm="SBO:0000243" fbc:id="cluster_19009" fbc:label="1018054;1184510;1018057;1164741;1174409;1135105;209562;1144378;1144377"/>
       <fbc:geneProduct metaid="cluster_1904" sboTerm="SBO:0000243" fbc:id="cluster_1904" fbc:label="1105594;1087190;1121230;1105593;1087687;1121232;1212999;1164848;1074017;1212997;1087830;1105592;1121231;1135232;1073385;1079047;1135231;1164847;1184621;1174536;209410;1018754;1184622;1174537;1174539;1184624;180777;1135233;1164849;1018763;1144494;1144492;1144493;1184623;1174538;1018764"/>
-      <fbc:geneProduct metaid="cluster_19051" sboTerm="SBO:0000243" fbc:id="cluster_19051" fbc:label="202653;1188656;1147950;1147949;1039440;1140234;1168690;1179680"/>
       <fbc:geneProduct metaid="cluster_1917" sboTerm="SBO:0000243" fbc:id="cluster_1917" fbc:label="1158135;180923;1164747;1151769;1174415;1121102;1121101;1135111;1184516;1212704;1087549;1087994;1059325;1079046;1105464;1105463;1144387;1144386"/>
-      <fbc:geneProduct metaid="cluster_19195" sboTerm="SBO:0000243" fbc:id="cluster_19195" fbc:label="1060036;1137321;1159339;1176692;1091356;1091337;1091621;1027791;1027794;1153298;1186342;1124668;1124667;1124666;1109024;1109025;1109026;1146008;1146007;1166492;1066284;53576;1065658;1146009"/>
       <fbc:geneProduct metaid="cluster_1933" sboTerm="SBO:0000243" fbc:id="cluster_1933" fbc:label="1180992;1161422;1130659;1061735;1080490;1200988;1148966;1200989;1207110;1115039;1099436;1156002;1207109;1062332;1079741;1115036;1063601;1161421;1115037;1115038;1130658;1000573;1099434;1099433;1099435;1148965;1156001;1080283;1065068;1079697;188489;1183027;1075221;1118682;1118681;1118683;1010476;1103066;1103067;1103068;1084762;1084585;57002;1157262;1078468;1163331;1150595;1133196;1073930;1084362;1172447;1200991;1080163;1102670;1200992;1118278;1080188;1207108;1070099;46290;1083166;122069;1068622;1074072;1099438;1115041;1099437;1115040;1141455;1000574;1143179;1141456;1169802"/>
       <fbc:geneProduct metaid="cluster_19351" sboTerm="SBO:0000243" fbc:id="cluster_19351" fbc:label="1174220;209689;1184350;1144251;1144250"/>
       <fbc:geneProduct metaid="cluster_1939" sboTerm="SBO:0000243" fbc:id="cluster_1939" fbc:label="1139031;1178450;1187723;1160223;1111766;1096421;1065719;1111765;1127412;1127413;1065107;1096040;38807;1223651;1154432;1111767;1223655;1127414;1062720;1095647;1127409;1111762;1096521;1223643;1059137;1187722;52878;1178449;1160222;1154431;1127410;1064826;1096556;1111763;1223647;1067851;1127411;1111764;1095488;1147177;1147179;1147178;1167802"/>
@@ -63307,7 +63046,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_1950" sboTerm="SBO:0000243" fbc:id="cluster_1950" fbc:label="1188335;1179313;1168385;1097705;1139878;1097116;1225933;1077560;1155056;1076954;1160651;1128649;1128650;1113001;1113002;1113003;42644;1097505;1074997;1128651;1225935;1224416;1127852;1095421;1224412;1160367;1154633;1112205;1059520;1168001;1139310;1224419;1187928;1127853;1127854;1178732;1112206;208837;1112207;1224423;1066591;1095885;1095500;1061056;1147670"/>
       <fbc:geneProduct metaid="cluster_1951" sboTerm="SBO:0000243" fbc:id="cluster_1951" fbc:label="1122737;1107100;1089799;1066226;1152436;1107099;1107098;1165628;1089237;1158699;1185431;1088398;1175512;207217;1065727;1023055;1122735;1122736;1136170;1068255;1023059;1122739;1122740;1122738;1107103;1107102;1107101;1185432;1165629;1023065;1158700;1089913;1090076;1175513;1088700;1152437;1023068;1023072;1145241;1145242;207219;1136171;1075819;1075822;1073339;1023076;1023080;1145239;1145240"/>
       <fbc:geneProduct metaid="cluster_1959" sboTerm="SBO:0000243" fbc:id="cluster_1959" fbc:label="1066607;1032828;1063484;1187330;1094316;1066060;1094558;1111019;1094778;1111020;1111021;1146853;1146854;1177923;1138522;1167436;1126665;1126664;1126666;1154130;212992;1160000;1032833;1064455;1146855"/>
-      <fbc:geneProduct metaid="cluster_1965" sboTerm="SBO:0000243" fbc:id="cluster_1965" fbc:label="1107605;1107606;1107604;1088515;1216456;1089777;1089721;1185691;1062147;1165875;1158860;1063449;207505;1152628;1067786;1136474;1123241;1123242;1123240;1175832;1216460;1145461;1145460"/>
       <fbc:geneProduct metaid="cluster_1970" sboTerm="SBO:0000243" fbc:id="cluster_1970" fbc:label="1148917;1130587;1155966;212664;1180938;1141420;1161371;1169727;1000366"/>
       <fbc:geneProduct metaid="cluster_19770" sboTerm="SBO:0000243" fbc:id="cluster_19770" fbc:label="1012589;1143476;1143475;201966;1183432;1173030"/>
       <fbc:geneProduct metaid="cluster_19813" sboTerm="SBO:0000243" fbc:id="cluster_19813" fbc:label="57444;1111435;1111433;1111434;1154273;1034192;1127084;1127083;1127082;1160119;1178207;1147068;1187561;1147069;1094901;1094937;1094918;1064286;1064889;1070526"/>
@@ -63315,7 +63053,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_1995" sboTerm="SBO:0000243" fbc:id="cluster_1995" fbc:label="194895;1151067;1173199;1078197;1077576;1086164;1086161;1086063;1069945;1133943"/>
       <fbc:geneProduct metaid="cluster_2" sboTerm="SBO:0000243" fbc:id="cluster_2" fbc:label="1186428;1137433;1166576;1219101;1124823;1062032;1109185;1219103;1092546;1219105;1124824;1109186;1092436;1066730;118601;1124822;1219099;1068653;1109184;1092269;1159397;1153377;1219107;1219108;1146070;1176805"/>
       <fbc:geneProduct metaid="cluster_20" sboTerm="SBO:0000243" fbc:id="cluster_20" fbc:label="1141153;1114580;1098781;1169434;1130231;1229175;1078070;1114581;1098551;1114582;1130233;1130232;207636;1069260;1099093;1076153;1180637;1189447"/>
-      <fbc:geneProduct metaid="cluster_20003" sboTerm="SBO:0000243" fbc:id="cluster_20003" fbc:label="1147191;1147192;1178458;1096682;1072929;1077947;1095276;1095662;1067322"/>
       <fbc:geneProduct metaid="cluster_20095" sboTerm="SBO:0000243" fbc:id="cluster_20095" fbc:label="1147014"/>
       <fbc:geneProduct metaid="cluster_2016" sboTerm="SBO:0000243" fbc:id="cluster_2016" fbc:label="1214403;1088978;1061679;1152136;1106315;1106314;1067078;1165227;1135695;1175025;1063988;1089451;1214401;1121951;1121952;206697;1185015;1089390;1121950;1088688;1106312;1078957;1175024;1121949;1121948;206692;1020831;1135694;1165226;1089945;1106311;1106313;1088384;1158436;1185014;1079352;1152135;1079631;1144832;1121953;1158437;1106316;1144833"/>
       <fbc:geneProduct metaid="cluster_2022" sboTerm="SBO:0000243" fbc:id="cluster_2022" fbc:label="1128710;1226069;1073519;1160684;1168426;1188377;1097366;1113062;1155099;1139935;1179372;1097150;1072321;1128709;49811;1113061;1226067;1097674;1097055;49810;1097024;1038077;1155098;1113060;1113059;1113058;1168425;1179371;1160683;1139934;1128708;1128707;1128706;1188376;1069816;1074165;1077968;1147690;1147689;1147691"/>
@@ -63327,7 +63064,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_2053" sboTerm="SBO:0000243" fbc:id="cluster_2053" fbc:label="1088750;1152292;1175290;1215111;1067249;1088027;1107384;1107386;1107385;1066850;1123020;1123021;1123022;1152547;1175691;1158788;1185571;1023793;1068847;1089208;1089137;1136340;1165759;55637;1065628;1023801;1067545;1089693;130857;1023796;1088193;1065013;1135955;1145361;1023791;1165758;1067341;1145359;1066695;52442;1175690;1136339;1088802;1089243;1088178;1158786;1107383;1107382;1107381;1123017;1123018;1185570;1123019;1064830;1152545;1158787;1152546;1216044;1145360;1145362"/>
       <fbc:geneProduct metaid="cluster_2056" sboTerm="SBO:0000243" fbc:id="cluster_2056" fbc:label="1091718;210558;1073779;1153264;1124566;1124567;1124565;1186287;1027513;1078729;1137264;1092094;1108923;1108925;1166441;1108924;1092198;1159309;1078139;1176633;1206216;1162877;1132544;35805;1182563;1171777"/>
       <fbc:geneProduct metaid="cluster_2062" sboTerm="SBO:0000243" fbc:id="cluster_2062" fbc:label="1161582;1201506;1060593;1170016;1099726;1099725;1099724;1080502;1080462;1156098;1181165;212427;1149076;1201507;1080028;1068698;1066734;1115332;1115331;1115330;1137377;1166540;1091368;40946;1218984;1070549;1109113;1124754;1159371;1153334;1218988;1176750;1109115;1109114;1186391;1091518;1091230;1072289;1124756;1074729;1124755;1059094;1088416;1123002;1123003;1123001;1088289;1023737;1089436;1136329;1152539;1107365;1107367;1107366;1165751;1158782;197883;1145349;1185562;1175678;1064174;1066864;1145350;1023738;1141597;1130863"/>
-      <fbc:geneProduct metaid="cluster_2070" sboTerm="SBO:0000243" fbc:id="cluster_2070" fbc:label="1226862;1160823;1072428;1168662;1097176;1129123;1226868;1113476;1179651;1140205;1188628;1113475;1097624;1070461;1226864;187649;1129122;1072630;1129121;1113474;1097644;1226866;1147923;1147924;1155257"/>
       <fbc:geneProduct metaid="cluster_2072" sboTerm="SBO:0000243" fbc:id="cluster_2072" fbc:label="1152946;1090680;1071500;57312;57311;1070642;1145726;1159095;1159094;1166161;1166160;1025889;1025907;1075817;1152947;1136845;1176208;1072306;1185986;1185987;1123959;1123960;1123961;1123962;1123963;1090586;1090919;1091014;1108325;1108321;1108322;1108324;1108323;1090954;1136846;1076570;1176207;1217562;1025908;1145728"/>
       <fbc:geneProduct metaid="cluster_2075" sboTerm="SBO:0000243" fbc:id="cluster_2075" fbc:label="1066804;1089148;1088174;1158574;1106731;1106730;207003;1122369;1122368;1063731;1165445;1135945;1215091;1185241;1088793;1106732;1175280;1122367;1064360;1175281;1106733;1135946;1165446;1185242;1022058;1122370;1145054;1088311;1066317;1152285"/>
       <fbc:geneProduct metaid="cluster_2083" sboTerm="SBO:0000243" fbc:id="cluster_2083" fbc:label="1221215;1092854;1153918;1066218;1221219;1067265;1186984;1110403;1110402;1177530;1159810;1110401;1126041;1126042;1126043;1092868;1093035;1063004;1221213;1138137;1167109;54762"/>
@@ -63344,15 +63080,12 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_2128" sboTerm="SBO:0000243" fbc:id="cluster_2128" fbc:label="1111885;1127529;1160262;1095239;1154474;1067681;1065907;1095995;1095886;1223839;47873;1167860;1187783;1111884;1127531;1111886;1178515;1127530;1035283;1139092;1063212"/>
       <fbc:geneProduct metaid="cluster_2130" sboTerm="SBO:0000243" fbc:id="cluster_2130" fbc:label="1083547;1118065;1118064;1118063;1078052;1083228;1102456;1072435;1072436;1102454;1102455;1084189;1172007;51764;1163044;1009137;1182737;1157062;1150287;1132761"/>
       <fbc:geneProduct metaid="cluster_2136" sboTerm="SBO:0000243" fbc:id="cluster_2136" fbc:label="1076375;1151221;1087159;1120056;1104428;1210249;1157719;1164031;1210241;1134177;1104427;1104426;1173430;1074189;1183753;1210245;1120054;1120055;1087049;1086822;1071761;56305"/>
-      <fbc:geneProduct metaid="cluster_2145" sboTerm="SBO:0000243" fbc:id="cluster_2145" fbc:label="1175975;1185798;1158959;1024876;1145541;1145540;204317;1185302;197567;1165507;1145122;1175355;1158609;1136018;1152328;1022347;1122469;1122468;1106831;1106832;1152770;1122467;1106833;1090909;1090999;1079381;1090825;1071624;1088631;1089171;1088101;1062085;1076645;1064637;1065962;1165981"/>
       <fbc:geneProduct metaid="cluster_2151" sboTerm="SBO:0000243" fbc:id="cluster_2151" fbc:label="1186603;1029148;1166743;1125165;1125166;1125167;1153500;1092335;1068066;1109532;1109531;1109530;1137622;1092351;1092571;1176998;1067435;1065546;1029153;51231;1146247;1146246;1159506"/>
       <fbc:geneProduct metaid="cluster_2155" sboTerm="SBO:0000243" fbc:id="cluster_2155" fbc:label="1096937;1154585;1068077;1139247;1178668"/>
-      <fbc:geneProduct metaid="cluster_21606" sboTerm="SBO:0000243" fbc:id="cluster_21606" fbc:label="1145665;1145666;204505"/>
       <fbc:geneProduct metaid="cluster_2170" sboTerm="SBO:0000243" fbc:id="cluster_2170" fbc:label="1139009;1187701;1178424;1065847;1187702;1154413;1096730;1096895;1111724;1111726;1223576;1178425;1160209;1127372;1127373;38784;1058965;1127371;1111725;1096628;1223574;1059683;1223572;1095234;1127370;1067972;208583;1111723;1167783"/>
       <fbc:geneProduct metaid="cluster_21853" sboTerm="SBO:0000243" fbc:id="cluster_21853" fbc:label="Unknown5"/>
       <fbc:geneProduct metaid="cluster_2189" sboTerm="SBO:0000243" fbc:id="cluster_2189" fbc:label="1213142;1135283;1213143;1087510;129592;1070606;1121286;1105649;1174588;1164895"/>
       <fbc:geneProduct metaid="cluster_219" sboTerm="SBO:0000243" fbc:id="cluster_219" fbc:label="1131597;1203705;1063726;1156515;1116572;1116573;1181807;1170787;1082194;1082252;1100969;1068742;1149583;1162182;1100968;1082243;1100970;1064944;1203710;50853;1116574;1131595;1116569;1116570;1116571;1156514;1181806;1100967;1100966;1100965;1170785;1004638;1162181;1081987;1082043;1082159;50851;1071954;1077149;1078237;1170789;1181809;1100972;1100973;1100974;1149581;1162183;1004656;1116578;1116577;1116576;1131598;125862;1082105;1082242;1082027;1070489;1071684;1076459;1142157;1142158;1004657;1142162;1142163;1142159"/>
-      <fbc:geneProduct metaid="cluster_2191" sboTerm="SBO:0000243" fbc:id="cluster_2191" fbc:label="1227190;1140344;1168795;1188770;1179796;1129320;1129322;1129321;1148073;1148072;1155328;1160893;198959;1040084;1113673;1113675;1113674;1040087"/>
       <fbc:geneProduct metaid="cluster_2193" sboTerm="SBO:0000243" fbc:id="cluster_2193" fbc:label="1135623;1071151;1088776;1174934;1165156;1106189;1106191;1158395;1076098;1089932;1214186;1121825;1121827;1135611;1152088;1174947;1184948;1106204;1020445;1121840;1165165;1020444;1121826;36779;1073399;1106190;1089761;1020447"/>
       <fbc:geneProduct metaid="cluster_222" sboTerm="SBO:0000243" fbc:id="cluster_222" fbc:label="1127403;1063039;1127402;1111755;1096273;1111756;1065460;1154428;1160219;178015;1223622;1095393;1096896;1060527;1111754;1139028;1127401;1167799;1187719;1178446;1147174"/>
       <fbc:geneProduct metaid="cluster_2230" sboTerm="SBO:0000243" fbc:id="cluster_2230" fbc:label="1131276;56936;1100442;1100441;1081635;1078054;1081477;1181533;1116046;1116047;1156338;1170448;1202745;1149363;1076109;1169788;1148957;1148960;1060314;1115022;1115021;1115020;1180979;1064758;1080325;1080267;1161411;1079692;1099417;1099418;1099419;1130648;1000525;1155996;1155995;56586;1071360;1080764;1100443;1116048;1202749;1070664;1202741;1149362;1081581;1081454;1170447;1074767;1068540;1202742;1081529;1075225;41786;1141442;1141921;1141922;1161929"/>
@@ -63405,7 +63138,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_2657" sboTerm="SBO:0000243" fbc:id="cluster_2657" fbc:label="36393;1171181;36394;1182056;1171180;1131968"/>
       <fbc:geneProduct metaid="cluster_2658" sboTerm="SBO:0000243" fbc:id="cluster_2658" fbc:label="1154068;1159950;1126510;1167354;1126511;1126512;1187243;1032400;1146785;1138426;1177821;1110867;1110869;1110868;44084;1078793;1093809;1074100;1094013;1093786;1071908"/>
       <fbc:geneProduct metaid="cluster_2659" sboTerm="SBO:0000243" fbc:id="cluster_2659" fbc:label="1138242;1177634;54630;1110553;1110554;1153967;1126195;1126196;1126194;1110555;1159858;1187082;1221551;1031642;1153966;1187081;1177633;1159857;1221545;1093931;1076851;1093991;1094032;1126191;1126193;1126192;1094834;1221544;213277;1065141;1094813;1059006;1093997;1072272;1075778;1070496;1110550;1110551;1110552;1146650;1167202"/>
-      <fbc:geneProduct metaid="cluster_2661" sboTerm="SBO:0000243" fbc:id="cluster_2661" fbc:label="1106533;1106535;1106534;1185142;1021471;1165350;1158504;1122172;1122171;1122170;1214806;1135839;1021467;1069944;197350;1175170;1144967;1144966;1089832;1088702;1071158;1214810;1152215;1089863;1077343"/>
       <fbc:geneProduct metaid="cluster_2667" sboTerm="SBO:0000243" fbc:id="cluster_2667" fbc:label="1030480;1137960;1177354;1186863;1166991;50710"/>
       <fbc:geneProduct metaid="cluster_2694" sboTerm="SBO:0000243" fbc:id="cluster_2694" fbc:label="1137238;1166419;1077629;1070115;1153249;1159295;1091766;1108883;1108884;1108885;1091982;1176608;1091174;1124527;1124526;1124525;56437;1186264;1027365;1069470;1176609;1186265;49007;1166420;1218609;1137239"/>
       <fbc:geneProduct metaid="cluster_271" sboTerm="SBO:0000243" fbc:id="cluster_271" fbc:label="1082554;1206029;1084202;1206028;1083914;1064902;1171690;1182488;1066365;1065140;1132461;1162809;1206030;1102031;1102033;1102032;1117641;1117640;1117642;1008085;1182507;1082423;1117665;1117667;1117666;1156918;1162826;1102057;1102058;1102056;1068786;1150096;1171709;1065724;1083677;1083008;1132479;1065105;51854"/>
@@ -63544,7 +63276,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_4210" sboTerm="SBO:0000243" fbc:id="cluster_4210" fbc:label="1033426;1154203;1094485;1094301;1094036;1146951;1146952;1111241;1111240;1111239;1138640;1178045;1160065;1126884;1126885;1167534;214270;1187434;1126886;1076966;1077012;1069404;1033430;1146953"/>
       <fbc:geneProduct metaid="cluster_4221" sboTerm="SBO:0000243" fbc:id="cluster_4221" fbc:label="1134866;1016895;1151650;1105221;1105222;1105220;1158036;209754;1184294;1144192;1164540;1174157;1120858;1120859;1120860;1087727;1087816;1087394;1065277;1068898;1066944"/>
       <fbc:geneProduct metaid="cluster_4236" sboTerm="SBO:0000243" fbc:id="cluster_4236" fbc:label="1171526;1182347;1132300;1162676;123052;1150011;1156842;1142633;1101836;1007373;1101838;1101837;1117447;1117449;1117448;1182346;1171525;205959;1132299;1162675;1083237;1078475;1084082;1074976;1082984;1082293;1077930;1066324;1117450;1101839;1142635;1142634"/>
-      <fbc:geneProduct metaid="cluster_4238" sboTerm="SBO:0000243" fbc:id="cluster_4238" fbc:label="1108269;1108270;1108271;214109;1185966;1025773;1176187;1166141;1123908;1123909;1123907;1136826;1152930;1159078;1090932;1090786;1090824;1079026;1079372;1145702;1079632;1145703"/>
       <fbc:geneProduct metaid="cluster_4259" sboTerm="SBO:0000243" fbc:id="cluster_4259" fbc:label="1164883;1213089;1184658;1174575;1184218;1174069;199843;1019004;1135271"/>
       <fbc:geneProduct metaid="cluster_4263" sboTerm="SBO:0000243" fbc:id="cluster_4263" fbc:label="1187308;1094781;1222289;1159984;1126624;1154111;1110982;50432;1110980;1167414;1110981;1138495;1094673;1094729;1065753;1063299;1067696;1177896;1126625;1126626"/>
       <fbc:geneProduct metaid="cluster_4289" sboTerm="SBO:0000243" fbc:id="cluster_4289" fbc:label="1130559;1070503;189642;1150694;1172568;1133320;1084519;1084934;1084775;1078026;1180927;1099320;1099319;1114922;1114921;1114923;1169699;1200739;1060229;1060854;189181;1155957;1080438;1080176;1080130;1148892;1078158;1063428;1099318;1067741;1079752;1148891;1169698;1067041;1079708;50208;1161360"/>
@@ -63561,7 +63292,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_4375" sboTerm="SBO:0000243" fbc:id="cluster_4375" fbc:label="1070286;176795;1169241;1228439;1155529;1114181;1161079;1180357;1129833;1189249;1140883;1097853"/>
       <fbc:geneProduct metaid="cluster_4391" sboTerm="SBO:0000243" fbc:id="cluster_4391" fbc:label="1179867;1148123;1148122;1188834;1040363;1168855;1129392;1129391;1129390;1160918;1140415;1113742;1098303;1098246;1113744;1113743;1155354;1098767;52803;1074012;1074648;1072114"/>
       <fbc:geneProduct metaid="cluster_4398" sboTerm="SBO:0000243" fbc:id="cluster_4398" fbc:label="1094302;1126875;1059612;1126877;1094445;1126876;54991;1178034;1033411;1033409;1093807;1167529;1160063;1111231;1111230;1111232;1154197;1059809;1187429;1138629;1068448;1146946"/>
-      <fbc:geneProduct metaid="cluster_440" sboTerm="SBO:0000243" fbc:id="cluster_440" fbc:label="1179482;1128878;1128879;1097450;1113232;1168518;1226413;1188475;1113233;1155168;1140041;1160743;1078816;1097491;1069981;1226409;211957;1097218;1071274;1113228;1113230;1147784;1113229;1147785;1188474;1140040;1097702;202416;1179481;1097532;1168517;1097112;1038527;1128875;1128874;1128876;1060525;1062958;1113231;1128877;1064605"/>
       <fbc:geneProduct metaid="cluster_4400" sboTerm="SBO:0000243" fbc:id="cluster_4400" fbc:label="1183220;1119133;1119134;1068962;1163518;1133438;1150783;1103519;1103520;1085868;1085145;1172690;1157412;1077145;1085914;1208492;49744;1077199;1103518;1119132"/>
       <fbc:geneProduct metaid="cluster_4405" sboTerm="SBO:0000243" fbc:id="cluster_4405" fbc:label="1115333;1068416;1001441;1115334;1115335;56891;1068030;1149077;1130864;1079970;1156099;1080252;1161583;1061162;1080171;1099728;1099727;1099729;1181166;1170017;1141598"/>
       <fbc:geneProduct metaid="cluster_4424" sboTerm="SBO:0000243" fbc:id="cluster_4424" fbc:label="1188907;1179954;176678;1168920;1227537;1140495"/>
@@ -63602,7 +63332,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_4880" sboTerm="SBO:0000243" fbc:id="cluster_4880" fbc:label="1115093;1080232;1161451;1201105;1065932;1130702;1099487;1181024;1099486;1099485;1068446;1148985;1115091;1115092;1169849;1079705;1080100;1156018;1068245;188553;1141483;1201103"/>
       <fbc:geneProduct metaid="cluster_4906" sboTerm="SBO:0000243" fbc:id="cluster_4906" fbc:label="1083509;1171559;1150027;1083646;1082315;170172;1205696;1064414;1061299;1059807;1205692;1132333"/>
       <fbc:geneProduct metaid="cluster_491" sboTerm="SBO:0000243" fbc:id="cluster_491" fbc:label="1187028;1066490;1177575;1126123;1110481;1094549;1031325;1094229;1110482;1126122;1153940;1159832;1059070;213343;1094075;1110480;1126121;1061282;1031321;57113;1187027;1177574;1110479;1126120;1093790;1146594;1059569;1146595;1146593;1146596;1138182"/>
-      <fbc:geneProduct metaid="cluster_4922" sboTerm="SBO:0000243" fbc:id="cluster_4922" fbc:label="1185008;1165220;1175017;1135687;1152132;1158433;1020787;1144826;1106303;1106302;1106304;1144825;1121939;1121941;1121940;1088595;1090023;1088166;1079207;1079206;1079204"/>
       <fbc:geneProduct metaid="cluster_4937" sboTerm="SBO:0000243" fbc:id="cluster_4937" fbc:label="1135956;1185249;1165453;1158579;1022102;1106741;1122378;1122379;1106743;1106742;1122380;1022097;1152293;1145067;1175291;1062572;1089569;1022098;1068577;1088599;1089457;174330;1066113;1022100"/>
       <fbc:geneProduct metaid="cluster_495" sboTerm="SBO:0000243" fbc:id="cluster_495" fbc:label="1102067;1117676;1066826;1084073;1206079;1150099;1156921;1117674;1117675;1084047;1059955;1082998;1102066;1171715;1182513;1102065;1067447;1206075;1206071;1132486;1162832;129139;1117679;1117678;1117677;205782;1156922;1102069;1102070;1102068;1162833;1182514;1008123;1171716;1132487;1150100;1083983;1082540;1082853;1078060;1076315;1076397;1142772"/>
       <fbc:geneProduct metaid="cluster_497" sboTerm="SBO:0000243" fbc:id="cluster_497" fbc:label="1126586;128887;1159972;1066786;1154094;1110942;1177866;1094624;1094779;1187286;1066962;1138468;1222191;1058909;1126584;1126585;1110941;1110940;1167394;1093819;1187287;1093782;1138469;1126588;1126587;1177867;1110944;1110943;1222197;1067404;1167395;1068115;1146824;1094095"/>
@@ -63614,7 +63343,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_501" sboTerm="SBO:0000243" fbc:id="cluster_501" fbc:label="1074878;1179071;1095504;1139644;179788;1096399;1188136;1128296;1128295;1225272;1225270;1128297;1069951;1112650;1095406;1112649;1112651;1077467;1160524;1225271;1154896"/>
       <fbc:geneProduct metaid="cluster_5010" sboTerm="SBO:0000243" fbc:id="cluster_5010" fbc:label="1169512;1189528;1180747;1130348;1077173;1098623;1114697;1097963;1114698;1114699;1098091;176409;1043926;1130349;1161265;1130350;1155792;1067342;1072234;1141261"/>
       <fbc:geneProduct metaid="cluster_5014" sboTerm="SBO:0000243" fbc:id="cluster_5014" fbc:label="1214277;1165183;46947;1214279;1121872;1121871;1174968;1088741;1089930;1184968;1158411;1152107;1154175;55007;1146917;1160042;1187391;1177991;1126800;1126801;1126802;1167495;1138590;1033198;1111156;1111155;1111157;1094610;1093836;1061085;1066039;1078970;1079405;1094108;1059498;1090126;1078948;1121873;1106237;1106236;1106235;1146918;1033205;1174967;206645;1089130;1184967;1121870;1121869;1144793;1144792;1106234;1106233;1020549;1066314;1088784;1066530;1135642"/>
-      <fbc:geneProduct metaid="cluster_5017" sboTerm="SBO:0000243" fbc:id="cluster_5017" fbc:label="1171281;1182132;1101515;1132066;1101513;1101514;1149887;1156726;1162474;1182133;1117127;1117128;1117126;1171282;1006145;1142412;1142411;1062817;1083773;1084171;1082583;1065854;1072303;1006146"/>
       <fbc:geneProduct metaid="cluster_5038" sboTerm="SBO:0000243" fbc:id="cluster_5038" fbc:label="1177752;1094147;1126415;1126416;1126417;1094227;190860;1061937;1154031;1138358;1060092;1110773;1159919;1110772;1110771;1167306;1187192;1032186;1094024;1072320"/>
       <fbc:geneProduct metaid="cluster_5039" sboTerm="SBO:0000243" fbc:id="cluster_5039" fbc:label="1127657;1127656;1160303;1187840;1112011;1112010;1112009;1167916;1147297;1147298;1095883;1096593;1139164;1178586;1061904;1035579;1035583;1062394;1154523;1095473;1060209;47911;1127655"/>
       <fbc:geneProduct metaid="cluster_5053" sboTerm="SBO:0000243" fbc:id="cluster_5053" fbc:label="1183242;1208628;1070665;1085782;1150798;1085378;1119185;1119183;1119184;1157426;211661;1103568;1103569;1103567;1074968;1172714;1071649;1133460;1085553;1208630;1150799;1157427;1163538"/>
@@ -63678,7 +63406,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_5694" sboTerm="SBO:0000243" fbc:id="cluster_5694" fbc:label="1107685;1136508;1175866;1216616;52498;1060237;1089573;1185724;1158887;1123322;1152656;1123324;1123323;1059444;198031;1088114;1089374;1063836;1107687;1107686;1145486;1145487;1165908"/>
       <fbc:geneProduct metaid="cluster_570" sboTerm="SBO:0000243" fbc:id="cluster_570" fbc:label="1160381;1168021;1127893;1187952;1066207;1154649;1112245;1127894;1112246;1095492;1059348;1224505;1178759;1139335;1096186;39114;1059580;1095433;1112247;1127895;1224506"/>
       <fbc:geneProduct metaid="cluster_5709" sboTerm="SBO:0000243" fbc:id="cluster_5709" fbc:label="1011274;1133388;1172639;1084938;1085021;203198;1143288;1163470;1084985;1071543;1183171;1157377;1103411;1103410;1103409;1150748;1119025;1119024;1119023;1079404;1079315"/>
-      <fbc:geneProduct metaid="cluster_5720" sboTerm="SBO:0000243" fbc:id="cluster_5720" fbc:label="1171882;1162962;1206518;1132647;1083244;1102261;1117870;1150186;1156993;1077841;1084078;1070444;1206514;1073617;1206520;170927;1083468;1008815;1082773;1117871;1117872;1142890;1142891;1102263;1102262;1082901;1070607;1069342;1182652"/>
       <fbc:geneProduct metaid="cluster_5722" sboTerm="SBO:0000243" fbc:id="cluster_5722" fbc:label="1159292;1166414;1186258;1153246;1137233;1176602;1074371;1092059;1124520;1124521;1218585;1092086;1075270;1108878;1108879;1091305;1073355;1218587;1108877;1124519;41090;1218590"/>
       <fbc:geneProduct metaid="cluster_5723" sboTerm="SBO:0000243" fbc:id="cluster_5723" fbc:label="1094282;1222273;1177893;1154108;1067768;1093987;1138492;1094023;1068385;44006;1059479"/>
       <fbc:geneProduct metaid="cluster_5726" sboTerm="SBO:0000243" fbc:id="cluster_5726" fbc:label="1166912;1109971;1109973;1109972;1125608;1029966;1159657;1058986;1063384;1177259;1186778;1137871;1153714;1146377;1092659;1092887;1125609;1125607;191710;1092732;1061326;1029971;1029975"/>
@@ -63777,7 +63504,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_6642" sboTerm="SBO:0000243" fbc:id="cluster_6642" fbc:label="1225309;1074831;1069363;1112683;1112684;1112685;1069979;1128332;1128331;1096294;1095769;1096752;1128330;1188152;1179087;53053;1154905;1160533;1139661;1168210"/>
       <fbc:geneProduct metaid="cluster_6648" sboTerm="SBO:0000243" fbc:id="cluster_6648" fbc:label="1065637;1159664;1063252;1177268;1030008;1109988;1109990;1109989;1093392;1093208;1125624;1125625;1125626;1153721;1166920;213429;1092772;1137881;1063346;1146385;1146386;1186786"/>
       <fbc:geneProduct metaid="cluster_6651" sboTerm="SBO:0000243" fbc:id="cluster_6651" fbc:label="1161281;1141300;1169537;1098775;1155817;1044026;1114738;1114739;1114740;1189554;1077044;1130389;1130390;1130391;1097713;1148767;1078198;1070448;177616;1098958;1148768;1180787"/>
-      <fbc:geneProduct metaid="cluster_6657" sboTerm="SBO:0000243" fbc:id="cluster_6657" fbc:label="1177683;215074;213213;1126281;1126282;1126280;1094208;1094498;1031864;1093798;1138292;1167246;1146689;1110640;1110638;1110639;1061893;1065735;1063103;1187127"/>
       <fbc:geneProduct metaid="cluster_6668" sboTerm="SBO:0000243" fbc:id="cluster_6668" fbc:label="1172235;1150433;1083888;1084133;1078610;171519;1075788;1132982"/>
       <fbc:geneProduct metaid="cluster_6681" sboTerm="SBO:0000243" fbc:id="cluster_6681" fbc:label="1123237;1060480;1088123;207503;1165873;1123238;1088324;1123239;1158859;1175831;1066609;1185690;1107601;1107602;1107603;1136472;1089957;1024358;1152627;1063933;1145457"/>
       <fbc:geneProduct metaid="cluster_6709" sboTerm="SBO:0000243" fbc:id="cluster_6709" fbc:label="1129714;1129713;1180247;1189151;1228143;1099048;1169146;1098132;207996;1140772;1098790;1129715;1228145;1161032;1155483;1077526;1073340;1073492"/>
@@ -63804,7 +63530,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_6952" sboTerm="SBO:0000243" fbc:id="cluster_6952" fbc:label="1130017;1130018;1097737;1043012;1155658;1169342;1114367;1114366;1161154;1070516;1189351;1180529;1141049;1098128;1077774;1148568;1043015;52585"/>
       <fbc:geneProduct metaid="cluster_6986" sboTerm="SBO:0000243" fbc:id="cluster_6986" fbc:label="1067981;1106472;1106471;1106473;1088300;1088020;1122108;1122109;1122110;1090249;1158485;1185108;1152194;1064854;1175132;206795;1135801;1165317;1021296;1079522"/>
       <fbc:geneProduct metaid="cluster_6987" sboTerm="SBO:0000243" fbc:id="cluster_6987" fbc:label="56431;1076348;1091439;1070345;1124562;1124563;1124564;1176632;1166440;1027508;1073404;1137263;1108922;1108920;1108921;1153263;1091432;1159308;1186286;1091921"/>
-      <fbc:geneProduct metaid="cluster_699" sboTerm="SBO:0000243" fbc:id="cluster_699" fbc:label="1175150;1185123;1158494;1144938;1144936;1021369;1122140;1122138;1122139;206816;1135818;1165331;1021370;1106501;1106502;1106503;1089975;1089260;1090229;1059947;1066153;1065537;1185122;1135817;1021367;173647;1165330;1175149;1152205;1144937;1152204"/>
       <fbc:geneProduct metaid="cluster_6999" sboTerm="SBO:0000243" fbc:id="cluster_6999" fbc:label="1014990;1104611;1104612;200686;1014988;1151302;1143873;1143874;1173584;1060855;1164151;1086977;1086601;1086874;1134319;1104610;1120244;1120242;1157792;1183880;1014989;1074743;1074681;1120243"/>
       <fbc:geneProduct metaid="cluster_7015" sboTerm="SBO:0000243" fbc:id="cluster_7015" fbc:label="1075605;1076288;1157152;1132910;1084174;1084205;1083775;1163177;1207257;35440;1172159;1102740;1102741;1102739;1118350;1118349;1118348;1150385;1069391;1182872;1143076"/>
       <fbc:geneProduct metaid="cluster_702" sboTerm="SBO:0000243" fbc:id="cluster_702" fbc:label="1103172;212883;1084654;1073655;1150655;1157301;1172526;1074060;1084504;1183073;1084595;1118790;1118791;1072299;1103175;1103176;1207923;1084384;1084618;1070387;1072402;1103173;1103174;1118789;1118788;1163378;1183072;1010676;1172525;1133277;1118787"/>
@@ -63839,7 +63564,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_7294" sboTerm="SBO:0000243" fbc:id="cluster_7294" fbc:label="1109743;1109744;1109742;1186692;1137755;1166831;1153608;1177133;1159580;1059805;214662;1093635;1093426;1125380;1125381;1125379;1093741;1067305;1067309;1220018"/>
       <fbc:geneProduct metaid="cluster_7332" sboTerm="SBO:0000243" fbc:id="cluster_7332" fbc:label="1163501;56739;1103483;1011456;1103481;1103482;1075090;1085703;1085784;1172671;1183203;1075904;1150771;1119097;1119096;1119095;1157400;1133419;1085595;1073629"/>
       <fbc:geneProduct metaid="cluster_7335" sboTerm="SBO:0000243" fbc:id="cluster_7335" fbc:label="174813;1152548;1136342;1088288;135462;1065369;1175692"/>
-      <fbc:geneProduct metaid="cluster_7355" sboTerm="SBO:0000243" fbc:id="cluster_7355" fbc:label="1163529;1183231;1172703;186371;1119163;1085409;1079233;1103547;1143354;1011726;1143355;1059396;1079230;1085257;1103545;1103546;1085489;1119161;1119162;1143356;1133451"/>
       <fbc:geneProduct metaid="cluster_7363" sboTerm="SBO:0000243" fbc:id="cluster_7363" fbc:label="1161240;1114641;1114640;1130291;1130292;1180697;1189490;1155761;1141213;1069214;1043763;1098568;55670;1098826;1072638;1229329;1148708;1169476"/>
       <fbc:geneProduct metaid="cluster_7366" sboTerm="SBO:0000243" fbc:id="cluster_7366" fbc:label="1160111;1154265;1127046;1127047;1127048;1222986;1094954;1094835;1094874;1187530;45912;1178175;1222984;1138767;1167624;1074180;1072346;1069818;1111398;1111397;1111399"/>
       <fbc:geneProduct metaid="cluster_7375" sboTerm="SBO:0000243" fbc:id="cluster_7375" fbc:label="1074000;1134911;1212158;1087683;40014;1151671;1087171;1174206;1069037"/>
@@ -63863,7 +63587,6 @@ Hydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB3N0" fbc:upperF
       <fbc:geneProduct metaid="cluster_7679" sboTerm="SBO:0000243" fbc:id="cluster_7679" fbc:label="1105553;1105554;56159;1018575;1135197;1121191;1121192;1164819;1151807;1087774;1087764;1184591;1072644;1158171;1072015;1105555;1121193;1174503;1212936;1087702;1071089;1144465"/>
       <fbc:geneProduct metaid="cluster_7681" sboTerm="SBO:0000243" fbc:id="cluster_7681" fbc:label="1093220;1177013;1064546;1058902;1137635;1153512;1067988;1092796;194140;1093667"/>
       <fbc:geneProduct metaid="cluster_7693" sboTerm="SBO:0000243" fbc:id="cluster_7693" fbc:label="1098858;1098498;1076391;1075102;1228936;1071374;1155681;1189384;1130088;1130087;1130086;1114436;1114435;1114437;1180569;1161174;1043186;55704;1169374;1141087;1164851;1135236;56145;1184627;1158188;1018779;1121235;1121234;1174542;1121233;1087428;1151826;1087542;1087754;1105595;1105596;1105597;1043189;1066047;1079584;1078923;1018780;1018781;1148599;1148600;1098396"/>
-      <fbc:geneProduct metaid="cluster_770" sboTerm="SBO:0000243" fbc:id="cluster_770" fbc:label="1152447;1089707;1122769;1185442;1107132;1175523;1165639;1107133;1068822;1023132;1122771;52388;1158711;1145249;1122770;1107134;1107129;1107130;1062792;1107131;1165638;1122768;1122767;1122766;1185441;1023130;1090188;1089762;1066228;1136181;1061172;1088882;1152448;1145248;52387;1059168;1136180;1089088;1175522;1089992;1059783;1145250;1158710"/>
       <fbc:geneProduct metaid="cluster_7703" sboTerm="SBO:0000243" fbc:id="cluster_7703" fbc:label="1171710;55346;1182508;1008087;1142769;1132480"/>
       <fbc:geneProduct metaid="cluster_7716" sboTerm="SBO:0000243" fbc:id="cluster_7716" fbc:label="1152731;1123439;1123438;1123437;1107801;1107800;1107799;1185761;1158928;1175929;1067748;193092;1090556;1090614;1216767;1136573;1165946;1216769;1067835;1090547;1063353"/>
       <fbc:geneProduct metaid="cluster_7721" sboTerm="SBO:0000243" fbc:id="cluster_7721" fbc:label="1156258;1077400;1069220;1161815;1131134;211015;1202352;1081519;1100209;1100210;1100208;1081414;1170302;1181415;1149267;1115814;1115816;1115815;1064884;1081150;1141836"/>

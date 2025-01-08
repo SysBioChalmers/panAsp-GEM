@@ -1,7 +1,7 @@
 ---
 title: "Curating panAsp GEM V1"
 author: "Jeroen Gilis"
-date: "12 December 2024"
+date: "6 January 2025"
 output: 
     html_document:
       code_download: true
@@ -27,19 +27,18 @@ source("../code/Rutilities.R")
 # Load data
 
 ```{r}
-Asp_kegg <- read_excel_allsheets("../scrap/Asp_kegg_loc.xlsx")
-Ani_idtokegg <- read.xlsx("../data/intermediate/niger_metabolite_table.xlsx")
+# Note: excel files should be closed when reading them in R
+Ani_idtokegg <- read.xlsx("../scrap/niger_metabolite_table.xlsx")
 
 Ani_draft <- read_excel_allsheets("../data/intermediate/Ani_draft_comp.xlsx")
 Aor_draft <- read_excel_allsheets("../data/intermediate/Aor_draft_comp.xlsx")
 
-Ani_reduced <- read_excel_allsheets("../scrap/Ani_reduced.xlsx")
-Afu_reduced <- read_excel_allsheets("../scrap/Afu_reduced.xlsx")
+Ani_reduced <- read_excel_allsheets("..//data/intermediate/Ani_reduced.xlsx")
+Afu_reduced <- read_excel_allsheets("..//data/intermediate/Afu_reduced.xlsx")
 
-OtherAsp <- read_excel_allsheets("../scrap/OtherAsp_10_50_loc.xlsx")
+OtherAsp <- read_excel_allsheets("../data/intermediate/OtherAsp_10_50_loc.xlsx")
 panAsp_v1 <- read_excel_allsheets("../data/intermediate/panAsp_v1.xlsx")
-panAsp_v2 <- read_excel_allsheets("../scrap/panAsp_v2.xlsx")
-
+panAsp_v2 <- read_excel_allsheets("../model/panAsp_v2.xlsx")
 ```
 
 # OtherAsp metabolites
@@ -329,7 +328,7 @@ source("../code/Rutilities.R")
 
 ```{r}
 panAsp_v2 <- read_excel_allsheets("../model/panAsp_v2.xlsx")
-Ani_idtokegg <- read.xlsx("../data/intermediate/niger_metabolite_table.xlsx")
+Ani_idtokegg <- read.xlsx("../scrap/niger_metabolite_table.xlsx")
 ```
 
 # Wrangle data
