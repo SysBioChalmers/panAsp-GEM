@@ -11,30 +11,20 @@ Script to compare the BioLog results with our FBA predictions
 ```{r, message=FALSE, warning=FALSE}
 library(dplyr)
 library(tidyr)
+library(openxlsx)
 ```
 
 # Load data
 
 ```{r}
-PM_all <- read.csv2("PM_all.csv")
+PM_all <- read.csv2("../data/biolog/PM_all.csv")
 PM_all$plateID[which(PM_all$plateID == "PM_01")] <- "PM01"
 PM_all$plateID[which(PM_all$plateID == "PM_02")] <- "PM02A"
 PM_all$plateID[which(PM_all$plateID == "PM_03")] <- "PM03B"
 
+metaboliteDf <- read.csv2("../data/biolog/metaboliteDf.csv")
 
-metaboliteDf <- read.csv2("metaboliteDf.csv")
-
-#FBA_res <- read.csv2("../../medusa/growth_df_1000_sink_cofactor_noATPbound.csv", sep=",")
-#FBA_res_oxy <- read.csv2("../../medusa/oxygen_df_1000_sink_cofactor_noATPbound.csv", sep=",")
-
-# FBA_res <- read.csv2("../../medusa/growth_target.csv", sep=",")
-# FBA_res_oxy <- read.csv2("../../medusa/oxygen_target.csv", sep=",")
-# sink <- read.csv2("../../medusa/sink_target.csv", sep=",")
-# sink$X <- NULL
-```
-
-```{r}
-FBA_res <- read.csv2("../medusa/simulation_results.csv", sep=",")
+FBA_res <- read.csv2("../data/biolog/simulation_results.csv", sep=",")
 FBA_res$X <- NULL
 FBA_res
 ```
@@ -68,16 +58,20 @@ res <- res[,c("Isolate", "Replicate", "Metabolite", "plateID", "Well", "Medium",
               "ATP_bool", "Observed")]
 ```
 
-```
-library(openxlsx)
-write.xlsx(res[which(res$Isolate == "NRRL_2217" & res$Replicate == 1),
-               c("Medium", "plateID", "Well", "Metabolite")],
-           "metabolites_supporting_growth.xlsx")
+# Export predictions for 45 metabolites
+
+```{r}
+write.xlsx(res,
+           "../data/biolog/FBA_predictions.xlsx")
+
+# write.xlsx(res[which(res$Isolate == "NRRL_2217" & res$Replicate == 1),
+#                c("Medium", "plateID", "Well", "Metabolite")],
+#            "metabolites_supporting_growth.xlsx")
 ```
 
 Some minor issues
 
-- issue: Sorbic acid
+- issue: Sorbic acid predictions: no growth
 
 
 ```{r}
