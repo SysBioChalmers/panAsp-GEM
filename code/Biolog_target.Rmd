@@ -1,0 +1,140 @@
+---
+title: "Biolog_target"
+output: html_document
+date: "2025-02-13"
+---
+
+Script to compare the BioLog results with our FBA predictions
+
+# Load libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)
+library(tidyr)
+```
+
+# Load data
+
+```{r}
+PM_all <- read.csv2("PM_all.csv")
+PM_all$plateID[which(PM_all$plateID == "PM_01")] <- "PM01"
+PM_all$plateID[which(PM_all$plateID == "PM_02")] <- "PM02A"
+PM_all$plateID[which(PM_all$plateID == "PM_03")] <- "PM03B"
+
+
+metaboliteDf <- read.csv2("metaboliteDf.csv")
+
+#FBA_res <- read.csv2("../../medusa/growth_df_1000_sink_cofactor_noATPbound.csv", sep=",")
+#FBA_res_oxy <- read.csv2("../../medusa/oxygen_df_1000_sink_cofactor_noATPbound.csv", sep=",")
+
+# FBA_res <- read.csv2("../../medusa/growth_target.csv", sep=",")
+# FBA_res_oxy <- read.csv2("../../medusa/oxygen_target.csv", sep=",")
+# sink <- read.csv2("../../medusa/sink_target.csv", sep=",")
+# sink$X <- NULL
+```
+
+```{r}
+FBA_res <- read.csv2("../medusa/simulation_results.csv", sep=",")
+FBA_res$X <- NULL
+FBA_res
+```
+
+# Wrangle data
+
+Add results of FBA analysis (growth) to Biolog plate data
+
+```{r}
+FBA_res$Isolate <- gsub("Aspergillus_oryzae_", "", FBA_res$Isolate)
+FBA_res$Isolate <- gsub("_CAoGD", "", FBA_res$Isolate)
+
+res <- PM_all %>% inner_join(FBA_res, 
+        by=c('Isolate'='Isolate', 'Medium'='Medium', 'plateID'='plateID'))
+res$Growth <- as.numeric(res$Growth)
+res$Growth_bool <- ifelse(res$Growth > 1e-3, TRUE, FALSE)
+res$ATP <- as.numeric(res$ATP)
+res$ATP_bool <- ifelse(res$ATP > 1e-3, TRUE, FALSE)
+res$Oxygen_growth <- as.numeric(res$Oxygen_growth)
+res$Oxygen_growth_bool <- ifelse(res$Oxygen_growth > 1e-3, TRUE, FALSE)
+res$Oxygen_ATP <- as.numeric(res$Oxygen_ATP)
+res$Oxygen_ATP_bool <- ifelse(res$Oxygen_ATP > 1e-3, TRUE, FALSE)
+
+# res$Condition <- paste0(res$Medium, "_", res$plateID)
+# res$Sink <- sink$Location[match(res$Medium, sink$Medium)]
+res$Well <- metaboliteDf$Well[match(res$Medium, metaboliteDf$Medium)]
+
+res <- res[,c("Isolate", "Replicate", "Metabolite", "plateID", "Well", "Medium", 
+              "Condition", "Location_growth", "Location_ATP", "Oxygen_growth", "Oxygen_growth_bool", 
+              "Oxygen_ATP", "Oxygen_ATP_bool", "Growth","ATP", "Growth_bool", 
+              "ATP_bool", "Observed")]
+```
+
+```
+library(openxlsx)
+write.xlsx(res[which(res$Isolate == "NRRL_2217" & res$Replicate == 1),
+               c("Medium", "plateID", "Well", "Metabolite")],
+           "metabolites_supporting_growth.xlsx")
+```
+
+Some minor issues
+
+- issue: Sorbic acid
+
+
+```{r}
+res[which(res$Medium == "Sorbic_Acid"),
+    c("Isolate", "Replicate", "Location_growth", "Oxygen_growth", "Oxygen_ATP", "Growth", "ATP", 
+      "Observed")]
+```
+
+# Identify metabolites with prediction differences
+
+And see if they match the plate data.
+
+```{r}
+for (med in unique(res$Medium)){
+  print(res[which(res$Medium == med & res$Replicate == 1),
+            c("Isolate", "Medium", "plateID", "Well", "Growth", "ATP", "Observed")])
+}
+```
+
+Note: sorbic acid but also xantine (!) failed
+ 
+- RIB40 predictions are consistently lower.
+--> not corresponding
+
+
+- p_Hydroxy_Phenylacetic_Acid, m_Hydroxy_Phenylacetic_Acid, Tyramine: higher in NRRL_3483 
+--> not corresponding, NRRL_3483 is actually quite low. 
+Also, NRRL_5589 shouldnt grow on it, adapt if possible!
+
+
+- Arbutin, L_Norvaline, L_Glutamic_Acid, and L_Tryptophan: higher in NRRL_5592
+--> not corresponding
+Also, L_Glutamic_Acid should be Well A12, not B12. Where does this mistake come from?
+
+
+- L-proline: only in NRRL_2217 and NRRL_3483
+--> not corresponding, there seems to be growth everywhere, and growth is highest in RIB40, NRRL_35890
+
+
+- myo_Inositol: only in NRRL_2217, NRRL_35890, and NRRL_5589
+--> not corresponding, the worst growers on the plate are NRRL_5592 and NRRL_5589
+
+
+- b_Phenylethylamine: only in NRRL_2217, NRRL_3488, NRRL_35890, and NRRL_5589
+--> Worst are NRRL_3483, RIB40, and NRRL_5589
+
+
+- L_Ornithine: only in NRRL_2217, NRRL_3483, NRRL_471, NRRL_35890, NRRL_5589, and RIB40
+--> Corresponding, worst are NRRL_5589 and NRRL_3488. However, NRRL_3483 is pretty bad too.
+
+
+
+
+
+
+
+
+
+
+

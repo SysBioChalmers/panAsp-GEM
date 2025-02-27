@@ -1,0 +1,643 @@
+---
+title: "BioLog"
+output: html_document
+date: "2025-01-14"
+---
+
+# Load libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(purrr)
+library(dplyr)
+library(ComplexHeatmap)
+library(circlize)
+library(matrixStats)
+```
+
+# Helpers
+
+```{r}
+source("../panAsp-GEM/code/Rutilities.R")
+```
+
+# Load data
+
+```{r}
+# Load GEM (the File must be closed)
+panAsp_v2 <- read_excel_allsheets("../panAsp-GEM/model/panAsp_v2.xlsx")
+
+# Load BioLog assay results
+PM_01_wide <- read.csv("./Results_PM01.csv")
+PM_02_wide <- read.csv("./Results_PM02.csv")
+PM_03_wide <- read.csv("./Results_PM03.csv")
+```
+
+# Define a core and intermediate set of metabolites
+
+Metabolic activity should be higher than threshold *t* in at least *k* 
+replicates of *n* strains.
+
+Define a 
+
+- Core set: t = 100, k = 2, and n = 6
+- Intermediate set: t = 75, k = 2, and n = 1
+
+t could be define d from a confidence interval on the negative control, or on 
+the say 10 lowest metabolic activities on a Plate (to have more data).
+
+```{r}
+csv_Files <- list.files(path = "./Raw", 
+                        pattern = "\\.csv$",
+                        full.names = TRUE)
+
+raw_data <- lapply(csv_Files, function(x){
+    data = read.csv(x)
+    tail(data, n=1) # select the last time point
+})
+
+raw_data <- do.call(rbind, raw_data)
+
+# Remove file location
+raw_data$Plate.File <- NULL
+
+# Update colname
+colnames(raw_data)[which(colnames(raw_data) == "Plate.Type")] <- "Plate"
+
+# Clean isolate names
+raw_data$Field.2 <- gsub(" ", "_", raw_data$Field.2)
+
+# Establish a baseline
+raw_data$baseline <- NA
+cols_to_consider <- grep("^([A-H][0-9]{2})$", names(raw_data), value = TRUE)
+
+for (i in 1:nrow(raw_data)) {
+    raw_data$baseline[i] <- mean(sort(unlist(raw_data[i,cols_to_consider]))[1:10])
+}
+
+raw_data$baseline
+```
+
+```
+t = 150 # must be 100 units higher than the baseline
+k = 2 # in at least 2 replicates
+n = 2 # in at least 6 samples
+
+raw_data$baseline <- NA
+cols_to_consider <- grep("^([A-H][0-9]{2})$", names(raw_data), value = TRUE)
+
+for (i in 1:nrow(raw_data)) {
+    raw_data$baseline[i] <- mean(sort(unlist(raw_data[i,cols_to_consider]))[1:10])
+}
+
+raw_data$threshold <- raw_data$baseline + t
+# Then, for each Plate, select the metabolites for which there are at least 6
+# isolates with at least 2 replicates with a measurement above the threshold.
+
+coreMetabolites <- vector(mode = "list", length = 3)
+names(coreMetabolites) <- unique(raw_data$Plate)
+for (i in 1:3) {
+    PlateIDRes <- lapply(cols_to_consider, function(metabolite){
+        
+        dataSub <- raw_data[raw_data$Plate == unique(raw_data$Plate)[i],c("Field.2", metabolite,"threshold")]
+        colnames(dataSub)[2] <- "measurement" 
+        
+        # Step 1: Identify Files that meet the condition for each measurement
+        qualified_Files_measurement <- dataSub %>%
+            group_by(Field.2) %>%
+            summarise(
+              count_above_threshold = sum(measurement > threshold),
+              .groups = "drop"
+            ) %>%
+            filter(count_above_threshold >= k)
+        
+        # Step 2: Count the number of qualifying Files
+        qualified_File_count <- nrow(qualified_Files_measurement)
+        
+        # Step 3: Store the name of the measurement column if condition is met
+        if (qualified_File_count >= n) {
+          result <- metabolite
+        } else {
+          result <- NULL
+        }
+        return(result)
+    })
+    
+    PlateIDRes[sapply(PlateIDRes, is.null)] <- NULL
+    PlateIDRes <- unlist(PlateIDRes)
+    coreMetabolites[[i]] <- PlateIDRes
+}
+coreMetabolites
+lengths(coreMetabolites)
+```
+
+Maybe best to rank metabolites and resolve 1 by 1 (or in batches of 10)? 
+Then I know more certain that the effort I do is not wasted when we make the 
+thresholds more or less strict.
+
+For each metabolite, identify how many isolates have an observed metabolic 
+activity that is (a) 100 or (b) 150 units higher than the baseline in at least
+2 replicates. Than rank based on those numbers. Then walk down that ranked list.
+
+## Assign wells to compounds
+
+```{r}
+# Function to update column names
+update_colnames <- function(input_string) {
+  
+  # Step 1: Remove the first two dots and everything before them
+  modified_string <- sub("^[^.]*\\.{2}", "", input_string)
+  
+  # Step 2: Remove the last dot
+  modified_string <- sub("\\.$", "", modified_string)
+  
+  # Step 3: Replace remaining dots with underscores
+  modified_string <- gsub("\\.", "_", modified_string)
+  
+  return(modified_string)
+}
+
+wellDf1 <- data.frame(Medium = unname(sapply(colnames(PM_01_wide), update_colnames)),
+                      Plate = "PM01",
+                      Well = substr(colnames(PM_01_wide),1,3))
+wellDf2 <- data.frame(Medium = unname(sapply(colnames(PM_02_wide), update_colnames)),
+                      Plate = "PM02A",
+                      Well = substr(colnames(PM_02_wide),1,3))
+wellDf3 <- data.frame(Medium = unname(sapply(colnames(PM_03_wide), update_colnames)),
+                      Plate = "PM03B",
+                      Well = substr(colnames(PM_03_wide),1,3))
+wellDfall <- rbind(wellDf1,wellDf2,wellDf3)
+wellDfall <- wellDfall[-which(wellDfall$Well == "X"),]
+  
+# Filtering the dataframe
+# wellDfCore <- wellDfall[sapply(1:nrow(wellDfall), function(i) {
+#   Plate <- wellDfall$Plate[i]
+#   well <- wellDfall$Well[i]
+#   well %in% coreMetabolites[[Plate]]
+# }), ]
+# 
+# wellDfCore$Condition <- paste0(wellDfCore$Medium, "_", wellDfCore$Plate)
+# wellDfCore$Medium 
+```
+
+```{r}
+metaboliteDf <- data.frame(Plate = rep(c("PM01", "PM02A", "PM03B"), each = 96),
+                           Well = rep(grep("^([A-H][0-9]{2})$", names(raw_data), value = TRUE),3),
+                           Medium = wellDfall$Medium)
+metaboliteDf$Condition <- paste0(metaboliteDf$Medium, "_", metaboliteDf$Plate)
+metaboliteDf$basePlus150 <- metaboliteDf$basePlus100 <- 0
+
+for (i in seq(nrow(metaboliteDf))) {
+    
+    data_i <- data.frame(isolates = raw_data$Field.2[which(raw_data$Plate == metaboliteDf$Plate[i])],
+                         baselineSignal = raw_data$baseline[which(raw_data$Plate == metaboliteDf$Plate[i])],
+                         metaboliteSignal = raw_data[which(raw_data$Plate == metaboliteDf$Plate[i]),
+                                                      which(colnames(raw_data) == metaboliteDf$Well[i])])
+    data_i$normalizedSignal <- data_i$metaboliteSignal - data_i$baselineSignal
+    
+    for (isolate in unique(data_i$isolates)) {
+        index <- which(metaboliteDf$Plate == metaboliteDf$Plate[i] & metaboliteDf$Well == metaboliteDf$Well[i])
+        if(sum(data_i$normalizedSignal[which(data_i$isolates == isolate)] > 150) >= 2){
+          metaboliteDf$basePlus150[index] <- metaboliteDf$basePlus150[index] + 1
+          metaboliteDf$basePlus100[index] <- metaboliteDf$basePlus100[index] + 1
+        } else if(sum(data_i$normalizedSignal[which(data_i$isolates == isolate)] > 100) >= 2) {
+          metaboliteDf$basePlus100[index] <- metaboliteDf$basePlus100[index] + 1
+        }
+    }
+}
+metaboliteDf
+```
+
+```{r}
+# Link biolog media to oryzae metabolites
+media_link = list("2__Deoxy_Adenosine" = "C05198[c]",
+                  "L_Tryptophan" = "C00078[e]",
+                  "Ammonia" = "C00014[e]",
+                  "Capric_Acid" = "C01571[c]", # called decanoate in GEM, same according to kegg
+                  "Dulcitol" = "C01697[e]", # called galactitol in GEM, same according to kegg
+                  "Glyoxylic_Acid" = "C00048[c]",
+                  "L_Glutamic_Acid" = "C00025[e]",
+                  "Itaconic_Acid" = "C00490[e]",
+                  "Acetoacetic_Acid" = "C00164[c]",
+                  "L_Citrulline" = "C00327[c]",
+                  "L_Homoserine" = "C00263[c]",
+                  "Propionic_Acid" = "C00163[e]",
+                  "L_Ornithine" = "C00077[c]",
+                  "Fumaric_Acid" = "C00122[e]", 
+                  "D_Mannitol" = "C00392[c]",
+                  "Malonic_Acid" = "C00383[c]",
+                  "D_Tagatose" = "C00795[e]",
+                  "D_Raffinose" = "C00492[e]", # raffinose in GEM, not D-
+                  "D_Alanine" = "C00133[c]",
+                  "Histamine" = "C00388[c]",
+                  "Stachyose" = "C01613[c]",
+                  "Allantoin" = "C01551[c]",
+                  "Xanthosine" = "C01762[c]",
+                  "Xanthine" = "C00385[c]",
+                  "Thymine" = "C00178[c]",
+                  "Guanosine" = "C00387[c]",
+                  "Cytidine" = "C00475[c]",
+                  "Formamide" = "C00488[c]",
+                  "Methylamine" = "C00218[c]",
+                  "Biuret" = "C06555[c]",
+                  "Amygdalin" = "C08325[c]",
+                  "Ethanolamine" = "C00189[c]",
+                  "Tyramine" = "C00483[c]",
+                  "Inosine" = "C00294[c]", 
+                  "Adenosine" = "C00212[c]",
+                  "Maltotriose" = "C01835[c]",
+                  "Uridine" = "C00299[c]",
+                  "Thymidine" = "C00214[c]",
+                  "D_Glucose" = "C00031[e]",
+                  "D_Galactose" = "C00124[e]",
+                  "D_Mannose" = "C00159[e]",
+                  "L_Sorbose" = "C00247[e]",
+                  "D_Arabinose" = "C00216[e]",
+                  "L_Arabinose" = "C00259[e]",
+                  "D_Fructose" = "C00095[e]",
+                  "D_Ribose" = "C00121[e]",
+                  "D_Xylose" = "C00181[e]",
+                  "D_Maltose" = "C00208[e]",  # in GEM: Maltose
+                  "Pectin" = "C00470[e]", # in GEM: Pectate
+                  "D_Cellobiose" = "C00185[e]", # in GEM: Cellobiose
+                  "Xylitol" = "C00379[e]",
+                  "Citric_Acid" = "C00158[e]", # in GEM: Citrate
+                  "Acetic_Acid" = "C00033[e]", # in GEM: Acetate
+                  "L_Alanine" = "C00041[e]",
+                  "L_Arginine" = "C00062[e]",
+                  "L_Asparagine" = "C00152[e]",
+                  "L_Cysteine" = "C00097[e]",
+                  "L_Glutamine" = "C00064[e]",
+                  "L_Histidine" = "C00135[e]",
+                  "L_Isoleucine" = "C00407[e]",
+                  "L_Leucine" = "C00123[e]",
+                  "L_Lysine" = "C00047[e]",
+                  "L_Methionine" = "C00073[e]",
+                  "L_Phenylalanine" = "C00079[e]",
+                  "L_Proline" = "C00148[e]",
+                  "L_Serine" = "C00065[e]",
+                  "L_Threonine" = "C00188[e]",
+                  "L_Tyrosine" = "C00082[e]",
+                  "L_Valine" = "C00183[e]",
+                  "D_Trehalose" = "C01083[e]", # in GEM: alpha,alpha-Trehalose
+                  "D_Sorbitol" = "C00794[e]",
+                  "Glycogen" = "C00182[e]",
+                  "Oxalic_Acid" = "C00209[e]", # in GEM: oxalate
+                  "Adenine" = "C00147[e]",
+                  "Cytosine" = "C00380[e]",
+                  "Guanine" = "C00242[e]",
+                  "Uracil" = "C00106[e]",
+                  "Glycerol" = "C00116[e]",
+                  "Glycine" = "C00037[e]",
+                  "Putrescine" = "C00134[e]",
+                  "Pyruvic_Acid" = "C00022[e]",
+                  "Mannan" = "C00464[e]", # in GEM: Mannans
+                  "Sucrose" = "C00089[e]",
+                  "D_Melibiose" = "C05402[e]", # in GEM: melibiose
+                  "Succinic_Acid" = "C00042[e]",
+                  "Urea" = "C00086[e]",
+                  "Agmatine" = "C00179[e]",
+                  "Glycolic_Acid" = "C00160[c]",
+                  "D_Glucosamine" = "C00329[e]",
+                  "Dihydroxy_Acetone" = "C00184[c]")
+```
+
+```{r}
+KEGG <- unname(media_link)[match(metaboliteDf$Medium, names(media_link))]
+KEGG[sapply(KEGG, is.null)] <- NA
+metaboliteDf$KEGG <- unlist(KEGG)
+```
+
+```{r}
+write.csv2(metaboliteDf, "metaboliteDf.csv", row.names = FALSE)
+```
+
+```
+KEGG <- unname(media_link)[match(wellDfCore$Medium, names(media_link))]
+KEGG[sapply(KEGG, is.null)] <- NA
+wellDfCore$KEGG <- unlist(KEGG)
+wellDfCore[is.na(wellDfCore$KEGG),]
+```
+
+- L_Lyxose
+
+- Rhamnose: not in GEM. Also no D-Rhamnose (C01684) or alpha-L-Rhamnose (C02476).
+But we do have or beta-L-Rhamnose (C02338) in one reaction added from KEGG that is in the peroxisome...
+
+- p_Hydroxy_Phenylacetic_Acid: same as 4-hydroxyphenylacetic acid. Not in GEM.
+But we do have 2-hydroxyphenylacetate, and 4-hydroxyphenylacetaldehyde.
+
+- p_Hydroxy_Phenylacetic_Acid: same as 3-hydroxyphenylacetic acid. Not in GEM.
+But we do have 2-hydroxyphenylacetate, and 4-hydroxyphenylacetaldehyde.
+
+```{r}
+media_link = list("N_Acetyl_D_Glucosamine" = "C03878", # not in GEM
+                  "L-Rhamnose" = "C00507", # not in GEM, see above
+                  "Glycolic_Acid" = "C00160",
+                  "p_Hydroxy_Phenylacetic_Acid" = "C00642", # not in GEM, see above
+                  "m_Hydroxy_Phenylacetic_Acid" = "C05593", # not in GEM, see above
+                  "L_Lyxose" = "C01508", # not in GEM, also 6-carbon sugar. Can go to xylulose L-Xylulose <=> L-Lyxose
+                  "b_Cyclodextrin" = "C13183", # not in GEM
+                  "g_Cyclodextrin" = NA,  # not in GEM
+                  "Arbutin" = NA, # not in GEM
+                  "2_Deoxy_D_Ribose" = "C01801", # not in GEM, we do have 2-deoxy-D-ribose 5-phosphate and 2-deoxyribose 1-phosphate
+                  "b_Gentiobiose" = "C08240", # not in GEM, a C6+C6 sugar
+                  "Palatinose" = "C01742", # not in GEM, a C6+C5 sugar
+                  "Turanose" = "C19636", # not in GEM
+                  "D_Glucosamine" = "C00329",
+                  "Sorbic_Acid" = NA, # not in GEM, not in KEGG except as drug, and as cyclic parasorbic acid 	
+                  "Dihydroxy_Acetone" = "C00184", # glycerone in GEM
+                  "D_L_a_Amino_Caprylic_Acid" = NA, # not in GEM 
+                  "Ala_Asp" = NA, # how to handle dipeptides? If there is growth, check if it grows on the individual AAs?
+                  "Ala_Thr" = NA, # how to handle dipeptides? If there is growth, check if it grows on the individual AAs?
+                  "Gly_Gln" = NA, # how to handle dipeptides? If there is growth, check if it grows on the individual AAs?
+                  "Gly_Glu" = NA, # how to handle dipeptides? If there is growth, check if it grows on the individual AAs?
+                  "Met_Ala" = NA) # how to handle dipeptides? If there is growth, check if it grows on the individual AAs?
+
+```
+
+
+# Functions for wrangling data
+
+```{r}
+PM_01_wide <- read.csv("./Results_PM01.csv")
+PM_02_wide <- read.csv("./Results_PM02.csv")
+PM_03_wide <- read.csv("./Results_PM03.csv")
+
+# Function to update column names
+update_colnames <- function(input_string) {
+  
+  # Step 1: Remove the first two dots and everything before them
+  modified_string <- sub("^[^.]*\\.{2}", "", input_string)
+  
+  # Step 2: Remove the last dot
+  modified_string <- sub("\\.$", "", modified_string)
+  
+  # Step 3: Replace remaining dots with underscores
+  modified_string <- gsub("\\.", "_", modified_string)
+  
+  return(modified_string)
+}
+
+# Function to wrangle results, i.e., move from wide to long format
+wrangleResults <- function(data_wide){
+    
+    wellID <- substr(colnames(PM_01_wide), start = 1, stop = 3)
+
+    # split first column into Isolate and Replicate identifier
+    data_wide$X <- gsub(" ", "_", data_wide$X)
+    data_wide <- data_wide %>%
+        separate(X, into = c("Isolate", "Replicate"), sep = "_replicate_", remove = FALSE)
+    data_wide$X <- NULL
+
+    data_long <- pivot_longer(data = data_wide, cols = c(3:98))
+    return(data_long)
+}
+```
+
+# Wrangle data
+
+```{r}
+# update column names
+colnames(PM_01_wide) <- sapply(colnames(PM_01_wide), update_colnames)
+colnames(PM_02_wide) <- sapply(colnames(PM_02_wide), update_colnames)
+colnames(PM_03_wide) <- sapply(colnames(PM_03_wide), update_colnames)
+
+PM_01_long <- wrangleResults(PM_01_wide)
+PM_02_long <- wrangleResults(PM_02_wide)
+PM_03_long <- wrangleResults(PM_03_wide)
+
+PM_01_long$PlateID <- "PM_01"
+PM_02_long$PlateID <- "PM_02"
+PM_03_long$PlateID <- "PM_03"
+
+PM_all <- rbind(PM_01_long, PM_02_long, PM_03_long)
+colnames(PM_all)[c(3,4)] <- c("Medium", "Observed")
+PM_all
+```
+
+```{r}
+sum(is.na(PM_all$Observed)/length(PM_all$Observed))
+```
+
+# Add information
+
+Add column that links the medium component to the corresponding uptake 
+reaction in the GEM (`media_link` list object).
+
+```
+hlp <- unique(PM_all$Medium)  
+hlp <- hlp[!hlp %in% names(media_link)]
+sort(hlp)
+```
+
+Another option would be to query kegg and match the kegg ids
+
+```
+library(KEGGREST)
+name_query <- tolower(hlp)
+name_query <- gsub("_", "", name_query) # it works to replace commas for spaces
+addKEGG <- lapply(name_query, function(x){
+  query <- keggFind(database = "compound", query = x)
+  return(cbind(x,
+               paste0(gsub("cpd:", "", names(query)),collapse="/"),
+               paste0(unname(query),collapse="/")))
+})
+KEGG <- sapply(addKEGG, function(x){x[2]})
+for (i in seq_along(KEGG)) {
+  if(length(unlist(strsplit(KEGG[[i]], "/"))) > 1){
+    KEGG[[i]] <- ""
+  }
+}
+KEGG[KEGG==""] <- NA
+cbind(hlp, KEGG)
+
+KEGG[!is.na(KEGG)][KEGG[!is.na(KEGG)] %in% gsub("\\[.\\]","",panAsp_v2$METS$`REPLACEMENT ID`)]
+hlp[!is.na(KEGG)][which(KEGG[!is.na(KEGG)] %in% gsub("\\[.\\]","",panAsp_v2$METS$`REPLACEMENT ID`))]
+```
+
+```
+hlp[grep("deoxy",tolower(hlp), ignore.case = TRUE)]
+panAsp_v2$METS$NAME[grep("deoxyad",tolower(panAsp_v2$METS$NAME), ignore.case = TRUE)]
+panAsp_v2$METS[grepl("fumara", panAsp_v2$METS$NAME, ignore.case = TRUE),
+               c("ID","REPLACEMENT ID")]
+```
+
+
+```{r}
+# Link biolog media to oryzae metabolites
+media_link = list("2__Deoxy_Adenosine" = "C05198[c]",
+                  "L_Tryptophan" = "C00078[e]",
+                  "Ammonia" = "C00014[e]",
+                  "Capric_Acid" = "C01571[c]", # called decanoate in GEM, same according to kegg
+                  "Dulcitol" = "C01697[e]", # called galactitol in GEM, same according to kegg
+                  "Glyoxylic_Acid" = "C00048[c]",
+                  "L_Glutamic_Acid" = "C00025[e]",
+                  "Itaconic_Acid" = "C00490[e]",
+                  "Acetoacetic_Acid" = "C00164[c]",
+                  "L_Citrulline" = "C00327[c]",
+                  "L_Homoserine" = "C00263[c]",
+                  "Propionic_Acid" = "C00163[e]",
+                  "L_Ornithine" = "C00077[c]",
+                  "Fumaric_Acid" = "C00122[e]", 
+                  "D_Mannitol" = "C00392[c]",
+                  "Malonic_Acid" = "C00383[c]",
+                  "D_Tagatose" = "C00795[e]",
+                  "D_Raffinose" = "C00492[e]", # raffinose in GEM, not D-
+                  "D_Alanine" = "C00133[c]",
+                  "Histamine" = "C00388[c]",
+                  "Stachyose" = "C01613[c]",
+                  "Allantoin" = "C01551[c]",
+                  "Xanthosine" = "C01762[c]",
+                  "Xanthine" = "C00385[c]",
+                  "Thymine" = "C00178[c]",
+                  "Guanosine" = "C00387[c]",
+                  "Cytidine" = "C00475[c]",
+                  "Formamide" = "C00488[c]",
+                  "Methylamine" = "C00218[c]",
+                  "Biuret" = "C06555[c]",
+                  "Amygdalin" = "C08325[c]",
+                  "Ethanolamine" = "C00189[c]",
+                  "Tyramine" = "C00483[c]",
+                  "Inosine" = "C00294[c]", 
+                  "Adenosine" = "C00212[c]",
+                  "Maltotriose" = "C01835[c]",
+                  "Uridine" = "C00299[c]",
+                  "Thymidine" = "C00214[c]",
+                  "D_Glucose" = "C00031[e]",
+                  "D_Galactose" = "C00124[e]",
+                  "D_Mannose" = "C00159[e]",
+                  "L_Sorbose" = "C00247[e]",
+                  "D_Arabinose" = "C00216[e]",
+                  "L_Arabinose" = "C00259[e]",
+                  "D_Fructose" = "C00095[e]",
+                  "D_Ribose" = "C00121[e]",
+                  "D_Xylose" = "C00181[e]",
+                  "D_Maltose" = "C00208[e]",  # in GEM: Maltose
+                  "Pectin" = "C00470[e]", # in GEM: Pectate
+                  "D_Cellobiose" = "C00185[e]", # in GEM: Cellobiose
+                  "Xylitol" = "C00379[e]",
+                  "Citric_Acid" = "C00158[e]", # in GEM: Citrate
+                  "Acetic_Acid" = "C00033[e]", # in GEM: Acetate
+                  "L_Alanine" = "C00041[e]",
+                  "L_Arginine" = "C00062[e]",
+                  "L_Asparagine" = "C00152[e]",
+                  "L_Cysteine" = "C00097[e]",
+                  "L_Glutamine" = "C00064[e]",
+                  "L_Histidine" = "C00135[e]",
+                  "L_Isoleucine" = "C00407[e]",
+                  "L_Leucine" = "C00123[e]",
+                  "L_Lysine" = "C00047[e]",
+                  "L_Methionine" = "C00073[e]",
+                  "L_Phenylalanine" = "C00079[e]",
+                  "L_Proline" = "C00148[e]",
+                  "L_Serine" = "C00065[e]",
+                  "L_Threonine" = "C00188[e]",
+                  "L_Tyrosine" = "C00082[e]",
+                  "L_Valine" = "C00183[e]",
+                  "D_Trehalose" = "C01083[e]", # in GEM: alpha,alpha-Trehalose
+                  "D_Sorbitol" = "C00794[e]",
+                  "Glycogen" = "C00182[e]",
+                  "Oxalic_Acid" = "C00209[e]", # in GEM: oxalate
+                  "Adenine" = "C00147[e]",
+                  "Cytosine" = "C00380[e]",
+                  "Guanine" = "C00242[e]",
+                  "Uracil" = "C00106[e]",
+                  "Glycerol" = "C00116[e]",
+                  "Glycine" = "C00037[e]",
+                  "Putrescine" = "C00134[e]",
+                  "Pyruvic_Acid" = "C00022[e]",
+                  "Mannan" = "C00464[e]", # in GEM: Mannans
+                  "Sucrose" = "C00089[e]",
+                  "D_Melibiose" = "C05402[e]", # in GEM: melibiose
+                  "Succinic_Acid" = "C00042[e]",
+                  "Urea" = "C00086[e]",
+                  "Agmatine" = "C00179[e]")
+```
+
+```{r}
+PM_all$Metabolite <- unname(unlist(media_link))[match(PM_all$Medium,names(media_link))]
+```
+
+# Export data
+
+```{r}
+write.csv2(PM_all, "PM_all.csv", row.names = FALSE)
+```
+
+
+```{r}
+table(colnames(PM_01_wide)[3:97] %in% colnames(PM_02_wide)[3:97])
+table(colnames(PM_01_wide)[3:97] %in% colnames(PM_03_wide)[3:97])
+table(colnames(PM_02_wide)[3:97] %in% colnames(PM_03_wide)[3:97])
+```
+
+
+# Visualize results
+
+Would be cool to have a visualization like a heatmap to cluster the BioLog Plate
+results.
+
+```{r}
+plotData <- cbind(PM_01_wide,
+                  PM_02_wide[,c(3,97)],
+                  PM_03_wide[,c(3,97)])
+
+# update column names
+colnames(plotData) <- sapply(colnames(plotData), update_colnames)
+
+
+# split first column into Isolate and Replicate identifier
+plotData$X <- gsub(" ", "_", plotData$X)
+plotData <- plotData %>%
+    separate(X, into = c("Isolate", "Replicate"), sep = "_replicate_", remove = FALSE)
+plotData$X <- NULL
+
+plotData <- t(plotData)
+
+colnames(plotData) <- paste0(plotData[1,], "_", plotData[2,])
+
+plotData <- plotData[-1:-2,]
+
+rn_save <- rownames(plotData)
+plotData <- sapply(as.data.frame(plotData), as.logical)
+plotData <- sapply(as.data.frame(plotData), as.numeric)
+rownames(plotData) <- rn_save
+```
+
+```{r}
+# Remove rows where all values are either 0 or NA
+plotData <- plotData[!apply(plotData, 1, function(row) all(is.na(row) | row == 0)),]
+
+# Remove rows where all values are either 1 or NA
+plotData <- plotData[!apply(plotData, 1, function(row) all(is.na(row) | row == 1)),]
+
+plotData <- plotData[!rowSums(is.na(plotData)) > 20,]
+```
+
+
+```{r}
+col_fun <- colorRamp2(c(TRUE, FALSE), c("red", "white"))
+
+vis <- Heatmap(plotData, col = col_fun, na_col="black",
+        row_title = "Medium", column_title = "Strain",
+        show_heatmap_legend = FALSE)
+
+png("BioLog_heatmap_all.png", width=10, height=10, units = "in", res = 480)
+vis
+dev.off()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
