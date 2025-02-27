@@ -243,6 +243,56 @@ target[is.na(target$KEGG) &
          !duplicated(target$NAME),]
 ```
 
+# Hydrogen/protons
+
+## Niger
+
+```{r}
+Ani_reduced$METS[grepl("proton", Ani_reduced$METS$NAME, ignore.case = TRUE)|
+                   grepl("hydrogen\\[", Ani_reduced$METS$NAME, ignore.case = TRUE)|
+                   grepl("energy", Ani_reduced$METS$NAME, ignore.case = TRUE),c("ID", "NAME", "KEGG")]
+```
+
+In oryzae we have:
+
+      ID                            NAME                      KEGG
+382	  hydrogen[c]	                  hydrogen	                C00080	
+383	  H(+) (energy metabolism)[c]	  H(+) (energy metabolism)	energy_C00080	
+786	  hydrogen[e]	                  hydrogen	                C00080	
+960 	H(+)[m]	                      H(+)	                    C00080
+
+Adapt it to that:
+
+```{r}
+Ani_reduced$METS$KEGG[which(Ani_reduced$METS$ID == "Proton (energy metabolism)[c]")] <- "energy_C00080"
+```
+
+## Fumigatus
+
+
+Proton[m] does not exist in our oyzae GEM
+
+```{r}
+Afu_reduced$METS[grepl("proton", Afu_reduced$METS$NAME, ignore.case = TRUE)|
+                   grepl("hydrogen\\[", Afu_reduced$METS$NAME, ignore.case = TRUE)|
+                   grepl("energy", Afu_reduced$METS$NAME, ignore.case = TRUE),c("ID", "NAME", "KEGG")]
+```
+
+Afu_reduced doesnt do protons.
+Also note that "PO ratio[m]" is confusing
+
+```{r}
+View(Afu_reduced$RXNS[grepl("NAD", Afu_reduced$RXNS$EQUATION, ignore.case = TRUE)|
+                   grepl("FAD", Afu_reduced$RXNS$EQUATION, ignore.case = TRUE)|
+                   grepl("ATP", Afu_reduced$RXNS$EQUATION, ignore.case = TRUE) | 
+                   grepl("ADP", Afu_reduced$RXNS$EQUATION, ignore.case = TRUE), ])
+```
+
+
+```{r}
+Afu_reduced$RXNS[Afu_reduced$RXNS$ID %in% c("R1697", "R1698"),]
+```
+
 # Write output
 
 ```{r}
@@ -256,8 +306,6 @@ There are a few compounds that are probably truly unique to the fumigatus GEM,
 however, the reactions they are used in are not. Examples:
 
 ## B00001 and B00002
-
-
 
 The compounds B00001 and B00002 are interesting. They seem to encode something
 like "a polymer that is one building block longer/shorter than before".

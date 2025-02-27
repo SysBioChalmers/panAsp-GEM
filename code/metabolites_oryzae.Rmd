@@ -174,7 +174,7 @@ name_query <- tolower(target$NAME)
 name_query <- gsub(",", " ", name_query) # it works to replace commas for spaces
 ```
 
-```{r, eval=FALSE}
+```{r}
 addKEGG <- lapply(name_query, function(x){
   #print(x)
   query <- keggFind(database = "compound", query = x)
@@ -387,6 +387,22 @@ table(!is.na(Aor_draft$METS$KEGG))
 ```
    45  1059
    
+# Manually handle hydrogen/protons
+
+```{r}
+Aor_draft$METS[grepl("hydrogen\\[", Aor_draft$METS$ID) |
+                 grepl("H\\(", Aor_draft$METS$ID),c("ID", "NAME","KEGG")]
+```
+
+If we continue this conversion process, there will no longer be a distinction between
+hydrogen[c] and H(+) (energy metabolism)[c], which is bad. As such, I will update
+the KEGG_ID for H(+) (energy metabolism)[c] from C00080 (which will become C00080[c])
+to energy_C00080.
+
+```{r}
+Aor_draft$METS[which(Aor_draft$METS$ID == "H(+) (energy metabolism)[c]"),"KEGG"] <- "energy_C00080"
+```
+
 # Write output
 
 ```{r}

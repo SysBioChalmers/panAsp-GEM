@@ -317,7 +317,7 @@ Unique, no other proteins catalyzing this reaction:
 
 ```{r}
 isoenzymes <- list("ZY006677" = "AO090026000021",
-                   "ZY007112", "AO090026000800",
+                   "ZY007112" = "AO090026000800",
                    "ZY080376" = c("AO090011000353", "AO090701000542", "AO090012000766", 
                                   "AO090102000588", "AO090005000837", "AO090026000395", 
                                   "AO090120000164", "AO090003001432", "AO090103000036",
@@ -357,4 +357,31 @@ isoenzymes <- list("ZY006677" = "AO090026000021",
 
 Note: the oryzae GEM has no "or" gene associations, they are cataloged as
 separate reactions.
+
+```{r}
+res <- read.csv2("../data/genome/BPGA2ortho_GEM_custom.csv")
+res[res==""]<-NA
+res[which(res$oryzae == "AO090038000057"),]
+
+res[which(res$cluster == "cluster_12964"),which(!is.na(res[which(res$cluster == "cluster_12964"),]))]
+
+res_sub <- res[,c('cluster', 'oryzae', 'Aspergillus_oryzae_RIB40_CAoGD', 
+                  'Aspergillus_oryzae_NRRL_2217','Aspergillus_oryzae_NRRL_3483',
+                  'Aspergillus_oryzae_NRRL_5589', 'Aspergillus_oryzae_NRRL_3488',
+                  'Aspergillus_oryzae_NRRL_5592', 'Aspergillus_oryzae_NRRL_471',
+                  'Aspergillus_oryzae_NRRL_35890')]
+
+# hlp <- apply(res_sub, 1, is.na)
+res_sub <- res_sub[-which(rowSums(is.na(res_sub[,2:10])) == 9),]
+rownames(res_sub) <- res_sub$cluster
+res_sub$cluster <- NULL
+
+result <- res_sub[is.na(res_sub[[9]]) & !apply(res_sub[, -9], 1, function(x) any(is.na(x))), ]
+rownames(result)
+
+source("../code/Rutilities.R")
+panAsp_v2 <- read_excel_allsheets("../model/panAsp_v2.xlsx")
+
+rownames(result)[rownames(result) %in% panAsp_v2$GENES$NAME]
+```
 

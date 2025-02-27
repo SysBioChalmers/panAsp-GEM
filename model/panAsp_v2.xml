@@ -3046,10 +3046,10 @@
           </rdf:RDF>
         </annotation>
       </species>
-      <species metaid="M_C00559__91__c__93__" sboTerm="SBO:0000247" id="M_C00559__91__c__93__" name="deoxyadenosine" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C10H13N5O3">
+      <species metaid="M_C05198__91__c__93__" sboTerm="SBO:0000247" id="M_C05198__91__c__93__" name="deoxyadenosine" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C10H13N5O3">
         <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_C00559__91__c__93__">
+            <rdf:Description rdf:about="#M_C05198__91__c__93__">
               <bqbiol:is>
                 <rdf:Bag>
                   <rdf:li rdf:resource="https://identifiers.org/chebi:CHEBI/17256"/>
@@ -4910,6 +4910,20 @@
                 <rdf:Bag>
                   <rdf:li rdf:resource="https://identifiers.org/chebi:CHEBI/49637"/>
                   <rdf:li rdf:resource="https://identifiers.org/inchi/InChI=1/H2/h1H"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+      <species metaid="M_energy_C00080__91__c__93__" sboTerm="SBO:0000247" id="M_energy_C00080__91__c__93__" name="H(+) (energy metabolism)" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="i">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#M_energy_C00080__91__c__93__">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi:CHEBI/24636"/>
+                  <rdf:li rdf:resource="https://identifiers.org/inchi/InChI=1/p+1/i/hH/fH/q+1/i1+0"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -18385,22 +18399,6 @@
           </rdf:RDF>
         </annotation>
       </species>
-      <species metaid="M_C05999__91__c__93__" sboTerm="SBO:0000247" id="M_C05999__91__c__93__" name="Lactaldehyde" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C3H6O2">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_C05999__91__c__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C05999"/>
-                  <rdf:li rdf:resource="https://identifiers.org/pubchem.substance/8273"/>
-                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:18419"/>
-                  <rdf:li rdf:resource="https://identifiers.org/inchi/InChI=1S/C3H6O2/c1-3(5)2-4/h2-3,5H,1H3"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
       <species metaid="M_C06001__91__c__93__" sboTerm="SBO:0000247" id="M_C06001__91__c__93__" name="(S)-3-Hydroxyisobutyrate" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C4H8O3">
         <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
@@ -24129,23 +24127,6 @@
       <species metaid="M_undefined_131__91__c__93__" sboTerm="SBO:0000247" id="M_undefined_131__91__c__93__" name="n C00010" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="M_undefined_132__91__c__93__" sboTerm="SBO:0000247" id="M_undefined_132__91__c__93__" name="n C00011" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species metaid="M_undefined_141__91__c__93__" sboTerm="SBO:0000247" id="M_undefined_141__91__c__93__" name="n C00083" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species metaid="M_C00080__91__p__93__" sboTerm="SBO:0000247" id="M_C00080__91__p__93__" name="hydrogen" compartment="p" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_C00080__91__p__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C00080"/>
-                  <rdf:li rdf:resource="https://identifiers.org/pubchem.substance/3380"/>
-                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:15378"/>
-                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:24636"/>
-                  <rdf:li rdf:resource="https://identifiers.org/inchi/InChI=1S/p+1"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
       <species metaid="M_C00083__91__p__93__" sboTerm="SBO:0000247" id="M_C00083__91__p__93__" name="malonyl-CoA" compartment="p" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C24H38N7O19P3S">
         <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
@@ -28068,77 +28049,6 @@
           </rdf:RDF>
         </annotation>
       </species>
-      <species metaid="M_C01909__91__m__93__" sboTerm="SBO:0000247" id="M_C01909__91__m__93__" name="dethiobiotin" compartment="m" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C10H18N2O3">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_C01909__91__m__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:16691"/>
-                  <rdf:li rdf:resource="https://identifiers.org/inchi/InChI=1/C10H18N2O3/c1-7-8(12-10(15)11-7)5-3-2-4-6-9(13)14/h7-8H,2-6H2,1H3,(H,13,14)(H2,11,12,15)/f/h11-13H"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="M_C00087__91__m__93__" sboTerm="SBO:0000247" id="M_C00087__91__m__93__" name="sulfur" compartment="m" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="S">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_C00087__91__m__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:26833"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="M_C00120__91__m__93__" sboTerm="SBO:0000247" id="M_C00120__91__m__93__" name="biotin" compartment="m" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C10H16N2O3S">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_C00120__91__m__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C00120"/>
-                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:15956"/>
-                  <rdf:li rdf:resource="https://identifiers.org/inchi/InChI=1/C10H16N2O3S/c13-8(14)4-2-1-3-7-9-6(5-16-7)11-10(15)12-9/h6-7,9H,1-5H2,(H,13,14)(H2,11,12,15)/t6-,7-,9-/m0/s1/f/h11-13H"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="M_C00073__91__m__93__" sboTerm="SBO:0000247" id="M_C00073__91__m__93__" name="L-methionine" compartment="m" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C5H11NO2S">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_C00073__91__m__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:16643"/>
-                  <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C00073"/>
-                  <rdf:li rdf:resource="https://identifiers.org/inchi/InChI=1/C5H11NO2S/c1-9-3-2-4(6)5(7)8/h4H,2-3,6H2,1H3,(H,7,8)/t4-/m0/s1/f/h7H"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="M_C05198__91__m__93__" sboTerm="SBO:0000247" id="M_C05198__91__m__93__" name="Deoxyadenosine" compartment="m" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C10H13N5O3">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_C05198__91__m__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C05198"/>
-                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:17319"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
       <species metaid="M_C04104__91__c__93__" sboTerm="SBO:0000247" id="M_C04104__91__c__93__" name="2,3-Dihydroxy-3-methylpentanoate" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C6H12O4">
         <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
@@ -29830,19 +29740,6 @@
           </rdf:RDF>
         </annotation>
       </species>
-      <species metaid="M_POC__91__m__93__" sboTerm="SBO:0000247" id="M_POC__91__m__93__" name="PO ratio" compartment="m" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_POC__91__m__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/CoReCo/POC"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
       <species metaid="M_CHEBI52980__91__c__93__" sboTerm="SBO:0000247" id="M_CHEBI52980__91__c__93__" name="ceramide-1 (C26)" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C44H89NO4">
         <annotation>
           <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
@@ -29863,19 +29760,6 @@
               <bqbiol:is>
                 <rdf:Bag>
                   <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C06007"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-      </species>
-      <species metaid="M_POC__91__c__93__" sboTerm="SBO:0000247" id="M_POC__91__c__93__" name="PO ratio" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false">
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#M_POC__91__c__93__">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/CoReCo/POC"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -30477,6 +30361,20 @@
               <bqbiol:is>
                 <rdf:Bag>
                   <rdf:li rdf:resource="https://identifiers.org/chebi:CHEBI/5697"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+      <species metaid="M_C00937__91__m__93__" sboTerm="SBO:0000247" id="M_C00937__91__m__93__" name="(R)-lactaldehyde" compartment="m" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:chemicalFormula="C3H6O2">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#M_C00937__91__m__93__">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi:CHEBI/17167"/>
+                  <rdf:li rdf:resource="https://identifiers.org/inchi/InChI=1/C3H6O2/c1-3(5)2-4/h2-3,5H,1H3/t3-/m1/s1"/>
                 </rdf:Bag>
               </bqbiol:is>
             </rdf:Description>
@@ -31626,7 +31524,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00011__91__m__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00091__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -32332,8 +32229,8 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00001__91__m__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00424__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00003__91__m__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00937__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00256__91__m__93__" stoichiometry="1" constant="true"/>
@@ -36463,7 +36360,7 @@
           <speciesReference species="M_C00399__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="4" constant="true"/>
+          <speciesReference species="M_energy_C00080__91__c__93__" stoichiometry="4" constant="true"/>
           <speciesReference species="M_C00003__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00390__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -36614,7 +36511,7 @@
           <speciesReference species="M_C00001__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="3.87" constant="true"/>
+          <speciesReference species="M_energy_C00080__91__c__93__" stoichiometry="3.87" constant="true"/>
           <speciesReference species="M_C00008__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00009__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -36645,7 +36542,7 @@
           <speciesReference species="M_C00001__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="3.87" constant="true"/>
+          <speciesReference species="M_energy_C00080__91__c__93__" stoichiometry="3.87" constant="true"/>
           <speciesReference species="M_C00008__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00238__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00009__91__m__93__" stoichiometry="1" constant="true"/>
@@ -36800,7 +36697,7 @@
           <speciesReference species="M_C00001__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="3.87" constant="true"/>
+          <speciesReference species="M_energy_C00080__91__c__93__" stoichiometry="3.87" constant="true"/>
           <speciesReference species="M_C00008__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00070__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00009__91__m__93__" stoichiometry="1" constant="true"/>
@@ -36831,7 +36728,7 @@
           <speciesReference species="M_C00001__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="3.87" constant="true"/>
+          <speciesReference species="M_energy_C00080__91__c__93__" stoichiometry="3.87" constant="true"/>
           <speciesReference species="M_C00008__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C01330__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00009__91__m__93__" stoichiometry="1" constant="true"/>
@@ -36862,7 +36759,7 @@
           <speciesReference species="M_C00001__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="3.87" constant="true"/>
+          <speciesReference species="M_energy_C00080__91__c__93__" stoichiometry="3.87" constant="true"/>
           <speciesReference species="M_C00008__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00076__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00009__91__m__93__" stoichiometry="1" constant="true"/>
@@ -36968,7 +36865,7 @@
           <speciesReference species="M_C00390__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="4" constant="true"/>
+          <speciesReference species="M_energy_C00080__91__c__93__" stoichiometry="4" constant="true"/>
           <speciesReference species="M_C00126__91__m__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C00399__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -36978,6 +36875,7 @@
               <fbc:geneProductRef fbc:geneProduct="cluster_13513"/>
               <fbc:geneProductRef fbc:geneProduct="cluster_6972"/>
             </fbc:and>
+            <fbc:geneProductRef fbc:geneProduct="cluster_18084"/>
             <fbc:geneProductRef fbc:geneProduct="cluster_19468"/>
           </fbc:or>
         </fbc:geneProductAssociation>
@@ -37000,16 +36898,19 @@
           <speciesReference species="M_C00007__91__m__93__" stoichiometry="0.5" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="4" constant="true"/>
+          <speciesReference species="M_energy_C00080__91__c__93__" stoichiometry="4" constant="true"/>
           <speciesReference species="M_C00125__91__m__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C00001__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
-          <fbc:and>
-            <fbc:geneProductRef fbc:geneProduct="cluster_13848"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_12669"/>
-            <fbc:geneProductRef fbc:geneProduct="cluster_6055"/>
-          </fbc:and>
+          <fbc:or>
+            <fbc:and>
+              <fbc:geneProductRef fbc:geneProduct="cluster_13848"/>
+              <fbc:geneProductRef fbc:geneProduct="cluster_12669"/>
+              <fbc:geneProductRef fbc:geneProduct="cluster_6055"/>
+            </fbc:and>
+            <fbc:geneProductRef fbc:geneProduct="cluster_16223"/>
+          </fbc:or>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction metaid="R_r515" sboTerm="SBO:0000176" id="R_r515" name="F-type ATPase complex" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
@@ -37025,7 +36926,7 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="3.87" constant="true"/>
+          <speciesReference species="M_energy_C00080__91__c__93__" stoichiometry="3.87" constant="true"/>
           <speciesReference species="M_C00008__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00009__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -37066,7 +36967,7 @@
       <reaction metaid="R_r517" sboTerm="SBO:0000176" id="R_r517" name="Mitochondrial ADP/ATP carrier proteins" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
         <listOfReactants>
           <speciesReference species="M_C00008__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_energy_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00009__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00002__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00001__91__m__93__" stoichiometry="1" constant="true"/>
@@ -43840,8 +43741,8 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00937__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00003__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00424__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00186__91__c__93__" stoichiometry="1" constant="true"/>
@@ -45977,7 +45878,7 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00559__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C05198__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00009__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
@@ -46791,7 +46692,7 @@
           <speciesReference species="M_C00360__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00559__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C05198__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00009__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -56083,11 +55984,14 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00120__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00559__91__c__93__" stoichiometry="2" constant="true"/>
+          <speciesReference species="M_C05198__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C00073__91__c__93__" stoichiometry="2" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="cluster_963"/>
+          <fbc:or>
+            <fbc:geneProductRef fbc:geneProduct="cluster_963"/>
+            <fbc:geneProductRef fbc:geneProduct="cluster_9205"/>
+          </fbc:or>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction metaid="R_r1796" sboTerm="SBO:0000176" id="R_r1796" name="Biotin holocarboxylase synthetase/biotin-protein ligase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
@@ -58776,7 +58680,6 @@
         <listOfProducts>
           <speciesReference species="M_C00002__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00008__91__m__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00009__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -59875,7 +59778,7 @@
           <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
       </reaction>
-      <reaction metaid="R_OtherAsp_R00006" sboTerm="SBO:0000176" id="R_OtherAsp_R00006" name="pyruvate:pyruvate acetaldehydetransferase (decarboxylating);" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R00006" sboTerm="SBO:0000176" id="R_OtherAsp_R00006" name="pyruvate:pyruvate acetaldehydetransferase (decarboxylating);" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -60029,7 +59932,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="4" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00126__91__c__93__" stoichiometry="4" constant="true"/>
         </listOfReactants>
@@ -60089,7 +59991,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C05933__91__c__93__" stoichiometry="2" constant="true"/>
@@ -60171,7 +60072,7 @@
           </fbc:or>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R00226" sboTerm="SBO:0000176" id="R_OtherAsp_R00226" name="pyruvate:pyruvate acetaldehydetransferase (decarboxylating);" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R00226" sboTerm="SBO:0000176" id="R_OtherAsp_R00226" name="pyruvate:pyruvate acetaldehydetransferase (decarboxylating);" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -60200,7 +60101,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_6221"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R00245" sboTerm="SBO:0000176" id="R_OtherAsp_R00245" name="L-glutamate gamma-semialdehyde:NAD+ oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R00245" sboTerm="SBO:0000176" id="R_OtherAsp_R00245" name="L-glutamate gamma-semialdehyde:NAD+ oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -60225,7 +60126,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00025__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -60315,7 +60215,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00028__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -60590,7 +60489,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00062__91__c__93__" stoichiometry="2" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="3" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="3" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="4" constant="true"/>
         </listOfReactants>
@@ -60624,7 +60522,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00062__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -60667,7 +60564,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_9488"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R00670" sboTerm="SBO:0000176" id="R_OtherAsp_R00670" name="L-ornithine carboxy-lyase (putrescine-forming)" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R00670" sboTerm="SBO:0000176" id="R_OtherAsp_R00670" name="L-ornithine carboxy-lyase (putrescine-forming)" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -60696,7 +60593,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_12964"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R00685" sboTerm="SBO:0000176" id="R_OtherAsp_R00685" name="L-tryptophan decarboxy-lyase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R00685" sboTerm="SBO:0000176" id="R_OtherAsp_R00685" name="L-tryptophan decarboxy-lyase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -60796,7 +60693,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_4822"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R00707" sboTerm="SBO:0000176" id="R_OtherAsp_R00707" name="(S)-1-pyrroline-5-carboxylate:NAD+ oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R00707" sboTerm="SBO:0000176" id="R_OtherAsp_R00707" name="(S)-1-pyrroline-5-carboxylate:NAD+ oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -60821,7 +60718,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00025__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -60831,7 +60727,7 @@
           </fbc:or>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R00708" sboTerm="SBO:0000176" id="R_OtherAsp_R00708" name="(S)-1-pyrroline-5-carboxylate:NADP+ oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R00708" sboTerm="SBO:0000176" id="R_OtherAsp_R00708" name="(S)-1-pyrroline-5-carboxylate:NADP+ oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -60856,7 +60752,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00025__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -60928,7 +60823,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00084__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -60960,7 +60854,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00084__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -61049,7 +60942,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00805__91__c__93__" stoichiometry="1" constant="true"/>
@@ -61187,7 +61079,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_9210"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R00988" sboTerm="SBO:0000176" id="R_OtherAsp_R00988" name="N-Formylanthranilate amidohydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R00988" sboTerm="SBO:0000176" id="R_OtherAsp_R00988" name="N-Formylanthranilate amidohydrolase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -61307,7 +61199,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_6183"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R01036" sboTerm="SBO:0000176" id="R_OtherAsp_R01036" name="Glycerol:NAD+ oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R01036" sboTerm="SBO:0000176" id="R_OtherAsp_R01036" name="Glycerol:NAD+ oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -61332,7 +61224,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00577__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -61363,7 +61254,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00184__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -61373,7 +61263,7 @@
           </fbc:or>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R01041" sboTerm="SBO:0000176" id="R_OtherAsp_R01041" name="glycerol:NADP+ oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R01041" sboTerm="SBO:0000176" id="R_OtherAsp_R01041" name="glycerol:NADP+ oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -61400,7 +61290,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00577__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -61485,7 +61374,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00124__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
@@ -61516,7 +61404,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00124__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
@@ -61620,7 +61507,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_7837"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R01248" sboTerm="SBO:0000176" id="R_OtherAsp_R01248" name="L-Proline:NAD+ 5-oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R01248" sboTerm="SBO:0000176" id="R_OtherAsp_R01248" name="L-Proline:NAD+ 5-oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -61643,7 +61530,6 @@
           <speciesReference species="M_C00148__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C03912__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -61651,7 +61537,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_12444"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R01251" sboTerm="SBO:0000176" id="R_OtherAsp_R01251" name="L-Proline:NADP+ 5-oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R01251" sboTerm="SBO:0000176" id="R_OtherAsp_R01251" name="L-Proline:NADP+ 5-oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -61674,7 +61560,6 @@
           <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C03912__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -62006,7 +61891,6 @@
           <speciesReference species="M_C00173__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00693__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -62048,7 +61932,6 @@
           <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00181__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -62081,7 +61964,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00191__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -62418,7 +62300,6 @@
           <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00250__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -62482,7 +62363,6 @@
           <speciesReference species="M_C00003__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00259__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -62514,7 +62394,6 @@
           <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00259__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -62546,7 +62425,6 @@
           <speciesReference species="M_C00003__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00385__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -62609,7 +62487,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00267__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -62699,7 +62576,6 @@
           <speciesReference species="M_C00535__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00280__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -62794,7 +62670,6 @@
           <speciesReference species="M_C00379__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00310__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -62870,7 +62745,7 @@
           </fbc:or>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R01959" sboTerm="SBO:0000176" id="R_OtherAsp_R01959" name="N-Formyl-L-kynurenine amidohydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R01959" sboTerm="SBO:0000176" id="R_OtherAsp_R01959" name="N-Formyl-L-kynurenine amidohydrolase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -62994,7 +62869,6 @@
           <speciesReference species="M_C00385__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00366__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -63057,7 +62931,6 @@
           <speciesReference species="M_C00473__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00376__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -63222,7 +63095,6 @@
           <speciesReference species="M_C04042__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00410__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -63253,7 +63125,6 @@
           <speciesReference species="M_C04042__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00410__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -63348,7 +63219,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00412__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00999__91__c__93__" stoichiometry="2" constant="true"/>
         </listOfReactants>
@@ -63380,7 +63250,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00414__91__c__93__" stoichiometry="1" constant="true"/>
@@ -63492,7 +63361,6 @@
           <speciesReference species="M_C00424__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00546__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -63555,7 +63423,6 @@
           <speciesReference species="M_C00951__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00468__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -63587,7 +63454,6 @@
           <speciesReference species="M_C00951__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00468__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -63614,7 +63480,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00468__91__c__93__" stoichiometry="1" constant="true"/>
@@ -63647,7 +63512,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00468__91__c__93__" stoichiometry="1" constant="true"/>
@@ -63681,7 +63545,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00468__91__c__93__" stoichiometry="1" constant="true"/>
@@ -63853,7 +63716,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00966__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -63945,11 +63807,10 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
+          <speciesReference species="M_C00937__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00003__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C05999__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00546__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -64070,9 +63931,8 @@
           <speciesReference species="M_C00583__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00937__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C05999__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
           <fbc:geneProductRef fbc:geneProduct="cluster_7047"/>
@@ -64198,7 +64058,6 @@
           <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C03372__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -64317,7 +64176,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00951__91__c__93__" stoichiometry="1" constant="true"/>
@@ -64679,7 +64537,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_10231"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R03291" sboTerm="SBO:0000176" id="R_OtherAsp_R03291" name="trans-4-Hydroxy-L-proline:NAD+ 5-oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R03291" sboTerm="SBO:0000176" id="R_OtherAsp_R03291" name="trans-4-Hydroxy-L-proline:NAD+ 5-oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -64702,7 +64560,6 @@
           <speciesReference species="M_C00003__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C04281__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -64710,7 +64567,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_12444"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R03293" sboTerm="SBO:0000176" id="R_OtherAsp_R03293" name="trans-4-Hydroxy-L-proline:NADP+ 5-oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R03293" sboTerm="SBO:0000176" id="R_OtherAsp_R03293" name="trans-4-Hydroxy-L-proline:NADP+ 5-oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -64733,7 +64590,6 @@
           <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C04281__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -64760,7 +64616,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C01176__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -64856,7 +64711,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C01227__91__c__93__" stoichiometry="1" constant="true"/>
@@ -65460,7 +65314,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C02723__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -65500,7 +65353,6 @@
           <speciesReference species="M_C02918__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00027__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05843__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -65533,7 +65385,6 @@
           <speciesReference species="M_C04244__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C03684__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -65644,7 +65495,6 @@
           <speciesReference species="M_C03968__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C03715__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -65706,7 +65556,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05535__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -65820,7 +65669,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C04246__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -65836,7 +65684,7 @@
           </fbc:or>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R04444" sboTerm="SBO:0000176" id="R_OtherAsp_R04444" name="L-1-pyrroline-3-hydroxy-5-carboxylate:NAD+ oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R04444" sboTerm="SBO:0000176" id="R_OtherAsp_R04444" name="L-1-pyrroline-3-hydroxy-5-carboxylate:NAD+ oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -65860,7 +65708,6 @@
           <speciesReference species="M_C04281__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05947__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -65871,7 +65718,7 @@
           </fbc:or>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R04445" sboTerm="SBO:0000176" id="R_OtherAsp_R04445" name="L-1-pyrroline-3-hydroxy-5-carboxylate:NADP+ oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R04445" sboTerm="SBO:0000176" id="R_OtherAsp_R04445" name="L-1-pyrroline-3-hydroxy-5-carboxylate:NADP+ oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -65895,7 +65742,6 @@
           <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05947__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -65968,7 +65814,6 @@
           <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05744__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -66099,7 +65944,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C05750__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -66185,7 +66029,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C05762__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -66271,7 +66114,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C05759__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -66446,7 +66288,6 @@
           <speciesReference species="M_C05141__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05300__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -66477,7 +66318,6 @@
           <speciesReference species="M_C05141__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05300__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -66512,7 +66352,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C05758__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -66895,7 +66734,6 @@
           <speciesReference species="M_C05576__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05577__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -66937,7 +66775,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_1078"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R04911" sboTerm="SBO:0000176" id="R_OtherAsp_R04911" name="Aryl-formylamine amidohydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R04911" sboTerm="SBO:0000176" id="R_OtherAsp_R04911" name="Aryl-formylamine amidohydrolase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -67096,7 +66934,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C05746__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -67182,7 +67019,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C05748__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -67267,7 +67103,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C05751__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -67352,7 +67187,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C05754__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -67437,7 +67271,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C05756__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -67523,7 +67356,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C05760__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -67608,7 +67440,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C05763__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -67624,7 +67455,7 @@
           </fbc:or>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R04998" sboTerm="SBO:0000176" id="R_OtherAsp_R04998" name="beta-D-Glucosyl-2-coumarinate glucohydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R04998" sboTerm="SBO:0000176" id="R_OtherAsp_R04998" name="beta-D-Glucosyl-2-coumarinate glucohydrolase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -67654,7 +67485,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_1047"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R05051" sboTerm="SBO:0000176" id="R_OtherAsp_R05051" name="L-erythro-4-Hydroxyglutamate:NAD+ oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R05051" sboTerm="SBO:0000176" id="R_OtherAsp_R05051" name="L-erythro-4-Hydroxyglutamate:NAD+ oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -67673,7 +67504,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05947__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -67743,7 +67573,6 @@
           <speciesReference species="M_C06001__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C06002__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -67774,7 +67603,6 @@
           <speciesReference species="M_C06103__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C06102__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -67805,7 +67633,6 @@
           <speciesReference species="M_C06611__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C06613__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -67839,7 +67666,6 @@
           <speciesReference species="M_C06612__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C16348__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -68028,7 +67854,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C03203__91__c__93__" stoichiometry="1" constant="true"/>
@@ -68381,7 +68206,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C01147__91__c__93__" stoichiometry="1" constant="true"/>
@@ -68455,7 +68279,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C14088__91__c__93__" stoichiometry="1" constant="true"/>
@@ -68493,7 +68316,6 @@
           <speciesReference species="M_C14089__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C14090__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -68527,7 +68349,6 @@
           <speciesReference species="M_C02909__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C14099__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -68557,7 +68378,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C14109__91__c__93__" stoichiometry="1" constant="true"/>
@@ -68591,7 +68411,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C14103__91__c__93__" stoichiometry="1" constant="true"/>
@@ -68630,7 +68449,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C01031__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -68657,7 +68475,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00829__91__c__93__" stoichiometry="1" constant="true"/>
@@ -68691,7 +68508,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00829__91__c__93__" stoichiometry="1" constant="true"/>
@@ -68728,7 +68544,6 @@
           <speciesReference species="M_C06205__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C03012__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -68756,7 +68571,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C14040__91__c__93__" stoichiometry="1" constant="true"/>
@@ -68790,7 +68604,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C14040__91__c__93__" stoichiometry="1" constant="true"/>
@@ -69010,7 +68823,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00219__91__c__93__" stoichiometry="1" constant="true"/>
@@ -69044,7 +68856,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00219__91__c__93__" stoichiometry="1" constant="true"/>
@@ -69078,7 +68889,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00219__91__c__93__" stoichiometry="1" constant="true"/>
@@ -69112,7 +68922,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00219__91__c__93__" stoichiometry="1" constant="true"/>
@@ -69147,7 +68956,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C01595__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -69188,7 +68996,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C01595__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -69266,7 +69073,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C07535__91__c__93__" stoichiometry="1" constant="true"/>
@@ -69300,7 +69106,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C07535__91__c__93__" stoichiometry="1" constant="true"/>
@@ -69334,7 +69139,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C07535__91__c__93__" stoichiometry="1" constant="true"/>
@@ -69368,7 +69172,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C14852__91__c__93__" stoichiometry="1" constant="true"/>
@@ -69402,7 +69205,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C14556__91__c__93__" stoichiometry="1" constant="true"/>
@@ -69437,7 +69239,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C06790__91__c__93__" stoichiometry="1" constant="true"/>
@@ -69471,7 +69272,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C06790__91__c__93__" stoichiometry="1" constant="true"/>
@@ -69504,7 +69304,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C06899__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -69543,7 +69342,6 @@
           <speciesReference species="M_C00003__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00309__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -69571,7 +69369,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00024__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00083__91__c__93__" stoichiometry="3" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -69612,7 +69409,6 @@
           <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00247__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -69775,7 +69571,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C16219__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
@@ -70257,7 +70052,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C07645__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -70295,7 +70089,6 @@
           <speciesReference species="M_C16586__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C16587__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -70329,7 +70122,6 @@
           <speciesReference species="M_C16595__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C16596__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -70395,7 +70187,6 @@
           <speciesReference species="M_C00473__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00376__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -70403,7 +70194,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_12118"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R08380" sboTerm="SBO:0000176" id="R_OtherAsp_R08380" name="11-cis-retinol: NADP+ oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R08380" sboTerm="SBO:0000176" id="R_OtherAsp_R08380" name="11-cis-retinol: NADP+ oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -70426,7 +70217,6 @@
           <speciesReference species="M_C00899__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C02110__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -70457,7 +70247,6 @@
           <speciesReference species="M_C16682__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C16681__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -70556,7 +70345,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00777__91__c__93__" stoichiometry="1" constant="true"/>
@@ -70640,7 +70428,6 @@
           <speciesReference species="M_C02918__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00027__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05842__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -70793,7 +70580,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05284__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -70824,7 +70610,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C03681__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -70855,7 +70640,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C13712__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -70916,7 +70700,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05284__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -70958,7 +70741,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_2108"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R09412" sboTerm="SBO:0000176" id="R_OtherAsp_R09412" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R09412" sboTerm="SBO:0000176" id="R_OtherAsp_R09412" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -70975,7 +70758,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_12725"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R09413" sboTerm="SBO:0000176" id="R_OtherAsp_R09413" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R09413" sboTerm="SBO:0000176" id="R_OtherAsp_R09413" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -70992,7 +70775,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_12725"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R09414" sboTerm="SBO:0000176" id="R_OtherAsp_R09414" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R09414" sboTerm="SBO:0000176" id="R_OtherAsp_R09414" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -71009,7 +70792,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_12725"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R09415" sboTerm="SBO:0000176" id="R_OtherAsp_R09415" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R09415" sboTerm="SBO:0000176" id="R_OtherAsp_R09415" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -71045,7 +70828,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C19490__91__c__93__" stoichiometry="1" constant="true"/>
@@ -71080,7 +70862,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C16453__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -71112,7 +70893,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C16453__91__c__93__" stoichiometry="1" constant="true"/>
@@ -71145,7 +70925,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C19488__91__c__93__" stoichiometry="1" constant="true"/>
@@ -71178,7 +70957,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C19418__91__c__93__" stoichiometry="1" constant="true"/>
@@ -71363,7 +71141,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20372__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -71398,7 +71175,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20376__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -71600,7 +71376,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20525__91__c__93__" stoichiometry="1" constant="true"/>
@@ -71633,7 +71408,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20527__91__c__93__" stoichiometry="1" constant="true"/>
@@ -71758,7 +71532,6 @@
           </body>
         </notes>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20503__91__c__93__" stoichiometry="1" constant="true"/>
@@ -71784,7 +71557,6 @@
           </body>
         </notes>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20504__91__c__93__" stoichiometry="1" constant="true"/>
@@ -71810,7 +71582,6 @@
           </body>
         </notes>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20575__91__c__93__" stoichiometry="1" constant="true"/>
@@ -71881,7 +71652,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C02426__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -72212,7 +71982,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00002__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00956__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -72285,7 +72054,6 @@
           <speciesReference species="M_C00272__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C21640__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -72378,7 +72146,6 @@
           <speciesReference species="M_C21897__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20379__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -72406,7 +72173,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00154__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00999__91__c__93__" stoichiometry="2" constant="true"/>
         </listOfReactants>
@@ -72587,7 +72353,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C06068__91__c__93__" stoichiometry="1" constant="true"/>
@@ -72625,7 +72390,6 @@
           <speciesReference species="M_C00003__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C22499__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -72657,7 +72421,6 @@
           <speciesReference species="M_C22499__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C22500__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -72925,7 +72688,7 @@
           <speciesReference species="M_C04076__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction metaid="R_OtherAsp_R02962" sboTerm="SBO:0000176" id="R_OtherAsp_R02962" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R02962" sboTerm="SBO:0000176" id="R_OtherAsp_R02962" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -73007,7 +72770,7 @@
           <speciesReference species="M_C01717__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction metaid="R_OtherAsp_R03672" sboTerm="SBO:0000176" id="R_OtherAsp_R03672" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R03672" sboTerm="SBO:0000176" id="R_OtherAsp_R03672" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -73313,7 +73076,7 @@
           <speciesReference species="M_C11634__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction metaid="R_OtherAsp_R05844" sboTerm="SBO:0000176" id="R_OtherAsp_R05844" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R05844" sboTerm="SBO:0000176" id="R_OtherAsp_R05844" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -73335,7 +73098,6 @@
           </body>
         </notes>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C11678__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
@@ -73393,7 +73155,6 @@
           </body>
         </notes>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C11821__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -73410,7 +73171,6 @@
           </body>
         </notes>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C11821__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -73433,7 +73193,7 @@
           <speciesReference species="M_C05916__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction metaid="R_OtherAsp_R06650" sboTerm="SBO:0000176" id="R_OtherAsp_R06650" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R06650" sboTerm="SBO:0000176" id="R_OtherAsp_R06650" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -73662,12 +73422,11 @@
           <speciesReference species="M_C00125__91__c__93__" stoichiometry="2" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C00126__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C05422__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction metaid="R_OtherAsp_R07947" sboTerm="SBO:0000176" id="R_OtherAsp_R07947" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R07947" sboTerm="SBO:0000176" id="R_OtherAsp_R07947" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -73791,7 +73550,7 @@
           <speciesReference species="M_C00071__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction metaid="R_OtherAsp_R08637" sboTerm="SBO:0000176" id="R_OtherAsp_R08637" name="2-Aminobut-2-enoate aminohydrolase (spontaneous)" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R08637" sboTerm="SBO:0000176" id="R_OtherAsp_R08637" name="2-Aminobut-2-enoate aminohydrolase (spontaneous)" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -73850,7 +73609,7 @@
           <speciesReference species="M_C02161__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction metaid="R_OtherAsp_R08818" sboTerm="SBO:0000176" id="R_OtherAsp_R08818" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R08818" sboTerm="SBO:0000176" id="R_OtherAsp_R08818" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -73866,7 +73625,7 @@
           <speciesReference species="M_C08537__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction metaid="R_OtherAsp_R08820" sboTerm="SBO:0000176" id="R_OtherAsp_R08820" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R08820" sboTerm="SBO:0000176" id="R_OtherAsp_R08820" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -73882,7 +73641,7 @@
           <speciesReference species="M_C08540__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction metaid="R_OtherAsp_R08821" sboTerm="SBO:0000176" id="R_OtherAsp_R08821" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R08821" sboTerm="SBO:0000176" id="R_OtherAsp_R08821" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -73974,7 +73733,7 @@
           <speciesReference species="M_C17756__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction metaid="R_OtherAsp_R08834" sboTerm="SBO:0000176" id="R_OtherAsp_R08834" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R08834" sboTerm="SBO:0000176" id="R_OtherAsp_R08834" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -74103,7 +73862,7 @@
           <speciesReference species="M_C00058__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
-      <reaction metaid="R_OtherAsp_R09149" sboTerm="SBO:0000176" id="R_OtherAsp_R09149" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R09149" sboTerm="SBO:0000176" id="R_OtherAsp_R09149" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -74151,7 +73910,6 @@
           </body>
         </notes>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C00051__91__c__93__" stoichiometry="4" constant="true"/>
           <speciesReference species="M_C05684__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -74309,7 +74067,6 @@
           </body>
         </notes>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20231__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -74644,7 +74401,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00126__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C20937__91__c__93__" stoichiometry="1" constant="true"/>
@@ -75029,7 +74785,6 @@
           <speciesReference species="M_C21589__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C21590__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
@@ -75190,7 +74945,6 @@
           </body>
         </notes>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C21897__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
@@ -75206,7 +74960,6 @@
           </body>
         </notes>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20379__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
@@ -75403,7 +75156,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00061__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00003__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -75655,7 +75407,6 @@
           <speciesReference species="M_C22647__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C22648__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
@@ -76299,7 +76050,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00005__91__p__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__p__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05744__91__p__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -76366,7 +76116,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00005__91__p__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__p__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05750__91__p__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -76400,7 +76149,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00005__91__p__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__p__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05762__91__p__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -76434,7 +76182,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00005__91__p__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__p__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05759__91__p__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -76468,7 +76215,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00005__91__p__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__p__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05746__91__p__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -76502,7 +76248,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00005__91__p__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__p__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05756__91__p__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -76530,7 +76275,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00005__91__p__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__p__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C16219__91__p__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
@@ -76561,7 +76305,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00005__91__p__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__p__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20372__91__p__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
@@ -76592,7 +76335,6 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00005__91__p__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__p__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20376__91__p__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
@@ -76647,7 +76389,6 @@
           <speciesReference species="M_C04618__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05744__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -76714,7 +76455,6 @@
           <speciesReference species="M_C04620__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05750__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -76748,7 +76488,6 @@
           <speciesReference species="M_C04633__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05762__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -76782,7 +76521,6 @@
           <speciesReference species="M_C04688__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05759__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -76816,7 +76554,6 @@
           <speciesReference species="M_C05747__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05746__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -76850,7 +76587,6 @@
           <speciesReference species="M_C05757__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05756__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -76878,7 +76614,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C16219__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -76909,7 +76644,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20372__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -76940,7 +76674,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20376__91__e__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -76994,7 +76727,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00022__91__p__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__p__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C00126__91__p__93__" stoichiometry="2" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -77061,7 +76793,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_6578"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R01175_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R01175_Peroxisome" name="butanoyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R01175_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R01175_Peroxisome" name="butanoyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -77094,7 +76826,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_9478"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R01279_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R01279_Peroxisome" name="palmitoyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R01279_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R01279_Peroxisome" name="palmitoyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -77192,7 +76924,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_9478"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R03777_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R03777_Peroxisome" name="octanoyl-CoA:electron-transfer flavoprotein 2-oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R03777_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R03777_Peroxisome" name="octanoyl-CoA:electron-transfer flavoprotein 2-oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -77225,7 +76957,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_9478"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R03857_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R03857_Peroxisome" name="lauroyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R03857_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R03857_Peroxisome" name="lauroyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -77258,7 +76990,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_9478"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R03990_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R03990_Peroxisome" name="tetradecanoyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R03990_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R03990_Peroxisome" name="tetradecanoyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -77291,7 +77023,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_9478"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R04095_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R04095_Peroxisome" name="3-methylbutanoyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R04095_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R04095_Peroxisome" name="3-methylbutanoyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -77322,7 +77054,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_9478"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R04751_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R04751_Peroxisome" name="hexanoyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R04751_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R04751_Peroxisome" name="hexanoyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -77355,7 +77087,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_9478"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R04754_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R04754_Peroxisome" name="decanoyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB2N0">
+      <reaction metaid="R_OtherAsp_R04754_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R04754_Peroxisome" name="decanoyl-CoA:electron-transfer flavoprotein 2,3-oxidoreductase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -77728,7 +77460,6 @@
           <speciesReference species="M_C00051__91__m__93__" stoichiometry="2" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00127__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -77759,7 +77490,6 @@
           <speciesReference species="M_C00051__91__m__93__" stoichiometry="2" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00005__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00127__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -77767,7 +77497,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_8393"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R00209_Mitochondrion" sboTerm="SBO:0000176" id="R_OtherAsp_R00209_Mitochondrion" name="pyruvate:NAD+ 2-oxidoreductase (CoA-acetylating);" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R00209_Mitochondrion" sboTerm="SBO:0000176" id="R_OtherAsp_R00209_Mitochondrion" name="pyruvate:NAD+ 2-oxidoreductase (CoA-acetylating);" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -77793,7 +77523,6 @@
         <listOfProducts>
           <speciesReference species="M_C00024__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00011__91__m__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -77825,7 +77554,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00011__91__m__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00143__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00014__91__m__93__" stoichiometry="1" constant="true"/>
@@ -77857,7 +77585,6 @@
           <speciesReference species="M_C00579__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00248__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -77865,7 +77592,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_8393"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R01933_Mitochondrion" sboTerm="SBO:0000176" id="R_OtherAsp_R01933_Mitochondrion" name="2-oxoadipate dehydrogenase complex" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R01933_Mitochondrion" sboTerm="SBO:0000176" id="R_OtherAsp_R01933_Mitochondrion" name="2-oxoadipate dehydrogenase complex" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -77893,7 +77620,6 @@
         <listOfProducts>
           <speciesReference species="M_C00011__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00527__91__m__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -77923,7 +77649,6 @@
           <speciesReference species="M_C02972__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C02051__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -77954,7 +77679,6 @@
           <speciesReference species="M_C15973__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C15972__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -77987,7 +77711,6 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00011__91__m__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00091__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -78048,7 +77771,6 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__e__93__" stoichiometry="4" constant="true"/>
           <speciesReference species="M_C00007__91__e__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C14818__91__e__93__" stoichiometry="4" constant="true"/>
         </listOfReactants>
@@ -78934,7 +78656,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_10196"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R00524_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R00524_Peroxisome" name="Formamide amidohydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R00524_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R00524_Peroxisome" name="Formamide amidohydrolase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -78994,7 +78716,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_14520"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R01157_Extracellular" sboTerm="SBO:0000176" id="R_OtherAsp_R01157_Extracellular" name="Agmatine amidinohydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R01157_Extracellular" sboTerm="SBO:0000176" id="R_OtherAsp_R01157_Extracellular" name="Agmatine amidinohydrolase" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -79054,7 +78776,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_3819"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R00999_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R00999_Peroxisome" name="O-Succinyl-L-homoserine succinate-lyase (deaminating; 2-oxobutanoate-forming)" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R00999_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R00999_Peroxisome" name="O-Succinyl-L-homoserine succinate-lyase (deaminating; 2-oxobutanoate-forming)" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -79085,7 +78807,7 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_8864"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_OtherAsp_R01288_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R01288_Peroxisome" name="O4-succinyl-L-homoserine:hydrogen sulfide S-(3-amino-3-carboxypropyl)transferase;" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
+      <reaction metaid="R_OtherAsp_R01288_Peroxisome" sboTerm="SBO:0000176" id="R_OtherAsp_R01288_Peroxisome" name="O4-succinyl-L-homoserine:hydrogen sulfide S-(3-amino-3-carboxypropyl)transferase;" reversible="true" fast="false" fbc:lowerFluxBound="FB1N1000" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
             <p>Confidence Level: 0</p>
@@ -79124,7 +78846,6 @@
           </body>
         </notes>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__p__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00320__91__p__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00342__91__p__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C01077__91__p__93__" stoichiometry="1" constant="true"/>
@@ -79971,39 +79692,6 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_8595"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_Ani_r111" sboTerm="SBO:0000176" id="R_Ani_r111" name="Biotin synthase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>Confidence Level: 0</p>
-            <p>NOTES: Added from niger via addRxnsAndMets()</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#R_Ani_r111">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/ec-code/2.8.1.6"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="2" constant="true"/>
-          <speciesReference species="M_C00019__91__m__93__" stoichiometry="2" constant="true"/>
-          <speciesReference species="M_C01909__91__m__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00087__91__m__93__" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_C00120__91__m__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00073__91__m__93__" stoichiometry="2" constant="true"/>
-          <speciesReference species="M_C05198__91__m__93__" stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="cluster_9205"/>
-        </fbc:geneProductAssociation>
-      </reaction>
       <reaction metaid="R_Ani_r115a" sboTerm="SBO:0000176" id="R_Ani_r115a" name="Aldehyde dehydrogenase (NAD+)" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
@@ -80345,11 +80033,11 @@
         </annotation>
         <listOfReactants>
           <speciesReference species="M_C00126__91__m__93__" stoichiometry="2" constant="true"/>
-          <speciesReference species="M_C00080__91__m__93__" stoichiometry="2" constant="true"/>
+          <speciesReference species="M_C00080__91__m__93__" stoichiometry="4" constant="true"/>
           <speciesReference species="M_C00007__91__m__93__" stoichiometry="0.5" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="4" constant="true"/>
+          <speciesReference species="M_energy_C00080__91__c__93__" stoichiometry="4" constant="true"/>
           <speciesReference species="M_C00125__91__m__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C00001__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -80381,7 +80069,7 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00080__91__c__93__" stoichiometry="3.88" constant="true"/>
+          <speciesReference species="M_energy_C00080__91__c__93__" stoichiometry="3.88" constant="true"/>
           <speciesReference species="M_C00008__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00009__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
@@ -83014,11 +82702,11 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00005__91__m__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00399__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00006__91__m__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00390__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -83257,12 +82945,12 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00186__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00125__91__m__93__" stoichiometry="2" constant="true"/>
+          <speciesReference species="M_C00186__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00022__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00126__91__m__93__" stoichiometry="2" constant="true"/>
+          <speciesReference species="M_C00022__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
           <fbc:geneProductRef fbc:geneProduct="cluster_8722"/>
@@ -83390,40 +83078,6 @@
           <fbc:geneProductRef fbc:geneProduct="cluster_13554"/>
         </fbc:geneProductAssociation>
       </reaction>
-      <reaction metaid="R_Afu_R1698" sboTerm="SBO:0000176" id="R_Afu_R1698" name="ATP phosphohydrolase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>Confidence Level: 0</p>
-            <p>NOTES: Added from fumigatus via addRxnsAndMets()</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#R_Afu_R1698">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/ec-code/3.6.1.3"/>
-                  <rdf:li rdf:resource="https://identifiers.org/ec-code/3.6.1.5"/>
-                  <rdf:li rdf:resource="https://identifiers.org/ec-code/3.6.1.8"/>
-                  <rdf:li rdf:resource="https://identifiers.org/ec-code/3.6.1.15"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="M_C00008__91__m__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00009__91__m__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_POC__91__m__93__" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_C00002__91__m__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00001__91__m__93__" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="cluster_17478"/>
-        </fbc:geneProductAssociation>
-      </reaction>
       <reaction metaid="R_Afu_R1047" sboTerm="SBO:0000176" id="R_Afu_R1047" name="ATP:choline phosphotransferase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
         <notes>
           <body xmlns="http://www.w3.org/1999/xhtml">
@@ -83540,89 +83194,6 @@
         </listOfProducts>
         <fbc:geneProductAssociation>
           <fbc:geneProductRef fbc:geneProduct="cluster_11459"/>
-        </fbc:geneProductAssociation>
-      </reaction>
-      <reaction metaid="R_Afu_R1701" sboTerm="SBO:0000176" id="R_Afu_R1701" name="Ferrocytochrome-c:oxygen oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>Confidence Level: 0</p>
-            <p>NOTES: Added from fumigatus via addRxnsAndMets()</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#R_Afu_R1701">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/ec-code/1.7.2.1"/>
-                  <rdf:li rdf:resource="https://identifiers.org/ec-code/1.9.3.1"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00126__91__c__93__" stoichiometry="4" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_C00001__91__c__93__" stoichiometry="2" constant="true"/>
-          <speciesReference species="M_C00125__91__c__93__" stoichiometry="4" constant="true"/>
-          <speciesReference species="M_POC__91__c__93__" stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="cluster_16223"/>
-        </fbc:geneProductAssociation>
-      </reaction>
-      <reaction metaid="R_Afu_R1702" sboTerm="SBO:0000176" id="R_Afu_R1702" name="Ferrocytochrome-c:oxygen oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>Confidence Level: 0</p>
-            <p>NOTES: Added from fumigatus via addRxnsAndMets()</p>
-          </body>
-        </notes>
-        <annotation>
-          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-            <rdf:Description rdf:about="#R_Afu_R1702">
-              <bqbiol:is>
-                <rdf:Bag>
-                  <rdf:li rdf:resource="https://identifiers.org/ec-code/1.7.2.1"/>
-                  <rdf:li rdf:resource="https://identifiers.org/ec-code/1.9.3.1"/>
-                </rdf:Bag>
-              </bqbiol:is>
-            </rdf:Description>
-          </rdf:RDF>
-        </annotation>
-        <listOfReactants>
-          <speciesReference species="M_C00126__91__m__93__" stoichiometry="4" constant="true"/>
-          <speciesReference species="M_C00007__91__m__93__" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_C00125__91__m__93__" stoichiometry="4" constant="true"/>
-          <speciesReference species="M_C00001__91__m__93__" stoichiometry="2" constant="true"/>
-          <speciesReference species="M_POC__91__m__93__" stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="cluster_16223"/>
-        </fbc:geneProductAssociation>
-      </reaction>
-      <reaction metaid="R_Afu_R1703" sboTerm="SBO:0000176" id="R_Afu_R1703" name="ubiquinol:ferricytochrome c reductase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
-        <notes>
-          <body xmlns="http://www.w3.org/1999/xhtml">
-            <p>Confidence Level: 0</p>
-            <p>NOTES: Added from fumigatus via addRxnsAndMets()</p>
-          </body>
-        </notes>
-        <listOfReactants>
-          <speciesReference species="M_C00125__91__m__93__" stoichiometry="2" constant="true"/>
-          <speciesReference species="M_C00390__91__m__93__" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="M_C00126__91__m__93__" stoichiometry="2" constant="true"/>
-          <speciesReference species="M_C00399__91__m__93__" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <fbc:geneProductAssociation>
-          <fbc:geneProductRef fbc:geneProduct="cluster_18084"/>
         </fbc:geneProductAssociation>
       </reaction>
       <reaction metaid="R_Afu_R881" sboTerm="SBO:0000176" id="R_Afu_R881" name="glutathione:hydrogen-peroxide oxidoreductase" reversible="false" fast="false" fbc:lowerFluxBound="FB2N0" fbc:upperFluxBound="FB4N1000">
@@ -86225,6 +85796,8 @@
       <fbc:geneProduct metaid="cluster_9921" sboTerm="SBO:0000243" fbc:id="cluster_9921" fbc:label="AO090005000995"/>
       <fbc:geneProduct metaid="cluster_993" sboTerm="SBO:0000243" fbc:id="cluster_993" fbc:label="AO090102000389"/>
       <fbc:geneProduct metaid="cluster_9987" sboTerm="SBO:0000243" fbc:id="cluster_9987" fbc:label="AO090005000559"/>
+      <fbc:geneProduct metaid="cluster_16223" sboTerm="SBO:0000243" fbc:id="cluster_16223" fbc:label="cluster_16223"/>
+      <fbc:geneProduct metaid="cluster_18084" sboTerm="SBO:0000243" fbc:id="cluster_18084" fbc:label="cluster_18084"/>
       <fbc:geneProduct metaid="cluster_1" sboTerm="SBO:0000243" fbc:id="cluster_1" fbc:label="cluster_1"/>
       <fbc:geneProduct metaid="cluster_1001" sboTerm="SBO:0000243" fbc:id="cluster_1001" fbc:label="cluster_1001"/>
       <fbc:geneProduct metaid="cluster_10035" sboTerm="SBO:0000243" fbc:id="cluster_10035" fbc:label="cluster_10035"/>
@@ -86463,7 +86036,6 @@
       <fbc:geneProduct metaid="cluster_8309" sboTerm="SBO:0000243" fbc:id="cluster_8309" fbc:label="cluster_8309"/>
       <fbc:geneProduct metaid="cluster_8595" sboTerm="SBO:0000243" fbc:id="cluster_8595" fbc:label="cluster_8595"/>
       <fbc:geneProduct metaid="cluster_9122" sboTerm="SBO:0000243" fbc:id="cluster_9122" fbc:label="cluster_9122"/>
-      <fbc:geneProduct metaid="cluster_9205" sboTerm="SBO:0000243" fbc:id="cluster_9205" fbc:label="cluster_9205"/>
       <fbc:geneProduct metaid="cluster_9266" sboTerm="SBO:0000243" fbc:id="cluster_9266" fbc:label="cluster_9266"/>
       <fbc:geneProduct metaid="cluster_9296" sboTerm="SBO:0000243" fbc:id="cluster_9296" fbc:label="cluster_9296"/>
       <fbc:geneProduct metaid="cluster_9317" sboTerm="SBO:0000243" fbc:id="cluster_9317" fbc:label="cluster_9317"/>
@@ -86483,10 +86055,7 @@
       <fbc:geneProduct metaid="cluster_15440" sboTerm="SBO:0000243" fbc:id="cluster_15440" fbc:label="cluster_15440"/>
       <fbc:geneProduct metaid="cluster_15743" sboTerm="SBO:0000243" fbc:id="cluster_15743" fbc:label="cluster_15743"/>
       <fbc:geneProduct metaid="cluster_16117" sboTerm="SBO:0000243" fbc:id="cluster_16117" fbc:label="cluster_16117"/>
-      <fbc:geneProduct metaid="cluster_16223" sboTerm="SBO:0000243" fbc:id="cluster_16223" fbc:label="cluster_16223"/>
       <fbc:geneProduct metaid="cluster_16694" sboTerm="SBO:0000243" fbc:id="cluster_16694" fbc:label="cluster_16694"/>
-      <fbc:geneProduct metaid="cluster_17478" sboTerm="SBO:0000243" fbc:id="cluster_17478" fbc:label="cluster_17478"/>
-      <fbc:geneProduct metaid="cluster_18084" sboTerm="SBO:0000243" fbc:id="cluster_18084" fbc:label="cluster_18084"/>
       <fbc:geneProduct metaid="cluster_19865" sboTerm="SBO:0000243" fbc:id="cluster_19865" fbc:label="cluster_19865"/>
       <fbc:geneProduct metaid="cluster_4228" sboTerm="SBO:0000243" fbc:id="cluster_4228" fbc:label="cluster_4228"/>
       <fbc:geneProduct metaid="cluster_4256" sboTerm="SBO:0000243" fbc:id="cluster_4256" fbc:label="cluster_4256"/>

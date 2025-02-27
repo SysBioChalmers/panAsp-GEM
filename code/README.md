@@ -24,15 +24,46 @@ the `data/genome/` folder.
 Note that running BPGA with these settings is equivalent to running [USEARCH](http://drive5.com/usearch/)
 with default settings and a sequence identity cutoff of 0.5.
 
-## genes.rmd
-## construct_panAspGEM.mlx
-## metabolites_niger.rmd
-## metabolites_niger_oryzae.rmd
-## metabolites_oryzae.rmd
-## metabolites_Ani_Afu.rmd
-## curate_panAsp.mlx
 
-## (curate_panaAsp.rmd and metabolites_panAspv1_OtherAsp.Rmd)
+=========== List of scripts to keep
+
+- matlab
+	- Helpers (matlab)
+		- cleanGrRules_local.m
+		- getGenesFromGrRules.m
+		- getModelFromOrthology_local.m
+		- id2clust.m
+		- replaceGrRules_local.m
+	- construct_panAspGEM.mlx
+	- curate_panAsp.mlx
+
+- R scripts
+	- genes.rmd
+	- metabolites_oryzae.rmd
+	- metabolites_Ani_Afu.rmd
+	(- Biolog_target.Rmd)
+
+- Python scripts
+	- map_kegg_chebi.ipyb
+	- helpers.py
+	- constructEnsemble.ipynb
+	- simulations.ipynb
+
+
+================ merging medus folder with aspGEM
+
+- panAsp_v2.xml
+- BPGA2ortho_GEM_custom.csv
+- ensemble.pickle
+- ../Aspergillus/BioLog/metaboliteDf.csv
+- simulation_results.csvsimulation_results.csv
+- simulation_results.csv
+
+
+
+
+
+
 
 
 
