@@ -12,10 +12,6 @@ from pickle import load
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
 
-# my_functions.py
-def add(a, b):
-    return a + b
-
 def reactionToComp(model, reaction_id, new_compartment):
     reaction = model.reactions.get_by_id(reaction_id)
     for metabolite in list(reaction.metabolites):  # Use list() to safely iterate
