@@ -18,9 +18,9 @@ library(openxlsx)
 
 ```{r}
 PM_all <- read.csv2("../data/biolog/PM_all.csv")
-PM_all$plateID[which(PM_all$plateID == "PM_01")] <- "PM01"
-PM_all$plateID[which(PM_all$plateID == "PM_02")] <- "PM02A"
-PM_all$plateID[which(PM_all$plateID == "PM_03")] <- "PM03B"
+PM_all$PlateID[which(PM_all$PlateID == "PM_01")] <- "PM01"
+PM_all$PlateID[which(PM_all$PlateID == "PM_02")] <- "PM02A"
+PM_all$PlateID[which(PM_all$PlateID == "PM_03")] <- "PM03B"
 
 metaboliteDf <- read.csv2("../data/biolog/metaboliteDf.csv")
 
@@ -38,7 +38,7 @@ FBA_res$Isolate <- gsub("Aspergillus_oryzae_", "", FBA_res$Isolate)
 FBA_res$Isolate <- gsub("_CAoGD", "", FBA_res$Isolate)
 
 res <- PM_all %>% inner_join(FBA_res, 
-        by=c('Isolate'='Isolate', 'Medium'='Medium', 'plateID'='plateID'))
+        by=c('Isolate'='Isolate', 'Medium'='Medium', 'PlateID'='plateID'))
 res$Growth <- as.numeric(res$Growth)
 res$Growth_bool <- ifelse(res$Growth > 1e-3, TRUE, FALSE)
 res$ATP <- as.numeric(res$ATP)
@@ -52,7 +52,7 @@ res$Oxygen_ATP_bool <- ifelse(res$Oxygen_ATP > 1e-3, TRUE, FALSE)
 # res$Sink <- sink$Location[match(res$Medium, sink$Medium)]
 res$Well <- metaboliteDf$Well[match(res$Medium, metaboliteDf$Medium)]
 
-res <- res[,c("Isolate", "Replicate", "Metabolite", "plateID", "Well", "Medium", 
+res <- res[,c("Isolate", "Replicate", "Metabolite", "PlateID", "Well", "Medium", 
               "Condition", "Location_growth", "Location_ATP", "Oxygen_growth", "Oxygen_growth_bool", 
               "Oxygen_ATP", "Oxygen_ATP_bool", "Growth","ATP", "Growth_bool", 
               "ATP_bool", "Observed")]
@@ -87,7 +87,7 @@ And see if they match the plate data.
 ```{r}
 for (med in unique(res$Medium)){
   print(res[which(res$Medium == med & res$Replicate == 1),
-            c("Isolate", "Medium", "plateID", "Well", "Growth", "ATP", "Observed")])
+            c("Isolate", "Medium", "PlateID", "Well", "Growth", "ATP", "Observed")])
 }
 ```
 
