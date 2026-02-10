@@ -1,3 +1,15 @@
+# Folder allModels
+
+Contains an *xml* file for the GEM of each of the 187 oryzae strains that were included in this study.
+
+# Folder biolog
+
+Fodler containing all data (raw, processed, visualizations) of the BioLog growth experiment, the results of our FBA analyses, and a comparison between our simulations and the experimental data.
+
+# Folder clades
+
+Contains the metadata that were gathered for all 187 oryzae strains in this study. Additionally, contains coordinates for each of these strains in reduced dimension space based on the reaction content of the different strains.
+
 # Folder fasta
 
 Fasta sequences were obtained and modified as follows:
@@ -25,13 +37,21 @@ Modify4: sed -e 's/\*$//' "$input_file" > "$output_file" # remove trailing aster
 Cleaned data obtained from Casper. I just changed the extension from .fas to .faa
 Modify1: ren *.* *.faa # probably only works on windows
 
+# Folder figures
+
+Contains the figures that are code-generated and included in our manuscript or in its supplmentary materials.
+
 # Folder genome
 
 - INPUT_all_original.fasta: Output from BPGA run. This file contains all the (protein) sequences used as input for BPGA. Used as input for genes.Rmd
 - u_clusters.txt: Output from BPGA run. This file contains the clustering information for each (protein) sequence in the BPGA input. Used as input for genes.Rmd
 - BPGA2ortho_GEM_custom.csv: Output from genes.Rmd. This file links the original protein sequence identifiers to BPGA clusters. Used as input for construct_drafts.m
 
+# Folder growthProfiler
+
+All data and visualizations related to the growth experiment performed with the growth profiler.
+
 # Folder intermediate
 
-Folder containing helper files that take a while to construct. Not intended for end users. 
+Folder containing helper files that take a while to construct. Some scripts will read input from this folder in stead of running time consuming steps. Not intended for end users. 
 

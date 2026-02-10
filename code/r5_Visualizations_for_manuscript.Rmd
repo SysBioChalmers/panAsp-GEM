@@ -1,0 +1,276 @@
+---
+title: "Visualizations_for_manuscript"
+output: html_document
+date: "2025-04-01"
+---
+
+# Libraries
+
+```{r}
+library(ggplot2)
+```
+
+# Helpers
+
+```{r}
+source("./helperFunctions/Rutilities.R")
+```
+
+# Figure 1B
+
+```{r}
+# Create data
+data <- data.frame(
+  name = factor(c("oryzae","niger","fumigatus","KEGG"), 
+                levels = c("oryzae","niger","fumigatus","KEGG")),  
+  value = c(1310,22,89,578)
+)
+
+plt <- ggplot(data, aes(x=as.factor(name), y=value, fill=as.factor(name))) + 
+  geom_bar(stat = "identity", width=0.5) +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_light() +
+  theme(legend.title=element_blank(),
+        axis.title.x = element_text(vjust = -1.5)) +
+  ylab("Number of reactions") +
+  xlab("Annotation source")
+
+png("../data/figures/plot_annotation.png", width = 4, height = 3, units = "in", res = 600)
+plt
+dev.off()
+```
+
+# Figure 1D
+
+Pathways and numbers were obtained from script *p2_constructEnsemble.ipynb*
+
+```{r}
+pathways <- c('Fatty acid biosynthesis',
+              'Metabolism of xenobiotics by cytochrome P450',
+              'Arginine and proline metabolism',
+              'Steroid hormone biosynthesis',
+              'Cysteine and methionine metabolism',
+              'Arachidonic acid metabolism',
+              'Tyrosine metabolism',
+              'Valine, leucine and isoleucine degradation',
+              'Fatty acid degradation',
+              'Glycine, serine and threonine metabolism')
+
+data <- data.frame(
+  pathways = factor(pathways, levels = rev(pathways)),
+  reactions = c(38,34,18,18,17,15,10,10, 9,9),
+  genes = c(4,7,4,10,4,1,6,3,3,4)
+)
+
+# pathways <- c('Metabolism of xenobiotics by cytochrome P450',
+#               'Steroid hormone biosynthesis',
+#               'Arachidonic acid metabolism',
+#               'Arginine and proline metabolism',
+#               'Cysteine and methionine metabolism',
+#               'Valine, leucine and isoleucine degradation',
+#               'Purine metabolism',
+#               'Cyanoamino acid metabolism',
+#               'Tryptophan metabolism',
+#               'Retinol metabolism')
+# 
+# data <- data.frame(
+#   pathways = factor(pathways, levels = rev(pathways)),
+#   reactions = c(39, 23, 16, 15, 11, 11, 10, 10, 9, 9),
+#   genes = c(6, 5, 5, 9, 5, 7, 3, 4, 7, 5)
+# )
+
+# Reshape the data to long format
+data_long <- data %>%
+  pivot_longer(cols = c(reactions, genes), names_to = "Type", values_to = "count") %>%
+  mutate(Type = factor(Type, levels = c("reactions", "genes")),
+         # Create a numeric version of the pathways for plotting
+         y_numeric = as.numeric(pathways)) %>%
+  mutate(offset = ifelse(Type == "reactions", 0.2, -0.2))  # Add an offset for genes to stack them
+
+# Create the lollipop plot
+plt <- ggplot(data_long, aes(x = count, y = y_numeric + offset, color = Type)) +
+  # Plot the segments for reactions and genes
+  geom_segment(aes(x = 0, xend = count, y = y_numeric + offset, yend = y_numeric + offset), size = 0.5) +
+  # Plot the points for reactions and genes
+  geom_point(aes(x = count, y = y_numeric + offset), size = 4, alpha = 1) +
+  scale_color_manual(values = c("blue", "darkolivegreen4")) +  # Set colors for reactions and genes
+  scale_y_continuous(
+    breaks = unique(data_long$y_numeric),  # Ensure the breaks are unique numeric values for pathways
+    labels = rev(levels(data$pathways))  # Use the factor levels as labels
+  ) +  # Set y-axis labels to pathways
+  theme_light() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.title.x = element_text(margin = margin(t = 10)),  # Add margin to x-axis label
+    axis.title.x.top = element_blank(),  # Make sure there is no top axis title
+    plot.title = element_text(hjust = 0.12, face = "bold"),
+    plot.margin = margin(10, 10, 10, 10)  # Add margin to the plot to avoid clipping
+  ) +
+  xlab("Number of reactions/genes") +
+  ylab("Pathways") +
+  ggtitle("Top 10 enriched pathways")
+
+plt
+
+png("../data/figures/plot_pathways.png", width = 8, height = 4, units = "in", res = 600)
+plt
+dev.off()
+```
+
+# HeatMaps
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(openxlsx)
+library(circlize)
+library(ComplexHeatmap)
+library(matrixStats)
+```
+
+## Read and wrangle Biolog raw data
+
+```{r}
+csv_Files <- list.files(path = "../data/biolog/Raw", 
+                        pattern = "\\.csv$",
+                        full.names = TRUE)
+
+raw_data <- lapply(csv_Files, function(x){
+    data = read.csv(x)
+    tail(data, n=1) # select the last time point
+})
+raw_data <- do.call(rbind, raw_data)
+
+# Remove unwanted columns
+raw_data$Plate.File <- raw_data$Setup.Time <- raw_data$Position <-  NULL
+raw_data$Field.1 <- raw_data$Field.3 <- raw_data$Field.4 <- raw_data$Hour <- NULL
+
+# Update colname
+colnames(raw_data)[which(colnames(raw_data) == "Plate.Type")] <- "Plate"
+
+# Clean isolate names
+raw_data$Field.2 <- gsub(" ", "_", raw_data$Field.2)
+
+# Establish a baseline
+raw_data$baseline <- NA
+cols_to_consider <- grep("^([A-H][0-9]{2})$", names(raw_data), value = TRUE)
+for (i in 1:nrow(raw_data)) {
+    raw_data$baseline[i] <- mean(sort(unlist(raw_data[i,cols_to_consider]))[1:10])
+}
+```
+
+```{r}
+raw_data[,3:98] <- sweep(raw_data[,3:98], 1, raw_data$baseline, FUN = "-")
+raw_data$baseline <- NULL
+raw_data$Field.2 <- paste0(raw_data$Field.2, rep(c("_1","_2","_3"),24))
+
+data_long <- pivot_longer(data = raw_data, cols = c(3:98))
+
+# Load BioLog assay results (for each plate)
+PM_01_wide <- read.csv("../data/biolog/Results_PM01.csv")
+PM_02_wide <- read.csv("../data/biolog/Results_PM02.csv")
+PM_03_wide <- read.csv("../data/biolog/Results_PM03.csv")
+
+# get link between plate-well and medium
+wellDf1 <- data.frame(Medium = unname(sapply(colnames(PM_01_wide), update_colnames)),
+                      Plate = "PM01",
+                      Well = substr(colnames(PM_01_wide),1,3))
+wellDf2 <- data.frame(Medium = unname(sapply(colnames(PM_02_wide), update_colnames)),
+                      Plate = "PM02A",
+                      Well = substr(colnames(PM_02_wide),1,3))
+wellDf3 <- data.frame(Medium = unname(sapply(colnames(PM_03_wide), update_colnames)),
+                      Plate = "PM03B",
+                      Well = substr(colnames(PM_03_wide),1,3))
+wellDfall <- rbind(wellDf1,wellDf2,wellDf3)
+wellDfall <- wellDfall[-which(wellDfall$Well == "X"),]
+
+# add medium
+data_long <- merge(wellDfall, data_long, by.x = c("Well", "Plate"), by.y = c("name", "Plate"))
+data_long$Medium <- paste0(data_long$Medium, "_", data_long$Plate)
+data_long$Well <- data_long$Plate <- NULL
+colnames(data_long)[2] <- "Strain"
+```
+
+```{r}
+# Convert to wide format using pivot_wider
+wide_df <- data_long %>% pivot_wider(names_from = Strain, values_from = value)
+wide_df <- as.data.frame(wide_df)
+rownames(wide_df) <- wide_df$Medium
+wide_df$Medium <- NULL
+
+# Create the histogram
+hist(unlist(wide_df), 
+     main = "Histogram of All Values", 
+     xlab = "Value", 
+     ylab = "Frequency", 
+     col = "skyblue", 
+     border = "black")
+```
+
+```{r}
+wide_df_bin <- wide_df %>%
+  mutate(across(everything(), ~ case_when(
+    . < 60 ~ 0,
+    . <= 120 ~ 0.5,
+    . > 120 ~ 1
+  )))
+```
+
+## Figure 3
+
+```{r}
+col_fun <- colorRamp2(c(0, 0.5, 1), c("black", "white", "red"))
+row_label_colors <- ifelse(grepl("_PM03B", rownames(wide_df_bin)), "blue", "black")
+
+vis <- Heatmap(wide_df_bin, 
+               col = col_fun,
+               row_title = "Medium", 
+               column_title = "Strain",
+               row_names_gp = gpar(col = row_label_colors,fontsize = 8),
+               show_heatmap_legend = FALSE)
+
+# png("../data/biolog/BioLog_heatmap_all.png", width=12, height=40, units = "in", res = 640)
+vis
+# dev.off()
+```
+
+```{r}
+svg("../data/biolog/BioLog_heatmap_all.svg", width = 12, height = 40)
+draw(vis)
+dev.off()
+```
+
+## Supplementary figure S3
+
+```{r}
+wide_df_sub <- wide_df[order(rowSds(as.matrix(wide_df)),decreasing = TRUE)[1:20],]
+wide_df_sub_bin <- wide_df_sub %>%
+  mutate(across(everything(), ~ case_when(
+    . < 60 ~ 0,
+    . <= 120 ~ 0.5,
+    . > 120 ~ 1
+  )))
+
+col_fun <- colorRamp2(c(0, 0.5, 1), c("black", "white", "red"))
+row_label_colors <- ifelse(grepl("_PM03B", rownames(wide_df_sub_bin)), "blue", "black")
+
+vis <- Heatmap(wide_df_sub_bin, 
+               col = col_fun,
+               row_title = "Medium", 
+               column_title = "Strain",
+               row_names_gp = gpar(col = row_label_colors,fontsize = 8),
+               show_heatmap_legend = FALSE)
+
+# png("../data/biolog/BioLog_heatmap_sub.png", width=12, height=8, units = "in", res = 640)
+vis
+# dev.off()
+```
+
+```{r}
+svg("../data/biolog/BioLog_heatmap_sub.svg", width = 12, height = 8)
+draw(vis)
+dev.off()
+```
+

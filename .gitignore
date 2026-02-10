@@ -6,6 +6,7 @@
 scrap/
 fasta/
 euk90_kegg105/
+data/
 
 # large files (share through Zenodo?)
 u_clusters.txt

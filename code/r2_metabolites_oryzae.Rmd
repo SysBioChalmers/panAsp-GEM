@@ -1,0 +1,495 @@
+---
+title: "Consolidate metabolites for A. oryzae"
+author: "Jeroen Gilis"
+date: "6 January 2025"
+output: 
+    html_document:
+      code_download: true
+      theme: cosmo
+      toc: true
+      toc_float: true
+      highlight: tango
+      number_sections: true
+---
+
+This script aims to obtain as many KEGG metabolite identifiers for the 
+metabolites in the oryzae GEM. KEGG identifiers are obtained from
+
+1. The information in the oryzae GEM itself
+2. A KEGG-CHEBI dictionary obtained from the bioservices python database
+3. Links present in the niger GEM
+4. Links present in the fumigatus GEM
+5. Manually
+
+The result of this script is a .xlsx file with links between the original 
+metabolite identifiers and corresponding KEGG identifiers.
+
+# Libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(stringr)
+library(openxlsx)
+library(RCurl)
+library(KEGGREST)
+```
+
+# Helpers
+
+```{r}
+source("./helperFunctions/Rutilities.R")
+```
+
+# Load GEMs
+
+```{r}
+# Note: excel files should be closed when reading them in R
+Aor_draft <- read_excel_allsheets("../data/intermediate/Aor_draft_comp.xlsx")
+Ani_draft <- read_excel_allsheets("../data/intermediate/Ani_draft.xlsx")
+```
+
+# Wrangle
+
+```{r}
+# Get RepName column
+Ani_draft$METS$RepName <- gsub("\\[.\\]","",Ani_draft$METS$`REPLACEMENT ID`)
+```
+
+```{r}
+# Get RepName column
+Aor_draft$METS$RepName <- NA
+
+# Get CHEBI column
+Aor_draft$METS$CHEBI <- Aor_draft$METS$MIRIAM
+Aor_draft$METS$CHEBI[!grepl("chebi",Aor_draft$METS$CHEBI)] <- NA
+Aor_draft$METS$CHEBI <- gsub("chebi:","",Aor_draft$METS$CHEBI)
+Aor_draft$METS$CHEBI <- gsub("/",":",Aor_draft$METS$CHEBI)
+
+# Get KEGG column
+Aor_draft$METS$KEGG <- Aor_draft$METS$MIRIAM
+Aor_draft$METS$KEGG[!grepl("kegg",Aor_draft$METS$KEGG)] <- NA
+Aor_draft$METS$KEGG <- gsub("kegg.compound/","",Aor_draft$METS$KEGG)
+```
+
+The replacement IDs for both oryzae and niger can be improved. If the
+compartment is not cytosol, a trailing compartment name was added. Fix this:
+
+```{r}
+Aor_draft$METS$`REPLACEMENT ID` <- gsub("m\\[m\\]", "\\[m\\]", Aor_draft$METS$`REPLACEMENT ID`)
+Aor_draft$METS$`REPLACEMENT ID` <- gsub("e\\[e\\]", "\\[e\\]", Aor_draft$METS$`REPLACEMENT ID`)
+Aor_draft$METS$`REPLACEMENT ID` <- gsub("p\\[p\\]", "\\[p\\]", Aor_draft$METS$`REPLACEMENT ID`)
+```
+
+```{r}
+sum(!is.na(Aor_draft$METS$KEGG)) # very few keggs in Aor
+sum(Aor_draft$METS$KEGG %in% Ani_draft$METS$KEGG[!is.na(Ani_draft$METS$KEGG)])
+sum(Aor_draft$METS$KEGG %in% Ani_draft$METS$KEGG_self[!is.na(Ani_draft$METS$KEGG_self)])
+
+sum(!is.na(Aor_draft$METS$CHEBI))
+sum(Aor_draft$METS$CHEBI %in% Ani_draft$METS$CHEBI[!is.na(Ani_draft$METS$CHEBI)])
+# so the 54 you lose here are by definition unique to Aor, because while the 
+# name is existing in Ani, it is not existing in that compartment
+
+sum(tolower(Aor_draft$METS$NAME) %in% tolower(Ani_draft$METS$NAME))
+sum(tolower(Aor_draft$METS$ID) %in% tolower(Ani_draft$METS$ID)) 
+# so the 54 you lose here are by definition unique to Aor, because while the 
+# name is existing in Ani, it is not existing in that compartment
+
+sum(Aor_draft$METS$`REPLACEMENT ID` %in% Ani_draft$METS$`REPLACEMENT ID`)
+sum(tolower(Aor_draft$METS$`REPLACEMENT ID`) %in% tolower(Ani_draft$METS$`REPLACEMENT ID`))
+# the main question is: do we trust matches based on replacement id?
+# -> match on proper IDs first, then manually inspect if we can trust the
+# remaining matches based on replacement_id.
+```
+
+# KEGG available
+
+For a few metabolites, we already have a KEGG identifier available. Keep those.
+
+```{r}
+target <- Aor_draft$METS[is.na(Aor_draft$METS$KEGG),]
+```
+
+# Obtain KEGG directly thorugh KEGG-CHEBI dictionary
+
+```{r}
+kegg_chebi_dict <- read.csv2("../data/intermediate/kegg_chebi_dict.csv", header=FALSE, sep=",")
+
+# wrangle
+colnames(kegg_chebi_dict) <- c("KEGG","CHEBI")
+kegg_chebi_dict$KEGG <- gsub("cpd:","",kegg_chebi_dict$KEGG)
+kegg_chebi_dict$CHEBI <- gsub("chebi:","CHEBI:",kegg_chebi_dict$CHEBI)
+
+target$KEGG <- kegg_chebi_dict$KEGG[match(target$CHEBI,kegg_chebi_dict$CHEBI)]
+
+Aor_draft$METS$KEGG[match(target$`REPLACEMENT ID`,Aor_draft$METS$`REPLACEMENT ID`)] <- target$KEGG
+
+target <- Aor_draft$METS[is.na(Aor_draft$METS$KEGG),]
+```
+
+# Based on niger GEM
+
+```{r}
+Ani_mets <- Ani_draft$METS
+
+# Get KEGG column
+Ani_mets$KEGG <- Ani_mets$MIRIAM
+Ani_mets$KEGG[!grepl("kegg",Ani_mets$KEGG)] <- NA
+Ani_mets$KEGG <- gsub("\\;.*","",gsub(".*kegg.compound/(.+)", "\\1", Ani_mets$KEGG))
+
+# Get chebi column
+Ani_mets$CHEBI <- Ani_mets$MIRIAM
+Ani_mets$CHEBI[!grepl("chebi",Ani_mets$CHEBI)] <- NA
+Ani_mets$CHEBI <- gsub("\\;.*","",gsub(".*chebi/(.+)", "\\1", Ani_mets$CHEBI))
+
+# Get RepName column
+Ani_mets$RepName <- gsub("\\[.\\]","",Ani_mets$`REPLACEMENT ID`)
+```
+
+```{r}
+# Get RepName column
+target$RepName <- gsub("\\[.\\]","",target$`REPLACEMENT ID`)
+
+# Through CHEBI
+target$KEGG <- Ani_mets$KEGG[match(target$CHEBI,Ani_mets$CHEBI)]
+Aor_draft$METS$KEGG[match(target$`REPLACEMENT ID`,Aor_draft$METS$`REPLACEMENT ID`)] <- target$KEGG
+target <- Aor_draft$METS[is.na(Aor_draft$METS$KEGG),]
+
+# Through name
+target$KEGG <- Ani_mets$KEGG[match(tolower(target$NAME),
+                                   tolower(Ani_mets$NAME))]
+Aor_draft$METS$KEGG[match(target$`REPLACEMENT ID`,Aor_draft$METS$`REPLACEMENT ID`)] <- target$KEGG
+target <- Aor_draft$METS[is.na(Aor_draft$METS$KEGG),]
+
+# Through replacement ID (without compartment identfier, which we called RepName)
+target$KEGG <- Ani_mets$KEGG[match(target$RepName, Ani_mets$RepName)]
+Aor_draft$METS$KEGG[match(target$`REPLACEMENT ID`,Aor_draft$METS$`REPLACEMENT ID`)] <- target$KEGG
+target <- Aor_draft$METS[is.na(Aor_draft$METS$KEGG),]
+```
+
+# Based on KEGGREST
+
+```{r}
+name_query <- tolower(target$NAME)
+name_query <- gsub(",", " ", name_query) # it works to replace commas for spaces
+```
+
+```{r}
+addKEGG <- lapply(name_query, function(x){
+  #print(x)
+  query <- keggFind(database = "compound", query = x)
+  return(cbind(x,
+               paste0(gsub("cpd:", "", names(query)),collapse="/"),
+               paste0(unname(query),collapse="/")))
+})
+
+saveRDS(addKEGG,"../data/intermediate/oryzae_NAMEtoKEGG_keggrest.rds")
+
+# Comment above and and uncomment below to save time
+# addKEGG <- readRDS("../data/intermediate/oryzae_NAMEtoKEGG_keggrest.rds")
+```
+
+```{r}
+target$KEGG <- sapply(addKEGG, function(x){x[2]})
+target$KEGG[target$KEGG==""] <- NA
+
+target$AllNames <- sapply(addKEGG, function(x){x[3]})
+target$AllNames[target$AllNames==""] <- NA
+
+table(!is.na(target$KEGG))
+table(!is.na(target$KEGG) &
+                 lengths(strsplit(target$KEGG,"/")) == 1) # unambiguous
+table(!is.na(target$KEGG) &
+                 lengths(strsplit(target$KEGG,"/")) != 1) # ambiguous
+```
+
+```{r}
+# metabolites that we could assign a unique KEGG id based on its name
+# -> use directly
+index <- which(!is.na(target$KEGG) &
+                 lengths(strsplit(target$KEGG,"/")) == 1)
+target$KEGG_final <- NA
+target$KEGG_final[index] <- target$KEGG[index]
+```
+
+```{r}
+# metabolites that we could assign a KEGG id, but not unambiguously
+# -> try to identify the correct ID if possible
+index <- which(!is.na(target$KEGG) &
+                 lengths(strsplit(target$KEGG,"/")) != 1)
+hlp <- target[index,]
+hlp <- hlp[!duplicated(hlp$NAME),]
+
+curated <- list(c("4-hydroxybenzoate", "C00156"),
+                c("pimelate", "C02656"),
+                c("8-amino-7-oxononanoate", "C01092"),
+                c("averantin", "C20499"),
+                c("carbamate", "C01563"),
+                c("chitobiose", "C01674"),
+                c("cinnamate","C00423"), # this is actually trans-cinnamate, but thats whats used in the GEM
+                c("citramalate", "C00815"),
+                c("D-aspartate", "C00402"),
+                c("dihydrosterigmatocystin", "C20445"),
+                c("geranylgeranyl diphosphate", "C00353"),
+                c("HX", "C00462"),
+                c("indole-3-acetate","C00954"),
+                c("itaconate", "C00490"),
+                c("L-ribulose", "C00508"),
+                c("mesaconate", "C01732"),
+                c("maltotriose", "C01835"),
+                c("1D-myo-inositol 1,4-bisphosphate", "C01220"),
+                c("4alpha-methylzymosterol", "C05103"),
+                c("naringenin", "C00509"),
+                c("norsolorinic acid","C20452"),
+                c("3,4-dihydroxybenzoate", "C00230"),
+                c("RX", "C01322"),
+                c("tagatose 6-phosphate","C01097"), # this is D-tagatose-6P, for L- its C06312
+                c("tagatose", "C00795"), # This is for D-Tagatose, for L- its C21523
+                c("thiamin diphosphate", "C00068"),
+                c("urocanate", "C00785"),
+                c("versiconal", "C20507"),
+                c("chitobiose", "C01674"),
+                c("itaconate", "C00490"),
+                c("L-ribulose", "C00508"),
+                c("heme a", "C15670"),
+                c("L-2-aminoadipate", "C00918"),
+                c("myristate", "C06424"),
+                c("hexadecenoate", "C13792/C13946"), # depending on location double bond
+                c("hexadecenoyl-CoA", "C05272/C21072/C21943"), # depending on location double bond
+                c("linoleate", "C01595"),
+                c("octadecatrienoic acid", "C06426/C06427/C08315/C08364"), # depending on location double bond
+                c("butyrate", "C00246"),
+                c("octanoate", "C06423"),
+                c("cyanate", "C01417"),
+                c("hydrogen", "C00080"), # When inspecting the reactions involving hydrogen, it seems like H+ is intended
+                c("(R)-lactate", "C00256"),
+                c("lysophosphatidylcholine", "C04230/C04233"), # 1- vs 2-lyso
+                c("phosphate", "C00009"),
+                c("diphosphate", "C00013"),
+                c("propionate", "C00163"),
+                c("N-carbamoyl-?-alanine", "C02642"), # \\? is beta, a synonym is 3-Ureidopropionate
+                c("cellulose", "C00760"),
+                c("N-acetyl-L-glutamate", "C00624"),
+                c("urate", "C00366"))
+
+hlp[!hlp$NAME %in% sapply(curated, function(element){element[1]}),c("NAME","KEGG")] # got all of them
+```
+
+```{r}
+for (element in curated) {
+  target$KEGG_final[which(target$NAME==element[1])] <- element[2]
+}
+
+target$KEGG <- NULL
+table(!is.na(target$KEGG_final)) # So only 79 metabolites without KEGG left
+```
+
+```{r}
+Aor_draft$METS$KEGG[match(target$`REPLACEMENT ID`,Aor_draft$METS$`REPLACEMENT ID`)] <- target$KEGG_final
+target <- Aor_draft$METS[is.na(Aor_draft$METS$KEGG),]
+```
+
+# Manually
+
+```{r}
+target <- target[is.na(target$KEGG),]
+target[!duplicated(target$NAME),]
+```
+
+```{r}
+curated <- list(c("1,8-DHN", NA), # dihydroxynapthalene, KEGG only knows 1,2/1,4/2,3 (C03012/C14785/C16213)
+                c("trans-4-coumarate", "C00811"), # kegg: 4-coumarate/trans-4-hydroxycinnamate
+                c("5'-S-methyl-5'-thioadenosine", "C00170"), # kegg: 5'methylthioadenosine/S-methyl-5-thioadenosine
+                c("5-amino-6-ribityluracil", "C04732"), # doublecheck, could be 5-amino-6-(D-ribitylamino)uracil
+                c("acyl CoAs", "C00040"), # kegg: Acyl-CoA
+                c("1-aminocyclopropanecarboxylate", "C01234"), # kegg: 1-aminocyclopropane-1-carboxylate
+                c("L-gamma-glutamyl-L-alanine", NA),
+                c("alpha-amylase", NA),
+                c("acylglycerone phosphates", NA),
+                c("biomass", NA),
+                c("laurate", "C02679"),
+                c("lauroyl-[acp]", "C05223"),
+                c("dodecanoyl-carnitine", NA), # C02301 is O-acylcarnitine, C02571 is O-acetylcarnitine
+                c("myristoyl-carnitine", NA), # C02301 is O-acylcarnitine, C02571 is O-acetylcarnitine
+                c("palmitoyl-carnitine", "C02990"), #	L-Palmitoylcarnitine
+                c("hexadecadienoate", "C21980"), # (6Z,9Z)-Hexadecadienoic acid
+                c("hexadecadienoyl-[acp]", NA),
+                c("stearoyl-carnitine", NA),
+                c("octadecatrienoyl-[acp]", "C16161"),
+                c("trans-but-2-enoyl-[acp]", "C04246"),
+                c("2,5-diamino-6-hydroxy-4-(5'-phosphoribosylamino)-pyrimidine", NA),
+                c("digalactosyl diglyceride", NA),
+                c("limited dextrin-[debranched glycogen phosphorylase]", NA),
+                c("diacylglycerol pyrophosphate", NA),
+                c("2-deoxyribose 1-phosphate", "C00672"), # 2-Deoxy-D-ribose 1-phosphate
+                c("free fatty acids", "C00162"), # kegg for Fatty acid
+                c("galactocyl ceremide", NA),
+                c("glycoaldehyde", "C00266"),
+                c("beta-D-glucosiduronic acids", NA),
+                c("limited dextrin-[glycogen phosphorylase]", NA),
+                c("5-hydroxyaverantin", "C20501"),
+                c("1-(indol-3-yl)glycerol 3-phosphate", "C03506"),
+                c("intermediate methylzymosterol II", NA),
+                c("intermediate zymosterol II", NA),
+                c("(S)-3-(5-oxo-4,5-dihydro-3H-imidazol-4-yl)propanoate", "C03680"), # assuming this is 4,5-Dihydro-4-oxo-5-imidazolepropanoate
+                c("intermediate methylzymosterol I", NA),
+                c("inositol-mannose-P-inositol-P-D-ceramide", NA),
+                c("mannose-inositol-P-ceramide", NA),
+                c("oxidonitrate", "C00533"), # Nitric oxide, NO^1-
+                c("(R)-3-methyl-2-oxobutanoate", "C00141"), # 3-Methyl-2-oxobutanoate
+                c("2-keto-3-methyl-valerate", "C06008"), # (R)-2-Oxo-3-methylpentanoate
+                c("phosphatidylamine", NA),
+                c("phosphatidylcholines", NA),
+                c("phytosphingosine 1-phosphate", NA),
+                c("precorrins", NA), # there are many in kegg
+                c("protein for biomass and amylase", NA),
+                c("ribonucleic acids", NA),
+                c("ceramide phosphocholines", NA),
+                c("galactosylceramide sulfates", NA),
+                c("threo-3-methyl-L-aspartate", "C03618"), # L-threo-3-Methylaspartate 	
+                c("vestine", NA),
+                c("2-methyl-2-hydroxybutyryl-CoA", NA),
+                c("inositol phosphorylceramide", NA),
+                c("intermediate zymosterol I", NA),
+                c("3-demethylubiquinone-8", "C05815"), # 5-hydroxy-6-methoxy-3-methyl-2-octaprenyl-1,4-benzoquinone
+                c("acetohydroxybutyrate", "C00659"), # 2-Aceto-2-hydroxybutanoate
+                c("trans-dodec-2-enoyl-CoA", "C03221"), # 2-trans-Dodecenoyl-CoA/(2E)-Dodec-2-enoyl-CoA
+                c("(R)-3-hydroxy-3-methyl-2-oxobutanoate", "C04181"), # 3-Hydroxy-3-methyl-2-oxobutanoate
+                c("2-(3-amino-3-carboxypropyl)-L-histidine", "C04441"),
+                c("2-keto-myo-inositol", "C00691/C17577"),
+                c("lysophosphatidylamine",NA),
+                c("lysophosphatidyl-N-dimethylethanolamine", NA),
+                c("lysophosphatidylglycerol", NA),
+                c("lysophosphatidyl-N-methylethanolamine", NA),
+                c("lysophosphatidylserine", NA),
+                c("melanins", NA),
+                c("cysteine-[enzyme]", NA),
+                c("S-sulfanylcysteine-[enzyme]", NA),
+                c("acyl-[acp] (for phospholipids)", NA))
+
+target[!target$NAME %in% sapply(curated, function(element){element[1]}),c("NAME","KEGG")]
+```
+
+```{r}
+for (element in curated) {
+  target$KEGG_final[which(target$NAME==element[1])] <- element[2]
+}
+
+table(!is.na(target$KEGG_final)) # So only 45 metabolites without KEGG left
+```
+
+```{r}
+Aor_draft$METS$KEGG[match(target$`REPLACEMENT ID`,Aor_draft$METS$`REPLACEMENT ID`)] <- target$KEGG_final
+target <- Aor_draft$METS[is.na(Aor_draft$METS$KEGG),]
+```
+
+```{r}
+table(!is.na(Aor_draft$METS$KEGG))
+```
+   
+## Handle hydrogen/protons
+
+```{r}
+Aor_draft$METS[grepl("hydrogen\\[", Aor_draft$METS$ID) |
+                 grepl("H\\(", Aor_draft$METS$ID),c("ID", "NAME","KEGG")]
+```
+
+If we continue this conversion process, there will no longer be a distinction between
+hydrogen[c] and H(+) (energy metabolism)[c], which is bad. As such, I will update
+the KEGG_ID for H(+) (energy metabolism)[c] from C00080 (which will become C00080[c])
+to energy_C00080.
+
+```{r}
+Aor_draft$METS[which(Aor_draft$METS$ID == "H(+) (energy metabolism)[c]"),"KEGG"] <- "energy_C00080"
+```
+
+# Write output
+
+```{r}
+write.xlsx(Aor_draft$METS[,c("NAME","KEGG")], "../data/intermediate/oryzae_kegg_187_50_1385.xlsx")
+```
+
+# Appendix
+
+```
+list(c("CMP", "C00055"),
+    c("palmitate", "C00249"), 
+    c("N-acetyl-D-glucosamine", "C00140"),
+    c("oxaloacetate", "C00036"),
+    c("2-oxobutanoate", "C00109"),
+    c("oxalate", "C00209"),
+    c("4-aminobenzoate", "C00568"),
+    c("phenylacetate", "C07086"),
+    c("prephenate", "C00254"),
+    c("sulfite", "C00094"),
+    c("nitrite", "C00088"),
+    c("nitrate", "C00244"),
+    c("isocitrate", "C00311"),
+    c("L-glutamate", "C00025"),
+    c("D-glucuronate", "C00191"),
+    c("glyoxylate", "C00048"),
+    c("hexanoate", "C01585"),
+    c("carnitine", "C00487/C00318/C15025"), # carnitine/L-carnitine/D-carnitine
+    c("chorismate", "C00251"),
+    c("citrate", "C00158"),
+    c("nicotinate", "C00253"),
+    c("stearate", "C01530"),
+    c("linolenoyl-CoA", "C03035/C16162"),
+    c("octadecatrienoyl-CoA", "C03035/C16162"),
+    c("D-gluconate", "C00257"),
+    c("orotate", "C00295"),
+    c("D-ribose 5-phosphate", "C00117"),
+    c("glycolate", "C00160"),
+    c("succinate", "C00042"),
+    c("xanthine", "C00385"),
+    c("acetate", "C00033"),
+    c("acetoacetate", "C00164"),
+    c("acetyl phosphate", "C00227"),
+    c("5-amino-1-(5-phospho-D-ribosyl)imidazole", "C03373"),
+    c("2-oxoglutarate", "C00026"),
+    c("6-phospho-D-gluconate", "C00345"),
+    c("D-glucose", "C00031"), # note, alpha-D-glucose is C00267, beta-D-glucose is C00221
+    c("3-dehydroshikimate", "C02637"),
+    c("D-erythrose 4-phosphate", "C00279"),
+    c("episterol", "C15777"),
+    c("formate", "C00058"),
+    c("D-fructose", "C00095"), # beta-D-fructose is C02336
+    c("fumarate", "C00122"),
+    c("D-glycerate", "C00258"),
+    c("D-galactonate", "C00880"),
+    c("D-galacturonate", "C00333"),
+    c("D-galactose", "C00124"), # note, alpha-D-galactose is C00962, beta-D-galactose is C00984
+    c("D-glucosamine", "C00352"),
+    c("anthranilate", "C00108"),
+    c("D-arabinose", "C00216"),
+    c("L-aspartate", "C00049"),
+    c("decanoate", "C01571"),
+    c("raffinose", "C00492"),
+    c("acyl-carrier protein", "C00229"),
+    c("cis-aconitate", "C00417"),
+    c("D-erythrose", "C01796"),
+    c("UDP-N-acetyl-D-galactosamine", "C00203"),
+    c("protein", "C00017"),
+    c("pyruvate", "C00022"),
+    c("quinate", "C00296"),
+    c("D-ribose 1-phosphate", "C00620"),
+    c("D-ribose", "C00121"),
+    c("sulfur", "C00087"),
+    c("sulfate", "C00059"),
+    c("shikimate", "C00493"),
+    c("L-sorbose", "C00247"),
+    c("tartrate", "C00898"), # D-tartrate would be C02107
+    c("tetrahydrofolate", "C00101"),
+    c("L-arabinose", "C00259"),
+    c("L-xylulose", "C00312"),
+    c("(S)-malate", "C00149"),
+    c("D-mannose", "C00159"),
+    c("(R)-mevalonate", "C00418"),
+    c("2-formamido-N(1)-(5-phospho-D-ribosyl)acetamidine", "C04640"),
+    c("(2-amino-4-hydroxy-7,8-dihydropteridin-6-yl)methyl trihydrogen diphosphate", "C04807"),
+    c("	2-amino-6-(hydroxymethyl)-7,8-dihydropteridin-4-ol", "C01300"))
+```
+
+
+
+
+

@@ -1,13 +1,4 @@
-> Introduction (please delete after reading):  
-[standard-GEM](https://github.com/MetabolicAtlas/standard-GEM) is a template repository that aims to standardize the format of genome-scale metabolic models (GEMs) versioned with git. In addition to encouraging the open-sourcing of GEMs, it facilitates the import of GEMs into databases and online websites. Moreover, it provides the community with a familiar structure that is easy to adopt through this repository itself. The template comes with a set of requirements and recommendations, packaged as to-do items in a hidden Markdown file in this repository `.standard-GEM.md`. After downloading this repository, or using it as a template, those to-do items provide guidance to how adherence to the standard can be obtained.
-
-> Instructions for this `README` (please delete after reading):  
-This is the `README.md` template provided by [standard-GEM](https://github.com/MetabolicAtlas/standard-GEM) and was crafted to cover most use-cases.  
-Feel free to edit this template `README`. Blanks are indicated by `{{ test }}`. One may use a search function to find these `{{`. Here are some examples of blanks used throughout this file: `{{organization or username}}` is the organization name or username for this GitHub repository, eg. `SysBioChalmers`; `{{repository name}}` is the name of this GitHub repository, eg. `yeast-GEM`.  
-If you find this template does not fit your needs, we would appreciate if you could report this by creating a new issue on [standard-GEM](https://github.com/MetabolicAtlas/standard-GEM/issues).
-
-
-## {{repository name}}: {{repository description}}
+## pAo: a consensus genome-scale metabolic model for Aspergillus oryzae
 
 [![Version](https://badge.fury.io/gh/{{organization or username}}%2F{{repository name}}.svg)](https://badge.fury.io/gh/sysbiochalmers/yeast-gem)  
 [![Zenodo](https://zenodo.org/badge/{{Zenodo ID}}.svg)](https://zenodo.org/badge/latestdoi/{{Zenodo ID}})  
@@ -16,54 +7,66 @@ If you find this template does not fit your needs, we would appreciate if you co
 
 #### Description
 
-{{ fill in a short description or the paper abstract }}
-
+Aspergillus oryzae (koji mold) is a key microorganism in traditional food fermentations including soy sauce, sake, and miso, and is important in novel culinary applications and modern biotechnology, such as sustainable meat alternatives and enzyme production. Despite its industrial importance, until recently, the most recent genome-scale metabolic model (GEM) for A. oryzae dated back to 2008 and was limited to a single strain (RIB40). Here, we present pAo, a pan-GEM for A. oryzae, integrating genomic data from 187 strains to capture species-wide metabolic diversity. Our model comprises 2,018 reactions (a 52% increase over the RIB40-based model) and includes previously overlooked pathways, such as cytochrome P450-mediated xenobiotic metabolism and extended amino acid metabolism. Using this pan-GEM, we derived strain-specific GEMs and validated them through high-throughput phenotypic screening on 290 substrates. Growth experiments on industrial carbon sources (glucose, glycerol, maltose, and xylose) revealed significant metabolic diversity across strains. This resource enables informed strain selection for biotechnological applications and provides a foundation for future metabolic engineering in A. oryzae.
 
 #### Citation
 
-{{ provide the citation once available, for example:
-  > Lu, H., Li, F., Sánchez, B.J. et al (2019). A consensus S. cerevisiae metabolic model Yeast8 and its ecosystem for comprehensively probing cellular metabolism. Nat Commun 10, 3586 [doi:10.1038/s41467-019-11581-3](https://doi.org/10.1038/s41467-019-11581-3)
-
-}}
-
+Gilis, J., van der Luijt, C.R.B., Feller, M., Sanchez-Giron Barba, C., Sommer, M.O.A., Jahn, L.J., Kerkhoven, E.J. (2026). pAo: a consensus genome-scale metabolic model for Aspergillus oryzae capturing intra-species diversity.
 
 #### Keywords
 
 > Keywords are be separated by semicolons.
 > The `Model source` field contains the source(s) of the current model, eg existing GEMs. If possible, use the Markdown format to add the URL with the DOI. The (NCBI) taxonomy ID should be provided in the [format from identifiers.org](https://registry.identifiers.org/registry/taxonomy). For the genome identifier, please provide the ENA/GenBank/RefSeq identifier via *identifiers.org*, or from other sources such as PATRIC or KBase.  
 
-**Utilisation:** {{ experimental data reconstruction; multi-omics integrative analysis;, _in silico_ strain design; model template }}  
+**Utilisation:** {{ experimental data reconstruction; _in silico_ strain design; model template }}  
 **Field:** {{ metabolic-network reconstruction }}  
 **Type of model:** {{ reconstruction; curated }}  
-**Model source:** {{ [YeastMetabolicNetwork](http://doi.org/10.1038/nbt1492) }}  
-**Omic source:** {{ genomics; metabolomics }}  
-**Taxonomic name:** {{ _Saccharomyces cerevisiae_ }}  
-**Taxonomy ID:** {{ [taxonomy:559292](https://identifiers.org/taxonomy:559292) }}  
-**Genome ID:** {{ [insdc.gca:GCA_000146045.2](https://identifiers.org/insdc.gca:GCA_000146045.2)  }}  
-**Metabolic system:** {{ general metabolism }}  
+**Model source:** {{ TODO }}  
+**Taxonomic name:** {{ _Aspergillus oryzae_ }}  
+**Taxonomy ID:** {{ [taxonomy:5062](https://identifiers.org/taxonomy:5062) }}  
+**Genome ID:** {{ [insdc.gca:GCA_009687165.1](https://identifiers.org/insdc.gca:GCA_009687165.1)  }}  
+**Metabolic system:** {{ full metabolism }}  
 **Tissue:**  
 **Bioreactor:**    
 **Cell type:**  
 **Cell line:**  
-**Strain:** {{ S288C }}  
-**Condition:** {{ aerobic; glucose-limited; defined media }}  
+**Strain:** {{ 187 strains }}  
+**Condition:** {{ aerobic; glucose-limited; nitrogen-limited }}  
 
+### Repository structure
 
-### Installation
+There are three main folders in this project. Each of these folders contains a README file with more details.
 
-{{ Be mindful of users who do not have a typical background - provide a clear overview of the required software. Also, there might be different requirements for users and collaborators. }}
+- code: contains all the source code required to reproduce all aspects of this project (data preprocessing, data analysis, data visualization).
+- data: contains raw data, intermediate data files, and some final outputs (simulation results, figures).
+- model: contains the final pan-oryzae model in several different formats.
 
+### Usage of the final pan-oryzae model
 
-### Usage
+The final model can be loaded into matlab using the following commands:
 
-{{ Describe how to load and save the model. }}
+```
+panAsp_v3 = importModel("./panAsp_v3.xml");
+panAsp_v3 = importExcelModel("./panAsp_v3.xlsx");
+```
 
+It can be loaded into python using:
 
-### Contributing
+```
+data_dir = Path("./model")
+data_dir = data_dir.resolve()
+model_path = data_dir / "panAsp_v3.xml"
+panOryzae = read_sbml_model(str(model_path.resolve()), skip_validation=True)
+```
 
-Contributions are always welcome! Please read the [contributing guideline](.github/CONTRIBUTING.md) to get started.
+or, for the pickle files:
 
+```
+from pickle import load
+with open(".model/panAsp_v3_ensemble_187_strains.pickle", 'rb') as infile:
+    panAsp_v3_ensemble = load(infile)
 
-### Contributors
+with open(".model/panAsp_v3_gemList_187_strains.pickle", 'rb') as infile:
+    panAsp_v3_gemList = load(infile)
+```
 
-Code contributors are reported automatically by GitHub under [Contributors](https://github.com/{{organization or username}}/{{repository name}}/graphs/contributors), while other contributions come in as [Issues](https://github.com/{{organization or username}}/{{repository name}}/issues).
