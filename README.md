@@ -37,7 +37,7 @@ Gilis, J., van der Luijt, C.R.B., Feller, M., Sanchez-Giron Barba, C., Sommer, M
 
 There are three main folders in this project. Each of these folders contains a README file with more details.
 
-- code: contains all the source code required to reproduce all aspects of this project (data preprocessing, data analysis, data visualization).
+- code: contains all the source code required to reproduce all aspects of this project (data preprocessing, data analysis, data visualization) as well as the virtual environment used for running the python analyses.
 - data: contains raw data, intermediate data files, and some final outputs (simulation results, figures).
 - model: contains the final pan-oryzae model in several different formats.
 
