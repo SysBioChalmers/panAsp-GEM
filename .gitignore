@@ -10,6 +10,10 @@ data/
 # Track placeholder files for directories that must exist for the pipeline
 !data/allModels/.keep
 !data/genome/.keep
+# Track required data files that are too large for Zenodo-style exclusion
+!data/genome/BPGA2ortho_GEM_custom_187_50.csv
+!data/intermediate/panAsp_v2_187_50_1385.xml
+!data/intermediate/transportRxns.csv
 
 # large files (share through Zenodo?)
 u_clusters.txt
