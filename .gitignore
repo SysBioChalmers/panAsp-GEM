@@ -7,6 +7,9 @@ scrap/
 fasta/
 euk90_kegg105/
 data/
+# Track placeholder files for directories that must exist for the pipeline
+!data/allModels/.keep
+!data/genome/.keep
 
 # large files (share through Zenodo?)
 u_clusters.txt
