@@ -21764,6 +21764,8 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00191__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
           <fbc:geneProductRef fbc:geneProduct="G_cluster_13111"/>
@@ -29384,6 +29386,7 @@
         <listOfReactants>
           <speciesReference species="M_C00026__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00123__91__m__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00011__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00025__91__m__93__" stoichiometry="1" constant="true"/>
@@ -29722,7 +29725,7 @@
           <speciesReference species="M_C04236__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00011__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00011__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C02939__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
@@ -37808,11 +37811,11 @@
           <speciesReference species="M_C00002__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C13792__47__C13946__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00010__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00020__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C05272__47__C21072__47__C21943__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00013__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -37840,11 +37843,11 @@
           <speciesReference species="M_C00002__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C21980__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00010__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00080__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00020__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C21981__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00013__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -39467,9 +39470,9 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00751__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
@@ -43630,8 +43633,7 @@
           </rdf:RDF>
         </annotation>
         <listOfReactants>
-          <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00001__91__c__93__" stoichiometry="2" constant="true"/>
           <speciesReference species="M_C00250__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
@@ -43683,7 +43685,6 @@
         <listOfReactants>
           <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00014__91__c__93__" stoichiometry="1" constant="true"/>
-          <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00250__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
@@ -43958,9 +43959,11 @@
       <reaction metaid="meta_R_r1755" sboTerm="SBO:0000176" id="R_r1755" name="cytochrome oxidase assembly factor COX15" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
         <listOfReactants>
           <speciesReference species="M_C15672__91__m__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00007__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C15670__91__m__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00001__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
           <fbc:geneProductRef fbc:geneProduct="G_cluster_8138"/>
@@ -45092,11 +45095,13 @@
         <listOfReactants>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20583__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C03683__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00011__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
           <fbc:or>
@@ -45120,11 +45125,13 @@
         <listOfReactants>
           <speciesReference species="M_C00005__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C20575__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C20444__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00006__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00011__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
           <fbc:or>
@@ -52611,10 +52618,13 @@
       <reaction metaid="meta_R_Gap_L_Norvaline_r3" sboTerm="SBO:0000176" id="R_Gap_L_Norvaline_r3" name="Norvaline gap3" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
         <listOfReactants>
           <speciesReference species="M_C01826__91__m__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00001__91__m__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00003__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00014__91__m__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C06255__91__m__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00004__91__m__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
       <reaction metaid="meta_R_Gap_L_Norvaline_r4" sboTerm="SBO:0000176" id="R_Gap_L_Norvaline_r4" name="Norvaline gap4" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
@@ -52722,9 +52732,10 @@
       <reaction metaid="meta_R_Gap_b_Cyclodextrin_r1" sboTerm="SBO:0000176" id="R_Gap_b_Cyclodextrin_r1" name="b_Cyclodextrin gap1" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
         <listOfReactants>
           <speciesReference species="M_C13183__91__e__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00001__91__e__93__" stoichiometry="7" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00267__91__e__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00267__91__e__93__" stoichiometry="7" constant="true"/>
         </listOfProducts>
       </reaction>
       <reaction metaid="meta_R_Gap_myo_Inositol_r1" sboTerm="SBO:0000176" id="R_Gap_myo_Inositol_r1" name="myo_Inositol gap1" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
@@ -52833,9 +52844,13 @@
       <reaction metaid="meta_R_Gap_b_Phenylethylamine_r2" sboTerm="SBO:0000176" id="R_Gap_b_Phenylethylamine_r2" name="b_Phenylethylamine gap2" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
         <listOfReactants>
           <speciesReference species="M_C07086__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00642__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00003__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
       <reaction metaid="meta_R_Gap_Dihydroxy_Acetone_r1" sboTerm="SBO:0000185" id="R_Gap_Dihydroxy_Acetone_r1" name="Dihydroxy_Acetone uptake" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
@@ -52884,9 +52899,9 @@
       <reaction metaid="meta_R_Gap_L_Tryptophan_r3" sboTerm="SBO:0000176" id="R_Gap_L_Tryptophan_r3" name="L_Tryptophan gap3" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
         <listOfReactants>
           <speciesReference species="M_C00090__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C02480__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <fbc:geneProductAssociation>
@@ -52979,10 +52994,14 @@
       <reaction metaid="meta_R_Gap_4HBA_r2" sboTerm="SBO:0000176" id="R_Gap_4HBA_r2" name="4HBA gap2" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
         <listOfReactants>
           <speciesReference species="M_C00156__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00007__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00004__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
           <speciesReference species="M_C00090__91__c__93__" stoichiometry="1" constant="true"/>
           <speciesReference species="M_C00011__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00001__91__c__93__" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_C00003__91__c__93__" stoichiometry="1" constant="true"/>
         </listOfProducts>
       </reaction>
       <reaction metaid="meta_R_Gap_Xanthine_r1" sboTerm="SBO:0000176" id="R_Gap_Xanthine_r1" name="Xanthine gap1" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
@@ -54343,7 +54362,6 @@
           <groups:member groups:name="Arginine decarboxylase" groups:idRef="R_r611"/>
           <groups:member groups:name="Pyrroline-5-carboxylate reductase" groups:idRef="R_r631"/>
           <groups:member groups:name="Deoxyhypusine synthase" groups:idRef="R_r595"/>
-          <groups:member groups:name="S-adenosylmethionine decarboxylase" groups:idRef="R_r592"/>
           <groups:member groups:name="Agmatinase" groups:idRef="R_r612"/>
           <groups:member groups:name="Pyrroline-5-carboxylate reductase" groups:idRef="R_r635"/>
           <groups:member groups:name="N-acetylglutamate synthase" groups:idRef="R_r596"/>
@@ -54355,6 +54373,7 @@
           <groups:member groups:name="N-acetyl-y-glutamyl-phosphate reductase" groups:idRef="R_r601"/>
           <groups:member groups:name="Spontaneous conversion" groups:idRef="R_r615"/>
           <groups:member groups:name="Ornithine aminotransferase" groups:idRef="R_r643"/>
+          <groups:member groups:name="Prolyl-tRNA synthetase" groups:idRef="R_r652"/>
           <groups:member groups:name="Acetylornithine aminotransferase" groups:idRef="R_r602"/>
           <groups:member groups:name="Spontaneous conversion" groups:idRef="R_r616"/>
           <groups:member groups:name="Ornithine decarboxylase" groups:idRef="R_r645"/>
@@ -54366,7 +54385,7 @@
           <groups:member groups:name="Arginyl-tRNA synthetase" groups:idRef="R_r651"/>
           <groups:member groups:name="Argininosuccinate synthase" groups:idRef="R_r607"/>
           <groups:member groups:name="Delta-1-Pyrroline-5-carboxylate dehydrogenase" groups:idRef="R_r619"/>
-          <groups:member groups:name="Prolyl-tRNA synthetase" groups:idRef="R_r652"/>
+          <groups:member groups:name="S-adenosylmethionine decarboxylase" groups:idRef="R_r592"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group10" sboTerm="SBO:0000633" groups:id="G_group10" groups:name="Arginine biosynthesis" groups:kind="partonomy"/>
@@ -54473,15 +54492,15 @@
       <groups:group metaid="meta_G_group38" sboTerm="SBO:0000633" groups:id="G_group38" groups:name="Dioxin degradation" groups:kind="partonomy"/>
       <groups:group metaid="meta_G_group39" sboTerm="SBO:0000633" groups:id="G_group39" groups:name="Disaccharide metabolism (Trehalose, Maltose, Lactose)" groups:kind="partonomy">
         <groups:listOfMembers>
-          <groups:member groups:name="Alpha-glucosidase" groups:idRef="R_r320"/>
           <groups:member groups:name="Alpha, alpha -trehalose-phosphate synthase (UDP-forming)" groups:idRef="R_r315"/>
+          <groups:member groups:name="Alpha-glucosidase" groups:idRef="R_r320"/>
           <groups:member groups:name="Beta-galactosidase" groups:idRef="R_r331"/>
           <groups:member groups:name="Trehalase" groups:idRef="R_r318"/>
-          <groups:member groups:name="Trehalase" groups:idRef="R_r317"/>
           <groups:member groups:name="Alpha-glucosidase" groups:idRef="R_r321"/>
           <groups:member groups:name="Trehalose-phosphatase" groups:idRef="R_r316"/>
-          <groups:member groups:name="Trehalose synthase" groups:idRef="R_r319"/>
           <groups:member groups:name="Beta-galactosidase" groups:idRef="R_r326"/>
+          <groups:member groups:name="Trehalose synthase" groups:idRef="R_r319"/>
+          <groups:member groups:name="Trehalase" groups:idRef="R_r317"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group40" sboTerm="SBO:0000633" groups:id="G_group40" groups:name="Diterpenoid biosynthesis" groups:kind="partonomy"/>
@@ -54489,20 +54508,20 @@
         <groups:listOfMembers>
           <groups:member groups:name="Excretion of Acetate" groups:idRef="R_r2343"/>
           <groups:member groups:name="Excretion of Propanoate" groups:idRef="R_r2351"/>
-          <groups:member groups:name="Excretion of D-Galacturonate" groups:idRef="R_r2346"/>
           <groups:member groups:name="Excretion of Fumarate" groups:idRef="R_r2336"/>
+          <groups:member groups:name="Excretion of D-Galacturonate" groups:idRef="R_r2346"/>
           <groups:member groups:name="Excretion of Oxalate" groups:idRef="R_r2339"/>
           <groups:member groups:name="Excretion of L-Lactate" groups:idRef="R_r2349"/>
           <groups:member groups:name="Excretion of (S)-Malate" groups:idRef="R_r2333"/>
           <groups:member groups:name="Excretion of Formate" groups:idRef="R_r2344"/>
           <groups:member groups:name="Excretion of Isocitrate" groups:idRef="R_r2337"/>
           <groups:member groups:name="Excretion of D-Gluconate" groups:idRef="R_r2347"/>
-          <groups:member groups:name="Excretion of Itaconate" groups:idRef="R_r2338"/>
           <groups:member groups:name="Excretion of Citrate" groups:idRef="R_r2335"/>
           <groups:member groups:name="Excretion of Tartrate" groups:idRef="R_r2350"/>
           <groups:member groups:name="Excretion of Succinate" groups:idRef="R_r2342"/>
-          <groups:member groups:name="Excretion of D-Galactonate" groups:idRef="R_r2345"/>
           <groups:member groups:name="Excretion of D-Lactate" groups:idRef="R_r2348"/>
+          <groups:member groups:name="Excretion of D-Galactonate" groups:idRef="R_r2345"/>
+          <groups:member groups:name="Excretion of Itaconate" groups:idRef="R_r2338"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group42" sboTerm="SBO:0000633" groups:id="G_group42" groups:name="Drain reactions (Alcohols)" groups:kind="partonomy">
@@ -54511,11 +54530,11 @@
           <groups:member groups:name="Excretion of Galactitol" groups:idRef="R_r2330"/>
           <groups:member groups:name="Excretion of Ethanol" groups:idRef="R_r2325"/>
           <groups:member groups:name="Excretion of D-Arabitol" groups:idRef="R_r2328"/>
-          <groups:member groups:name="Excretion of D-Sorbitol" groups:idRef="R_r2332"/>
+          <groups:member groups:name="Excretion of Methanol" groups:idRef="R_r2324"/>
           <groups:member groups:name="Excretion of D-Mannitol" groups:idRef="R_r2331"/>
           <groups:member groups:name="Excretion of Glycerol" groups:idRef="R_r2326"/>
           <groups:member groups:name="Excretion of Xylitol" groups:idRef="R_r2329"/>
-          <groups:member groups:name="Excretion of Methanol" groups:idRef="R_r2324"/>
+          <groups:member groups:name="Excretion of D-Sorbitol" groups:idRef="R_r2332"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group43" sboTerm="SBO:0000633" groups:id="G_group43" groups:name="Drain reactions (Amino acids)" groups:kind="partonomy">
@@ -54586,8 +54605,8 @@
       <groups:group metaid="meta_G_group51" sboTerm="SBO:0000633" groups:id="G_group51" groups:name="Fatty acid biosynthesis" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1241"/>
-          <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1181"/>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1211"/>
+          <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1181"/>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1265"/>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1227"/>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1197"/>
@@ -54598,8 +54617,8 @@
           <groups:member groups:name="Fatty-acid synthase" groups:idRef="R_r1229"/>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1199"/>
           <groups:member groups:name="Stearoyl-CoA 9-desaturase" groups:idRef="R_r1244"/>
-          <groups:member groups:name="Malonyl CoA-acyl carrier protein transacylase" groups:idRef="R_r1184"/>
           <groups:member groups:name="Fatty-acid synthase" groups:idRef="R_r1215"/>
+          <groups:member groups:name="Malonyl CoA-acyl carrier protein transacylase" groups:idRef="R_r1184"/>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1269"/>
           <groups:member groups:name="3-oxoacyl-[acyl-carrier-protein] synthase I" groups:idRef="R_r1230"/>
           <groups:member groups:name="Fatty-acid synthase" groups:idRef="R_r1201"/>
@@ -54609,6 +54628,7 @@
           <groups:member groups:name="Biotin carboxylase" groups:idRef="R_r1187"/>
           <groups:member groups:name="3-oxoacyl-[acyl-carrier-protein] reductase" groups:idRef="R_r1231"/>
           <groups:member groups:name="3-oxoacyl-[acyl-carrier-protein] synthase I" groups:idRef="R_r1202"/>
+          <groups:member groups:name="3-oxoacyl-[acyl-carrier-protein] reductase" groups:idRef="R_r1196"/>
           <groups:member groups:name="Stearoyl-CoA 15-desaturase" groups:idRef="R_r1250"/>
           <groups:member groups:name="3-oxoacyl-[acyl-carrier-protein] reductase" groups:idRef="R_r1217"/>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1273"/>
@@ -54628,7 +54648,6 @@
           <groups:member groups:name="Fatty-acid synthase" groups:idRef="R_r1236"/>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1206"/>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1257"/>
-          <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1225"/>
           <groups:member groups:name="Fatty-acid synthase" groups:idRef="R_r1222"/>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1279"/>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1192"/>
@@ -54646,15 +54665,15 @@
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1239"/>
           <groups:member groups:name="3-oxoacyl-[acyl-carrier-protein] reductase" groups:idRef="R_r1210"/>
           <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1263"/>
-          <groups:member groups:name="3-oxoacyl-[acyl-carrier-protein] reductase" groups:idRef="R_r1196"/>
+          <groups:member groups:name="Acetyl coenzyme A-acyl-carrier-protein transacylase" groups:idRef="R_r1225"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group52" sboTerm="SBO:0000633" groups:id="G_group52" groups:name="Fatty acid degradation" groups:kind="partonomy"/>
       <groups:group metaid="meta_G_group53" sboTerm="SBO:0000633" groups:id="G_group53" groups:name="Fatty acid metabolism" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="Long-chain-fatty-acid-CoA ligase" groups:idRef="R_r1343"/>
-          <groups:member groups:name="Acetyl-CoA C-acyltransferase" groups:idRef="R_r1364"/>
           <groups:member groups:name="Acyl-CoA dehydrogenase" groups:idRef="R_r1389"/>
+          <groups:member groups:name="Acetyl-CoA C-acyltransferase" groups:idRef="R_r1364"/>
           <groups:member groups:name="Very-long-chain acyl-CoA dehydrogenase" groups:idRef="R_r1377"/>
           <groups:member groups:name="Long-chain-fatty-acid-CoA ligase" groups:idRef="R_r1293"/>
           <groups:member groups:name="Long-chain-fatty-acid-CoA ligase" groups:idRef="R_r1348"/>
@@ -54663,8 +54682,8 @@
           <groups:member groups:name="Long-chain-fatty-acid-CoA ligase" groups:idRef="R_r1298"/>
           <groups:member groups:name="Acyl-coenzyme A oxidase" groups:idRef="R_r1379"/>
           <groups:member groups:name="Very-long-chain acyl-CoA dehydrogenase" groups:idRef="R_r1353"/>
-          <groups:member groups:name="Acyl-coenzyme A oxidase" groups:idRef="R_r1367"/>
           <groups:member groups:name="Enoyl-CoA hydratase" groups:idRef="R_r1391"/>
+          <groups:member groups:name="Acyl-coenzyme A oxidase" groups:idRef="R_r1367"/>
           <groups:member groups:name="Long-chain-fatty-acid-CoA ligase" groups:idRef="R_r1303"/>
           <groups:member groups:name="Enoyl-CoA hydratase" groups:idRef="R_r1380"/>
           <groups:member groups:name="Acyl-coenzyme A oxidase" groups:idRef="R_r1355"/>
@@ -54693,19 +54712,19 @@
           <groups:member groups:name="Enoyl-CoA hydratase" groups:idRef="R_r1386"/>
           <groups:member groups:name="Long-chain-fatty-acid-CoA ligase" groups:idRef="R_r1328"/>
           <groups:member groups:name="Acyl-coenzyme A oxidase" groups:idRef="R_r1361"/>
-          <groups:member groups:name="Long-chain-fatty-acid-CoA ligase" groups:idRef="R_r1288"/>
           <groups:member groups:name="3-hydroxyacyl-CoA dehydrogenase" groups:idRef="R_r1397"/>
           <groups:member groups:name="Enoyl-CoA hydratase" groups:idRef="R_r1374"/>
           <groups:member groups:name="Long-chain-fatty-acid-CoA ligase" groups:idRef="R_r1333"/>
           <groups:member groups:name="3-hydroxyacyl-CoA dehydrogenase" groups:idRef="R_r1387"/>
           <groups:member groups:name="Enoyl-CoA hydratase" groups:idRef="R_r1362"/>
+          <groups:member groups:name="Acetyl-CoA C-acyltransferase" groups:idRef="R_r1376"/>
           <groups:member groups:name="3-hydroxyacyl-CoA dehydrogenase" groups:idRef="R_r1375"/>
           <groups:member groups:name="Acetyl-CoA C-acyltransferase" groups:idRef="R_r1398"/>
           <groups:member groups:name="Long-chain-fatty-acid-CoA ligase" groups:idRef="R_r1283"/>
           <groups:member groups:name="Long-chain-fatty-acid-CoA ligase" groups:idRef="R_r1338"/>
           <groups:member groups:name="Acetyl-CoA C-acyltransferase" groups:idRef="R_r1388"/>
           <groups:member groups:name="3-hydroxyacyl-CoA dehydrogenase" groups:idRef="R_r1363"/>
-          <groups:member groups:name="Acetyl-CoA C-acyltransferase" groups:idRef="R_r1376"/>
+          <groups:member groups:name="Long-chain-fatty-acid-CoA ligase" groups:idRef="R_r1288"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group54" sboTerm="SBO:0000633" groups:id="G_group54" groups:name="Flavonoid Biosynthesis" groups:kind="partonomy">
@@ -54764,19 +54783,19 @@
         <groups:listOfMembers>
           <groups:member groups:name="Tagatose kinase" groups:idRef="R_r280"/>
           <groups:member groups:name="UTP-galactose-1-phosphate uridylyltransferase" groups:idRef="R_r266"/>
+          <groups:member groups:name="UDP-glucose 4-epimerase" groups:idRef="R_r259"/>
           <groups:member groups:name="Galactokinase" groups:idRef="R_r257"/>
           <groups:member groups:name="Beta-fructofuranosidase" groups:idRef="R_r272"/>
-          <groups:member groups:name="Galactose oxidase" groups:idRef="R_r274"/>
           <groups:member groups:name="UDP glucose pyrophosphorylase" groups:idRef="R_r262"/>
           <groups:member groups:name="Tagatose-bisphosphate aldolase" groups:idRef="R_r276"/>
           <groups:member groups:name="Alpha-galactosidase" groups:idRef="R_r267"/>
+          <groups:member groups:name="Aldehyde reductase" groups:idRef="R_r253"/>
           <groups:member groups:name="Beta-fructofuranosidase" groups:idRef="R_r273"/>
           <groups:member groups:name="UTP-galactose-1-phosphate uridylyltransferase" groups:idRef="R_r258"/>
-          <groups:member groups:name="Alpha-galactosidase" groups:idRef="R_r269"/>
           <groups:member groups:name="Phosphoglucomutase" groups:idRef="R_r263"/>
           <groups:member groups:name="Phosphofructokinase" groups:idRef="R_r279"/>
-          <groups:member groups:name="Aldehyde reductase" groups:idRef="R_r253"/>
-          <groups:member groups:name="UDP-glucose 4-epimerase" groups:idRef="R_r259"/>
+          <groups:member groups:name="Alpha-galactosidase" groups:idRef="R_r269"/>
+          <groups:member groups:name="Galactose oxidase" groups:idRef="R_r274"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group61" sboTerm="SBO:0000633" groups:id="G_group61" groups:name="Geraniol degradation" groups:kind="partonomy"/>
@@ -54792,19 +54811,19 @@
       </groups:group>
       <groups:group metaid="meta_G_group63" sboTerm="SBO:0000633" groups:id="G_group63" groups:name="Glucose conversion" groups:kind="partonomy">
         <groups:listOfMembers>
-          <groups:member groups:name="Aldose 1-epimerase" groups:idRef="R_r3"/>
           <groups:member groups:name="Spontaneous conversion" groups:idRef="R_r2"/>
+          <groups:member groups:name="Aldose 1-epimerase" groups:idRef="R_r3"/>
           <groups:member groups:name="Spontaneous conversion" groups:idRef="R_r1"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group64" sboTerm="SBO:0000633" groups:id="G_group64" groups:name="Glucosinolate biosynthesis" groups:kind="partonomy"/>
       <groups:group metaid="meta_G_group65" sboTerm="SBO:0000633" groups:id="G_group65" groups:name="Glutamate and glutamine metabolism" groups:kind="partonomy">
         <groups:listOfMembers>
-          <groups:member groups:name="Glucosamine-phosphate N-acetyltransferase" groups:idRef="R_r689"/>
           <groups:member groups:name="NAD-dependent glutamate dehydrogenase" groups:idRef="R_r686"/>
           <groups:member groups:name="Glutamyl-tRNA synthetase" groups:idRef="R_r703"/>
-          <groups:member groups:name="N-acetylglucosamine-phosphate mutase" groups:idRef="R_r691"/>
+          <groups:member groups:name="Glutaminyl-tRNA synthetase" groups:idRef="R_r705"/>
           <groups:member groups:name="Glutamate decarboxylase" groups:idRef="R_r672"/>
+          <groups:member groups:name="N-acetylglucosamine-phosphate mutase" groups:idRef="R_r691"/>
           <groups:member groups:name="Glutaminyl-tRNA synthetase" groups:idRef="R_r706"/>
           <groups:member groups:name="NADPH-dependent glutamate synthase" groups:idRef="R_r684"/>
           <groups:member groups:name="Glutaminase" groups:idRef="R_r697"/>
@@ -54812,11 +54831,11 @@
           <groups:member groups:name="Glutamyl-tRNA synthetase" groups:idRef="R_r704"/>
           <groups:member groups:name="Succinate-semialdehyde dehydrogenase" groups:idRef="R_r676"/>
           <groups:member groups:name="4-aminobutyrate aminotransferase" groups:idRef="R_r692"/>
-          <groups:member groups:name="Succinate-semialdehyde dehydrogenase" groups:idRef="R_r680"/>
           <groups:member groups:name="Glucosamine-fructose-6-phosphate aminotransferase" groups:idRef="R_r701"/>
           <groups:member groups:name="NAD-dependent glutamate dehydrogenase" groups:idRef="R_r685"/>
-          <groups:member groups:name="Glutaminyl-tRNA synthetase" groups:idRef="R_r705"/>
           <groups:member groups:name="Glutamine synthetase" groups:idRef="R_r693"/>
+          <groups:member groups:name="Glucosamine-phosphate N-acetyltransferase" groups:idRef="R_r689"/>
+          <groups:member groups:name="Succinate-semialdehyde dehydrogenase" groups:idRef="R_r680"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group66" sboTerm="SBO:0000633" groups:id="G_group66" groups:name="Glutathione biosynthesis" groups:kind="partonomy">
@@ -54844,9 +54863,9 @@
           <groups:member groups:name="NADP-dependent alcohol dehydrogenase" groups:idRef="R_r1417"/>
           <groups:member groups:name="Glycerol 3-phosphate dehydrogenase" groups:idRef="R_r1425"/>
           <groups:member groups:name="Glycerol dehydrogenase (NADP)" groups:idRef="R_r1404"/>
-          <groups:member groups:name="Glycerol kinase" groups:idRef="R_r1421"/>
-          <groups:member groups:name="Alcohol oxidase" groups:idRef="R_r1410"/>
           <groups:member groups:name="Dihydroxyacetone kinase" groups:idRef="R_r1399"/>
+          <groups:member groups:name="Alcohol oxidase" groups:idRef="R_r1410"/>
+          <groups:member groups:name="Glycerol kinase" groups:idRef="R_r1421"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group69" sboTerm="SBO:0000633" groups:id="G_group69" groups:name="Glycerol phosphate shuttle" groups:kind="partonomy">
@@ -54857,20 +54876,20 @@
       <groups:group metaid="meta_G_group70" sboTerm="SBO:0000633" groups:id="G_group70" groups:name="Glycerolipid Metabolism" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="Diacylglycerol O-acyltransferase" groups:idRef="R_r1588"/>
-          <groups:member groups:name="Phospholipase C" groups:idRef="R_r1653"/>
           <groups:member groups:name="Phospholipid diacylglycerol acyltransferase" groups:idRef="R_r1644"/>
+          <groups:member groups:name="Phospholipase C" groups:idRef="R_r1653"/>
           <groups:member groups:name="Diacylglycerol O-acyltransferase" groups:idRef="R_r1615"/>
           <groups:member groups:name="Phospholipid diacylglycerol acyltransferase" groups:idRef="R_r1647"/>
           <groups:member groups:name="Phospholipid diacylglycerol acyltransferase" groups:idRef="R_r1650"/>
           <groups:member groups:name="UDPgalactose 1,2-diacylglycerol 3-beta-D-galactosyltransferase" groups:idRef="R_r1642"/>
-          <groups:member groups:name="Triacylglycerol lipase" groups:idRef="R_r1602"/>
+          <groups:member groups:name="Phospholipid diacylglycerol acyltransferase" groups:idRef="R_r1646"/>
           <groups:member groups:name="Phospholipid diacylglycerol acyltransferase" groups:idRef="R_r1645"/>
           <groups:member groups:name="Triacylglycerol lipase" groups:idRef="R_r1589"/>
           <groups:member groups:name="Triacylglycerol lipase" groups:idRef="R_r1616"/>
           <groups:member groups:name="Phospholipid diacylglycerol acyltransferase" groups:idRef="R_r1648"/>
           <groups:member groups:name="Phospholipase C" groups:idRef="R_r1651"/>
           <groups:member groups:name="Galactolipid galactosyltransferase" groups:idRef="R_r1643"/>
-          <groups:member groups:name="Phospholipid diacylglycerol acyltransferase" groups:idRef="R_r1646"/>
+          <groups:member groups:name="Triacylglycerol lipase" groups:idRef="R_r1602"/>
           <groups:member groups:name="Phospholipid diacylglycerol acyltransferase" groups:idRef="R_r1649"/>
           <groups:member groups:name="Triacylglycerol lipase" groups:idRef="R_r1629"/>
         </groups:listOfMembers>
@@ -54949,20 +54968,20 @@
         <groups:listOfMembers>
           <groups:member groups:name="Formimidoylglutamase" groups:idRef="R_r779"/>
           <groups:member groups:name="Imidazoleglycerol-phosphate dehydratase" groups:idRef="R_r769"/>
+          <groups:member groups:name="5-proFAR isomerase" groups:idRef="R_r766"/>
           <groups:member groups:name="HNRNP arginine N-methyltransferase" groups:idRef="R_r764"/>
           <groups:member groups:name="Histidinol dehydrogenase" groups:idRef="R_r773"/>
-          <groups:member groups:name="Histidine ammonia-lyase" groups:idRef="R_r775"/>
           <groups:member groups:name="Histidinol dehydrogenase" groups:idRef="R_r767"/>
           <groups:member groups:name="Urocanate hydratase" groups:idRef="R_r776"/>
           <groups:member groups:name="Histidinol-phosphate aminotransferase" groups:idRef="R_r770"/>
           <groups:member groups:name="Histidyl-tRNA synthetase" groups:idRef="R_r780"/>
+          <groups:member groups:name="Glutamine amidotransferase cyclase" groups:idRef="R_r763"/>
           <groups:member groups:name="Ureidoglycolate hydrolase" groups:idRef="R_r765"/>
           <groups:member groups:name="ATP phosphoribosyltransferase" groups:idRef="R_r774"/>
-          <groups:member groups:name="Histidinol-phosphatase" groups:idRef="R_r771"/>
           <groups:member groups:name="Imidazolonepropionase" groups:idRef="R_r777"/>
           <groups:member groups:name="Histidinol dehydrogenase" groups:idRef="R_r768"/>
-          <groups:member groups:name="Glutamine amidotransferase cyclase" groups:idRef="R_r763"/>
-          <groups:member groups:name="5-proFAR isomerase" groups:idRef="R_r766"/>
+          <groups:member groups:name="Histidinol-phosphatase" groups:idRef="R_r771"/>
+          <groups:member groups:name="Histidine ammonia-lyase" groups:idRef="R_r775"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group81" sboTerm="SBO:0000633" groups:id="G_group81" groups:name="Indole alkaloid biosynthesis" groups:kind="partonomy"/>
@@ -54990,13 +55009,13 @@
           <groups:member groups:name="Aldehyde reductase" groups:idRef="R_r226"/>
           <groups:member groups:name="D-xylulose kinase" groups:idRef="R_r232"/>
           <groups:member groups:name="Xylitol dehydrogenase" groups:idRef="R_r211"/>
-          <groups:member groups:name="Aldehyde reductase" groups:idRef="R_r222"/>
+          <groups:member groups:name="D-ribulokinase" groups:idRef="R_r240"/>
           <groups:member groups:name="D-ribulokinase" groups:idRef="R_r238"/>
           <groups:member groups:name="D-arabinitol 4-dehydrogenase" groups:idRef="R_r219"/>
           <groups:member groups:name="D-Arabinose 1-dehydrogenase (NAD(P))" groups:idRef="R_r230"/>
           <groups:member groups:name="Xylose reductase" groups:idRef="R_r214"/>
           <groups:member groups:name="Transketolase" groups:idRef="R_r233"/>
-          <groups:member groups:name="D-ribulokinase" groups:idRef="R_r240"/>
+          <groups:member groups:name="Aldehyde reductase" groups:idRef="R_r222"/>
           <groups:member groups:name="L-xylulose reductase" groups:idRef="R_r208"/>
           <groups:member groups:name="D-Arabinose 1-dehydrogenase (NAD(P))" groups:idRef="R_r231"/>
         </groups:listOfMembers>
@@ -55009,8 +55028,8 @@
           <groups:member groups:name="Methylcitrate dehydratase" groups:idRef="R_r831"/>
           <groups:member groups:name="Lysyl-tRNA synthetase" groups:idRef="R_r843"/>
           <groups:member groups:name="Saccharopine dehydrogenase (NADP, L-glutamate-forming)" groups:idRef="R_r835"/>
-          <groups:member groups:name="Saccharopine dehydrogenase (NAD+, L-lysine forming)" groups:idRef="R_r839"/>
           <groups:member groups:name="Homocitrate synthase" groups:idRef="R_r828"/>
+          <groups:member groups:name="Saccharopine dehydrogenase (NAD+, L-lysine forming)" groups:idRef="R_r839"/>
           <groups:member groups:name="Homoaconitase" groups:idRef="R_r833"/>
           <groups:member groups:name="Homoisocitrate dehydrogenase" groups:idRef="R_r836"/>
           <groups:member groups:name="Dihydrodipicolinate synthase" groups:idRef="R_r842"/>
@@ -55038,23 +55057,23 @@
           <groups:member groups:name="Phosphomannomutase" groups:idRef="R_r300"/>
           <groups:member groups:name="UDP-glucose glycoprotein glucosyltransferase" groups:idRef="R_r303"/>
           <groups:member groups:name="Hexokinase" groups:idRef="R_r290"/>
-          <groups:member groups:name="Mannitol-1-phosphatase" groups:idRef="R_r289"/>
           <groups:member groups:name="6-phosphofructo-2-kinase" groups:idRef="R_r297"/>
           <groups:member groups:name="Endo-1,4-beta-mannosidase" groups:idRef="R_r308"/>
+          <groups:member groups:name="GDP-mannose pyrophosphorylase" groups:idRef="R_r302"/>
           <groups:member groups:name="Mannose-1-phosphate guanylyltransferase" groups:idRef="R_r301"/>
           <groups:member groups:name="Mannose-6-phosphate isomerase" groups:idRef="R_r286"/>
           <groups:member groups:name="Mannitol-1-phosphate dehydrogenase" groups:idRef="R_r295"/>
           <groups:member groups:name="Sorbitol dehydrogenase" groups:idRef="R_r304"/>
           <groups:member groups:name="Fructose-2,6-bisphosphatase" groups:idRef="R_r299"/>
           <groups:member groups:name="Hexokinase" groups:idRef="R_r310"/>
-          <groups:member groups:name="GDP-mannose pyrophosphorylase" groups:idRef="R_r302"/>
+          <groups:member groups:name="Mannitol-1-phosphatase" groups:idRef="R_r289"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group94" sboTerm="SBO:0000633" groups:id="G_group94" groups:name="Melanin biosynthesis" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="Tyrosinase" groups:idRef="R_r1873"/>
-          <groups:member groups:name="Spontaneous conversion" groups:idRef="R_r1884"/>
           <groups:member groups:name="Tyrosinase" groups:idRef="R_r1877"/>
+          <groups:member groups:name="Spontaneous conversion" groups:idRef="R_r1884"/>
           <groups:member groups:name="Spontaneous conversion" groups:idRef="R_r1883"/>
         </groups:listOfMembers>
       </groups:group>
@@ -55063,17 +55082,17 @@
       <groups:group metaid="meta_G_group97" sboTerm="SBO:0000633" groups:id="G_group97" groups:name="Methionine metabolism" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="O-acetylhomoserine (thiol)-lyase" groups:idRef="R_r864"/>
-          <groups:member groups:name="Cystathionine gamma-lyase" groups:idRef="R_r868"/>
           <groups:member groups:name="5-methyltetrahydropteroyltriglutamate - homocysteine S-methyltransferase" groups:idRef="R_r851"/>
+          <groups:member groups:name="Cystathionine gamma-lyase" groups:idRef="R_r868"/>
+          <groups:member groups:name="cystathionine beta-lyase" groups:idRef="R_r847"/>
           <groups:member groups:name="Adenosylhomocysteinase" groups:idRef="R_r857"/>
           <groups:member groups:name="Methionyl-tRNA synthetase" groups:idRef="R_r872"/>
-          <groups:member groups:name="Diphthine synthase" groups:idRef="R_r867"/>
           <groups:member groups:name="Cystathionine gamma-synthase" groups:idRef="R_r865"/>
           <groups:member groups:name="Cystathionine gamma-synthase" groups:idRef="R_r845"/>
           <groups:member groups:name="Homocysteine S-methyltransferase" groups:idRef="R_r870"/>
           <groups:member groups:name="5-methyltetrahydropteroyltriglutamate - homocysteine S-methyltransferase" groups:idRef="R_r853"/>
           <groups:member groups:name="Homoserine O-acetyltransferase" groups:idRef="R_r858"/>
-          <groups:member groups:name="cystathionine beta-lyase" groups:idRef="R_r847"/>
+          <groups:member groups:name="Diphthine synthase" groups:idRef="R_r867"/>
           <groups:member groups:name="S-adenosylmethionine synthetase" groups:idRef="R_r855"/>
           <groups:member groups:name="S-methyl-5-thioadenosine phosphorylase" groups:idRef="R_r871"/>
         </groups:listOfMembers>
@@ -55082,25 +55101,25 @@
         <groups:listOfMembers>
           <groups:member groups:name="Hydroxymethylglutaryl-CoA synthase" groups:idRef="R_r1466"/>
           <groups:member groups:name="Geranylgeranylpyrophosphate synthetase" groups:idRef="R_r1477"/>
-          <groups:member groups:name="Isopentenyl-diphosphate delta-isomerase" groups:idRef="R_r1473"/>
-          <groups:member groups:name="Phosphomevalonate kinase" groups:idRef="R_r1471"/>
+          <groups:member groups:name="Acylglycerol lipase" groups:idRef="R_r1462"/>
           <groups:member groups:name="Acylglycerol lipase" groups:idRef="R_r1460"/>
+          <groups:member groups:name="Phosphomevalonate kinase" groups:idRef="R_r1471"/>
           <groups:member groups:name="Farnesyl-pyrophosphate synthetase" groups:idRef="R_r1475"/>
           <groups:member groups:name="Acetyl-CoA-acetyltransferase" groups:idRef="R_r1464"/>
           <groups:member groups:name="HMG-CoA reductase" groups:idRef="R_r1468"/>
-          <groups:member groups:name="Mevalonate kinase" groups:idRef="R_r1470"/>
           <groups:member groups:name="Diphosphomevalonate decarboxylase" groups:idRef="R_r1472"/>
+          <groups:member groups:name="Di-trans,poly-cis-decaprenylcistransferase" groups:idRef="R_r1486"/>
           <groups:member groups:name="Farnesyl-pyrophosphate synthetase" groups:idRef="R_r1476"/>
           <groups:member groups:name="Acetyl-CoA-acetyltransferase" groups:idRef="R_r1465"/>
-          <groups:member groups:name="Di-trans,poly-cis-decaprenylcistransferase" groups:idRef="R_r1486"/>
-          <groups:member groups:name="Acylglycerol lipase" groups:idRef="R_r1462"/>
+          <groups:member groups:name="Mevalonate kinase" groups:idRef="R_r1470"/>
+          <groups:member groups:name="Isopentenyl-diphosphate delta-isomerase" groups:idRef="R_r1473"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group99" sboTerm="SBO:0000633" groups:id="G_group99" groups:name="NAD and NADP Conversion" groups:kind="partonomy">
         <groups:listOfMembers>
-          <groups:member groups:name="NMN nucleosidase" groups:idRef="R_r1717"/>
           <groups:member groups:name="NAD nucleosidase" groups:idRef="R_r1715"/>
           <groups:member groups:name="Nicotinate-nucleotide pyrophosphorylase" groups:idRef="R_r1724"/>
+          <groups:member groups:name="Nicotinate phosphoribosyltransferase" groups:idRef="R_r1727"/>
           <groups:member groups:name="Nicotinamidase" groups:idRef="R_r1718"/>
           <groups:member groups:name="Nicotinamide nucleotide transhydrogenase" groups:idRef="R_r1713"/>
           <groups:member groups:name="Glutamine dependent NAD synthetase" groups:idRef="R_r1722"/>
@@ -55109,7 +55128,7 @@
           <groups:member groups:name="Nicotinamidase" groups:idRef="R_r1719"/>
           <groups:member groups:name="Spontaneous conversion" groups:idRef="R_r1723"/>
           <groups:member groups:name="NADH kinase" groups:idRef="R_r1714"/>
-          <groups:member groups:name="Nicotinate phosphoribosyltransferase" groups:idRef="R_r1727"/>
+          <groups:member groups:name="NMN nucleosidase" groups:idRef="R_r1717"/>
           <groups:member groups:name="Nicotinamide mononucleotide adenylyl transferase" groups:idRef="R_r1721"/>
         </groups:listOfMembers>
       </groups:group>
@@ -55143,18 +55162,20 @@
           <groups:member groups:name="Adenylate kinase" groups:idRef="R_r1132"/>
           <groups:member groups:name="Ribonucleoside-diphosphate reductase" groups:idRef="R_r1167"/>
           <groups:member groups:name="Nucleoside diphosphate kinase" groups:idRef="R_r1143"/>
-          <groups:member groups:name="5-nucleotidase" groups:idRef="R_r1157"/>
           <groups:member groups:name="S-methyl-5-thioadenosine phosphorylase" groups:idRef="R_r1122"/>
+          <groups:member groups:name="5-nucleotidase" groups:idRef="R_r1157"/>
           <groups:member groups:name="Adenylate kinase" groups:idRef="R_r1133"/>
           <groups:member groups:name="Ribonucleoside-diphosphate reductase" groups:idRef="R_r1168"/>
           <groups:member groups:name="Adenylate kinase" groups:idRef="R_r1144"/>
           <groups:member groups:name="S-methyl-5-thioadenosine phosphorylase" groups:idRef="R_r1123"/>
           <groups:member groups:name="5-nucleotidase" groups:idRef="R_r1158"/>
-          <groups:member groups:name="Ribonucleoside-triphosphate reductase" groups:idRef="R_r1169"/>
+          <groups:member groups:name="Uridylate kinase" groups:idRef="R_r1179"/>
           <groups:member groups:name="Adenylate kinase" groups:idRef="R_r1134"/>
+          <groups:member groups:name="Ribonucleoside-triphosphate reductase" groups:idRef="R_r1169"/>
           <groups:member groups:name="Adenosine deaminase" groups:idRef="R_r1148"/>
           <groups:member groups:name="S-methyl-5-thioadenosine phosphorylase" groups:idRef="R_r1124"/>
           <groups:member groups:name="5-nucleotidase" groups:idRef="R_r1159"/>
+          <groups:member groups:name="5-nucleotidase" groups:idRef="R_r1156"/>
           <groups:member groups:name="Nucleoside diphosphate kinase" groups:idRef="R_r1135"/>
           <groups:member groups:name="Ribonucleoside-triphosphate reductase" groups:idRef="R_r1170"/>
           <groups:member groups:name="Adenosine kinase" groups:idRef="R_r1149"/>
@@ -55189,16 +55210,14 @@
           <groups:member groups:name="5-nucleotidase" groups:idRef="R_r1154"/>
           <groups:member groups:name="Adenylate kinase" groups:idRef="R_r1130"/>
           <groups:member groups:name="Ribonucleoside-diphosphate reductase" groups:idRef="R_r1165"/>
-          <groups:member groups:name="Nucleoside diphosphate kinase" groups:idRef="R_r1142"/>
           <groups:member groups:name="Nucleoside diphosphate kinase" groups:idRef="R_r1141"/>
           <groups:member groups:name="Uridylate kinase" groups:idRef="R_r1178"/>
           <groups:member groups:name="S-methyl-5-thioadenosine phosphorylase" groups:idRef="R_r1120"/>
           <groups:member groups:name="5-nucleotidase" groups:idRef="R_r1155"/>
           <groups:member groups:name="Adenylate kinase" groups:idRef="R_r1131"/>
           <groups:member groups:name="Ribonucleoside-diphosphate reductase" groups:idRef="R_r1166"/>
+          <groups:member groups:name="Nucleoside diphosphate kinase" groups:idRef="R_r1142"/>
           <groups:member groups:name="S-methyl-5-thioadenosine phosphorylase" groups:idRef="R_r1121"/>
-          <groups:member groups:name="Uridylate kinase" groups:idRef="R_r1179"/>
-          <groups:member groups:name="5-nucleotidase" groups:idRef="R_r1156"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group104" sboTerm="SBO:0000633" groups:id="G_group104" groups:name="One carbon pool by folate" groups:kind="partonomy"/>
@@ -55268,8 +55287,8 @@
         <groups:listOfMembers>
           <groups:member groups:name="Gluconokinase" groups:idRef="R_r68"/>
           <groups:member groups:name="Ribose 5-phosphate isomerase" groups:idRef="R_r54"/>
-          <groups:member groups:name="Transketolase" groups:idRef="R_r58"/>
           <groups:member groups:name="Transaldolase" groups:idRef="R_r61"/>
+          <groups:member groups:name="Fructose-6-phosphate phosphoketolase" groups:idRef="R_r72"/>
           <groups:member groups:name="Phosphogluconate dehydrogenase (decarboxylating)" groups:idRef="R_r51"/>
           <groups:member groups:name="Deoxyribose-phosphate aldolase" groups:idRef="R_r64"/>
           <groups:member groups:name="Phosphoglucomutase" groups:idRef="R_r69"/>
@@ -55278,9 +55297,9 @@
           <groups:member groups:name="Glucose-6-phosphate 1-dehydrogenase" groups:idRef="R_r49"/>
           <groups:member groups:name="Ribokinase" groups:idRef="R_r66"/>
           <groups:member groups:name="Ribulose-phosphate 3-epimerase" groups:idRef="R_r53"/>
-          <groups:member groups:name="Phosphopentomutase" groups:idRef="R_r63"/>
-          <groups:member groups:name="Fructose-6-phosphate phosphoketolase" groups:idRef="R_r72"/>
           <groups:member groups:name="6-phosphogluconolactonase" groups:idRef="R_r50"/>
+          <groups:member groups:name="Transketolase" groups:idRef="R_r58"/>
+          <groups:member groups:name="Phosphopentomutase" groups:idRef="R_r63"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group113" sboTerm="SBO:0000633" groups:id="G_group113" groups:name="Phenylalanine metabolism" groups:kind="partonomy"/>
@@ -55288,18 +55307,19 @@
       <groups:group metaid="meta_G_group115" sboTerm="SBO:0000633" groups:id="G_group115" groups:name="Phenylalanine, tyrosine and tryptophan biosynthesis (Aromatic amino acids)" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="Kynurenine 3-monooxygenase" groups:idRef="R_r899"/>
-          <groups:member groups:name="Aminomuconate-semialdehyde dehydrogenase" groups:idRef="R_r915"/>
           <groups:member groups:name="Glutaryl-CoA dehydrogenase" groups:idRef="R_r959"/>
+          <groups:member groups:name="Aminomuconate-semialdehyde dehydrogenase" groups:idRef="R_r915"/>
           <groups:member groups:name="Chorismate synthase" groups:idRef="R_r884"/>
           <groups:member groups:name="Polyamine oxidase" groups:idRef="R_r941"/>
           <groups:member groups:name="Kynureninase" groups:idRef="R_r900"/>
+          <groups:member groups:name="Polyamine oxidase" groups:idRef="R_r939"/>
           <groups:member groups:name="Tyrosyl-tRNA synthetase" groups:idRef="R_r960"/>
           <groups:member groups:name="4-hydroxyphenylpyruvate dioxygenase" groups:idRef="R_r916"/>
           <groups:member groups:name="Anthranilate synthase" groups:idRef="R_r885"/>
           <groups:member groups:name="Kynurenine aminotransferase" groups:idRef="R_r943"/>
           <groups:member groups:name="3-Hydroxyanthranilate 3,4-dioxygenase" groups:idRef="R_r902"/>
-          <groups:member groups:name="Homogentisate 1,2-dioxygenase" groups:idRef="R_r921"/>
           <groups:member groups:name="Tyrosyl-tRNA synthetase" groups:idRef="R_r961"/>
+          <groups:member groups:name="Homogentisate 1,2-dioxygenase" groups:idRef="R_r921"/>
           <groups:member groups:name="Aryl-alcohol dehydrogenase" groups:idRef="R_r944"/>
           <groups:member groups:name="Anthranilate phosphoribosyltransferase" groups:idRef="R_r886"/>
           <groups:member groups:name="2-amino-3-carboxymuconate-6-semialdehyde decarboxylase" groups:idRef="R_r903"/>
@@ -55329,7 +55349,6 @@
           <groups:member groups:name="Aromatic-L-amino-acid decarboxylase" groups:idRef="R_r892"/>
           <groups:member groups:name="Catalase" groups:idRef="R_r954"/>
           <groups:member groups:name="Prephenate dehydratase" groups:idRef="R_r910"/>
-          <groups:member groups:name="3-dehydroquinate synthase" groups:idRef="R_r883"/>
           <groups:member groups:name="Quinate dehydrogenase" groups:idRef="R_r881"/>
           <groups:member groups:name="Acetamidase" groups:idRef="R_r934"/>
           <groups:member groups:name="Formamidase" groups:idRef="R_r896"/>
@@ -55340,20 +55359,20 @@
           <groups:member groups:name="Kynureninase" groups:idRef="R_r897"/>
           <groups:member groups:name="2-oxoglutarate dehydrogenase" groups:idRef="R_r958"/>
           <groups:member groups:name="Aspartate transaminase" groups:idRef="R_r914"/>
-          <groups:member groups:name="Polyamine oxidase" groups:idRef="R_r939"/>
+          <groups:member groups:name="3-dehydroquinate synthase" groups:idRef="R_r883"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group116" sboTerm="SBO:0000633" groups:id="G_group116" groups:name="Phenylpropanoid biosynthesis" groups:kind="partonomy"/>
       <groups:group metaid="meta_G_group117" sboTerm="SBO:0000633" groups:id="G_group117" groups:name="Phospholipid metabolism" groups:kind="partonomy">
         <groups:listOfMembers>
-          <groups:member groups:name="Diacylglycerol pyrophosphate phosphatase" groups:idRef="R_r1504"/>
           <groups:member groups:name="Phospholipase D" groups:idRef="R_r1542"/>
+          <groups:member groups:name="Diacylglycerol pyrophosphate phosphatase" groups:idRef="R_r1504"/>
           <groups:member groups:name="Phosphatidylserine decarboxylase" groups:idRef="R_r1521"/>
-          <groups:member groups:name="Phosphatidylglycerol phosphate phosphatase" groups:idRef="R_r1506"/>
           <groups:member groups:name="Lysophospholipase" groups:idRef="R_r1546"/>
+          <groups:member groups:name="Phosphatidylglycerol phosphate phosphatase" groups:idRef="R_r1506"/>
           <groups:member groups:name="Phosphatidylserine decarboxylase" groups:idRef="R_r1523"/>
-          <groups:member groups:name="Phosphatidylethanolamine N-methyltransferase" groups:idRef="R_r1554"/>
           <groups:member groups:name="CDP-diacylglycerol-glycerol-3-phosphate 3-phosphatidyltransferase" groups:idRef="R_r1507"/>
+          <groups:member groups:name="Phosphatidylethanolamine N-methyltransferase" groups:idRef="R_r1554"/>
           <groups:member groups:name="Acylglycerone-phosphate reductase" groups:idRef="R_r1526"/>
           <groups:member groups:name="Phospholipid methyltransferase" groups:idRef="R_r1555"/>
           <groups:member groups:name="Ethanolaminephosphotransferase." groups:idRef="R_r1509"/>
@@ -55383,7 +55402,6 @@
         <groups:listOfMembers>
           <groups:member groups:name="Alpha-glucosidase" groups:idRef="R_r381"/>
           <groups:member groups:name="Beta-xylosidase" groups:idRef="R_r484"/>
-          <groups:member groups:name="Chitin deacetylase" groups:idRef="R_r441"/>
           <groups:member groups:name="Chitinase" groups:idRef="R_r404"/>
           <groups:member groups:name="Beta-glucosidase" groups:idRef="R_r353"/>
           <groups:member groups:name="Chitosanase" groups:idRef="R_r443"/>
@@ -55392,6 +55410,7 @@
           <groups:member groups:name="Chitinase" groups:idRef="R_r407"/>
           <groups:member groups:name="Cellobiose dehydrogenase" groups:idRef="R_r367"/>
           <groups:member groups:name="Chitosanase" groups:idRef="R_r445"/>
+          <groups:member groups:name="Beta-glucosidase" groups:idRef="R_r351"/>
           <groups:member groups:name="Exo-polygalacturonase" groups:idRef="R_r388"/>
           <groups:member groups:name="Cellobiose dehydrogenase" groups:idRef="R_r369"/>
           <groups:member groups:name="Exo-beta-1,3-glucanase" groups:idRef="R_r446"/>
@@ -55429,7 +55448,7 @@
           <groups:member groups:name="Chitin deacetylase" groups:idRef="R_r440"/>
           <groups:member groups:name="Glycogen phosphorylase" groups:idRef="R_r380"/>
           <groups:member groups:name="Alpha-L-arabinofuranosidase" groups:idRef="R_r477"/>
-          <groups:member groups:name="Beta-glucosidase" groups:idRef="R_r351"/>
+          <groups:member groups:name="Chitin deacetylase" groups:idRef="R_r441"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group120" sboTerm="SBO:0000633" groups:id="G_group120" groups:name="Porphyrin and Chrophyll metabolism" groups:kind="partonomy">
@@ -55440,14 +55459,14 @@
           <groups:member groups:name="Uroporphyrinogen decarboxylase" groups:idRef="R_r1748"/>
           <groups:member groups:name="Ferrochelatase" groups:idRef="R_r1753"/>
           <groups:member groups:name="Glutamate-1-semialdehyde 2,1-aminomutase" groups:idRef="R_r1741"/>
-          <groups:member groups:name="Uroporphyrinogen-III synthase" groups:idRef="R_r1747"/>
+          <groups:member groups:name="Uroporphyrin-III C-methyltransferase" groups:idRef="R_r1758"/>
           <groups:member groups:name="Cytochrome c1 heme lyase" groups:idRef="R_r1756"/>
           <groups:member groups:name="Hydroxymethylbilane synthase" groups:idRef="R_r1744"/>
           <groups:member groups:name="Coproporphyrinogen III oxidase" groups:idRef="R_r1749"/>
           <groups:member groups:name="Precorrin-2 dehydrogenase" groups:idRef="R_r1760"/>
           <groups:member groups:name="5-aminolevulinic acid synthase" groups:idRef="R_r1742"/>
           <groups:member groups:name="Heme A farnesyltransferase" groups:idRef="R_r1754"/>
-          <groups:member groups:name="Uroporphyrin-III C-methyltransferase" groups:idRef="R_r1758"/>
+          <groups:member groups:name="Uroporphyrinogen-III synthase" groups:idRef="R_r1747"/>
           <groups:member groups:name="Glutamyl-tRNA reductase" groups:idRef="R_r1740"/>
           <groups:member groups:name="Protoporphyrinogen oxidase" groups:idRef="R_r1751"/>
         </groups:listOfMembers>
@@ -55456,8 +55475,8 @@
       <groups:group metaid="meta_G_group122" sboTerm="SBO:0000633" groups:id="G_group122" groups:name="Prodigiosin biosynthesis" groups:kind="partonomy"/>
       <groups:group metaid="meta_G_group123" sboTerm="SBO:0000633" groups:id="G_group123" groups:name="Propanoate and butanoate metabolism" groups:kind="partonomy">
         <groups:listOfMembers>
-          <groups:member groups:name="Propionyl-CoA carboxylase" groups:idRef="R_r181"/>
           <groups:member groups:name="Methylisocitrate dehydratase" groups:idRef="R_r187"/>
+          <groups:member groups:name="Acetoacetyl-CoA synthase" groups:idRef="R_r189"/>
           <groups:member groups:name="3-hydroxybutyryl-CoA dehydrogenase" groups:idRef="R_r192"/>
           <groups:member groups:name="Methylmalonyl-CoA decarboxylase" groups:idRef="R_r182"/>
           <groups:member groups:name="Methylcitrate synthase" groups:idRef="R_r185"/>
@@ -55465,7 +55484,7 @@
           <groups:member groups:name="Methylisocitrate lyase" groups:idRef="R_r188"/>
           <groups:member groups:name="1-aminocyclopropane-1-carboxylate synthase" groups:idRef="R_r183"/>
           <groups:member groups:name="Methylcitrate dehydratase" groups:idRef="R_r186"/>
-          <groups:member groups:name="Acetoacetyl-CoA synthase" groups:idRef="R_r189"/>
+          <groups:member groups:name="Propionyl-CoA carboxylase" groups:idRef="R_r181"/>
           <groups:member groups:name="1-aminocyclopropane-1-carboxylate deaminase" groups:idRef="R_r184"/>
         </groups:listOfMembers>
       </groups:group>
@@ -55523,14 +55542,14 @@
       <groups:group metaid="meta_G_group128" sboTerm="SBO:0000633" groups:id="G_group128" groups:name="Purine metabolism" groups:kind="partonomy"/>
       <groups:group metaid="meta_G_group129" sboTerm="SBO:0000633" groups:id="G_group129" groups:name="Pyrimidine metabolism" groups:kind="partonomy">
         <groups:listOfMembers>
-          <groups:member groups:name="Dihydroorotate oxidase" groups:idRef="R_r1080"/>
           <groups:member groups:name="Uridine nucleosidase" groups:idRef="R_r1108"/>
+          <groups:member groups:name="Dihydroorotate oxidase" groups:idRef="R_r1080"/>
           <groups:member groups:name="Cytidine deaminase" groups:idRef="R_r1093"/>
-          <groups:member groups:name="Orotate phosphoribosyltransferase" groups:idRef="R_r1081"/>
           <groups:member groups:name="Carbamoyl-phosphate synthase (glutamine-hydrolysing)" groups:idRef="R_r1109"/>
+          <groups:member groups:name="Orotate phosphoribosyltransferase" groups:idRef="R_r1081"/>
           <groups:member groups:name="Cytidine deaminase" groups:idRef="R_r1094"/>
-          <groups:member groups:name="Carbamoyl-phosphate synthase (glutamine-hydrolysing)" groups:idRef="R_r1110"/>
           <groups:member groups:name="Orotidine 5-phosphate decarboxylase" groups:idRef="R_r1082"/>
+          <groups:member groups:name="Carbamoyl-phosphate synthase (glutamine-hydrolysing)" groups:idRef="R_r1110"/>
           <groups:member groups:name="Thioredoxin reductase" groups:idRef="R_r1097"/>
           <groups:member groups:name="Inosine triphosphate pyrophosphatase" groups:idRef="R_r1111"/>
           <groups:member groups:name="Uridylate kinase" groups:idRef="R_r1083"/>
@@ -55615,9 +55634,9 @@
         <groups:listOfMembers>
           <groups:member groups:name="3-ketosphinganine reductase" groups:idRef="R_r1567"/>
           <groups:member groups:name="Fatty acid desaturase" groups:idRef="R_r1577"/>
-          <groups:member groups:name="Sphinganine kinase" groups:idRef="R_r1569"/>
-          <groups:member groups:name="Sphingosine-1-phosphate lyase" groups:idRef="R_r1570"/>
           <groups:member groups:name="MIP2C synthase" groups:idRef="R_r1581"/>
+          <groups:member groups:name="Sphingosine-1-phosphate lyase" groups:idRef="R_r1570"/>
+          <groups:member groups:name="MIPC synthase" groups:idRef="R_r1579"/>
           <groups:member groups:name="Sphingomyelin phosphodiesterase" groups:idRef="R_r1584"/>
           <groups:member groups:name="Ceramide synthase" groups:idRef="R_r1575"/>
           <groups:member groups:name="MIP2C synthase" groups:idRef="R_r1578"/>
@@ -55627,9 +55646,9 @@
           <groups:member groups:name="Ceramide hydroxylase" groups:idRef="R_r1576"/>
           <groups:member groups:name="Arylsulfatase" groups:idRef="R_r1587"/>
           <groups:member groups:name="Serine palmitoyltransferase" groups:idRef="R_r1565"/>
-          <groups:member groups:name="Sphingolipid hydroxylase" groups:idRef="R_r1574"/>
-          <groups:member groups:name="MIPC synthase" groups:idRef="R_r1579"/>
+          <groups:member groups:name="Sphinganine kinase" groups:idRef="R_r1569"/>
           <groups:member groups:name="ceramide glucosyltransferase" groups:idRef="R_r1583"/>
+          <groups:member groups:name="Sphingolipid hydroxylase" groups:idRef="R_r1574"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group137" sboTerm="SBO:0000633" groups:id="G_group137" groups:name="Sphingolipid metabolism" groups:kind="partonomy"/>
@@ -55638,14 +55657,14 @@
       <groups:group metaid="meta_G_group140" sboTerm="SBO:0000633" groups:id="G_group140" groups:name="Sterigmatocystin/Aflatoxin biosynthesis" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="Demethylsterigmatocystin 6-O-methyltransferase" groups:idRef="R_r1835"/>
-          <groups:member groups:name="Norsolorinic acid reductase" groups:idRef="R_r1817"/>
           <groups:member groups:name="O-Methylsterigmatocystin oxidoreductase" groups:idRef="R_r1844"/>
           <groups:member groups:name="Sterigmatocystin biosynthesis P450 monooxygenase" groups:idRef="R_r1828"/>
+          <groups:member groups:name="Norsolorinic acid reductase" groups:idRef="R_r1817"/>
           <groups:member groups:name="Demethylsterigmatocystin 6-O-methyltransferase" groups:idRef="R_r1833"/>
           <groups:member groups:name="Sterigmatocystin biosynthesis lipase/esterase STCI" groups:idRef="R_r1826"/>
           <groups:member groups:name="Demethylsterigmatocystin 6-O-methyltransferase" groups:idRef="R_r1837"/>
+          <groups:member groups:name="Sterigmatocystin biosynthesis protein stcO" groups:idRef="R_r1825"/>
           <groups:member groups:name="cytochrome P450 monooxygenase" groups:idRef="R_r1820"/>
-          <groups:member groups:name="1,3,6,8-tetrahydroxynaphthalene reductase" groups:idRef="R_r1831"/>
           <groups:member groups:name="1,3,6,8-tetrahydroxynaphthalene reductase" groups:idRef="R_r1829"/>
           <groups:member groups:name="O-Methylsterigmatocystin oxidoreductase" groups:idRef="R_r1849"/>
           <groups:member groups:name="Versicolorin B synthase" groups:idRef="R_r1827"/>
@@ -55653,7 +55672,7 @@
           <groups:member groups:name="O-Methylsterigmatocystin oxidoreductase" groups:idRef="R_r1854"/>
           <groups:member groups:name="O-Methylsterigmatocystin oxidoreductase" groups:idRef="R_r1839"/>
           <groups:member groups:name="Fatty acid synthase" groups:idRef="R_r1814"/>
-          <groups:member groups:name="Sterigmatocystin biosynthesis protein stcO" groups:idRef="R_r1825"/>
+          <groups:member groups:name="1,3,6,8-tetrahydroxynaphthalene reductase" groups:idRef="R_r1831"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group141" sboTerm="SBO:0000633" groups:id="G_group141" groups:name="Steroid biosynthesis" groups:kind="partonomy">
@@ -55662,16 +55681,16 @@
           <groups:member groups:name="C-3 sterol keto reductase" groups:idRef="R_r1442"/>
           <groups:member groups:name="Oxidosqualene lanosterol cyclase" groups:idRef="R_r1430"/>
           <groups:member groups:name="C-3 sterol keto reductase" groups:idRef="R_r1447"/>
-          <groups:member groups:name="Squalene monooxygenase" groups:idRef="R_r1429"/>
           <groups:member groups:name="C-4 methyl sterol oxidase" groups:idRef="R_r1451"/>
           <groups:member groups:name="C-4 methyl sterol oxidase" groups:idRef="R_r1438"/>
+          <groups:member groups:name="C-3 sterol dehydrogenase" groups:idRef="R_r1446"/>
           <groups:member groups:name="C-4 methyl sterol oxidase" groups:idRef="R_r1443"/>
           <groups:member groups:name="Squalene synthase" groups:idRef="R_r1428"/>
           <groups:member groups:name="Sterol 24-c-methyltransferase" groups:idRef="R_r1448"/>
           <groups:member groups:name="Sterol 14-demethylase" groups:idRef="R_r1433"/>
           <groups:member groups:name="C-3 sterol dehydrogenase" groups:idRef="R_r1441"/>
           <groups:member groups:name="Sterol C-22 desaturase" groups:idRef="R_r1454"/>
-          <groups:member groups:name="C-3 sterol dehydrogenase" groups:idRef="R_r1446"/>
+          <groups:member groups:name="Squalene monooxygenase" groups:idRef="R_r1429"/>
           <groups:member groups:name="C-14 sterol reductase" groups:idRef="R_r1436"/>
           <groups:member groups:name="C-8 sterol isomerase" groups:idRef="R_r1450"/>
         </groups:listOfMembers>
@@ -55697,22 +55716,22 @@
       <groups:group metaid="meta_G_group147" sboTerm="SBO:0000633" groups:id="G_group147" groups:name="Terpenoid backbone biosynthesis" groups:kind="partonomy"/>
       <groups:group metaid="meta_G_group148" sboTerm="SBO:0000633" groups:id="G_group148" groups:name="Thiamine Metabolism" groups:kind="partonomy">
         <groups:listOfMembers>
-          <groups:member groups:name="Thiamine biosynthesis protein (ThiC)" groups:idRef="R_r1703"/>
           <groups:member groups:name="Thiamine kinase" groups:idRef="R_r1709"/>
+          <groups:member groups:name="Thiamine biosynthesis protein (ThiC)" groups:idRef="R_r1703"/>
           <groups:member groups:name="Hydroxyethylthiazole kinase" groups:idRef="R_r1707"/>
-          <groups:member groups:name="Phosphomethylpyrimidine kinase" groups:idRef="R_r1705"/>
           <groups:member groups:name="Thiamine-phosphate kinase" groups:idRef="R_r1710"/>
           <groups:member groups:name="Hydroxymethylpyrimidine kinase" groups:idRef="R_r1704"/>
-          <groups:member groups:name="Hydroxyethylthiazole kinase" groups:idRef="R_r1708"/>
           <groups:member groups:name="Thiamine pyrophosphokinase" groups:idRef="R_r1711"/>
+          <groups:member groups:name="Hydroxyethylthiazole kinase" groups:idRef="R_r1708"/>
+          <groups:member groups:name="Phosphomethylpyrimidine kinase" groups:idRef="R_r1705"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group149" sboTerm="SBO:0000633" groups:id="G_group149" groups:name="Transport, mitochondrial membrane" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="(S)-3-Hydroxy-3-methylglutaryl-CoA mitochondrial membrane transport" groups:idRef="R_r2173"/>
           <groups:member groups:name="CO2 mitochondrial membrane transport" groups:idRef="R_r2117"/>
-          <groups:member groups:name="3-Carboxy-4-methyl-2-oxopentanoate mitochondrial membrane transport" groups:idRef="R_r2131"/>
           <groups:member groups:name="Citrate mitochondrial membrane transport" groups:idRef="R_r2152"/>
+          <groups:member groups:name="3-Carboxy-4-methyl-2-oxopentanoate mitochondrial membrane transport" groups:idRef="R_r2131"/>
           <groups:member groups:name="Mitochondrial ADP/ATP carrier proteins" groups:idRef="R_r2163"/>
           <groups:member groups:name="Acetate mitochondrial membrane transport" groups:idRef="R_r2142"/>
           <groups:member groups:name="Dihydrofolate mitochondrial membrane transport" groups:idRef="R_r2174"/>
@@ -55721,10 +55740,10 @@
           <groups:member groups:name="Carbamoyl phosphate mitochondrial membrane transport" groups:idRef="R_r2132"/>
           <groups:member groups:name="S-Adenosyl-L-methionine mitochondrial membrane transport" groups:idRef="R_r2164"/>
           <groups:member groups:name="Acetaldehyde mitochondrial membrane transport" groups:idRef="R_r2143"/>
-          <groups:member groups:name="O2 mitochondrial membrane transport" groups:idRef="R_r2119"/>
           <groups:member groups:name="Propanoate mitochondria membrane transporter" groups:idRef="R_r2175"/>
-          <groups:member groups:name="L-Kynurenine mitochondrial membrane transport" groups:idRef="R_r2133"/>
+          <groups:member groups:name="O2 mitochondrial membrane transport" groups:idRef="R_r2119"/>
           <groups:member groups:name="Succinate/fumarate antiporter" groups:idRef="R_r2154"/>
+          <groups:member groups:name="L-Kynurenine mitochondrial membrane transport" groups:idRef="R_r2133"/>
           <groups:member groups:name="S-Adenosyl-L-homocysteine mitochondrial membrane transport" groups:idRef="R_r2165"/>
           <groups:member groups:name="Formate mitochondrial membrane transport" groups:idRef="R_r2144"/>
           <groups:member groups:name="Mitochondrial phosphate carrier" groups:idRef="R_r2120"/>
@@ -55758,13 +55777,13 @@
           <groups:member groups:name="Citrulline mitochondrial membrane transport" groups:idRef="R_r2171"/>
           <groups:member groups:name="Fumarate mitochondrial membrane transport" groups:idRef="R_r2150"/>
           <groups:member groups:name="Mitochondrial 2-keto-3-methyl-valerate carrier" groups:idRef="R_r2129"/>
-          <groups:member groups:name="Ethanol mitochondrial membrane transport" groups:idRef="R_r2141"/>
           <groups:member groups:name="5,10-Methenyltetrahydrofolate mitochondrial membrane transport" groups:idRef="R_r2140"/>
           <groups:member groups:name="Citrate transport protein" groups:idRef="R_r2161"/>
           <groups:member groups:name="FAD transport protein" groups:idRef="R_r2172"/>
           <groups:member groups:name="Malate mitochondrial membrane transport" groups:idRef="R_r2151"/>
-          <groups:member groups:name="Mitochondrial L-Threonine carrier" groups:idRef="R_r2130"/>
           <groups:member groups:name="Glutamate carrier" groups:idRef="R_r2162"/>
+          <groups:member groups:name="Mitochondrial L-Threonine carrier" groups:idRef="R_r2130"/>
+          <groups:member groups:name="Ethanol mitochondrial membrane transport" groups:idRef="R_r2141"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group150" sboTerm="SBO:0000633" groups:id="G_group150" groups:name="Transport, peroxisomal membrane" groups:kind="partonomy">
@@ -55775,7 +55794,7 @@
           <groups:member groups:name="Succinate peroxisomal membrane transport" groups:idRef="R_r2184"/>
           <groups:member groups:name="Ureidoglycolate peroxisomal membrane transport" groups:idRef="R_r2197"/>
           <groups:member groups:name="2-oxoglutarate peroxisomal membrane transport" groups:idRef="R_r2187"/>
-          <groups:member groups:name="Propanoyl-CoA peroxisomal membrane transport" groups:idRef="R_r2193"/>
+          <groups:member groups:name="Isocitrate/malate peroxisomal membrane transport" groups:idRef="R_r2183"/>
           <groups:member groups:name="Pyruvate peroxisomal membrane transport" groups:idRef="R_r2192"/>
           <groups:member groups:name="O2 peroxisomal membrane transport" groups:idRef="R_r2182"/>
           <groups:member groups:name="Malic acid transport protein" groups:idRef="R_r2185"/>
@@ -55783,7 +55802,7 @@
           <groups:member groups:name="H2O2 peroxisomal membrane transport" groups:idRef="R_r2198"/>
           <groups:member groups:name="CO2 peroxisomal membrane transport" groups:idRef="R_r2180"/>
           <groups:member groups:name="Allantoate transporter" groups:idRef="R_r2188"/>
-          <groups:member groups:name="Isocitrate/malate peroxisomal membrane transport" groups:idRef="R_r2183"/>
+          <groups:member groups:name="Propanoyl-CoA peroxisomal membrane transport" groups:idRef="R_r2193"/>
           <groups:member groups:name="Xanthine peroxisomal membrane transport" groups:idRef="R_r2196"/>
           <groups:member groups:name="3-hydroxy-isobutyrate peroxisomal membrane transport" groups:idRef="R_r2186"/>
         </groups:listOfMembers>
@@ -55791,20 +55810,20 @@
       <groups:group metaid="meta_G_group151" sboTerm="SBO:0000633" groups:id="G_group151" groups:name="Transport, plasma membrane (Alcohols and acids)" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="Succinate plasma membrane transport" groups:idRef="R_r2109"/>
-          <groups:member groups:name="L-Lactate plasma membrane transport" groups:idRef="R_r2106"/>
+          <groups:member groups:name="Isocitrate plasma membrane transport" groups:idRef="R_r2114"/>
           <groups:member groups:name="Citrate plasma membrane transport" groups:idRef="R_r2112"/>
           <groups:member groups:name="Acetate plasma membrane transport" groups:idRef="R_r2104"/>
           <groups:member groups:name="Oxalate plasma membrane transport" groups:idRef="R_r2115"/>
           <groups:member groups:name="Lactate plasma membrane transport" groups:idRef="R_r2107"/>
-          <groups:member groups:name="Methanol plasma membrane transport" groups:idRef="R_r2103"/>
           <groups:member groups:name="Ethanol plasma membrane transport" groups:idRef="R_r2102"/>
           <groups:member groups:name="Malate plasma membrane transport" groups:idRef="R_r2110"/>
+          <groups:member groups:name="2-oxoglutarate plasma membrane transport" groups:idRef="R_r2111"/>
           <groups:member groups:name="Fumarate plasma membrane transport" groups:idRef="R_r2113"/>
           <groups:member groups:name="Formate plasma membrane transport" groups:idRef="R_r2105"/>
           <groups:member groups:name="Pyruvate plasma membrane transport" groups:idRef="R_r2108"/>
           <groups:member groups:name="Oxaloacetate plasma membrane transport" groups:idRef="R_r2116"/>
-          <groups:member groups:name="2-oxoglutarate plasma membrane transport" groups:idRef="R_r2111"/>
-          <groups:member groups:name="Isocitrate plasma membrane transport" groups:idRef="R_r2114"/>
+          <groups:member groups:name="Methanol plasma membrane transport" groups:idRef="R_r2103"/>
+          <groups:member groups:name="L-Lactate plasma membrane transport" groups:idRef="R_r2106"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group152" sboTerm="SBO:0000633" groups:id="G_group152" groups:name="Transport, plasma membrane (Amino acids)" groups:kind="partonomy">
@@ -55836,10 +55855,10 @@
       <groups:group metaid="meta_G_group153" sboTerm="SBO:0000633" groups:id="G_group153" groups:name="Transport, plasma membrane (Carbohydrates)" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="Sorbose plasma membrane transport" groups:idRef="R_r1949"/>
-          <groups:member groups:name="D-Gluconate plasma membrane transport" groups:idRef="R_r1960"/>
           <groups:member groups:name="Mannan plasma membrane transport" groups:idRef="R_r1981"/>
-          <groups:member groups:name="MFS monosaccharide transporter" groups:idRef="R_r1924"/>
+          <groups:member groups:name="D-Gluconate plasma membrane transport" groups:idRef="R_r1960"/>
           <groups:member groups:name="Dopaquinone plasma membrane transport" groups:idRef="R_r1971"/>
+          <groups:member groups:name="MFS monosaccharide transporter" groups:idRef="R_r1924"/>
           <groups:member groups:name="Arabinose plasma membrane transport" groups:idRef="R_r1950"/>
           <groups:member groups:name="Xylan plasma membrane transport" groups:idRef="R_r1982"/>
           <groups:member groups:name="Tartrate plasma membrane transport" groups:idRef="R_r1961"/>
@@ -55859,7 +55878,6 @@
           <groups:member groups:name="Melibiose plasma membrane transport" groups:idRef="R_r1943"/>
           <groups:member groups:name="D-Xylose plasma membrane transport" groups:idRef="R_r1954"/>
           <groups:member groups:name="D-Galactonate plasma membrane transport" groups:idRef="R_r1965"/>
-          <groups:member groups:name="MFS monosaccharide transporter" groups:idRef="R_r1917"/>
           <groups:member groups:name="Chitosan plasma membrane transport" groups:idRef="R_r1976"/>
           <groups:member groups:name="Trehalose plasma membrane transport" groups:idRef="R_r1944"/>
           <groups:member groups:name="D-Xylulose plasma membrane transport" groups:idRef="R_r1955"/>
@@ -55877,19 +55895,20 @@
           <groups:member groups:name="Sorbitol plasma membrane transport" groups:idRef="R_r1947"/>
           <groups:member groups:name="Glycogen plasma membrane transport" groups:idRef="R_r1979"/>
           <groups:member groups:name="Xylitol plasma membrane transport" groups:idRef="R_r1958"/>
+          <groups:member groups:name="L-Dopa plasma membrane transport" groups:idRef="R_r1970"/>
           <groups:member groups:name="Riboflavin plasma membrane transport" groups:idRef="R_r1969"/>
           <groups:member groups:name="MFS monosaccharide transporter" groups:idRef="R_r1910"/>
           <groups:member groups:name="Starch plasma membrane transport" groups:idRef="R_r1980"/>
           <groups:member groups:name="N-acetylglucosamine plasma membrane transport" groups:idRef="R_r1948"/>
           <groups:member groups:name="Lactose plasma membrane transport" groups:idRef="R_r1959"/>
-          <groups:member groups:name="L-Dopa plasma membrane transport" groups:idRef="R_r1970"/>
+          <groups:member groups:name="MFS monosaccharide transporter" groups:idRef="R_r1917"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group154" sboTerm="SBO:0000633" groups:id="G_group154" groups:name="Transport, plasma membrane (Nucleotides)" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="Purine-cytosine permease" groups:idRef="R_r2087"/>
-          <groups:member groups:name="Uracil permease" groups:idRef="R_r2083"/>
           <groups:member groups:name="Purine-cytosine permease" groups:idRef="R_r2086"/>
+          <groups:member groups:name="Uracil permease" groups:idRef="R_r2083"/>
           <groups:member groups:name="Purine-cytosine permease" groups:idRef="R_r2085"/>
         </groups:listOfMembers>
       </groups:group>
@@ -55947,15 +55966,15 @@
       <groups:group metaid="meta_G_group161" sboTerm="SBO:0000633" groups:id="G_group161" groups:name="Ubiquinone biosynthesis" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="2-octaprenylphenol hydroxylase" groups:idRef="R_r1766"/>
-          <groups:member groups:name="3-demethylubiquinone-9 3-O-methyltransferase" groups:idRef="R_r1771"/>
+          <groups:member groups:name="Chorismate pyruvate lyase" groups:idRef="R_r1761"/>
           <groups:member groups:name="Ubiquinone biosynthesis methlytransferase" groups:idRef="R_r1769"/>
-          <groups:member groups:name="4-hydroxybenzoate octaprenyltransferase" groups:idRef="R_r1762"/>
           <groups:member groups:name="P-hydroxybenzoate hydroxylase" groups:idRef="R_r1772"/>
+          <groups:member groups:name="4-hydroxybenzoate octaprenyltransferase" groups:idRef="R_r1762"/>
           <groups:member groups:name="3-demethylubiquinone-9 3-O-methyltransferase" groups:idRef="R_r1767"/>
           <groups:member groups:name="2-octaprenyl-3-methyl-6-methoxy-1,4-benzoquinone hydroxylase" groups:idRef="R_r1770"/>
           <groups:member groups:name="3-octaprenyl-4-hydroxybenzoate carboxy-lyase" groups:idRef="R_r1763"/>
           <groups:member groups:name="2-octaprenyl-6-methoxyphenol hydroxylase" groups:idRef="R_r1768"/>
-          <groups:member groups:name="Chorismate pyruvate lyase" groups:idRef="R_r1761"/>
+          <groups:member groups:name="3-demethylubiquinone-9 3-O-methyltransferase" groups:idRef="R_r1771"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group162" sboTerm="SBO:0000633" groups:id="G_group162" groups:name="Uptake reactions (Acids)" groups:kind="partonomy"/>
@@ -55965,8 +55984,8 @@
       <groups:group metaid="meta_G_group166" sboTerm="SBO:0000633" groups:id="G_group166" groups:name="Uptake reactions (Other)" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="Uptake of H3PO4" groups:idRef="R_r2203"/>
-          <groups:member groups:name="Uptake of O2" groups:idRef="R_r2202"/>
           <groups:member groups:name="Uptake of H2SO3" groups:idRef="R_r2204"/>
+          <groups:member groups:name="Uptake of O2" groups:idRef="R_r2202"/>
           <groups:member groups:name="Uptake of NH3" groups:idRef="R_r2200"/>
         </groups:listOfMembers>
       </groups:group>
@@ -55975,14 +55994,14 @@
       <groups:group metaid="meta_G_group169" sboTerm="SBO:0000633" groups:id="G_group169" groups:name="Valine, leucine and isoleucine degradation" groups:kind="partonomy"/>
       <groups:group metaid="meta_G_group170" sboTerm="SBO:0000633" groups:id="G_group170" groups:name="Valine, leucine and isoleucine metabolism (Branched-chain amino acids)" groups:kind="partonomy">
         <groups:listOfMembers>
-          <groups:member groups:name="Branched chain amino acid aminotransferase" groups:idRef="R_r782"/>
           <groups:member groups:name="3-hydroxyisobutyryl-CoA hydrolase" groups:idRef="R_r813"/>
+          <groups:member groups:name="Branched chain amino acid aminotransferase" groups:idRef="R_r782"/>
           <groups:member groups:name="3-isopropylmalate dehydrogenase" groups:idRef="R_r801"/>
-          <groups:member groups:name="3-hydroxyisobutyrate dehydrogenase" groups:idRef="R_r814"/>
           <groups:member groups:name="Branched chain amino acid aminotransferase" groups:idRef="R_r783"/>
+          <groups:member groups:name="3-hydroxyisobutyrate dehydrogenase" groups:idRef="R_r814"/>
           <groups:member groups:name="2-oxoisovalerate dehydrogenase complex" groups:idRef="R_r803"/>
-          <groups:member groups:name="Acetolactate synthase" groups:idRef="R_r784"/>
           <groups:member groups:name="Methylmalonate-semialdehyde dehydrogenase" groups:idRef="R_r815"/>
+          <groups:member groups:name="Acetolactate synthase" groups:idRef="R_r784"/>
           <groups:member groups:name="2-oxoisovalerate dehydrogenase complex" groups:idRef="R_r804"/>
           <groups:member groups:name="Acyl-CoA dehydrogenase" groups:idRef="R_r816"/>
           <groups:member groups:name="Acetolactate synthase" groups:idRef="R_r785"/>
@@ -55995,7 +56014,6 @@
           <groups:member groups:name="Methylcrotonoyl-CoA carboxylase" groups:idRef="R_r807"/>
           <groups:member groups:name="3-ketoacyl-CoA thiolase" groups:idRef="R_r819"/>
           <groups:member groups:name="Dihydroxy-acid dehydratase" groups:idRef="R_r788"/>
-          <groups:member groups:name="3-isopropylmalate dehydratase" groups:idRef="R_r800"/>
           <groups:member groups:name="Methylglutaconyl-CoA hydratase" groups:idRef="R_r808"/>
           <groups:member groups:name="Isoleucyl-tRNA synthetase" groups:idRef="R_r823"/>
           <groups:member groups:name="Dihydroxy-acid dehydratase" groups:idRef="R_r793"/>
@@ -56006,16 +56024,17 @@
           <groups:member groups:name="3-isopropylmalate dehydratase" groups:idRef="R_r799"/>
           <groups:member groups:name="Valyl-tRNA synthetase" groups:idRef="R_r825"/>
           <groups:member groups:name="Enoyl-CoA hydratase" groups:idRef="R_r812"/>
-          <groups:member groups:name="Branched chain amino acid aminotransferase" groups:idRef="R_r781"/>
           <groups:member groups:name="Leucyl-tRNA synthetase" groups:idRef="R_r826"/>
+          <groups:member groups:name="Branched chain amino acid aminotransferase" groups:idRef="R_r781"/>
+          <groups:member groups:name="3-isopropylmalate dehydratase" groups:idRef="R_r800"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group metaid="meta_G_group171" sboTerm="SBO:0000633" groups:id="G_group171" groups:name="Various types of N-glycan biosynthesis" groups:kind="partonomy"/>
       <groups:group metaid="meta_G_group172" sboTerm="SBO:0000633" groups:id="G_group172" groups:name="Vitamin B6 Metabolism" groups:kind="partonomy">
         <groups:listOfMembers>
           <groups:member groups:name="Pyridoxamine phosphate oxidase" groups:idRef="R_r1734"/>
-          <groups:member groups:name="Pyridoxal 5-phosphate synthase" groups:idRef="R_r1728"/>
           <groups:member groups:name="Pyridoxamine phosphate oxidase" groups:idRef="R_r1738"/>
+          <groups:member groups:name="Pyridoxal 5-phosphate synthase" groups:idRef="R_r1728"/>
           <groups:member groups:name="Pyridoxamine phosphate oxidase" groups:idRef="R_r1731"/>
           <groups:member groups:name="Pyridoxamine phosphate oxidase" groups:idRef="R_r1736"/>
           <groups:member groups:name="Pyridoxal kinase" groups:idRef="R_r1729"/>

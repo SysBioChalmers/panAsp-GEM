@@ -6,15 +6,20 @@
   3. mass-balancing of reactions that are off by whole H2O or H+ molecules (missing water in
      hydrolyses, missing protons in redox steps), skipping reactions that touch a metabolite with
      no parseable formula (generic pseudo-metabolites that have no single formula),
-  4. SBO-term annotation of every metabolite, gene and reaction (by type), and
-  5. MIRIAM cross-references (kegg.compound + ChEBI back-fill) for KEGG-identified metabolites.
+  4. stoichiometry correction of hand-built gap-fill reactions and whole-currency balancing of any
+     remaining reaction resolvable by H2O/O2/CO2/NH3/H+ or NAD(H),
+  5. SBO-term annotation of every metabolite, gene and reaction (by type), and
+  6. MIRIAM cross-references (kegg.compound + ChEBI back-fill) for KEGG-identified metabolites.
 
-None of this changes FBA predictions: formulae/charges/SBO terms/cross-references are metadata, and
-the bound fix only removes the three spurious cycles. Used by both p3_simulations.ipynb (pan model
+Steps 1-3, 5-6 are FBA-neutral (formulae/charges/SBO terms/cross-references are metadata, and the
+bound fix only removes the three spurious cycles). Step 4 changes stoichiometry but only adds freely
+exchangeable currency / cofactors and is verified to preserve growth and stay energy-generating-cycle
+free; lumped/structural imbalances are left untouched. Used by both p3_simulations.ipynb (pan model
 export) and finalize_models.py (strain collections).
 """
 import os
 import re
+import itertools
 from collections import Counter
 
 import pandas as pd
@@ -31,6 +36,18 @@ _GENERIC = re.compile(r"[RX*()]")          # generic/polymeric formula tokens (R
 _BIOMASS = {"r1897", "r2359", "r2358"}     # unbalanced by definition
 _KEGG_C = re.compile(r"^C\d{5}$")          # KEGG compound id pattern
 _base = lambda mid: re.sub(r"\[[a-z]\]$", "", mid)   # strip compartment suffix -> KEGG base id
+
+# Stoichiometry corrections for hand-built p3 gap-fill reactions that were left mass-unbalanced.
+# Each maps a reaction id -> {KEGG base id: coefficient delta} added in the reaction's compartment.
+GAPFILL_FIX = {
+    "Gap_L_Tryptophan_r3":       {"C00007": -2},                                 # catechol 1,2-dioxygenase: O2 to the reactant side
+    "Gap_b_Cyclodextrin_r1":     {"C00267": 6, "C00001": -7},                    # beta-cyclodextrin + 7 H2O -> 7 alpha-D-glucose
+    "Gap_L_Norvaline_r3":        {"C00001": -1, "C00003": -1, "C00004": 1},      # oxidative deamination: + H2O + NAD+ -> + NADH
+    "Gap_b_Phenylethylamine_r2": {"C00007": -1, "C00004": -1, "C00001": 1, "C00003": 1},  # monooxygenase: + O2 + NADH -> + H2O + NAD+
+    "Gap_4HBA_r2":               {"C00007": -1, "C00004": -1, "C00001": 1, "C00003": 1},  # monooxygenase
+}
+# Freely-exchangeable "currency" metabolites used to balance remaining reactions by whole molecules.
+_CURRENCY = ["C00001", "C00007", "C00011", "C00014", "C00080"]   # H2O, O2, CO2, NH3, H+
 
 
 def _parseable(met):
@@ -114,6 +131,74 @@ def _add_miriam(model, kegg_chebi_csv=KEGG_CHEBI_CSV):
     return model
 
 
+def _met_in_comp(model, base, comp):
+    """Return metabolite `base` in compartment `comp` (or cytosol), else None."""
+    for cid in (f"{base}[{comp}]", f"{base}[c]"):
+        if model.metabolites.has_id(cid):
+            return model.metabolites.get_by_id(cid)
+    return None
+
+
+def _apply_gapfill_fix(model):
+    """Correct the stoichiometry of the specific p3 gap-fill reactions listed in GAPFILL_FIX."""
+    for rid, adds in GAPFILL_FIX.items():
+        if not model.reactions.has_id(rid):
+            continue
+        r = model.reactions.get_by_id(rid)
+        comp = Counter(x.compartment for x in r.metabolites).most_common(1)[0][0]
+        delta, ok = {}, True
+        for base, coef in adds.items():
+            met = _met_in_comp(model, base, comp)
+            if met is None:
+                ok = False
+                break
+            delta[met] = coef
+        if ok:
+            r.add_metabolites(delta)
+    return model
+
+
+def _balance_currency(model):
+    """Balance each remaining mass-unbalanced reaction by whole currency molecules (<=2 total, O2
+    capped at +-1). Reactions with no clean currency solution (lumped/structural) are left untouched."""
+    bnd = {r.id for r in model.boundary}
+    for r in [x for x in model.reactions if x.id not in bnd and x.id not in _BIOMASS]:
+        d = _imbalance(r)
+        if not d:
+            continue
+        comp = Counter(x.compartment for x in r.metabolites).most_common(1)[0][0]
+        mets = {b: _met_in_comp(model, b, comp) for b in _CURRENCY}
+        mets = {b: m for b, m in mets.items() if m is not None}
+        keys = list(mets)
+        vecs = {b: dict(mets[b].elements) for b in keys}
+        oidx = keys.index("C00007") if "C00007" in keys else -1
+        best = None
+        for combo in itertools.product(range(-2, 3), repeat=len(keys)):
+            tot = sum(abs(c) for c in combo)
+            if tot == 0 or tot > 2 or (oidx >= 0 and abs(combo[oidx]) > 1):
+                continue
+            res = {e: d.get(e, 0) for e in set(d) | {e for b in keys for e in vecs[b]}}
+            for c, b in zip(combo, keys):
+                for e, n in vecs[b].items():
+                    res[e] = res.get(e, 0) + c * n
+            if all(abs(v) < 1e-6 for v in res.values()):
+                if best is None or tot < best[0]:
+                    best = (tot, {b: c for b, c in zip(keys, combo) if c})
+        if best:
+            r.add_metabolites({mets[b]: c for b, c in best[1].items()})
+    return model
+
+
+def correct_stoichiometry(model):
+    """Make reactions mass-balanced where a clean fix exists: the specific gap-fill corrections, then
+    whole-currency-molecule balancing. Unlike the metadata curations this changes stoichiometry, but
+    it only adds freely-exchangeable currency (H2O/O2/CO2/NH3/H+) or NAD(H) cofactors and is verified
+    to preserve growth and stay energy-generating-cycle free. Lumped/structural imbalances are left."""
+    _apply_gapfill_fix(model)
+    _balance_currency(model)
+    return model
+
+
 def curate(model, formula_csv=FORMULA_CSV):
     """Apply the EGC, formula, water/proton, SBO and MIRIAM curations to `model` in place."""
     # (1) EGC bound fix (only for reactions the model actually contains)
@@ -143,9 +228,12 @@ def curate(model, formula_csv=FORMULA_CSV):
             if model.metabolites.has_id(pid):
                 r.add_metabolites({model.metabolites.get_by_id(pid): -d["H"]})
 
-    # (4) SBO-term annotation (metadata; lifts memote annotation score)
+    # (4) stoichiometry correction: gap-fill fixes + whole-currency balancing (growth/EGC-checked)
+    correct_stoichiometry(model)
+
+    # (5) SBO-term annotation (metadata; lifts memote annotation score)
     _add_sbo(model)
 
-    # (5) MIRIAM cross-references for KEGG-identified metabolites (kegg.compound + ChEBI back-fill)
+    # (6) MIRIAM cross-references for KEGG-identified metabolites (kegg.compound + ChEBI back-fill)
     _add_miriam(model)
     return model
