@@ -5,12 +5,13 @@
   2. chemical-formula corrections from data/genome/metabolite_formula_curation.csv (KEGG),
   3. mass-balancing of reactions that are off by whole H2O or H+ molecules (missing water in
      hydrolyses, missing protons in redox steps), skipping reactions that touch a metabolite with
-     no parseable formula (generic pseudo-metabolites that have no single formula), and
-  4. SBO-term annotation of every metabolite, gene and reaction (by type).
+     no parseable formula (generic pseudo-metabolites that have no single formula),
+  4. SBO-term annotation of every metabolite, gene and reaction (by type), and
+  5. MIRIAM cross-references (kegg.compound + ChEBI back-fill) for KEGG-identified metabolites.
 
-None of this changes FBA predictions: formulae/charges/SBO terms are metadata, and the bound fix
-only removes the three spurious cycles. Used by both p3_simulations.ipynb (pan model export) and
-finalize_models.py (strain collections).
+None of this changes FBA predictions: formulae/charges/SBO terms/cross-references are metadata, and
+the bound fix only removes the three spurious cycles. Used by both p3_simulations.ipynb (pan model
+export) and finalize_models.py (strain collections).
 """
 import os
 import re
@@ -20,6 +21,7 @@ import pandas as pd
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 FORMULA_CSV = os.path.join(_HERE, "..", "data", "genome", "metabolite_formula_curation.csv")
+KEGG_CHEBI_CSV = os.path.join(_HERE, "..", "data", "intermediate", "kegg_chebi_dict.csv")
 
 # Restrict each reaction to its thermodynamically feasible direction to remove the EGCs.
 EGC_FIX = [("OtherAsp_R04962", "lower_bound", 0.0), ("OtherAsp_R01708", "upper_bound", 0.0),
@@ -27,6 +29,7 @@ EGC_FIX = [("OtherAsp_R04962", "lower_bound", 0.0), ("OtherAsp_R01708", "upper_b
 
 _GENERIC = re.compile(r"[RX*()]")          # generic/polymeric formula tokens (R-groups, (..)n)
 _BIOMASS = {"r1897", "r2359", "r2358"}     # unbalanced by definition
+_KEGG_C = re.compile(r"^C\d{5}$")          # KEGG compound id pattern
 _base = lambda mid: re.sub(r"\[[a-z]\]$", "", mid)   # strip compartment suffix -> KEGG base id
 
 
@@ -80,8 +83,39 @@ def _add_sbo(model):
     return model
 
 
+def _load_kegg_chebi(path):
+    """Parse the KEGG-compound -> ChEBI map ('cpd:C00462,chebi:16042' per line)."""
+    k2c = {}
+    try:
+        with open(path, encoding="utf-8") as fh:
+            for line in fh:
+                parts = line.strip().split(",")
+                if len(parts) == 2 and parts[0].startswith("cpd:") and "chebi:" in parts[1]:
+                    k2c[parts[0][4:]] = parts[1].split(":")[-1]   # C00462 -> 16042
+    except FileNotFoundError:
+        pass
+    return k2c
+
+
+def _add_miriam(model, kegg_chebi_csv=KEGG_CHEBI_CSV):
+    """Add MIRIAM cross-references (FBA-neutral metadata) to KEGG-identified metabolites.
+
+    Every metabolite whose id is a KEGG compound (C#####) gets a `kegg.compound` cross-reference
+    (most carry the id but never declared it), and any still lacking a ChEBI reference is back-filled
+    from the curated KEGG->ChEBI table. This lifts memote's metabolite-annotation coverage.
+    """
+    k2c = _load_kegg_chebi(kegg_chebi_csv)
+    for met in model.metabolites:
+        base = _base(met.id)
+        if _KEGG_C.match(base):
+            met.annotation.setdefault("kegg.compound", base)
+            if "chebi" not in met.annotation and base in k2c:
+                met.annotation["chebi"] = f"CHEBI:{k2c[base]}"
+    return model
+
+
 def curate(model, formula_csv=FORMULA_CSV):
-    """Apply the EGC, formula, water/proton and SBO curations to `model` in place; return it."""
+    """Apply the EGC, formula, water/proton, SBO and MIRIAM curations to `model` in place."""
     # (1) EGC bound fix (only for reactions the model actually contains)
     for rid, attr, val in EGC_FIX:
         if model.reactions.has_id(rid):
@@ -111,4 +145,7 @@ def curate(model, formula_csv=FORMULA_CSV):
 
     # (4) SBO-term annotation (metadata; lifts memote annotation score)
     _add_sbo(model)
+
+    # (5) MIRIAM cross-references for KEGG-identified metabolites (kegg.compound + ChEBI back-fill)
+    _add_miriam(model)
     return model
