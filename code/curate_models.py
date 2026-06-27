@@ -2,13 +2,14 @@
 
 `curate(model)` applies, in place:
   1. the energy-generating-cycle (EGC) bound fix (where the reactions are present),
-  2. chemical-formula corrections from data/genome/metabolite_formula_curation.csv (KEGG), and
+  2. chemical-formula corrections from data/genome/metabolite_formula_curation.csv (KEGG),
   3. mass-balancing of reactions that are off by whole H2O or H+ molecules (missing water in
      hydrolyses, missing protons in redox steps), skipping reactions that touch a metabolite with
-     no parseable formula (generic pseudo-metabolites that have no single formula).
+     no parseable formula (generic pseudo-metabolites that have no single formula), and
+  4. SBO-term annotation of every metabolite, gene and reaction (by type).
 
-None of this changes FBA predictions: formulae/charges are metadata, and the bound fix only removes
-the three spurious cycles. Used by both p3_simulations.ipynb (pan model export) and
+None of this changes FBA predictions: formulae/charges/SBO terms are metadata, and the bound fix
+only removes the three spurious cycles. Used by both p3_simulations.ipynb (pan model export) and
 finalize_models.py (strain collections).
 """
 import os
@@ -45,8 +46,42 @@ def _imbalance(rxn):
     return {k: v for k, v in rxn.check_mass_balance().items() if k != "charge" and abs(v) > 1e-6}
 
 
+def _add_sbo(model):
+    """Annotate every component with a Systems Biology Ontology term (FBA-neutral metadata).
+
+    memote scores each component type against an expected SBO term; assigning them by type lifts the
+    annotation-SBO section without touching any stoichiometry, bound or formula.
+    """
+    for met in model.metabolites:
+        met.annotation["sbo"] = "SBO:0000247"          # simple chemical
+    for gene in model.genes:
+        gene.annotation["sbo"] = "SBO:0000243"         # gene
+    exch = {r.id for r in model.exchanges}
+    dem = {r.id for r in model.demands}
+    snk = {r.id for r in model.sinks}
+    for r in model.reactions:
+        if r.id in _BIOMASS or "biomass" in (r.name or "").lower():
+            sbo = "SBO:0000629"                        # biomass production
+        elif r.id == "r1901":
+            sbo = "SBO:0000630"                        # ATP maintenance (NGAM)
+        elif r.id in exch:
+            sbo = "SBO:0000627"                        # exchange reaction
+        elif r.id in dem:
+            sbo = "SBO:0000628"                        # demand reaction
+        elif r.id in snk:
+            sbo = "SBO:0000632"                        # sink reaction
+        elif r.boundary:
+            sbo = "SBO:0000627"
+        elif len({m.compartment for m in r.metabolites}) > 1:
+            sbo = "SBO:0000185"                        # transport (translocation) reaction
+        else:
+            sbo = "SBO:0000176"                        # metabolic (biochemical) reaction
+        r.annotation["sbo"] = sbo
+    return model
+
+
 def curate(model, formula_csv=FORMULA_CSV):
-    """Apply the EGC, formula and water/proton curations to `model` in place; return it."""
+    """Apply the EGC, formula, water/proton and SBO curations to `model` in place; return it."""
     # (1) EGC bound fix (only for reactions the model actually contains)
     for rid, attr, val in EGC_FIX:
         if model.reactions.has_id(rid):
@@ -73,4 +108,7 @@ def curate(model, formula_csv=FORMULA_CSV):
             pid = f"C00080[{comp}]" if model.metabolites.has_id(f"C00080[{comp}]") else "C00080[c]"
             if model.metabolites.has_id(pid):
                 r.add_metabolites({model.metabolites.get_by_id(pid): -d["H"]})
+
+    # (4) SBO-term annotation (metadata; lifts memote annotation score)
+    _add_sbo(model)
     return model
