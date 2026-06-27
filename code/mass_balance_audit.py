@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 warnings.filterwarnings('ignore')
 PROJECT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_DIR = os.path.join(PROJECT, 'data', 'intermediate')
-PICKLE  = os.path.join(PROJECT, 'model', 'panAsp_v3_gemList_187_strains.pickle')
+PICKLE  = os.path.join(PROJECT, 'model', 'pAo_strain-GEMs_validated.pickle')
 
 with open(PICKLE, 'rb') as f:
     all_models = load(f)
