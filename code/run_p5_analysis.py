@@ -2,11 +2,11 @@
 Analysis script corresponding to p5_strain_comparison.ipynb.
 Run from the code/ directory or project root.
 
-Addresses reviewer points Q5 (EGCs), Q12 (flux variation), Q13 (accessory
-reactions, NGAM), Q14 (metabolic costs, subsystem profiles) on the eight
+Characterises energy-generating cycles, inter-strain flux variation (pFBA/FVA),
+accessory-reaction flux activity, GAM/NGAM sensitivity and subsystem activity on the eight
 curated A. oryzae strain models plus the Pan_oryzae pan-model.
 
-Methodological choices (documented for the rebuttal):
+Methodological choices:
   * Carbon sources are fed at EQUAL CARBON (C-mol) supply, not equal mmol, so
     growth/cost differences reflect metabolism rather than carbon content.
   * A non-zero non-growth ATP maintenance (NGAM) is imposed (the shipped model
@@ -193,7 +193,7 @@ def atp_turnover(model, fluxes):
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 1. EGC detection (Q5) — with before/after-curation demonstration on Pan_oryzae
+# 1. EGC detection — with before/after-curation demonstration on Pan_oryzae
 # ═══════════════════════════════════════════════════════════════════════════════
 print("\n=== 1. EGC detection ===")
 DISSIPATION_SPECS = {
@@ -269,7 +269,7 @@ if egc_before:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 2. FBA growth predictions (Q12) — carbon-normalised, with biomass yield
+# 2. FBA growth predictions — carbon-normalised, with biomass yield
 # ═══════════════════════════════════════════════════════════════════════════════
 print("\n=== 2. FBA growth predictions (equal C-mol uptake, NGAM imposed) ===")
 fba_rows = []
@@ -363,7 +363,7 @@ except Exception as e:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 3. pFBA metabolic costs (Q12, Q14) — yield + ATP turnover + network flux load
+# 3. pFBA metabolic costs — yield + ATP turnover + network flux load
 # ═══════════════════════════════════════════════════════════════════════════════
 print("\n=== 3. pFBA metabolic costs ===")
 pfba_rows = []
@@ -401,7 +401,7 @@ print(pfba_df.pivot(index='strain_short', columns='carbon_source',
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 4. FVA flux variability (Q12, Q14) — LOOPLESS (thermodynamically attainable)
+# 4. FVA flux variability — LOOPLESS (thermodynamically attainable)
 # ═══════════════════════════════════════════════════════════════════════════════
 print("\n=== 4. FVA flux variability (loopless=True) ===")
 fva_data = {}
@@ -435,7 +435,7 @@ for strain_id, cs_dict in fva_data.items():
 fva_long = pd.concat(fva_rows, ignore_index=True) if fva_rows else pd.DataFrame()
 print(f"FVA long-format rows: {len(fva_long)}")
 
-# Standard-vs-loopless comparison on RIB40 (demonstrates loop removal; Q5/Q12).
+# Standard-vs-loopless comparison on RIB40 (demonstrates loop removal).
 print("\n  Standard-vs-loopless FVA comparison (RIB40)...", end=' ', flush=True)
 loop_compare_rows = []
 rib = models[TARGET_STRAINS[0]]
@@ -461,7 +461,7 @@ if not loop_compare.empty:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 5. Accessory reactions (Q13) — flux-active on LOOPLESS ranges
+# 5. Accessory reactions — flux-active on LOOPLESS ranges
 # ═══════════════════════════════════════════════════════════════════════════════
 print("\n=== 5. Accessory reactions (loopless flux activity) ===")
 all_rxn_ids = set()
@@ -535,7 +535,7 @@ if not acc_del_df.empty:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 6. GAM/NGAM sensitivity (Q13)
+# 6. GAM/NGAM sensitivity
 # ═══════════════════════════════════════════════════════════════════════════════
 print("\n=== 6. GAM/NGAM sensitivity ===")
 ref_model = models[TARGET_STRAINS[0]]
@@ -562,7 +562,7 @@ for cs in CS_ORDER:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# 7. Subsystem activity (Q14)
+# 7. Subsystem activity
 # ═══════════════════════════════════════════════════════════════════════════════
 print("\n=== 7. Subsystem activity ===")
 sub_rows = []

@@ -54,7 +54,7 @@ cells.append(_md(
     '## 9. Figures\n\n'
     'Two figures are produced by `run_p5_analysis.py` from the CSVs in `data/intermediate/`: the '
     'four-panel manuscript figure and the supplementary all-reaction loopless-FVA heatmap. '
-    'Methodological choices addressing the reviewer: carbon sources fed at **equal C-mol** supply, '
+    'Methodological choices: carbon sources fed at **equal C-mol** supply, '
     'non-growth ATP maintenance (**NGAM**) imposed, and flux variability analysis run **loopless** so '
     'reported ranges are thermodynamically attainable.'))
 
