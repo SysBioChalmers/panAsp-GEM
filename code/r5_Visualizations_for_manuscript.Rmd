@@ -4,6 +4,59 @@ output: html_document
 date: "2025-04-01"
 ---
 
+
+# Libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(stringr)
+library(openxlsx)
+library(RCurl)
+library(KEGGREST)
+```
+
+# Helpers
+
+```{r}
+source("./helperFunctions/Rutilities.R")
+```
+
+# Load GEMs
+
+```{r}
+# Note: excel files should be closed when reading them in R
+Aor_orig <- read_excel_allsheets("../model/templates/iWV1314.xlsx")
+panAsp_v3 <- read_excel_allsheets("../model/panAsp_v3.xlsx")
+```
+
+---
+
+```{r setup, include=FALSE}
+# Working directory = `code/` (where this Rmd and helperFunctions/ live)
+get_code_dir <- function() {
+  inp <- knitr::current_input(dir = TRUE)
+  if (!is.null(inp) && nzchar(inp)) return(normalizePath(inp))
+
+  if (requireNamespace("rstudioapi", quietly = TRUE) &&
+      rstudioapi::isAvailable()) {
+    p <- rstudioapi::getActiveDocumentContext()$path
+    if (nzchar(p)) return(normalizePath(dirname(p)))
+  }
+
+  if (file.exists("./helperFunctions/Rutilities.R")) return(normalizePath("."))
+  if (file.exists("./code/helperFunctions/Rutilities.R")) {
+    return(normalizePath("./code"))
+  }
+
+  stop(
+    "Could not find `code/`. Open `code/Ranalyses.Rproj`, or run from the repo with wd at panAsp-GEM."
+  )
+}
+
+code_dir <- get_code_dir()
+knitr::opts_knit$set(root.dir = code_dir)
+setwd(code_dir)
+```
+
 # Libraries
 
 ```{r}
@@ -174,13 +227,13 @@ PM_02_wide <- read.csv("../data/biolog/Results_PM02.csv")
 PM_03_wide <- read.csv("../data/biolog/Results_PM03.csv")
 
 # get link between plate-well and medium
-wellDf1 <- data.frame(Medium = unname(sapply(colnames(PM_01_wide), update_colnames)),
+wellDf1 <- data.frame(Medium = colnames(PM_01_wide),
                       Plate = "PM01",
                       Well = substr(colnames(PM_01_wide),1,3))
-wellDf2 <- data.frame(Medium = unname(sapply(colnames(PM_02_wide), update_colnames)),
+wellDf2 <- data.frame(Medium = colnames(PM_02_wide),
                       Plate = "PM02A",
                       Well = substr(colnames(PM_02_wide),1,3))
-wellDf3 <- data.frame(Medium = unname(sapply(colnames(PM_03_wide), update_colnames)),
+wellDf3 <- data.frame(Medium = colnames(PM_03_wide),
                       Plate = "PM03B",
                       Well = substr(colnames(PM_03_wide),1,3))
 wellDfall <- rbind(wellDf1,wellDf2,wellDf3)
@@ -218,59 +271,180 @@ wide_df_bin <- wide_df %>%
   )))
 ```
 
-## Figure 3
+## Figure 3 updated (strain-summarized across replicates)
 
 ```{r}
-col_fun <- colorRamp2(c(0, 0.5, 1), c("black", "white", "red"))
-row_label_colors <- ifelse(grepl("_PM03B", rownames(wide_df_bin)), "blue", "black")
+# One column per strain, computed from replicate columns:
+# red = 3/3 replicates > 60
+# light red = 2/3 replicates > 60
+# grey = 1/3 replicates > 60
+# black = 0/3 replicates > 60
 
-vis <- Heatmap(wide_df_bin, 
-               col = col_fun,
-               row_title = "Medium", 
-               column_title = "Strain",
-               row_names_gp = gpar(col = row_label_colors,fontsize = 8),
-               show_heatmap_legend = FALSE)
+data_long_strain <- data_long %>%
+  mutate(Strain_base = sub("_[123]$", "", Strain)) %>%
+  group_by(Medium, Strain_base) %>%
+    summarise(
+    n_activity  = sum(value > 120, na.rm = TRUE),
+    n_ambiguous = sum(value >= 60 & value <= 120, na.rm = TRUE),
+    n_noact     = sum(value < 60, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    category = case_when(
+      n_activity == 3 & n_ambiguous == 0 & n_noact == 0 ~ "Activity",
+      n_activity == 2 & n_ambiguous == 1 & n_noact == 0 ~ "Probable activity",
+      n_activity == 2 & n_ambiguous == 0 & n_noact == 1 ~ "Probable activity failed replicate",
+      n_activity == 1 & n_ambiguous == 2 & n_noact == 0 ~ "Possibly activity",
+      n_activity == 1 & n_ambiguous == 1 & n_noact == 1 ~ "Contradictory",
+      n_activity == 1 & n_ambiguous == 0 & n_noact == 2 ~ "Probable no activity failed replicate",
+      n_activity == 0 & n_ambiguous == 3 & n_noact == 0 ~ "Ambiguous",
+      n_activity == 0 & n_ambiguous == 2 & n_noact == 1 ~ "Possibly no activity",
+      n_activity == 0 & n_ambiguous == 1 & n_noact == 2 ~ "Probable no activity",
+      n_activity == 0 & n_ambiguous == 0 & n_noact == 3 ~ "No activity",
+      TRUE ~ NA_character_
+    )
+  )
 
-# png("../data/biolog/BioLog_heatmap_all.png", width=12, height=40, units = "in", res = 640)
-vis
-# dev.off()
+# Convert categories to numeric codes for plotting
+category_levels <- c(
+  "No activity",
+  "Probable no activity",
+  "Possibly no activity",
+  "Ambiguous",
+  "Probable no activity failed replicate",
+  "Contradictory",
+  "Possibly activity",
+  "Probable activity failed replicate",
+  "Probable activity",
+  "Activity"
+)
+
+data_long_strain$code <- match(data_long_strain$category, category_levels)
+
+wide_df_strain <- data_long_strain %>%
+  select(Medium, Strain_base, code) %>%
+  pivot_wider(names_from = Strain_base, values_from = code)
+
+wide_df_strain <- as.data.frame(wide_df_strain)
+rownames(wide_df_strain) <- wide_df_strain$Medium
+wide_df_strain$Medium <- NULL
+
+# Colors corresponding to your table
+category_colors <- c(
+  "black",       # No activity
+  "darkgrey",    # Probable no activity
+  "lightgrey",   # Possibly no activity
+  "white",       # Ambiguous
+  "darkgrey",    # Probable no activity, failed replicate
+  "purple",      # Contradictory
+  "pink",      # Possibly activity
+  "lightcoral",  # Probable activity, failed replicate
+  "lightcoral",  # Probable activity
+  "red"          # Activity
+)
+
+col_fun_strain <- colorRamp2(
+  seq_along(category_colors),
+  category_colors
+)
+
+data_C <- data_long_strain %>%
+  filter(grepl("PM01|PM02A", Medium))
+
+data_N <- data_long_strain %>%
+  filter(grepl("PM03B", Medium))
+
+wide_C <- data_C %>%
+  select(Medium, Strain_base, code) %>%
+  pivot_wider(names_from = Strain_base, values_from = code)
+
+wide_N <- data_N %>%
+  select(Medium, Strain_base, code) %>%
+  pivot_wider(names_from = Strain_base, values_from = code)
+
+wide_C <- as.data.frame(wide_C)
+rownames(wide_C) <- wide_C$Medium
+wide_C$Medium <- NULL
+
+wide_N <- as.data.frame(wide_N)
+rownames(wide_N) <- wide_N$Medium
+wide_N$Medium <- NULL
+
+
+rownames(wide_C) <- update_colnames(rownames(wide_C))
+rownames(wide_C) <- sub("^Negative Control _PM01$", "Negative Control (PM01)", rownames(wide_C))
+rownames(wide_C) <- sub("^Negative Control _PM02A$", "Negative Control (PM02A)", rownames(wide_C))
+rownames(wide_C) <- sub(" _(PM01|PM02A)$", "", rownames(wide_C))
+colnames(wide_C) <- sub("_", " ", colnames(wide_C))
+
+rownames(wide_N) <- update_colnames(rownames(wide_N))
+rownames(wide_N) <- sub(" _(PM03B)$", "", rownames(wide_N))
+colnames(wide_N) <- sub("_", " ", colnames(wide_N))
+
+
+
+vis_strain_C <- Heatmap(
+  as.matrix(wide_C),
+  col = col_fun_strain,
+  row_title = "Carbon source",
+  column_title = "Strain",
+  show_heatmap_legend = FALSE,
+  row_names_max_width = grid::unit(8, "cm")
+)
+
+vis_strain_N <- Heatmap(
+  as.matrix(wide_N),
+  col = col_fun_strain,
+  row_title = "Nitrogen source",
+  column_title = "Strain",
+  show_heatmap_legend = FALSE,
+  row_names_max_width = grid::unit(8, "cm")
+)
+
+vis_strain_C
+
+vis_strain_N
 ```
 
 ```{r}
-svg("../data/biolog/BioLog_heatmap_all.svg", width = 12, height = 40)
-draw(vis)
+svg("../data/biolog/BioLog_heatmap_all_strainSummary_C.svg", width = 12, height = 40)
+draw(vis_strain_C)
+dev.off()
+
+svg("../data/biolog/BioLog_heatmap_all_strainSummary_N.svg", width = 12, height = 20)
+draw(vis_strain_N)
 dev.off()
 ```
 
-## Supplementary figure S3
+## Supplementary figure S3 updated (strain-summarized across replicates)
 
 ```{r}
-wide_df_sub <- wide_df[order(rowSds(as.matrix(wide_df)),decreasing = TRUE)[1:20],]
-wide_df_sub_bin <- wide_df_sub %>%
-  mutate(across(everything(), ~ case_when(
-    . < 60 ~ 0,
-    . <= 120 ~ 0.5,
-    . > 120 ~ 1
-  )))
+# Same 20 metabolites as original S3 (top row SD on raw replicate values, not 0–3 counts)
+wide_df_C <- wide_df[grepl("PM01|PM02A", rownames(wide_df)), ]
 
-col_fun <- colorRamp2(c(0, 0.5, 1), c("black", "white", "red"))
-row_label_colors <- ifelse(grepl("_PM03B", rownames(wide_df_sub_bin)), "blue", "black")
+top20_media <- rownames(wide_df_C)[order(rowSds(as.matrix(wide_df_C)), decreasing = TRUE)[1:20]]
+wide_df_sub_strain <- wide_df_strain[top20_media, , drop = FALSE]
 
-vis <- Heatmap(wide_df_sub_bin, 
-               col = col_fun,
-               row_title = "Medium", 
-               column_title = "Strain",
-               row_names_gp = gpar(col = row_label_colors,fontsize = 8),
-               show_heatmap_legend = FALSE)
 
-# png("../data/biolog/BioLog_heatmap_sub.png", width=12, height=8, units = "in", res = 640)
-vis
-# dev.off()
+rownames(wide_df_sub_strain) <- update_colnames(rownames(wide_df_sub_strain))
+rownames(wide_df_sub_strain) <- sub(" _(PM01|PM02A)$", "", rownames(wide_df_sub_strain))
+colnames(wide_df_sub_strain) <- sub("_", " ", colnames(wide_df_sub_strain))
+
+vis_sub_strain <- Heatmap(
+  as.matrix(wide_df_sub_strain),
+  col = col_fun_strain,
+  row_title = "Carbon source",
+  column_title = "Strain",
+  show_heatmap_legend = FALSE,
+  row_names_max_width = grid::unit(8, "cm")
+)
+
+vis_sub_strain
 ```
 
 ```{r}
-svg("../data/biolog/BioLog_heatmap_sub.svg", width = 12, height = 8)
-draw(vis)
+svg("../data/biolog/BioLog_heatmap_sub_strainSummary_120.svg", width = 12, height = 8)
+draw(vis_sub_strain)
 dev.off()
 ```
 
