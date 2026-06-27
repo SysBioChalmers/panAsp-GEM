@@ -20,6 +20,9 @@ data/
 # Large model collection — share through Zenodo, do not commit (>100 MB)
 model/pAo_strain-GEMs_all-187.pickle
 
+# Manuscript / working documents — not part of the model repository (binary, can't diff)
+*.docx
+
 # large files (share through Zenodo?)
 u_clusters.txt
 keep_Aspni7_all_transcripts_20131226.nt.fasta

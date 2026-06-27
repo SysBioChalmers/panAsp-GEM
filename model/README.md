@@ -23,6 +23,22 @@ with open("pAo_strain-GEMs_validated.pickle", "rb") as f:
     models = load(f)        # list of cobra.Model
 ```
 
+## Downloading `pAo_strain-GEMs_all-187.pickle`
+
+The 187-strain collection is ~167 MB and is **not** stored in git. Download it from the Zenodo
+record for this project and place it in this `model/` folder:
+
+- **Zenodo record:** <https://zenodo.org/records/18598684>
+- **Direct file:** <https://zenodo.org/records/18598684/files/pAo_strain-GEMs_all-187.pickle?download=1>
+
+```bash
+curl -L -o pAo_strain-GEMs_all-187.pickle \
+  "https://zenodo.org/records/18598684/files/pAo_strain-GEMs_all-187.pickle?download=1"
+```
+
+The large source intermediates (`strain-GEMs_automated_187.pickle`, etc.) and SBML copies of all
+187 strains (`allModels.zip`) are bundled in `intermediate.zip` / `allModels.zip` on the same record.
+
 ## The 8 validated strains appear twice — by design
 
 The eight validated strains are present in **both** collections, with **different** content:
