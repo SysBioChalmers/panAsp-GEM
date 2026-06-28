@@ -4,8 +4,8 @@
   1. the energy-generating-cycle (EGC) bound fix (where the reactions are present),
   2. chemical-formula corrections from data/genome/metabolite_formula_curation.csv (KEGG),
   3. mass-balancing of reactions that are off by whole H2O or H+ molecules (missing water in
-     hydrolyses, missing protons in redox steps), skipping reactions that touch a metabolite with
-     no parseable formula (generic pseudo-metabolites that have no single formula),
+     hydrolyses, protons in redox steps), skipping reactions that touch a metabolite with no parseable
+     formula (generic pseudo-metabolites) and a small exempted set (PROTON_SKIP),
   4. stoichiometry correction of hand-built gap-fill reactions and whole-currency balancing of any
      remaining reaction resolvable by H2O/O2/CO2/NH3/H+ or NAD(H),
   5. SBO-term annotation of every metabolite, gene and reaction (by type), and
@@ -46,8 +46,12 @@ GAPFILL_FIX = {
     "Gap_b_Phenylethylamine_r2": {"C00007": -1, "C00004": -1, "C00001": 1, "C00003": 1},  # monooxygenase: + O2 + NADH -> + H2O + NAD+
     "Gap_4HBA_r2":               {"C00007": -1, "C00004": -1, "C00001": 1, "C00003": 1},  # monooxygenase
 }
+# Reactions whose proton (H+) balance is left at the published stoichiometry.
+PROTON_SKIP = {"r786"}
+
 # Freely-exchangeable "currency" metabolites used to balance remaining reactions by whole molecules.
-_CURRENCY = ["C00001", "C00007", "C00011", "C00014", "C00080"]   # H2O, O2, CO2, NH3, H+
+# (Protons are handled in step 3, so a bare H+ is not part of the currency search.)
+_CURRENCY = ["C00001", "C00007", "C00011", "C00014"]   # H2O, O2, CO2, NH3
 
 
 def _parseable(met):
@@ -212,7 +216,8 @@ def curate(model, formula_csv=FORMULA_CSV):
         if _base(met.id) in fix:
             met.formula = fix[_base(met.id)]
 
-    # (3) balance whole-H2O / whole-H+ imbalances
+    # (3) balance whole-H2O and whole-H+ imbalances (missing water in hydrolyses, protons in redox),
+    # skipping the PROTON_SKIP reactions.
     bnd = {r.id for r in model.boundary}
     for r in [x for x in model.reactions if x.id not in bnd and x.id not in _BIOMASS]:
         d = _imbalance(r)
@@ -223,7 +228,7 @@ def curate(model, formula_csv=FORMULA_CSV):
             wid = f"C00001[{comp}]" if model.metabolites.has_id(f"C00001[{comp}]") else "C00001[c]"
             if model.metabolites.has_id(wid):
                 r.add_metabolites({model.metabolites.get_by_id(wid): -d["O"]})
-        elif set(d) == {"H"}:
+        elif set(d) == {"H"} and r.id not in PROTON_SKIP:
             pid = f"C00080[{comp}]" if model.metabolites.has_id(f"C00080[{comp}]") else "C00080[c]"
             if model.metabolites.has_id(pid):
                 r.add_metabolites({model.metabolites.get_by_id(pid): -d["H"]})
