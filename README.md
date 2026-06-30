@@ -43,11 +43,13 @@ There are three main folders in this project. Each of these folders contains a R
 
 ### Usage of the final pan-oryzae model
 
-The final model can be loaded into matlab using the following commands:
+The `model/` folder contains the consensus pan-model `pAo.xml`, the eight experimentally validated
+strain models `pAo_<strain>.xml`, and two pickled collections (see `model/README.md` for details).
+
+The pan-model can be loaded into MATLAB (RAVEN/COBRA) with:
 
 ```
-panAsp_v3 = importModel("./panAsp_v3.xml");
-panAsp_v3 = importExcelModel("./panAsp_v3.xlsx");
+pAo = importModel("./pAo.xml");
 ```
 
 It can be loaded into python using:
@@ -55,18 +57,20 @@ It can be loaded into python using:
 ```
 data_dir = Path("./model")
 data_dir = data_dir.resolve()
-model_path = data_dir / "panAsp_v3.xml"
+model_path = data_dir / "pAo.xml"
 panOryzae = read_sbml_model(str(model_path.resolve()), skip_validation=True)
 ```
 
-or, for the pickle files:
+The strain-specific collections are distributed as pickled lists of cobra models:
 
 ```
 from pickle import load
-with open(".model/panAsp_v3_ensemble_187_strains.pickle", 'rb') as infile:
-    panAsp_v3_ensemble = load(infile)
+# the 8 validated strains + template + pan-model (with experimental gap-fills)
+with open("./model/pAo_strain-GEMs_validated.pickle", 'rb') as infile:
+    validated = load(infile)
 
-with open(".model/panAsp_v3_gemList_187_strains.pickle", 'rb') as infile:
-    panAsp_v3_gemList = load(infile)
+# all 187 automated strain reconstructions (curated, no gap-fills)
+with open("./model/pAo_strain-GEMs_all-187.pickle", 'rb') as infile:
+    all187 = load(infile)
 ```
 

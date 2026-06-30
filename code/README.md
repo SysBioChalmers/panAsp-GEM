@@ -41,7 +41,7 @@ The script m1_construct_panAspGEM.mlx requires inputs generated in the R scripts
 4. r2_metabolites_oryzae.rmd
 5. r3_metabolites_Ani_Afu.rmd
 
-These inputs can directly be obtained from the folder `data/intermediate`. The output of this script is the file `data/intermediate/panAsp_v1_187_50_1385.xml`, which serves as a first draft of the pan-oryzae GEM.
+These inputs can directly be obtained from the folder `data/intermediate`. The output of this script is the file `data/intermediate/pAo_draft.xml`, which serves as a first draft of the pan-oryzae GEM.
 
 ## Performing FBA simulations to refine the pan-oryzae GEM
 

@@ -136,18 +136,87 @@ read_excel_allsheets <- function(filename) {
 }
 
 # Function to update column names
-update_colnames <- function(input_string) {
+update_colnames <- function(x) {
+  x <- sub("^[A-H][0-9]{2}\\.\\.", "", x)   # remove well prefix
+  x <- gsub("\\.$", "", x)                   # remove trailing dot
+  x <- gsub("\\.", " ", x)                   # replace all dots with spaces
+  x <- gsub("\\s+", " ", x)                  # collapse double spaces
+  x <- trimws(x)
   
-  # Step 1: Remove the first two dots and everything before them
-  modified_string <- sub("^[^.]*\\.{2}", "", input_string)
+  # Single-letter stereo prefixes
+  prefixes <- c("L", "D", "R", "S", "a", "b", "m", "p", "o", "n", "N", "g", "d", "e")
+  pattern <- paste0("\\b(", paste(prefixes, collapse="|"), ") ")
+  x <- gsub(pattern, "\\1-", x)
   
-  # Step 2: Remove the last dot
-  modified_string <- sub("\\.$", "", modified_string)
+  # Number prefixes
+  x <- gsub("(\\d) (\\d) ", "\\1,\\2-", x)
+  x <- gsub("(\\d) ([A-Z])", "\\1-\\2", x)
   
-  # Step 3: Replace remaining dots with underscores
-  modified_string <- gsub("\\.", "_", modified_string)
+  # g Lactone -> -g-Lactone
+  x <- gsub(" g Lactone", "-g-Lactone", x)
+  x <- gsub(" g-Lactone", "-g-Lactone", x)
   
-  return(modified_string)
+  # Dipeptides: two three-letter capitalised words e.g. "Gly Asp"
+  x <- gsub("\\b([A-Z][a-z]{2}) ([A-Z][a-z]{2})\\b", "\\1-\\2", x)
+  
+  # Tween + number
+  x <- gsub("(Tween) (\\d+)", "\\1-\\2", x)
+  
+  # myo-Inositol
+  x <- gsub("myo ", "myo-", x)
+  
+  # Mono-, Deoxy- prefixes
+  x <- gsub("\\b(Mono|Deoxy) ", "\\1-", x)
+  
+  # (Di)hydroxy, Keto, Bromo fuse with next word (lowercase the following word)
+  x <- gsub("(Hydroxy|Dihydroxy|Keto|Bromo|Acetyl) ([A-Z])", "\\1\\L\\2", x, perl = TRUE)
+  
+  # But N-Acetyl- followed by stereo prefix should still hyphenate not fuse
+  # so restore: N-Acetyl-[stereo] pattern
+  x <- gsub("N-Acetyl([a-z])", "N-Acetyl-\\U\\1", x, perl = TRUE)  # undo fusion after N-
+  
+  # Acetyl, Methyl and Phtaloyl followed by stereo prefix need hyphen
+  x <- gsub("(Acetyl|Methyl|Phtaloyl) ([A-Z]-)", "\\1-\\2", x)
+  x <- gsub("(Acetyl|Methyl|Phtaloyl) ([a-z]-)", "\\1-\\2", x)
+  
+  # Methyl followed by plain word
+  x <- gsub("(Methyl) ([A-Z][a-z])", "\\1-\\2", x)
+  
+  # Phosphate: number or word before it needs hyphen
+  x <- gsub(" (\\d)-Phosphate", "-\\1-Phosphate", x)
+  x <- gsub("(\\d) (Phosphate)", "\\1-\\2", x)
+  x <- gsub(" Phosphate", "-Phosphate", x)
+  
+  # Bromo/Mono compound trailing word
+  x <- gsub("(Bromo-[A-Za-z]+) ([A-Z][a-z])", "\\1-\\2", x)
+  
+  # Amino hyphenates to next word
+  x <- gsub("(Amino) ([A-Z])", "\\1-\\2", x)
+  
+  # Methyl followed by plain word but NOT Ester
+  x <- gsub("(Methyl) ([A-Z][a-z])(?!.*Ester)", "\\1-\\2", x, perl = TRUE)
+  # Simpler: only fuse Methyl-Ester as two separate words
+  x <- gsub("Methyl-Ester", "Methyl Ester", x)
+  
+  # Number followed by word needs hyphen (e.g. "Ribono 1,4-Lactone" -> "Ribono-1,4-Lactone")
+  x <- gsub("([a-z]) (\\d)", "\\1-\\2", x)
+  
+  # Specific fix for 3-O-(b-D-Galactopyranosyl)-D-Arabinose
+  x <- gsub("3-O-(b-D-Galactopyranosyl) D-", "3-O-(b-D-Galactopyranosyl)-D-", x)
+  x <- gsub("3-O b-", "3-O-(b-", x)
+  x <- gsub("Galactopyranosyl D-", "Galactopyranosyl)-D-", x)
+  
+  # Specific fix for sec-Butylamine
+  x <- gsub("Butylamine sec", "sec-Butylamine", x)
+  
+  # Fix 5-Keto-d-Gluconic Acid
+  x <- gsub("Ketod-", "Keto-d-", x)
+  x <- gsub("KetoD-", "Keto-D-", x)
+  
+  # Fix Mono-Methyl Succinate
+  x <- gsub("Mono-Methyl-Succinate", "Mono-Methyl Succinate", x)
+  
+  return(x)
 }
 
 # Function to wrangle results, i.e., move from wide to long format
