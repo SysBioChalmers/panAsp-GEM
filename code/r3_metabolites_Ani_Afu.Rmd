@@ -1,0 +1,369 @@
+---
+title: "Consolidate metabolites for A. niger and A. fumigatus"
+author: "Jeroen Gilis"
+date: "6 January 2025"
+output: 
+    html_document:
+      code_download: true
+      theme: cosmo
+      toc: true
+      toc_float: true
+      highlight: tango
+      number_sections: true
+---
+
+This script aims to obtain as many KEGG metabolite identifiers for the 
+metabolites in both the niger and funigatus GEMs. KEGG identifiers are obtained
+from
+
+1. The information in the oryzae GEM itself
+2. A KEGG-CHEBI dictionary obtained from the bioservices python database
+3. Links present in the other GEMs
+5. Manually
+
+The result of this script is a .xlsx file with links between the original 
+metabolite identifiers and corresponding KEGG identifiers.
+
+# Libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(stringr)
+library(openxlsx)
+library(RCurl)
+library(KEGGREST)
+```
+
+# Helpers
+
+```{r}
+source("./helperFunctions/Rutilities.R")
+```
+
+# Load GEMs
+
+```{r}
+# Note: excel files should be closed when reading them in R
+Aor_draft <- read_excel_allsheets("../data/intermediate/Aor_draft_comp.xlsx")
+Aor_kegg <- read.xlsx("../data/intermediate/oryzae_kegg_187_50_1385.xlsx")
+Ani_reduced <- read_excel_allsheets("../data/intermediate/Ani_reduced.xlsx")
+Afu_reduced <- read_excel_allsheets("../data/intermediate/Afu_reduced.xlsx")
+```
+
+# Wrangle input
+
+## Oryzae
+
+```{r}
+# Get CHEBI column
+Aor_draft$METS$CHEBI <- Aor_draft$METS$MIRIAM
+Aor_draft$METS$CHEBI[!grepl("chebi",Aor_draft$METS$CHEBI)] <- NA
+Aor_draft$METS$CHEBI <- gsub("chebi:","",Aor_draft$METS$CHEBI)
+Aor_draft$METS$CHEBI <- gsub("/",":",Aor_draft$METS$CHEBI)
+
+# Get KEGG column
+Aor_draft$METS$KEGG <- Aor_kegg$KEGG
+```
+
+## Niger
+
+```{r}
+# Get KEGG column
+Ani_reduced$METS$KEGG <- Ani_reduced$METS$MIRIAM
+Ani_reduced$METS$KEGG[!grepl("kegg",Ani_reduced$METS$KEGG)] <- NA
+Ani_reduced$METS$KEGG <- gsub("\\;.*","",gsub(".*kegg.compound/(.+)", "\\1", Ani_reduced$METS$KEGG))
+
+# Get chebi column
+Ani_reduced$METS$CHEBI <- Ani_reduced$METS$MIRIAM
+Ani_reduced$METS$CHEBI[!grepl("chebi",Ani_reduced$METS$CHEBI)] <- NA
+Ani_reduced$METS$CHEBI <- gsub("\\;.*","",gsub(".*chebi/(.+)", "\\1", Ani_reduced$METS$CHEBI))
+```
+
+## Fumigatus
+
+```{r}
+# Get KEGG column
+Afu_reduced$METS$KEGG <- Afu_reduced$METS$MIRIAM
+Afu_reduced$METS$KEGG[!grepl("kegg",Afu_reduced$METS$KEGG)] <- NA
+Afu_reduced$METS$KEGG <- gsub("\\;.*","",gsub(".*kegg.compound/(.+)", "\\1", Afu_reduced$METS$KEGG))
+
+# Get chebi column
+Afu_reduced$METS$CHEBI <- Afu_reduced$METS$MIRIAM
+Afu_reduced$METS$CHEBI[!grepl("chebi",Afu_reduced$METS$CHEBI)] <- NA
+Afu_reduced$METS$CHEBI <- gsub("\\;.*","",gsub(".*chebi/(.+)", "\\1", Afu_reduced$METS$CHEBI))
+```
+
+# Niger
+
+## KEGG available
+
+For 170/252 compounds we already have a KEGG ID available.
+
+```{r}
+table(!is.na(Ani_reduced$METS$KEGG))
+table(!is.na(Ani_reduced$METS$CHEBI))
+```
+
+```{r}
+target <- Ani_reduced$METS[is.na(Ani_reduced$METS$KEGG),]
+```
+
+## Obtain KEGG directly thorugh KEGG-CHEBI dictionary
+
+```{r}
+kegg_chebi_dict <- read.csv2("../data/intermediate/kegg_chebi_dict.csv", header=FALSE, sep=",")
+
+# wrangle
+colnames(kegg_chebi_dict) <- c("KEGG","CHEBI")
+kegg_chebi_dict$KEGG <- gsub("cpd:","",kegg_chebi_dict$KEGG)
+kegg_chebi_dict$CHEBI <- gsub("chebi:","CHEBI:",kegg_chebi_dict$CHEBI)
+
+target$KEGG <- kegg_chebi_dict$KEGG[match(target$CHEBI,kegg_chebi_dict$CHEBI)]
+
+Ani_reduced$METS$KEGG[match(target$`REPLACEMENT ID`,Ani_reduced$METS$`REPLACEMENT ID`)] <- target$KEGG
+target <- Ani_reduced$METS[is.na(Ani_reduced$METS$KEGG),]
+```
+
+## Based on KEGGREST
+
+At this point, almost all compounds that are left are fatty acids bound to CoA
+or ACP with a oxo- or hydroxy- group.
+
+```{r}
+name_query <- tolower(target$NAME)
+name_query <- gsub(",", " ", name_query) # it works to replace commas for spaces
+```
+
+```{r}
+addKEGG <- lapply(name_query, function(x){
+  #print(x)
+  query <- keggFind(database = "compound", query = x)
+  return(cbind(x,
+               paste0(gsub("cpd:", "", names(query)),collapse="/"),
+               paste0(unname(query),collapse="/")))
+})
+
+target$KEGG <- sapply(addKEGG, function(x){x[2]})
+target$KEGG[target$KEGG==""] <- NA
+```
+
+```{r}
+# metabolites that we could assign a unique KEGG id based on its name
+# -> use directly
+index <- which(!is.na(target$KEGG) &
+                 lengths(strsplit(target$KEGG,"/")) == 1)
+target$KEGG_final <- NA
+target$KEGG_final[index] <- target$KEGG[index]
+
+# metabolites that we could assign a KEGG id, but not unambiguously
+# -> try to identify the correct ID if possible
+target$KEGG_final[target$NAME == "Palmitoyl-[acyl-carrier protein]"] <- "C05764"
+target$KEGG_final[target$NAME == "Ubiquinol"] <- "C00390"
+```
+
+```{r}
+target[is.na(target$KEGG_final),]
+# The first 43/55 compounds are fatty acids with an additional group.
+# These are not in KEGG (not for uneven numbers and >20C anyway).
+# We can only add one of these:
+target$KEGG_final[target$NAME == "3-oxooctadecanoyl-[acyl-carrier protein]"] <- "C16219"
+
+# The rest of the compounds are also not described in KEGG.
+```
+
+Add the compounds we found.
+
+```{r}
+Ani_reduced$METS$KEGG[match(target$`REPLACEMENT ID`,Ani_reduced$METS$`REPLACEMENT ID`)] <- target$KEGG_final
+target_Ani <- Ani_reduced$METS[is.na(Ani_reduced$METS$KEGG),]
+```
+
+## Compare to oryzae GEM IDs
+
+For the remaining 54 compounds, we will need to check if we already have them in
+the oryzae GEM. If so, we need to take the same identifier as in the oryzae GEM,
+even if this is not a KEGG ID.
+
+The fatty acid derivatives are described in the replacement ID using the same
+nomenclature/structure in both GEMs. As such, we can be quite certain that the
+remaining metabolites in this category are unique to niger compred to oryzae.
+Except for hexadecadienoyl-[acp] and octadecatrienoyl-[acp], but these already
+have the same ID, so nothing needs to be done there either.
+
+For the remaining few compounds, it looks like we do not have them in 
+`Ani_reduced`. As such, we keep the original identifiers for now.
+
+```{r}
+target_Ani[gsub("\\[.\\]","",target_Ani$`REPLACEMENT ID`) %in% 
+         gsub("\\[.\\]","",Aor_draft$METS$`REPLACEMENT ID`),]
+```
+
+# Fumigatus
+
+```{r}
+table(!is.na(Afu_reduced$METS$KEGG))
+table(!is.na(Afu_reduced$METS$CHEBI))
+```
+
+## KEGG available
+
+For 258/289 compounds we already have a KEGG ID available.
+
+```{r}
+table(!is.na(Afu_reduced$METS$KEGG))
+table(!is.na(Afu_reduced$METS$CHEBI))
+```
+
+```{r}
+target <- Afu_reduced$METS[is.na(Afu_reduced$METS$KEGG),]
+```
+
+## Manually inspect the few remaining metabolites
+
+CHEBI available, but note that we have many CHEBI:52320, which is 
+"ergosteryl ester"; a generic term. Interestingly, the REPLACEMENT.ID seems a
+more accurate CHEBI of these compounds. It seems that we can safely replace the 
+CHEBI column with the REPLACEMENT.ID column for these instances:
+
+```{r}
+hlp <- target$`REPLACEMENT ID`[which(target$CHEBI == "CHEBI:52320")]
+hlp <- gsub("CHEBI","CHEBI:",hlp)
+hlp <- gsub("\\[.\\]","",hlp)
+target$CHEBI[which(target$CHEBI == "CHEBI:52320")] <- hlp
+```
+
+```{r}
+target[!duplicated(target$NAME),] # only 16 compounds
+```
+
+```{r}
+target$KEGG[target$NAME == "(R)-2,3-Dihydroxy-3-methylpentanoate"] <- "C06007"
+target$KEGG[target$NAME == "chitin"] <- "C00461"
+target$KEGG[target$NAME == "(R)-3-methyl-2-oxobutanoate"] <- "C00141"
+target$KEGG[target$NAME == "3-hydroxymyristoyl-[acp]"] <- "C04688"
+```
+
+```{r}
+Afu_reduced$METS$KEGG[match(target$`REPLACEMENT ID`,Afu_reduced$METS$`REPLACEMENT ID`)] <- target$KEGG
+```
+
+```{r}
+target[is.na(target$KEGG) & 
+         !duplicated(target$NAME),]
+```
+
+# Hydrogen/protons
+
+## Niger
+
+```{r}
+Ani_reduced$METS[grepl("proton", Ani_reduced$METS$NAME, ignore.case = TRUE)|
+                   grepl("hydrogen\\[", Ani_reduced$METS$NAME, ignore.case = TRUE)|
+                   grepl("energy", Ani_reduced$METS$NAME, ignore.case = TRUE),c("ID", "NAME", "KEGG")]
+```
+
+In oryzae we have:
+
+      ID                            NAME                      KEGG
+382	  hydrogen[c]	                  hydrogen	                C00080	
+383	  H(+) (energy metabolism)[c]	  H(+) (energy metabolism)	energy_C00080	
+786	  hydrogen[e]	                  hydrogen	                C00080	
+960 	H(+)[m]	                      H(+)	                    C00080
+
+Adapt it to that:
+
+```{r}
+Ani_reduced$METS$KEGG[which(Ani_reduced$METS$ID == "Proton (energy metabolism)[c]")] <- "energy_C00080"
+```
+
+## Fumigatus
+
+
+Proton[m] does not exist in our oyzae GEM
+
+```{r}
+Afu_reduced$METS[grepl("proton", Afu_reduced$METS$NAME, ignore.case = TRUE)|
+                   grepl("hydrogen\\[", Afu_reduced$METS$NAME, ignore.case = TRUE)|
+                   grepl("energy", Afu_reduced$METS$NAME, ignore.case = TRUE),c("ID", "NAME", "KEGG")]
+```
+
+Afu_reduced doesnt do protons.
+Also note that "PO ratio[m]" is confusing
+
+```{r}
+View(Afu_reduced$RXNS[grepl("NAD", Afu_reduced$RXNS$EQUATION, ignore.case = TRUE)|
+                   grepl("FAD", Afu_reduced$RXNS$EQUATION, ignore.case = TRUE)|
+                   grepl("ATP", Afu_reduced$RXNS$EQUATION, ignore.case = TRUE) | 
+                   grepl("ADP", Afu_reduced$RXNS$EQUATION, ignore.case = TRUE), ])
+```
+
+
+```{r}
+Afu_reduced$RXNS[Afu_reduced$RXNS$ID %in% c("R1697", "R1698"),]
+```
+
+# Write output
+
+```{r}
+write.xlsx(Ani_reduced$METS[,c("NAME","KEGG")], "../data/intermediate/niger_kegg_187_50_1385.xlsx")
+write.xlsx(Afu_reduced$METS[,c("NAME","KEGG")], "../data/intermediate/fumigatus_kegg_187_50_1385.xlsx")
+```
+
+# Appendix: Anticipate downstream issues
+
+There are a few compounds that are probably truly unique to the fumigatus GEM,
+however, the reactions they are used in are not. Examples:
+
+## B00001 and B00002
+
+The compounds B00001 and B00002 are interesting. They seem to encode something
+like "a polymer that is one building block longer/shorter than before".
+
+Unfortunately, this is encoded differently in the oryzae GEM. Hence, we need
+to manually curate these reactions.
+
+```
+Afu_reduced$RXNS[grep("B0000", Afu_reduced$RXNS$EQUATION),]
+```
+
+```
+Afu_draft <- read_excel_allsheets("../data/intermediate/Afu_draft_comp.xlsx")
+Afu_draft$RXNS[grep("B0000", Afu_draft$RXNS$EQUATION),]
+```
+
+E.g. 3 H2O[cytoplasm] + alpha-L-arabinan[cytoplasm] <=> 2 B00001[cytoplasm] + 3 L-arabinose[cytoplasm]
+is reaction with EC 3.2.1.55.
+It probably wants to encode the same reaction as:
+
+```
+Aor_draft$RXNS[which(Aor_draft$RXNS$`EC-NUMBER` == "3.2.1.55"),]
+```
+
+## PO ration
+
+Another tricky case is the "compound" PO ratio, which stands for phosphor/oxygen
+ratio.
+
+```
+Afu_reduced$RXNS[grep("PO ratio", Afu_reduced$RXNS$EQUATION),]
+```
+
+```
+Afu_draft$RXNS[grep("PO ratio", Afu_draft$RXNS$EQUATION),]
+```
+
+```
+Aor_draft$RXNS[grep("1.9.3.1", Aor_draft$RXNS$`EC-NUMBER`),]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

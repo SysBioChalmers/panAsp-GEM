@@ -6,6 +6,22 @@
 scrap/
 fasta/
 euk90_kegg105/
+data/
+# Track placeholder files for directories that must exist for the pipeline
+!data/allModels/.keep
+!data/genome/.keep
+# Track required data files that are too large for Zenodo-style exclusion
+!data/genome/BPGA2ortho_GEM_custom_187_50.csv
+!data/genome/metabolite_formula_curation.csv
+!data/genome/reaction_classification_187.csv
+!data/intermediate/pAo_draft.xml
+!data/intermediate/transportRxns.csv
+
+# Large model collection — share through Zenodo, do not commit (>100 MB)
+model/pAo_strain-GEMs_all-187.pickle
+
+# Manuscript / working documents — not part of the model repository (binary, can't diff)
+*.docx
 
 # large files (share through Zenodo?)
 u_clusters.txt

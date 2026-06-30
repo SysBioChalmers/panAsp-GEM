@@ -1,0 +1,268 @@
+---
+title: "Prepare BioLog experiment output for FBA analysis"
+output: html_document
+date: "2025-01-14"
+---
+
+In this script, we prepare the outputs of the BioLog phenotyping experiment
+to serve as input for the FBA analyses performed in *simulations.ipynb*. 
+In addition, we define a set of core metabolites based on the BioLog 
+experimental data. More specifically, we identify for each metabolite how many 
+strains have an observed metabolic activity that is (a) 100 or (b) 150 units
+higher than the baseline in at least 2 out of 3 replicates. In 
+*simulations.ipynb*, we will define a cutoff on these values, and metabolites 
+above these cutoffs are the ones that we will focus on there. The goal of that 
+script is to gapfill the GEMs of the strains such that the growth predicted 
+through FBA aligns with the observations from the BioLog experiment.
+
+# Load libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(purrr)
+library(dplyr)
+library(ComplexHeatmap)
+library(circlize)
+library(matrixStats)
+library(tidyr)
+```
+
+# Helpers
+
+```{r}
+source("./helperFunctions/Rutilities.R")
+```
+
+# Add information to the Biolog results file
+
+## Load Biolog results
+
+```{r}
+# Load BioLog assay results (for each plate)
+PM_01_wide <- read.csv("../data/biolog/Results_PM01.csv")
+PM_02_wide <- read.csv("../data/biolog/Results_PM02.csv")
+PM_03_wide <- read.csv("../data/biolog/Results_PM03.csv")
+```
+
+## Wrangle data
+
+```{r}
+# update column names
+colnames(PM_01_wide) <- sapply(colnames(PM_01_wide), update_colnames)
+colnames(PM_02_wide) <- sapply(colnames(PM_02_wide), update_colnames)
+colnames(PM_03_wide) <- sapply(colnames(PM_03_wide), update_colnames)
+
+PM_01_long <- wrangleResults(PM_01_wide)
+PM_02_long <- wrangleResults(PM_02_wide)
+PM_03_long <- wrangleResults(PM_03_wide)
+
+PM_01_long$PlateID <- "PM_01"
+PM_02_long$PlateID <- "PM_02"
+PM_03_long$PlateID <- "PM_03"
+
+PM_all <- rbind(PM_01_long, PM_02_long, PM_03_long)
+colnames(PM_all)[c(3,4)] <- c("Medium", "Observed")
+```
+
+## Manually obtain KEGG IDs for Biolog metabolites
+
+```{r}
+# Link biolog media to oryzae metabolites
+media_link = list("2__Deoxy_Adenosine" = "C05198[c]",
+                  "L_Tryptophan" = "C00078[e]",
+                  "Ammonia" = "C00014[e]",
+                  "Capric_Acid" = "C01571[c]", # called decanoate in GEM, same according to kegg
+                  "Dulcitol" = "C01697[e]", # called galactitol in GEM, same according to kegg
+                  "Glyoxylic_Acid" = "C00048[c]",
+                  "L_Glutamic_Acid" = "C00025[e]",
+                  "Itaconic_Acid" = "C00490[e]",
+                  "Acetoacetic_Acid" = "C00164[c]",
+                  "L_Citrulline" = "C00327[c]",
+                  "L_Homoserine" = "C00263[c]",
+                  "Propionic_Acid" = "C00163[e]",
+                  "L_Ornithine" = "C00077[c]",
+                  "Fumaric_Acid" = "C00122[e]", 
+                  "D_Mannitol" = "C00392[c]",
+                  "Malonic_Acid" = "C00383[c]",
+                  "D_Tagatose" = "C00795[e]",
+                  "D_Raffinose" = "C00492[e]", # raffinose in GEM, not D-
+                  "D_Alanine" = "C00133[c]",
+                  "Histamine" = "C00388[c]",
+                  "Stachyose" = "C01613[c]",
+                  "Allantoin" = "C01551[c]",
+                  "Xanthosine" = "C01762[c]",
+                  "Xanthine" = "C00385[c]",
+                  "Thymine" = "C00178[c]",
+                  "Guanosine" = "C00387[c]",
+                  "Cytidine" = "C00475[c]",
+                  "Formamide" = "C00488[c]",
+                  "Methylamine" = "C00218[c]",
+                  "Biuret" = "C06555[c]",
+                  "Amygdalin" = "C08325[c]",
+                  "Ethanolamine" = "C00189[c]",
+                  "Tyramine" = "C00483[c]",
+                  "Inosine" = "C00294[c]", 
+                  "Adenosine" = "C00212[c]",
+                  "Maltotriose" = "C01835[c]",
+                  "Uridine" = "C00299[c]",
+                  "Thymidine" = "C00214[c]",
+                  "D_Glucose" = "C00031[e]",
+                  "D_Galactose" = "C00124[e]",
+                  "D_Mannose" = "C00159[e]",
+                  "L_Sorbose" = "C00247[e]",
+                  "D_Arabinose" = "C00216[e]",
+                  "L_Arabinose" = "C00259[e]",
+                  "D_Fructose" = "C00095[e]",
+                  "D_Ribose" = "C00121[e]",
+                  "D_Xylose" = "C00181[e]",
+                  "D_Maltose" = "C00208[e]",  # in GEM: Maltose
+                  "Pectin" = "C00470[e]", # in GEM: Pectate
+                  "D_Cellobiose" = "C00185[e]", # in GEM: Cellobiose
+                  "Xylitol" = "C00379[e]",
+                  "Citric_Acid" = "C00158[e]", # in GEM: Citrate
+                  "Acetic_Acid" = "C00033[e]", # in GEM: Acetate
+                  "L_Alanine" = "C00041[e]",
+                  "L_Arginine" = "C00062[e]",
+                  "L_Asparagine" = "C00152[e]",
+                  "L_Cysteine" = "C00097[e]",
+                  "L_Glutamine" = "C00064[e]",
+                  "L_Histidine" = "C00135[e]",
+                  "L_Isoleucine" = "C00407[e]",
+                  "L_Leucine" = "C00123[e]",
+                  "L_Lysine" = "C00047[e]",
+                  "L_Methionine" = "C00073[e]",
+                  "L_Phenylalanine" = "C00079[e]",
+                  "L_Proline" = "C00148[e]",
+                  "L_Serine" = "C00065[e]",
+                  "L_Threonine" = "C00188[e]",
+                  "L_Tyrosine" = "C00082[e]",
+                  "L_Valine" = "C00183[e]",
+                  "D_Trehalose" = "C01083[e]", # in GEM: alpha,alpha-Trehalose
+                  "D_Sorbitol" = "C00794[e]",
+                  "Glycogen" = "C00182[e]",
+                  "Oxalic_Acid" = "C00209[e]", # in GEM: oxalate
+                  "Adenine" = "C00147[e]",
+                  "Cytosine" = "C00380[e]",
+                  "Guanine" = "C00242[e]",
+                  "Uracil" = "C00106[e]",
+                  "Glycerol" = "C00116[e]",
+                  "Glycine" = "C00037[e]",
+                  "Putrescine" = "C00134[e]",
+                  "Pyruvic_Acid" = "C00022[e]",
+                  "Mannan" = "C00464[e]", # in GEM: Mannans
+                  "Sucrose" = "C00089[e]",
+                  "D_Melibiose" = "C05402[e]", # in GEM: melibiose
+                  "Succinic_Acid" = "C00042[e]",
+                  "Urea" = "C00086[e]",
+                  "Agmatine" = "C00179[e]",
+                  "Glycolic_Acid" = "C00160[c]",
+                  "D_Glucosamine" = "C00329[e]",
+                  "Dihydroxy_Acetone" = "C00184[c]")
+
+PM_all$Metabolite <- unname(unlist(media_link))[match(PM_all$Medium,names(media_link))]
+```
+
+## Export data
+
+```{r}
+write.csv2(PM_all, "../data/biolog/PM_all.csv", row.names = FALSE)
+```
+
+# Define a core set of metabolites
+
+For each metabolite, identify how many isolates have an observed metabolic 
+activity that is (a) 100 or (b) 150 units higher than the baseline in at least
+2 replicates. Then rank based on those numbers. Then walk down that ranked list.
+Currently, I identify a core metabolite as a metabolite where there are at least
+two isolates that have two replicates with a metabolic activity that is at least 
+150 units higher than their baselines, or where where there are at least
+four isolates that have two replicates with a metabolic activity that is at least 
+100 units higher than their baselines
+
+## Read and wrangle Biolog raw data
+
+```{r}
+csv_Files <- list.files(path = "../data/biolog/Raw", 
+                        pattern = "\\.csv$",
+                        full.names = TRUE)
+
+raw_data <- lapply(csv_Files, function(x){
+    data = read.csv(x)
+    tail(data, n=1) # select the last time point
+})
+raw_data <- do.call(rbind, raw_data)
+
+# Remove file location
+raw_data$Plate.File <- NULL
+
+# Update colname
+colnames(raw_data)[which(colnames(raw_data) == "Plate.Type")] <- "Plate"
+
+# Clean isolate names
+raw_data$Field.2 <- gsub(" ", "_", raw_data$Field.2)
+
+# Establish a baseline
+raw_data$baseline <- NA
+cols_to_consider <- grep("^([A-H][0-9]{2})$", names(raw_data), value = TRUE)
+for (i in 1:nrow(raw_data)) {
+    raw_data$baseline[i] <- mean(sort(unlist(raw_data[i,cols_to_consider]))[1:10])
+}
+```
+
+## Assign wells to compounds
+
+```{r}
+wellDf1 <- data.frame(Medium = unname(sapply(colnames(PM_01_wide), update_colnames)),
+                      Plate = "PM01",
+                      Well = substr(colnames(PM_01_wide),1,3))
+wellDf2 <- data.frame(Medium = unname(sapply(colnames(PM_02_wide), update_colnames)),
+                      Plate = "PM02A",
+                      Well = substr(colnames(PM_02_wide),1,3))
+wellDf3 <- data.frame(Medium = unname(sapply(colnames(PM_03_wide), update_colnames)),
+                      Plate = "PM03B",
+                      Well = substr(colnames(PM_03_wide),1,3))
+wellDfall <- rbind(wellDf1,wellDf2,wellDf3)
+wellDfall <- wellDfall[-which(wellDfall$Well == "X"),]
+```
+
+## Create a dataframe ranking metabolites according to metabolic activity
+
+```{r}
+metaboliteDf <- data.frame(Plate = rep(c("PM01", "PM02A", "PM03B"), each = 96),
+                           Well = rep(grep("^([A-H][0-9]{2})$", names(raw_data), value = TRUE),3),
+                           Medium = wellDfall$Medium)
+metaboliteDf$Condition <- paste0(metaboliteDf$Medium, "_", metaboliteDf$Plate)
+metaboliteDf$basePlus150 <- metaboliteDf$basePlus100 <- 0
+
+for (i in seq(nrow(metaboliteDf))) {
+    
+    data_i <- data.frame(isolates = raw_data$Field.2[which(raw_data$Plate == metaboliteDf$Plate[i])],
+                         baselineSignal = raw_data$baseline[which(raw_data$Plate == metaboliteDf$Plate[i])],
+                         metaboliteSignal = raw_data[which(raw_data$Plate == metaboliteDf$Plate[i]),
+                                                      which(colnames(raw_data) == metaboliteDf$Well[i])])
+    data_i$normalizedSignal <- data_i$metaboliteSignal - data_i$baselineSignal
+    
+    for (isolate in unique(data_i$isolates)) {
+        index <- which(metaboliteDf$Plate == metaboliteDf$Plate[i] & metaboliteDf$Well == metaboliteDf$Well[i])
+        if(sum(data_i$normalizedSignal[which(data_i$isolates == isolate)] > 150) >= 2){
+          metaboliteDf$basePlus150[index] <- metaboliteDf$basePlus150[index] + 1
+          metaboliteDf$basePlus100[index] <- metaboliteDf$basePlus100[index] + 1
+        } else if(sum(data_i$normalizedSignal[which(data_i$isolates == isolate)] > 100) >= 2) {
+          metaboliteDf$basePlus100[index] <- metaboliteDf$basePlus100[index] + 1
+        }
+    }
+}
+head(metaboliteDf)
+```
+
+```{r}
+KEGG <- unname(media_link)[match(metaboliteDf$Medium, names(media_link))]
+KEGG[sapply(KEGG, is.null)] <- NA
+metaboliteDf$KEGG <- unlist(KEGG)
+```
+
+```{r}
+write.csv2(metaboliteDf, "../data/biolog/metaboliteDf.csv", row.names = FALSE)
+```
+
+
+

@@ -1,0 +1,424 @@
+---
+title: "Matching GEMs and BPGA output"
+author: "Jeroen Gilis"
+date: "6 January 2025"
+output: 
+    html_document:
+      code_download: true
+      theme: cosmo
+      toc: true
+      toc_float: true
+      highlight: tango
+      number_sections: true
+---
+
+The goal of this script is to take the output from the orthologous clustering
+analysis with BPGA (usearch clustering algorithm) and wrangle this output to
+a table where each row is an orthologous gene cluster, each columns is a 
+specific Aspergillus orzyae strain, and each cell value is one or more gene 
+identifiers for that strain in that gene cluster.
+
+# Load libraries
+
+```{r}
+library(data.table)
+# library(metagMisc) # devtools::install_github("vmikk/metagMisc")
+```
+
+# Load local helper functions
+
+```{r}
+source("./helperFunctions/Rutilities.R")
+```
+
+# Load clustering output
+
+In step 2 of their workflow, BPGA generates a file `u_clusters.txt` that 
+contains the clustering information for each sequence in the BPGA input, i.e.,
+containing both orthologs and paralogs. In USEARCH, the same file is also
+generate, with extension `.uc`. The ouput format is described here:
+http://drive5.com/usearch/manual/opt_uc.html
+
+The helper function below, which was originally obtained from GitHub,
+allows for reading in these files.
+
+```{r}
+# This function was originally obtained from GitHub
+# Peviously, this R package from GitHub could by obtained using:
+# devtools::install_github("vmikk/metagMisc")
+# However, this package can no longer be installed.
+# Therefore, we here add this function manually.
+metagMisc_parse_uc <- function (x, map_only = FALSE, splitSeqID = TRUE, rm_dups = TRUE) 
+{
+    ii <- fread(file = x, header = FALSE, sep = "\t")
+    ii <- ii[!V1 %in% "S"]
+    ii[, `:=`(Query, tstrsplit(V9, ";", keep = 1))]
+    ii[, `:=`(OTU, tstrsplit(V10, ";", keep = 1))]
+    ii[V1 %in% "C", `:=`(OTU, Query)]
+    if (nrow(ii[, .(Query, OTU)]) != nrow(unique(ii[, .(Query, 
+        OTU)]))) {
+        cat("Warning: duplicated rows found!\n")
+        if (rm_dups == TRUE) {
+            dups <- duplicated(ii[, .(Query, OTU)])
+            cat("..", sum(dups), " duplicates removed\n")
+            ii <- ii[!dups]
+        }
+    }
+    setnames(x = ii, old = paste0("V", 1:10), new = c("recordType", 
+        "clusterNumber", "seqLengthOrClusterSize", "percentIdentity", 
+        "strand", "unusedField1", "unusedField2", "alignment", 
+        "queryLabel", "targetLabel"), skip_absent = TRUE)
+    ii[percentIdentity %in% "*", `:=`(percentIdentity, NA)]
+    ii[, `:=`(percentIdentity, as.numeric(percentIdentity))]
+    if (map_only == TRUE) {
+        if (splitSeqID == TRUE) {
+            ii <- ii[, .(Query, OTU)]
+        }
+        else {
+            ii <- ii[, .(queryLabel, targetLabel)]
+            setnames(x = ii, old = c("queryLabel", "targetLabel"), 
+                new = c("Query", "OTU"))
+        }
+    }
+    return(ii)
+}
+```
+
+
+```{r}
+clustfile <- "../data/genome/u_clusters_187_50.txt"
+clustering <- metagMisc_parse_uc(x=clustfile,
+                                 map_only = FALSE, 
+                                 splitSeqID = TRUE,
+                                 rm_dups = TRUE)
+head(clustering)
+```
+
+# Translate IDs
+
+The goal of this section is to establish a link between the sequence identifiers
+that are used in the BPGA output, and the sequence identifiers that are used in
+the three GEMs that we will use to construct a draft panGEM fro Aspergillus.
+
+The queryLabel and targetLabel columns from the BPGA output contain labels for
+each fasta sequence that was used as input to BPGA. The link between these 
+labels and the original fasta sequence labels is stored in the BPGA output file
+`INPUT_all_original.fasta`. 
+
+Note that these steps may not be required if you use USEARCH separately, and not
+within BPGA. Indeed, in USEARCH it just depends on whether you manually changed 
+the names of the FASTA headers yourself or not.
+
+```{r}
+dict_fasta <- read.csv2("../../BPGA_cutoffs/INPUT_all_original_187.fasta", 
+                        sep=">", header=FALSE)
+dict_fasta$V1 <- NULL
+colnames(dict_fasta) <- c("BPGA","original")
+dict_fasta$BPGA <- sub("\\|$", "#", dict_fasta$BPGA)
+dict_fasta$BPGA <- paste0(sub("\\|.*", "", dict_fasta$BPGA),
+                          "|Org",
+                          sub("\\|.*", "", dict_fasta$BPGA),
+                          "_",
+                          sub("^[^\\|]+\\|","",dict_fasta$BPGA))
+head(dict_fasta)
+```
+
+To link the BPGA sequence identifiers to the sequence identifiers from the 
+niger GEM, we need an additional translation step. Indeed, we used protein
+sequences as input for BPGA, but the sequence identifiers in the niger GEM
+are transcript identifiers. As such, we need to establish a link between the 
+protein and the transcript sequence identifiers of the niger GEM.
+
+```{r}
+awk_cmd <- sprintf("awk '$1 ~ /^>/' %s", "../data/genome/keep_Aspni7_all_transcripts_20131226.nt.fasta")
+full_IDs <- readLines(pipe(awk_cmd))
+tx_prot_names <- sub(".*\\|", "", full_IDs)
+tx_num <- sub("^([^\\|]*\\|){2}([^\\|]+).*", "\\2", full_IDs)
+dict_niger <- data.frame(tx_prot_names = tx_prot_names,
+                         tx_num = tx_num)
+target <- dict_fasta[sub(".*\\|(.*)", "\\1", dict_fasta$BPGA) == "niger.faa#",]
+target$GEM <- dict_niger$tx_num[match(target$original, dict_niger$tx_prot_names)]
+```
+
+There are 16 niger protein sequences that we used as input to BPGA for which
+we cannot establish a link with any transcript identifiers.
+
+```{r}
+target[is.na(target$GEM),]
+
+# So these are IDs that we have in the protein fasta, but that we can't link
+# back to transcript numbers, and hence cant link back to the GEM.
+lost <- target[is.na(target$GEM),]
+
+clustering[clustering$targetLabel %in% lost$BPGA,]
+clustering[clustering$Query %in% lost$BPGA,]
+```
+
+Note that these IDs didnt receive many hits in the clustering either. I will
+thus just leave them as NA. As such, they will count for establishing in how 
+many genomes a cluster was observed, they will also be present in the final
+BPGA table , but we know in advance they wont be matched to IDs in the GEM.
+
+```{r}
+dict_fasta[sub(".*\\|(.*)", "\\1", dict_fasta$BPGA) == "niger.faa#","original"] <- target$GEM
+dict_fasta$original[is.na(dict_fasta$original)] <- target$original[match(dict_fasta$BPGA[is.na(dict_fasta$original)],target$BPGA)]
+```
+
+# Wrangle clustering output
+
+```{r}
+clustering$fasta <- sub(".*\\|(.*)", "\\1", clustering$Query)
+all_organisms <- unique(clustering$fasta) # easier to store organism fasta name in separate column
+clustering$Query <- dict_fasta$original[match(clustering$Query, dict_fasta$BPGA)]
+
+res <- do.call(rbind,pbapply::pblapply(unique(clustering$clusterNumber), function(x){
+    test <- clustering[clustering$clusterNumber == x,]
+    hlp <- as.data.frame(rbind(unlist(lapply(all_organisms, function(organism){
+    paste0(test$Query[grep(organism,test$fasta)], collapse = ";")
+        }))))
+    colnames(hlp) <- all_organisms
+    df_row <- cbind(cluster = x, hlp)
+    return(df_row)
+}))
+```
+
+```{r}
+res[res==""] <- NA
+colnames(res) <- gsub(".faa#","",colnames(res))
+
+res$present_in_n_genomes <- rowSums(!is.na(res[,-1]))
+res$cluster_type_manual <- ""
+
+res$cluster_type_manual[res$present_in_n_genomes == 1] <- "singleton"
+res$cluster_type_manual[res$present_in_n_genomes > 1] <- "accessory"
+res$cluster_type_manual[res$present_in_n_genomes > 150] <- "core"
+
+putfirst <- c("cluster", "present_in_n_genomes", "cluster_type_manual","niger",
+              "fumigatus","oryzae")
+res <- res[,c(match(putfirst,colnames(res)),
+       which(!colnames(res) %in% putfirst))]
+```
+
+```
+res[grep("PEPCE", res$niger),]
+```
+
+Now we only have the issue that some genes that are in the GEMs are not in this
+table, because they were not in the BPGA input, because we don't have a protein
+sequence for these features (and these can also not be readily obtained).
+
+For A. niger this is one feature (Unknown5).
+For A. oryzae this are 46 features (all ZY entries).
+
+To facilitate downstream analyses, I will add these entries to the BPGA output
+table myself, and assign them cluster_type_manual "artificial".
+
+```{r}
+add_niger <- as.data.frame(matrix(data=NA,nrow=1,ncol=ncol(res),dimnames = list(NULL,colnames(res))))
+add_niger$cluster <- max(res$cluster)+1
+add_niger$present_in_n_genomes <- 1
+add_niger$cluster_type_manual <- "artificial"
+add_niger$niger <- "Unknown5"
+res <- rbind(res, add_niger)
+```
+
+```{r}
+oryzae_gem <- read_excel_allsheets("../model/templates/iWV1314.xlsx")
+missing_oryzae <- unique(oryzae_gem$GENES$NAME)[!unique(oryzae_gem$GENES$NAME) %in% unique(unlist(strsplit(res$oryzae, split=";")))]
+
+add_oryzae <- as.data.frame(matrix(data=NA,nrow=length(missing_oryzae),
+                                  ncol=ncol(res),dimnames = list(NULL,colnames(res))))
+add_oryzae$cluster <- max(res$cluster)+seq_along(missing_oryzae)
+add_oryzae$present_in_n_genomes <- 1
+add_oryzae$cluster_type_manual <- "artificial"
+add_oryzae$oryzae <- missing_oryzae
+res <- rbind(res, add_oryzae)
+```
+
+# Export final table
+
+```{r}
+res[is.na(res)] <- ""
+res$cluster <- paste0("cluster_",res$cluster)
+write.csv2(res, "../data/genome/BPGA2ortho_GEM_custom_187_50_new.csv",row.names=FALSE)
+```
+
+# Appendix: missing Oryzae genes
+
+```
+res <- read.csv2("../data/genome/BPGA2ortho_GEM_custom.csv")
+res[res==""] <- NA
+res$niger <- res$fumigatus <- res$oryzae <- NULL
+res
+
+ngenomes <- rowSums(!is.na(res[,4:ncol(res)]))
+
+table(ngenomes > 0) # 11949 (old: 12235)
+table(ngenomes == 1) # 810 (old: 1130)
+table(ngenomes > 1 & ngenomes <= 180) # 2367 (old: 2253)
+table(ngenomes > 180) # 8872 (old: 8852)
+
+# ngenomes <- res$present_in_n_genomes
+
+res <- read.csv2("../data/genome/BPGA2ortho_GEM_custom.csv")
+genes <- res$oryzae
+genes[genes==""] <- NA
+genes <- genes[!is.na(genes)]
+length(unique(unlist(strsplit(genes, ";"))))
+```
+
+```
+missing_oryzae
+```
+
+These IDs are present in the Oryzae GEM, but not in the FASTA input. These IDs
+refer to ESTs, which are short cDNA sequences (RNA -> reverse ranscribed).
+While I can retrieve a nucleotide sequence for the EST, it is not directly
+possible to go to a protein sequence, as the link EST-gene-protein has not been
+established. As such, I don't think there is much more we can do for these
+IDs. However, below I have looked into each of the ZYs:
+
+- 23 are isoenzymes, we already have a properly characterized gene in Oryzae doing the same thing
+- 15 are subunits of an enzyme complex, together with genes that are properly characterized
+- 8 are truly unique, catalyzing a reaction no other gene is involved with
+
+## Chr4
+
+- Chr4_SC012_1076984__1077358: N-acetyl-y-glutamyl-phosphate reductase
+Not in sup_table1, but same nomenclature a the ZYs, 
+"Chromosome number with EST alignment" - "Contig name with EST alignment" - "EST position (Start-Stop)"
+
+## Isoenzymes
+
+- ZY007107: subunit of Cytochrome c oxidase, together with
+AO090010000481 and AO090026000651 and AO090026000421 and ZY007619 and ZY029203 and ZY029342
+Looking at the other ZYs, they only appear here as subunit of this enzyme 
+Looking at the AOs, they only appear here as subunit of this enzyme 
+
+- ZY006639: subunit NADH dehydrogenase (ubiquinone, both mitochondrial and cytoplasm), together with
+AO090003001115 and AO090011000782 and AO090001000553 and AO090026000229 and AO090001000661 and AO090011000578 and AO090003001313 and AO090102000645 and AO090012000402 and AO090011000502 and AO090103000199 and AO090672000005 and AO090001000459 and AO090001000300 and AO090003000400 and ZY006639 and ZY081278 and ZY083531 and ZY087692
+Looking at the other ZYs, they only appear here as subunit of this enzyme 
+Looking at the AOs, they also appear as subunit of NADH dehydrogenase (FAD-containing subunit)
+
+- ZY007427: subunit of Ubiquinol-cytochrome c reductase, together with
+AO090010000475 and AO090102000625, which also only appear as subunit of this enzyme
+
+- ZY029275: subunit of Succinate dehydrogenase (flavoprotein subunit), together with
+AO090020000415 and AO090020000596 and AO090010000505 
+Looking at the AOs, they only appear here as subunit of this enzyme 
+
+- ZY036719: subunit of F-type ATPase complex, together with
+AO090005000617 and AO090005000749 and AO090005000604 and AO090026000372 and AO090010000482 and AO090701000168 and AO090206000115 and AO090010000482 and AO090003000607 and AO090023000599 
+
+and subunit of V-type ATPase complex, together with
+AO090102000349 and AO090038000334 and AO090026000283 and AO090120000313 and AO090120000091 and AO090003001090 and AO090012000797 and AO090026000517 and AO090038000579 and AO090038000352 and AO090012000274
+
+- ZY077810: subunit of acyl-Coa dehydrogenase
+
+For acyl %in% c(steaoryl, palmitoyl, myristoyl, lauroyl, decanoyl and octanoyl), other subunits are
+AO090005000521 and AO090009000596 and AO090102000172 and AO090012000150 and AO090005000494 and AO090023000711 
+
+For acyl %in% c(hexanoyl and butyrylyl), other subunits are
+AO090103000106
+
+- ZY083011: subunit of NADH dehydrogenase (FAD-containing subunit), together with
+AO090003001115 and AO090011000782 and AO090001000553 and AO090026000229 and AO090001000661 and AO090011000578 and AO090003001313 and AO090102000645 and AO090012000402 and AO090011000502 and AO090103000199 and AO090672000005 and AO090001000459 and AO090001000300 and AO090003000400 and AO090001000657 and AO090011000358
+
+- ZY098176: subunit of Acetyl-CoA carboxylase, together with 
+AO090011000838 
+
+- ZY098280: subunit of Acetolacetate synthase, together with 
+AO090023000854 and AO090003000571 and AO090166000076
+
+## Unique enzymes
+
+Unique, no other proteins catalyzing this reaction: 
+
+- ZY006430: Phosphatidylinositol-3,4,5-trisphosphate 3-phosphatase
+
+- ZY080692: P-hydroxybenzoate hydroxylase
+
+- ZY088142: Di-trans,poly-cis-decaprenylcistransferase
+
+- ZY097848: Methylglyoxal synthase
+
+- ZY104986: Polyphosphate kinase
+
+- ZY110993: Alanine racemase
+
+- ZY111007: Scytalone dehydratase
+
+- ZY140875: Selenocysteine synthase
+
+! Im pretty sure the enzyme for r84 should be AO090001000642 in stead of AO090001000484
+
+```
+isoenzymes <- list("ZY006677" = "AO090026000021",
+                   "ZY007112" = "AO090026000800",
+                   "ZY080376" = c("AO090011000353", "AO090701000542", "AO090012000766", 
+                                  "AO090102000588", "AO090005000837", "AO090026000395", 
+                                  "AO090120000164", "AO090003001432", "AO090103000036",
+                                  "AO090001000143", "AO090701000644"),
+                   "ZY111292" = c("AO090011000353", "AO090701000542", "AO090012000766", 
+                                  "AO090102000588", "AO090005000837", "AO090026000395", 
+                                  "AO090120000164", "AO090003001432", "AO090103000036",
+                                  "AO090001000143", "AO090701000644"),
+                   "ZY029856" = "AO090005001098",
+                   "ZY007726" = c("AO090020000670", "AO090009000711", "AO090001000641",
+                                  "AO090005001098"),
+                   "ZY083916" = c("AO090020000670", "AO090009000711","AO090020000668",
+                                  "AO090001000641"),
+                   "ZY029184" = c("AO090005001370","AO090011000449","AO090012000084",
+                                  "AO090206000079","AO090701000589","AO090005001370",
+                                  "AO090005001371","AO090113000128","AO090005000579",
+                                  "AO090026000212","AO090026000321","AO090026000323"),
+                   "ZY077820" = c("AO090005001300","AO090120000145","AO090011000152"),
+                   "ZY085753" = c("AO090005000045", "AO090001000484","AO090001000642",
+                                  "AO090003000415"),
+                   "ZY111420" = c("AO090026000498","AO090026000149"), 
+                   "ZY086694" = c("AO090026000498","AO090026000149"),
+                   "ZY087055" = c("AO090001000162","AO090023000467","AO090009000417"),
+                   "ZY087096" = c("AO090003000631","AO090005000973","AO090103000149",
+                                  "AO090103000485","AO090102000005","AO090003001039",
+                                  "AO090103000134","AO090102000478","AO090012000378",
+                                  "AO090012000112","AO090023000353"),
+                   "ZY087286" = "AO090012000998",
+                   "ZY087560" = c("AO090038000057","AO090038000010"),
+                   "ZY093903" = c("AO090038000057","AO090038000010"),
+                   "ZY087836" = "AO090011000561",
+                   "ZY097910" = c("AO090005001216","AO090026000084"),
+                   "ZY110723" = c("AO090005001124","AO090012000733"),
+                   "ZY111104" = c("AO090005000433","AO090102000204","AO090020000034"),
+                   "ZY135516" = "AO090701000187")
+```
+
+Note: the oryzae GEM has no "or" gene associations, they are cataloged as
+separate reactions.
+
+```
+res <- read.csv2("../data/genome/BPGA2ortho_GEM_custom.csv")
+res[res==""]<-NA
+res[which(res$oryzae == "AO090038000057"),]
+
+res[which(res$cluster == "cluster_12964"),which(!is.na(res[which(res$cluster == "cluster_12964"),]))]
+
+res_sub <- res[,c('cluster', 'oryzae', 'Aspergillus_oryzae_RIB40_CAoGD', 
+                  'Aspergillus_oryzae_NRRL_2217','Aspergillus_oryzae_NRRL_3483',
+                  'Aspergillus_oryzae_NRRL_5589', 'Aspergillus_oryzae_NRRL_3488',
+                  'Aspergillus_oryzae_NRRL_5592', 'Aspergillus_oryzae_NRRL_471',
+                  'Aspergillus_oryzae_NRRL_35890')]
+
+# hlp <- apply(res_sub, 1, is.na)
+res_sub <- res_sub[-which(rowSums(is.na(res_sub[,2:10])) == 9),]
+rownames(res_sub) <- res_sub$cluster
+res_sub$cluster <- NULL
+
+result <- res_sub[is.na(res_sub[[9]]) & !apply(res_sub[, -9], 1, function(x) any(is.na(x))), ]
+rownames(result)
+
+source("../code/Rutilities.R")
+panAsp_v2 <- read_excel_allsheets("../model/panAsp_v2.xlsx")
+
+rownames(result)[rownames(result) %in% panAsp_v2$GENES$NAME]
+```
+
